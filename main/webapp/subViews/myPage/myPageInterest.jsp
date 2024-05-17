@@ -78,7 +78,7 @@
                         <div id="similar-products-list">
                             <div class="similar-products">
                                 <div class="similar-products-img" >
-                                    <img src="https://m.healingaqua.co.kr/web/product/big/202307/8c3f0b4a50ce3f27f7d21a0cc005d599.jpg" alt="">
+                                    <a href=""><img src="https://m.healingaqua.co.kr/web/product/big/202307/8c3f0b4a50ce3f27f7d21a0cc005d599.jpg" alt=""></a>
                                 </div>
                                 <div class="similar-products-info" >
                                     <b>아프리칸파이크</b> <!-- AI 알고리즘 이용? -->
@@ -87,7 +87,7 @@
                             </div>
                             <div class="similar-products">
                                 <div class="similar-products-img" >
-                                    <img src="https://m.healingaqua.co.kr/web/product/big/202307/8c3f0b4a50ce3f27f7d21a0cc005d599.jpg" alt="">
+                                    <a href=""><img src="https://m.healingaqua.co.kr/web/product/big/202307/8c3f0b4a50ce3f27f7d21a0cc005d599.jpg" alt=""></a>
                                 </div>
                                 <div class="similar-products-info" >
                                     <b>아프리칸파이크</b> <!-- AI 알고리즘 이용? -->
@@ -96,7 +96,7 @@
                             </div>
                             <div class="similar-products">
                                 <div class="similar-products-img">
-                                    <img src="https://m.healingaqua.co.kr/web/product/big/202307/8c3f0b4a50ce3f27f7d21a0cc005d599.jpg" alt="">
+                                    <a href=""><img src="https://m.healingaqua.co.kr/web/product/big/202307/8c3f0b4a50ce3f27f7d21a0cc005d599.jpg" alt=""></a>
                                 </div>
                                 <div class="similar-products-info">
                                     <b>아프리칸파이크</b> <!-- AI 알고리즘 이용? -->
@@ -104,14 +104,10 @@
                                 </div>
                             </div>
                         </div>
-        
                     </div>
                 </div>
-        
             </div>
-		    
-        </main>
-                
+        </main>          
         <!-- footer -->
         <%@ include file="../commons/footer.jsp" %>
         

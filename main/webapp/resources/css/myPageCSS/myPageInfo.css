@@ -17,6 +17,7 @@ main{
     height: 800px;
     background-color: white;
     border-radius: 16px;
+    margin-right: 20px;
 }
 
 #myPage-sidebar-profile-area{
@@ -70,7 +71,6 @@ main{
 #myPageInfo-info-area{
     width: 85%;
     height: auto;
-    margin-left: 20px;
 }
 
 #myPageInfo-siteInfo-area{

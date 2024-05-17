@@ -6,7 +6,8 @@ main{
     flex-direction: row;
     justify-content: center;
 }
-#myPageInterest-wrapper{
+
+#myPageOrderHistory-wrapper{
     width: 1342px;
     display: flex; 
     padding: 30px 0;
@@ -68,72 +69,113 @@ main{
     color: black;
 }
 
-#myPageInterest-info-area{
+#myPageOrderHistory-info-view{
     width: 85%;
-    height: auto;
-    background-color: white;
+}
+
+#myPageOrderHistory-delivery-status{
+    width: 100%;
     border-radius: 16px;
-}
-
-#myPage-category-title{
-font-size: 20px;
-font-weight: 600;
-padding: 15px;
-}
-
-#interest-product-count{
-    font-size: 15px;
-    padding-left: 15px;
-    padding-bottom: 5px;
-    border-bottom: 1px solid #afa8a8;
-}
-
-#interest-product{
-    border-bottom: 1px solid #afa8a8;
-
+    background-color: white;
     display: flex;
 }
 
-#interest-product-img{
-    width: 150px;
-    padding: 15px 20px;
+.delivery-status{
+    width: 374px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
 }
 
-#interest-product-img img{
+.delivery-status b{
+    font-size: 22px;
+}
+
+#de1, #de2 {
+    border-right: 1px solid black;
+}
+
+#myPageOrderHistory-list{
+    width: 100%;
+    background-color: white;
+    border-radius: 16px;
+    margin-top: 25px;
+}
+
+#myPage-category-title{
+    font-size: 20px;
+    font-weight: 600;
+    padding: 15px;
+    text-align: left;
+}
+
+#myPageOrderHistory{
+    width: 95%;
+    height: 230px;
+    border: 1px solid #afa8a8;
+    border-radius: 16px;
+    margin-bottom: 30px;
+    
+}
+
+#myPageOrderHistory-date{
+    padding: 7px 15px;
+    border-bottom: 1px solid #afa8a8;
+    text-align: left;
+}
+
+#myPageOrderHistory-info-area{
+    display: flex;
+    margin: 20px 0;
+}
+
+#myPageOrderHistory-img{
+    border-right: 1px solid #afa8a8;
+    width: 200px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    /* padding: 15px 20px; */
+}
+
+#myPageOrderHistory-img img{
     width: 130px;
     height: 130px;
     border-radius: 16px;
 }
 
-#interest-product-info{
-    font-size: 15px;
+#myPageOrderHistory-info{
+    border-right: 1px solid #afa8a8;
     width: 70%;
     padding: 15px 20px;
+    font-size: 15px;
+    text-align: left;
 }
 
 #ul2{
     margin-top: 50px;
 }
 
-#interest-product-button-area{
-    padding: 4px;
-}
-
-.interest-product-button{
+#myPageOrderHistory-button-area{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     height: 40px;
-    margin: 10px 5px 0 0;
-    padding: 0 12px;
+    padding: 0px 20px;
 }
 
-#interest-product-button-area button{
+#myPageOrderHistory-button-area button{
     width: 170px;
     height: 30px;
     color: white;
     background-color: black;
     border-radius: 50px;
+    margin-top: 15px;
+    cursor: pointer;
 }
 
 #btnList-area{
@@ -146,34 +188,4 @@ padding: 15px;
     background-color: white;
     font-size: 15px;
     cursor: pointer;
-}
-
-#similar-products-area{
-    margin-top: 400px;
-}
-
-#similar-products-title{
-    padding: 10px;
-    border-bottom: 1px solid #afa8a8;
-}
-
-#similar-products-list{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.similar-products-img{
-    width: 300px;
-    padding: 15px 15px 5px 15px;
-    cursor: pointer;
-}
-
-.similar-products-img img{
-    width: 250px;
-    border-radius: 16px;
-}
-
-.similar-products-info{
-    padding: 0 20px 20px 20px;
 }
