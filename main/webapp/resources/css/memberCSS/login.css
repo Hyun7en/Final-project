@@ -1,0 +1,101 @@
+body{
+    background-color: #E0F1FF;
+    position: relative;
+}
+#wrap{
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#login-logo{
+    width: 400px;
+    height: 50px;
+    font-size: 25px;
+    font-weight: bold;
+    color: #0089FF;
+    margin-top: 150px;
+    margin-bottom: 50px;
+    text-align: center;
+}
+#login-input{
+    width: 400px;
+    height: 210px;
+    display: flex;
+    flex-direction: column;
+}
+#login-input>input{
+    height: 50px;
+    border: 1px solid #AFA8A8;
+    padding-left: 10px;
+    outline: 0;
+}
+#login-id{
+    border-radius: 15px 15px 0 0;
+}
+#login-pwd{
+    border-radius: 0 0 15px 15px;
+}
+#login-staying{
+    height: 30px;
+    padding-top: 5px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+#login-input button{
+    width: 400px;
+    height: 50px;
+    border: none;
+    background-color: #0089FF;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 15px;
+}
+#login-help{
+    width: 400px;
+    height: 30px;
+    margin-top: 30px;
+    margin-bottom: 100px;
+    display: flex;
+    text-align: center;
+    color: black;
+}
+#login-help-find{
+    width: 225px;
+    color: black;
+}
+#login-help-signup{
+    width: 175px;
+    color: black;
+}
+#login-easy{
+    width: 400px;
+    text-align: center;
+}
+#login-easy>p{
+    font-size: 12px;
+    color: #AFA8A8;
+}
+#login-easy>button, #login-easy img{
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 25px;
+    padding: 0;
+}
+#login-easy>button{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#login-notmember>button{
+    width: 400px;
+    height: 50px;
+    border: none;
+    background-color: #AFA8A8;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 15px;
+    margin-top: 50px;
+}
