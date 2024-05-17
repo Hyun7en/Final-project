@@ -299,7 +299,7 @@ $RECYCLE.BIN/
 *.msix
 *.msm
 *.msp
-
+root-context.xml
 # Windows shortcuts
 *.lnk
 
