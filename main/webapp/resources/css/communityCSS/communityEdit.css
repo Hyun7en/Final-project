@@ -1,0 +1,128 @@
+@charset "UTF-8";
+
+body{
+    background-color: #E0F1FF;
+    position: relative;
+}
+#community-normal{
+    min-height: 100%;
+    width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 60px;
+}
+#community-normal #com-head{
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+#com-edit-top, #com-edit-middle{
+    width: 900px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+#com-edit-top div, #com-edit-middle div{
+    width: 120px;
+    height: 40px;
+    background-color: #0089FF;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    padding-top: 5px;
+    border-radius: 15px 0 0 15px;
+}
+#com-edit-top select, #com-edit-middle input{
+    height: 40px;
+    border: 1px solid #AFA8A8;
+    border-left: none;
+    border-radius: 0 15px 15px 0;
+    padding-left: 5px;
+}
+#com-edit-top select{
+    width: 120px;
+    outline: 0;
+}
+#com-edit-middle input{
+    width: 780px;
+    outline: 0;
+}
+#com-edit-content{
+    width: 900px;
+}
+#com-edit-content1{
+    height: 40px;
+    background-color: white;
+    border: 1px solid #AFA8A8;
+    border-radius: 15px 15px 0 0;
+    font-size: 20px;
+}
+#com-edit-content1 img{
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+    margin-left: 20px;
+}
+#com-edit-content2{
+    width: 900px;
+    min-height: 400px;
+    background-color: white;
+    border-left: 1px solid #AFA8A8;
+    border-right: 1px solid #AFA8A8;
+}
+#com-edit-content2 textarea{
+    width: 898px;
+    min-height: 400px;
+    padding: 10px;
+    border: none;
+    outline: 0;
+}
+#com-edit-content3{
+    width: 900px;
+    height: 40px;
+    display: flex;
+    margin-bottom: 20px;
+}
+#com-edit-content3 div{
+    width: 120px;
+    height: 40px;
+    background-color: #0089FF;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    padding-top: 5px;
+    border-radius: 0 0 0 15px;
+}
+#com-edit-content3 #com-edit-uploadlist{
+    width: 780px;
+    height: 40px;
+    background-color: white;
+    border: 1px solid #AFA8A8;
+    border-left: none;
+    border-radius: 0 0 15px 0;
+}
+#com-edit-bottom{
+width: 900px;
+text-align: right;
+margin-bottom: 40px;
+}
+#com-edit-bottom button{
+    margin-left: 10px;
+}
+#com-blue-button, #com-grey-button {
+border: 0;
+width: 150px;
+height: 40px;
+color: white;
+margin-right: 0px;
+border-radius: 10px;
+}
+#com-blue-button{
+    background: #0089FF;
+}
+#com-grey-button{
+    background: #AFA8A8;
+}
