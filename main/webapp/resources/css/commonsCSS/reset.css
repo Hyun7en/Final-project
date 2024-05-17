@@ -20,7 +20,7 @@ main{
   padding-top: 85px; 
 }
 
-ol, ul {
+ol, ul, a {
 	list-style: none;
 	text-decoration: none;
 }
