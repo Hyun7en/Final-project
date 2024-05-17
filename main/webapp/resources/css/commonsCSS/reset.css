@@ -7,6 +7,7 @@ body{
 	width: 100%;
 	/* 글자를 정말 매우 살짝 회전시키면 윈도우에선 안티앨리어싱 된 듯한 느낌 */
 	transform : rotate(0.04deg);
+
 }
 
 html, body, div, span, applet, object, iframe,
@@ -25,6 +26,15 @@ time, mark, audio, video {
 	margin: 0;
 	padding: 0;
 	border: 0;
+}
+ 
+#wrap{
+        position: relative;
+
+    }   
+    
+main{
+	/*  margin-top: 85px; */
 }
 
 
@@ -52,6 +62,18 @@ table {
 	border-spacing: 0;
 }
 
+ button,
+    input,
+    select{
+            background-color: transparent;
+            border: 0;
+
+            &:focus {
+                outline: none;
+                box-shadow: none;
+            }
+    }
+    
 *,
 *::before,
 *::after {
