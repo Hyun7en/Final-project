@@ -1,0 +1,80 @@
+@charset "UTF-8";
+
+
+header{
+    height: 85px; 
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1;
+    
+}
+
+/* Header */
+#Header{
+    height: 45px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: white;
+}
+
+#Header #logo p{
+    font-size: 25px;
+    font-weight: 700;
+    color: #0089ff;
+} 
+
+#searchBar form{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    position: relative;
+}
+
+#inputArea{
+    width: 500px;
+    height: 30px;
+    border-radius: 25px;
+    border: 1px solid #AFA8A8;
+    outline: none;
+}
+
+#inputSubmit{
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background-color: white;
+    border: 0;
+    background-image: url(../img/search.png);
+    background-repeat : no-repeat;
+    right: 10px;
+}
+
+#loginArea > a{
+    text-decoration: none;
+    color: black;
+    margin-right: 50px;
+    font-size: 15px;
+}
+
+
+/* 메뉴바 */
+nav{
+    height: 40px;
+    background-color: black;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+nav > a{
+    color: white;
+    font-size: 15px;
+    text-decoration : none;
+}
+
+nav a:hover{
+    color: #0089ff;
+    text-decoration-line: none;
+}
