@@ -5,8 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+    <link rel="stylesheet" href="../../resources/css/commonsCSS/reset.css">
+
+    <style></style>
 </head>
 <body>
-601
+
 </body>
 </html>

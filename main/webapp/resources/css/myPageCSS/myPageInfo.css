@@ -1,0 +1,178 @@
+@charset "UTF-8";
+
+body{
+    background-color: #e0f1ff;
+    width: 1920px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+#myPageInfo-wrapper{
+    width: 1342px;
+    height: 1200px;
+    /* border: 1px solid black; */
+    display: flex;
+}
+
+#myPageInfo-sidebar{
+    /* border: 1px solid blue; */
+    width: 15%;
+    height: 800px;
+    background-color: white;
+    border-radius: 16px;
+}
+
+#myPage-sidebar-profile-area{
+    /* border: 1px solid red; */
+    width: 100%;
+    height: 25%;
+    border-bottom: 1px solid #afa8a8;
+}
+
+#myPage-sidebar-profile-img{
+    /* border: 1px solid black; */
+    height: 70%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+#myPage-sidebar-profile-img img{
+    width: 140px;
+    border-radius: 150px;
+    padding: 20px;
+}
+
+#myPage-sidebar-profile-nickName{
+    height: 20%;
+    text-align: center;
+}
+
+#myPage-sidebar-profile-nickName b{
+    font-weight: 600;
+}
+
+#myPage-category-area{
+    height: 70%;
+    padding-top: 38px;
+}
+
+.myPage-category{
+    text-align: center;
+    width: 100%;
+    height: 70px;
+    line-height: 70px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+#myPageInfo-info-area{
+    width: 85%;
+    height: auto;
+    margin-left: 20px;
+}
+
+#myPageInfo-siteInfo-area{
+    background-color: white;
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+}
+
+#myPage-category-title{
+    font-size: 20px;
+    font-weight: 600;
+    padding: 15px;
+}
+
+#myPageInfo-siteInfo-profile{
+    border-bottom: 1px solid #afa8a8;
+    width: 100%;
+    height: auto;
+}
+
+#myPageInfo-siteInfo-profile-img{
+    width: 100%;
+    margin-top: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#myPageInfo-siteInfo-profile-img img{
+    width: 120px;
+    border-radius: 150px;
+}
+
+#myPageInfo-siteInfo-profile-edit{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 15px 0;
+}
+
+#myPageInfo-siteInfo-profile-edit button{
+    width: 150px;
+    height: 50px;
+    border-radius: 100px;
+    background-color: white;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+#myPageInfo-siteInfo table{
+    width: 100%;
+}
+
+#myPageInfo-siteInfo tr{
+    height: 80px;
+    text-align: left;
+}
+
+#myPageInfo-siteInfo th{
+    width: 150px;
+    padding: 10px 0px 10px 20px;
+    font-weight: 600;
+}
+
+#myPageInfo-privacy-area{
+    background-color: white;
+    border-radius: 16px;
+    margin-top: 25px;
+    padding-top: 5px;
+}
+
+#myPageInfo-privacy-area table{
+    width: 100%;
+}
+
+#myPageInfo-privacy-area tr{
+    width: 100%;
+    height: 80px;
+    text-align: left;
+}
+
+#myPageInfo-privacy-area th{
+    width: 150px;
+    padding: 10px 60px 10px 20px;
+    font-weight: 600; 
+}
+
+#myPageInfo-privacy-button-area{
+    height: 60px;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#myPageInfo-privacy-button-area button{
+    width: 120px;
+    height: 40px;
+    border-radius: 100px;
+    background-color: black;
+    color: white;
+    margin-left: 5px;
+}
+
