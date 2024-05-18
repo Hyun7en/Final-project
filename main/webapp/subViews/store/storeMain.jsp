@@ -7,233 +7,375 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-	
+
+<!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+<!-- Slick CSS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+<!-- Slick JS -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/storeCSS/storeMain.css">
 
-    <style>
-        main{
-            background: #E0F1FF;
-        }
+<style>
+    main {
+        background: #E0F1FF;
+    }
 
-        #descript-quick{
-            display: flex;
-            justify-content: space-between;
-        }
-        #descript-quick #descript{
-            padding-top: 80px;
-            padding-left: 150px;
-            font-weight: bolder;
-        }
+    #descript-quick {
+        display: flex;
+        justify-content: space-between;
+    }
 
-        #descript-quick #descript #page-title{
-            font-size: 35px;
-            padding-bottom: 20px;
-        }
+    #descript-quick #descript {
+        padding-top: 80px;
+        padding-left: 55px;
+        font-weight: bolder;
+    }
 
-        #descript-quick #descript #page-descript{
-            font-size: 30px;
-            color: #0089FF;
-        }
+    #descript-quick #descript #page-title {
+        font-size: 35px;
+        padding-bottom: 20px;
+    }
 
-        #descript-quick #askn-quick-move{
-            padding-top: 100px;
-            padding-right: 50px;
-            display: flex;
-            line-height: 35px;
-            height: 300px;
-        }
-        #descript-quick #askn-quick-move #ask img{
-            margin-top: 20px;
-            height: 60px;
-            width: 60px;
-        }
+    #descript-quick #descript #page-descript {
+        font-size: 30px;
+        color: #0089FF;
+    }
 
-        #descript-quick #askn-quick-move #ask{
-            display: flex;
-            padding-top: 10px;
-            padding-right: 30px;
-        }
+    #descript-quick #askn-quick-move {
+        padding-top: 100px;
+        padding-right: 50px;
+        display: flex;
+        line-height: 35px;
+        height: 300px;
+    }
 
-        #descript-quick #askn-quick-move #ask #ask-descript{
-            padding-top: 20px;
-        }
+    #descript-quick #askn-quick-move #ask img {
+        margin-top: 20px;
+        height: 60px;
+        width: 60px;
+    }
 
-        #descript-quick #askn-quick-move #ask #ask-descript #ad-span1{
-            font-weight: 700;
-        }
-        #descript-quick #askn-quick-move #ask #ask-descript #ad-span2 a{
-            font-weight: 700;
-            color: #0089FF;
-        }
-      
-        #descript-quick #askn-quick-move #quick-move .quick-move-li-title{
-            font-weight: 700;
-            text-align: center;
-        }
+    #descript-quick #askn-quick-move #ask {
+        display: flex;
+        padding-top: 10px;
+        padding-right: 30px;
+    }
 
-        #descript-quick #askn-quick-move #quick-move .quick-move-li{
-            background-color: white;
-            margin-bottom: 10px;
-            width: 80px;
-            height: 30px;
-            line-height: 30px;
-            text-align: center;
-            border-radius: 20px;
-            box-shadow: 1px 1px 3px;
-            opacity: 90%;
-        }
+    #descript-quick #askn-quick-move #ask #ask-descript {
+        padding-top: 20px;
+    }
 
-        #descript-quick #askn-quick-move #quick-move .quick-move-li a{
-            font-size: 15px;
-            color: black;
-        }
+    #descript-quick #askn-quick-move #ask #ask-descript #ad-span1 {
+        font-weight: 700;
+    }
 
-        
-        #descript-quick #askn-quick-move #quick-move .quick-move-li a:hover{
-            color: #0089FF;
-        }
-         /* Slick 캐러셀 추가 */
-         #section-1 .slick-slide img {
-            display: block;
-            margin: auto;
-        }
+    #descript-quick #askn-quick-move #ask #ask-descript #ad-span2 a {
+        font-weight: 700;
+        color: #0089FF;
+    }
 
-        .slick-prev, .slick-next {
-            background: none;
-            border: none;
-            color: #0089FF;
-            font-size: 24px;
-            line-height: 1;
-            opacity: 0.75;
-            transition: opacity 0.3s;
-        }
-        .slick-prev:hover, .slick-next:hover {
-            opacity: 1;
-        }
-        .slick-prev::before, .slick-next::before {
-            display: none;
-        }
+    #descript-quick #askn-quick-move #quick-move .quick-move-li-title {
+        font-weight: 700;
+        text-align: center;
+    }
 
-        #section-1 {
-            margin-top: 50px;
-        }
+    #descript-quick #askn-quick-move #quick-move .quick-move-li {
+        background-color: white;
+        margin-bottom: 10px;
+        width: 80px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        border-radius: 20px;
+        box-shadow: 2px 4px 12px #00000014;
+        opacity: 90%;
+    }
 
-    </style>
+    #descript-quick #askn-quick-move #quick-move .quick-move-li a {
+        font-size: 15px;
+        color: black;
+    }
+
+    #descript-quick #askn-quick-move #quick-move .quick-move-li a:hover {
+        color: #0089FF;
+    }
+
+    #cards-Shelf div {
+        display: flex;
+    }
+
+    #cards-Shelf div div {
+        display: block;
+        padding-left: 55px;
+    }
+
+    #cards-Shelf div div a img {
+        width: 110px;
+        height: 70px;
+        border-radius: 15px;
+        box-shadow: 2px 4px 12px #00000014;
+
+    }
+
+    #cards-Shelf div div a div {
+        padding: 0;
+        text-align: center;
+        color: black;
+        font-weight: 900;
+        font-size: 13px;
+    }
+
+    .sm-procuct-section {
+        padding-top: 100px;
+        padding-left: 55px;
+        display: block;
+    }
+
+    .sm-procuct-section-title {
+        font-weight: 900;
+        font-size: 24px;
+        padding-bottom: 20px;
+    }
+
+    /* Carousel Styles */
+    .carousel {
+        display: flex;
+    }
+
+    .carousel-item {
+        width: 300px;
+        height: 400px;
+        border-radius: 15px;
+        box-shadow: 2px 4px 12px #00000014;
+        background-color: white;
+        margin: auto;
+    }
+
+
+    .carousel-item a img {
+        display: block;
+        margin: 0 auto; 
+        width: 80%; 
+        border-radius: 15px;
+    }
+
+    .carousel-item a #carousel-dimg{
+        justify-items: center;
+    }
+
+</style>
 
 </head>
 <body>
-	<div class="wrap">
-	
-		<!-- header -->
-        <%@ include file="../commons/header.jsp" %>
-        
-        <main style="height: 2000px">
-            
-            <section id="descript-quick">
-                
-                <div id="descript">
-                    <div id="page-title">
-                        스토어
-                    </div>
-                    <div id="page-descript">
-                        사랑하는 반려어를 위해 <br> 
-                        이건 어떠신가요?
+<div class="wrap">
+
+    <!-- header -->
+    <%@ include file="../commons/header.jsp" %>
+
+    <main style="height: 2000px">
+
+        <section id="descript-quick">
+
+            <div id="descript">
+                <div id="page-title">
+                    스토어
+                </div>
+                <div id="page-descript">
+                    사랑하는 반려어를 위해 <br>
+                    이건 어떠신가요?
+                </div>
+            </div>
+
+            <div id="askn-quick-move">
+                <div id="ask">
+                    <img id="ask-img" src="../../resources/image/octopus-303622_1280.png" alt="">
+                    <div id="ask-descript">
+                        <span id="ad-span1">문의사항이 있으신가요?</span> <br>
+                        <span id="ad-span2">
+                            <a href="#">
+                                관리자에게 문의해보세요.
+                            </a>
+                        </span>
                     </div>
                 </div>
 
-                <div id="askn-quick-move">
-                    <div id="ask">
-                        <img id="ask-img" src="../../resources/image/octopus-303622_1280.png" alt="">
-                        <div id="ask-descript">
-                            <span id="ad-span1">문의사항이 있으신가요?</span> <br>
-                            <span id="ad-span2">
-                                <a href="#">
-                                    관리자에게 문의해보세요.
-                                </a>
-                            </span>
+                <div id="quick-move">
+                    <ul>
+                        <li class="quick-move-li-title">
+                            빠른이동
+                        </li>
+
+                        <li class="quick-move-li">
+                            <a href="#">관심상품</a>
+                        </li>
+
+                        <li class="quick-move-li">
+                            <a href="#">주문 내역</a>
+                        </li>
+
+                        <li class="quick-move-li">
+                            <a href="#">장바구니</a>
+                        </li>
+
+                        <li class="quick-move-li">
+                            <a href="#">최근검색</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="cards-Shelf">
+            <div>
+                <div>
+                    <a href="">
+                        <img src="../../resources/image/clownfish-1453910_1920.jpg">
+                        <div>수조 · 어항</div>
+                    </a>
+                </div>
+                <div>
+                    <a href="">
+                        <img src="../../resources/image/clownfish-1453910_1920.jpg">
+                        <div>장식</div>
+                    </a>
+                </div>
+                <div>
+                    <a href="">
+                        <img src="../../resources/image/clownfish-1453910_1920.jpg">
+                        <div>사료</div>
+                    </a>
+                </div>
+                <div>
+                    <a href="">
+                        <img src="../../resources/image/clownfish-1453910_1920.jpg">
+                        <div>여과기 · 여과재</div>
+                    </a>
+                </div>
+                <div>
+                    <a href="">
+                        <img src="../../resources/image/clownfish-1453910_1920.jpg">
+                        <div>조형물</div>
+                    </a>
+                </div>
+                <div>
+                    <a href="">
+                        <img src="../../resources/image/clownfish-1453910_1920.jpg">
+                        <div>전기용품</div>
+                    </a>
+                </div>
+                <div>
+                    <a href="">
+                        <img src="../../resources/image/clownfish-1453910_1920.jpg">
+                        <div>수초</div>
+                    </a>
+                </div>
+                <div>
+                    <a href="">
+                        <img src="../../resources/image/clownfish-1453910_1920.jpg">
+                        <div>바닥재 · 기타</div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="sm-procuct-section" id="recommend-product">
+            <div class="sm-procuct-section-title">
+                추천 제품
+            </div>
+            <div class="carousel">
+
+                <div class="carousel-item">
+                    <a href="">
+                        <div>
+
                         </div>
-                    </div>
-
-                    <div id="quick-move">
-                        <ul>
-                            <li class="quick-move-li-title">
-                                빠른이동
-                            </li>
-
-                            <li class="quick-move-li">
-                                <a href="#">관심상품</a>
-                            </li>
-
-                            <li class="quick-move-li">
-                                <a href="#">주문 내역</a>
-                            </li>
-
-                            <li class="quick-move-li">
-                                <a href="#">장바구니</a>
-                            </li>
-
-                            <li class="quick-move-li">
-                                <a href="#">최근검색</a>
-                            </li>
-                        </ul>
-                    </div>
+                        <img src="../../resources/image/clownfish-1453910_1920.jpg" alt="Product 1">
+                    </a>
                 </div>
-            </section>
 
-            <section id="cardsshelf">
-
-            </section>
-
-            <section id="section-1">
-                <div class="carousel">
-                    <div><img src="https://via.placeholder.com/300x200" alt="Slide 1"></div>
-                    <div><img src="https://via.placeholder.com/300x200" alt="Slide 2"></div>
-                    <div><img src="https://via.placeholder.com/300x200" alt="Slide 3"></div>
-                    <div><img src="https://via.placeholder.com/300x200" alt="Slide 4"></div>
+                <div class="carousel-item">
+                    <a href="">
+                        <div>
+                            
+                        </div>
+                        <img src="../../resources/image/clownfish-1453910_1920.jpg" alt="Product 2">
+                    </a>
                 </div>
-            </section>
 
-            <section>
-                <!-- 다른 내용들 -->
-            </section>
+                <div class="carousel-item">
+                    <a href="">
+                        <div>
+                            
+                        </div>
+                        <img src="../../resources/image/clownfish-1453910_1920.jpg" alt="Product 3">
+                    </a>
+                </div>
 
-            <section>
-                <!-- 다른 내용들 -->
-            </section>
+                <div class="carousel-item">
+                    <a href="">
+                        <div>
+                            <div>
+                                가게명
+                            </div>
+                            <div>
+                                제품명
+                            </div>
+                            <div>
+                                가격
+                            </div>
+                            <div>
+                                <img style="width: 15px;" src="../../resources/image/star.png">
+                                별점, 리뷰수
+                            </div>
+                        </div>
+                        <div id="carousel-dimg">
+                            <img src="../../resources/image/clownfish-1453910_1920.jpg" alt="Product 4">
+                        </div>
+                    </a>
+                </div>
 
-            <section>
-                <!-- 다른 내용들 -->
-            </section>
+               
 
-        </main>
-                
-        <!-- footer -->
-        <%@ include file="../commons/footer.jsp" %>
-        
-    </div>
+            </div>
+        </section>
 
-    <script>
-        $(document).ready(function(){
-            $('.carousel').slick({
-                dots: true,
-                infinite: true,
-                speed: 300,
-                slidesToShow: 4,  // 한번에 표시할 슬라이드 수
-                slidesToScroll: 1,  // 스크롤할 슬라이드 수
-                adaptiveHeight: true,
-                prevArrow: '<button type="button" class="slick-prev"><i class="fas fa-chevron-left"></i></button>',
-                nextArrow: '<button type="button" class="slick-next"><i class="fas fa-chevron-right"></i></button>'
-            });
-        });
-    </script>
+        <section class="sm-procuct-section" id="special-discount">
+            <div class="sm-procuct-section-title">
+                특별 할인
+            </div>
+            <div>
+
+            </div>
+        </section>
+
+        <section class="sm-procuct-section" id="popular-product">
+            <div class="sm-procuct-section-title">
+                인기 상품
+            </div>
+            <div>
+
+            </div>
+        </section>
+
+        <section class="sm-procuct-section" id="brand-new">
+            <div class="sm-procuct-section-title">
+                최신 제품
+            </div>
+            <div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- footer -->
+    <%@ include file="../commons/footer.jsp" %>
+
+</div>
 
 
 </body>
