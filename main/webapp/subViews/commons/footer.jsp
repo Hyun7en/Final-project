@@ -22,17 +22,18 @@
 
                 <div id="store-community">
                    
-                    <p>스토어</p>
-                    <a href="#">Minecraft</a>
-                    <a href="#">Minecraft Dungeons</a>
-                    <a href="#">Minecraft Legneds</a>
+                    <p>프로젝트 개요</p>
+                    <a href="#">이름 : psvm</a>
+                    <a href="#">목적 : 물살이 생물에 대한 정보제공 사이트</a>
+                    <a href="#">서비스 : 물살이생물을 키우기 위한 것들 판매</a>
                 
                 
-                    <p>커뮤니티</p>
-                    <a href="#">커뮤니티</a>
-                    <a href="#">크리에이터 학습 포털</a>
-                    <a href="#">Mojang Studios 채용 정보</a>
-                    <a href="#">더 나은 세상 만들기</a>
+                    <p>팀원 소개</p>
+                    <a href="#">조장 : 고병헌</a>
+                    <a href="#">DB 관리자 : 김도헌</a>
+                    <a href="#">일정 관리자 : 이경주</a>
+                    <a href="#">이슈 관리자 : 이호연</a>
+                    <a href="#">형상 관리자 : 박은미</a>
                     
                 </div>
 
@@ -40,8 +41,9 @@
                 
                     <p>물고기 정보</p>
                     
-                    <a href="#">마켓플레이스</a>
-                    <a href="#">Minecraft</a>
+                    <a href="#">나무위키</a>
+                    <a href="#">위키피디아</a>
+                    <a href="#">각종 정보 사이트</a>
                     
                     <p>고객 센터</p>
 
