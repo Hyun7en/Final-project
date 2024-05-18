@@ -1,0 +1,205 @@
+/* 흐르는 물결 css */
+body {
+    background:radial-gradient(ellipse at center, rgba(255,254,234,1) 0%, rgba(255,254,234,1) 35%, #B7E8EB 100%);
+    overflow-x: hidden;
+  }
+
+.ocean { 
+height: 5%;
+width:100%;
+position:absolute;
+bottom:0;
+left:0;
+background: #015871;
+}
+
+.wave {
+background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/85486/wave.svg) repeat-x; 
+position: absolute;
+top: -198px;
+width: 6400px;
+height: 198px;
+animation: wave 7s cubic-bezier( 0.36, 0.45, 0.63, 0.53) infinite;
+transform: translate3d(0, 0, 0);
+}
+
+.wave:nth-of-type(2) {
+top: -175px;
+animation: wave 7s cubic-bezier( 0.36, 0.45, 0.63, 0.53) -.125s infinite, swell 7s ease -1.25s infinite;
+opacity: 1;
+}
+
+@keyframes wave {
+0% {
+    margin-left: 0;
+}
+100% {
+    margin-left: -1600px;
+}
+}
+
+@keyframes swell {
+0%, 100% {
+    transform: translate3d(0,-25px,0);
+}
+50% {
+    transform: translate3d(0,5px,0);
+}
+}
+
+/* 그 밑 글자 css */
+#main-text{
+    width: 100%;
+    height: 800px;
+
+}
+
+#text-div{
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 300px;
+    left: 450px;
+}
+
+.show {
+    word-spacing: 2px;
+    overflow: hidden;
+}
+
+@keyframes reveal {
+0% {
+    transform: translateY(100%);
+    opacity: 0; /* 애니메이션 시작 시 보이지 않게 설정 */
+}
+100% {
+    transform: translateY(0);
+    opacity: 1; /* 애니메이션 끝에 보이게 설정 */
+}
+}
+
+.title{
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+.letter {
+display: inline-block;
+transform: translateY(100%);
+animation: reveal 1s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+opacity: 0;
+}
+
+/* 애니메이션 이후 */
+
+#show-info{
+    width: 100%;
+    height: 3420px;
+    background: linear-gradient(#015871,black);
+    margin-top: 68px;
+}
+
+/* 첫 설명 */
+.number{
+    font-size: 55px;
+    color:white;
+    display: flex;
+    justify-content: center;
+    padding-top: 85px;
+}
+
+#first{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 100px;
+    font-weight: bold;
+    margin-top: 120px;
+    margin-bottom: 100px;
+}
+
+#first-img{
+    width: 520px;
+    height: 520px;
+}
+
+#first-explane{
+    width: 800px;
+    height: 300px;
+}
+
+#first-explane p {
+    font-size: 55px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+}
+
+/* 두번 째 설명 */
+
+#second{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 120px;
+}
+
+#second-explane{
+    margin-top: 100px;
+    font-size: 55px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+}
+
+#second-img{
+    margin-top: 120px;
+    display: flex;
+    width: 60%;
+    justify-content: space-between;
+}
+
+#third{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 40px;
+}
+
+#third-explane{
+    margin-top: 62px;
+    font-size: 55px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+#fourth{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+}
+
+#fourth-explane{
+    margin-top: 50px;
+    font-size: 55px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+}
+
+#fourth-chatbox{
+    position: absolute;
+    left: 1130px;
+    margin-top: 50px;
+}
+
+#fourth-img{
+    margin-top: 100px;
+}
