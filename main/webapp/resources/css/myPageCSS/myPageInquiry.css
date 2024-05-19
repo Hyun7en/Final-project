@@ -1,0 +1,125 @@
+@charset "UTF-8";
+
+main{
+    background-color: #e0f1ff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#myPageInquiry-wrapper{
+    width: 1342px;
+    display: flex; 
+    padding: 30px 0;
+}
+
+#myPage-sidebar{
+    width: 15%;
+    height: 800px;
+    background-color: white;
+    border-radius: 16px;
+    margin-right: 20px;
+}
+
+#myPage-sidebar-profile-area{
+    width: 100%;
+    height: 25%;
+    border-bottom: 1px solid #afa8a8;
+}
+
+#myPage-sidebar-profile-img{
+    height: 70%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+#myPage-sidebar-profile-img img{
+    width: 140px;
+    border-radius: 150px;
+    padding: 20px;
+}
+
+#myPage-sidebar-profile-nickName{
+    height: 20%;
+    text-align: center;
+}
+
+#myPage-sidebar-profile-nickName b{
+    font-weight: 600;
+}
+
+#myPage-category-area{
+    height: 70%;
+    padding-top: 38px;
+}
+
+.myPage-category{
+    text-align: center;
+    width: 100%;
+    height: 70px;
+    line-height: 70px;
+}
+
+.myPage-category a{
+    font-size: 20px;
+    font-weight: 600;
+    text-decoration: none;
+    color: black;
+}
+
+#myPageInquiry-info-area{
+    width: 85%;
+    background-color: white;
+    border-radius: 16px;
+}
+
+#myPage-category-title{
+    font-size: 20px;
+    font-weight: 600;
+    padding: 15px;
+    border-bottom: 1px solid #afa8a8;
+}
+
+#myPageInquiry-list-area{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#myPageInquiry-list{
+    width: 95%;
+    border: 1px solid #afa8a8;
+    border-radius: 16px;
+}
+
+#myPageInquiry-list table{
+    width: 100%;
+    text-align: center;
+}
+
+#myPageInquiry-list table thead{
+    height: 70px;
+    border-bottom: 1px solid #afa8a8;
+
+}
+
+#myPageInquiry-list table tbody tr{
+    height: 70px;
+    border-bottom: 1px solid #afa8a8;
+
+}
+
+#btnList-area{
+    margin-top: 20px;
+}
+
+#btnList-area button{
+    width: 35px;
+    height: 35px;
+    background-color: white;
+    font-size: 15px;
+    cursor: pointer;
+}

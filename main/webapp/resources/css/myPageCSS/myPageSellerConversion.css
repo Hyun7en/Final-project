@@ -1,0 +1,157 @@
+@charset "UTF-8";
+
+main{
+    background-color: #e0f1ff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-size: 15px;
+}
+
+#myPageSellerConversion-wrapper{
+    width: 1342px;
+    display: flex; 
+    padding: 30px 0;
+}
+
+#myPage-sidebar{
+    width: 15%;
+    height: 800px;
+    background-color: white;
+    border-radius: 16px;
+    margin-right: 20px;
+}
+
+#myPage-sidebar-profile-area{
+    width: 100%;
+    height: 25%;
+    border-bottom: 1px solid #afa8a8;
+}
+
+#myPage-sidebar-profile-img{
+    height: 70%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+#myPage-sidebar-profile-img img{
+    width: 140px;
+    border-radius: 150px;
+    padding: 20px;
+}
+
+#myPage-sidebar-profile-nickName{
+    height: 20%;
+    text-align: center;
+}
+
+#myPage-sidebar-profile-nickName b{
+    font-weight: 600;
+}
+
+#myPage-category-area{
+    height: 70%;
+    padding-top: 38px;
+}
+
+.myPage-category{
+    text-align: center;
+    width: 100%;
+    height: 70px;
+    line-height: 70px;
+}
+
+.myPage-category a{
+    font-size: 20px;
+    font-weight: 600;
+    text-decoration: none;
+    color: black;
+}
+
+#mypageSellerConversion-info-area{
+    width: 85%;
+    background-color: white;
+    border-radius: 16px;
+}
+
+#myPage-category-title{
+    font-size: 20px;
+    font-weight: 600;
+    padding: 15px;
+    border-bottom: 1px solid #afa8a8;
+}
+
+#mypageSellerConversion-input-area{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#mypageSellerConversion-input{
+    width: 95%;
+    border-top: 1px solid #afa8a8;
+    border-left: 1px solid #afa8a8;
+    border-right: 1px solid #afa8a8;
+}
+
+.info-input-area{
+    width: 100%;
+    height: 70px;
+    border-bottom: 1px solid #afa8a8;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 15px;
+}
+
+.info-input-title{
+    width: 15%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+
+}
+
+.info-input-area input{
+    border: 1px solid #afa8a8;
+    width: 200px;
+    height: 35px;
+}
+
+#deposit-account-area{
+    height: 100px;
+}
+
+#deposit-account-area select{
+    width: 100px;
+    height: 35px;
+    border: 1px solid #afa8a8;
+}
+
+#bank-select-area{
+    margin-bottom: 10px;
+}
+
+input{
+    padding-left: 5px
+}
+
+#btn-area{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 30px 0;
+}
+
+#btn-area button{
+    width: 100px;
+    height: 40px;
+    margin-right: 10px;
+    background-color: white;
+    border: 1px solid #afa8a8;
+    cursor: pointer;
+}
