@@ -114,6 +114,7 @@
         ScrollReveal().reveal('#third-explane',{duration:1600});
         ScrollReveal().reveal('#third-img',{duration:1600});
         ScrollReveal().reveal('#fourth-explane',{duration:1600});
+        ScrollReveal().reveal('#fourth-chatbox',{duration:1600});
         ScrollReveal().reveal('#fourth-img',{duration:1600});
 
         
