@@ -136,33 +136,32 @@
         font-size: 13px;
     }
 
-    /* 추천 제품 slick */
+    /* 인기 상품 slick */
 
     .sm-procuct-section {
         padding-top: 100px;
-        padding-left: 55px;
-        display: block;
     }
 
     .sm-procuct-section-title {
         font-weight: 900;
         font-size: 24px;
         padding-bottom: 20px;
+        padding-left: 20px;
     }
 
     /* Carousel Styles */
     .carousel {
-        display: flex;
         position: relative;
+        overflow: hidden;
     }
 
     .carousel-item {
-        width: 350px;
+        width: 340px;
         height: 450px;
         border-radius: 15px;
         box-shadow: 2px 4px 12px #00000014;
         background-color: white;
-        margin-right: 40px;
+        margin: 0 20px 0 20px;
         position: relative;
     }
 
@@ -184,6 +183,16 @@
 
     .carousel-item a .product-descript #product-descript-rating-review{
         font-size: 13px;
+        display: flex;
+        align-items: center;
+    }
+
+    .carousel-item a .product-descript #product-descript-rating-review img{
+        height: 12px;
+    }
+
+    .carousel-item a .product-descript #product-descript-rating-review span{
+        padding-left: 2px;
     }
 
     .carousel-item a .carousel-dimg{
@@ -199,13 +208,41 @@
         border-radius: 15px;
     }
 
-    /* 특별 할인 */
+    
+    .slick-prev, .slick-next {
+    z-index: 25; /* 버튼이 다른 요소 위에 표시되도록 설정 */
+    width: auto; /* 버튼의 기본 너비 설정 */
+    height: auto; /* 버튼의 기본 높이 설정 */
+    }
 
-    /* 인기 상품 */
+    .slick-prev:before, .slick-next:before {
+        font-size: 40px; /* 화살표 아이콘의 크기 조정 */
+    }
 
-    /* 최신 상품 */
+    .slick-prev {
+        left: 3px; /* 이전 버튼의 위치 설정 */
+    }
+
+    .slick-next {
+        right: 3px; /* 다음 버튼의 위치 설정 */
+    }
+
+    #general-product .carousel {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    #general-product .carousel .carousel-item{
+        width: calc(25% - 40px); /* 전체 폭의 25%에서 간격을 뺀 값 */
+        margin-bottom: 40px;
+    }
+
+    #general-product .carousel-item {
+        width: calc(25% - 40px); /* 전체 폭의 25%에서 간격을 뺀 값 */
+        height: 450px;
+    }
 
 </style>
+
 
 </head>
 <body>
@@ -223,8 +260,7 @@
                     스토어
                 </p>
                 <p id="page-descript">
-                    사랑하는 반려어를 위해 <br>
-                    이건 어떠신가요?
+                    수조 · 어항
                 </p>
             </div>
 
@@ -338,232 +374,8 @@
             </div>
         </section>
 
-        <section class="sm-procuct-section" id="recommend-product">
-            <div class="sm-procuct-section-title" >
-                추천 제품
-            </div>
-            <div class="carousel">
-
-                <div class="carousel-item">
-                    <a href="">
-                        <div class="product-descript">
-                            <p id="product-descript-store-name">
-                                가게명
-                            </p>
-                            <p id="product-descript-product-name">
-                                제품명
-                            </p>
-                            <p id="product-descript-product-price">
-                                가격
-                            </p>
-                            <p id="product-descript-rating-review">
-                                <img style="width: 13px;" src="../../resources/image/star.png">
-                                <span>4.7</span>
-                                <span>리뷰</span>
-                                <span>1400</span>
-                            </p>
-                            
-                        </div>
-                        <div class="carousel-dimg">
-                            <img src="../../resources/image/clownfish-1453910_1920.jpg" >
-                        </div>
-                    </a>
-                </div>
-
-                <div class="carousel-item">
-                    <a href="">
-                        <div class="product-descript">
-                            <p id="product-descript-store-name">
-                                가게명
-                            </p>
-                            <p id="product-descript-product-name">
-                                제품명
-                            </p>
-                            <p id="product-descript-product-price">
-                                가격
-                            </p>
-                            <p id="product-descript-rating-review">
-                                <img style="width: 13px;" src="../../resources/image/star.png">
-                                <span>4.7</span>
-                                <span>리뷰</span>
-                                <span>1400</span>
-                            </p>
-                            
-                        </div>
-                        <div class="carousel-dimg">
-                            <img src="../../resources/image/clownfish-1453910_1920.jpg" >
-                        </div>
-                    </a>
-                </div>
-
-                <div class="carousel-item">
-                    <a href="">
-                        <div class="product-descript">
-                            <p id="product-descript-store-name">
-                                가게명
-                            </p>
-                            <p id="product-descript-product-name">
-                                제품명
-                            </p>
-                            <p id="product-descript-product-price">
-                                가격
-                            </p>
-                            <p id="product-descript-rating-review">
-                                <img style="width: 13px;" src="../../resources/image/star.png">
-                                <span>4.7</span>
-                                <span>리뷰</span>
-                                <span>1400</span>
-                            </p>
-                            
-                        </div>
-                        <div class="carousel-dimg">
-                            <img src="../../resources/image/clownfish-1453910_1920.jpg">
-                        </div>
-                    </a>
-                </div>
-
-                <div class="carousel-item">
-                    <a href="">
-                        <div class="product-descript">
-                            <p id="product-descript-store-name">
-                                가게명
-                            </p>
-                            <p id="product-descript-product-name">
-                                제품명
-                            </p>
-                            <p id="product-descript-product-price">
-                                가격
-                            </p>
-                            <p id="product-descript-rating-review">
-                                <img style="width: 13px;" src="../../resources/image/star.png">
-                                <span>4.7</span>
-                                <span>리뷰</span>
-                                <span>1400</span>
-                            </p>
-                            
-                        </div>
-                        <div class="carousel-dimg">
-                            <img src="../../resources/image/clownfish-1453910_1920.jpg">
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <section class="sm-procuct-section" id="special-discount">
-            <div class="sm-procuct-section-title">
-                특별 할인
-            </div>
-            <div class="carousel">
-
-                <div class="carousel-item">
-                    <a href="">
-                        <div class="product-descript">
-                            <p id="product-descript-store-name">
-                                가게명
-                            </p>
-                            <p id="product-descript-product-name">
-                                제품명
-                            </p>
-                            <p id="product-descript-product-price">
-                                가격
-                            </p>
-                            <p id="product-descript-rating-review">
-                                <img style="width: 13px;" src="../../resources/image/star.png">
-                                <span>4.7</span>
-                                <span>리뷰</span>
-                                <span>1400</span>
-                            </p>
-                            
-                        </div>
-                        <div class="carousel-dimg">
-                            <img src="../../resources/image/clownfish-1453910_1920.jpg" >
-                        </div>
-                    </a>
-                </div>
-
-                <div class="carousel-item">
-                    <a href="">
-                        <div class="product-descript">
-                            <p id="product-descript-store-name">
-                                가게명
-                            </p>
-                            <p id="product-descript-product-name">
-                                제품명
-                            </p>
-                            <p id="product-descript-product-price">
-                                가격
-                            </p>
-                            <p id="product-descript-rating-review">
-                                <img style="width: 13px;" src="../../resources/image/star.png">
-                                <span>4.7</span>
-                                <span>리뷰</span>
-                                <span>1400</span>
-                            </p>
-                            
-                        </div>
-                        <div class="carousel-dimg">
-                            <img src="../../resources/image/clownfish-1453910_1920.jpg" >
-                        </div>
-                    </a>
-                </div>
-
-                <div class="carousel-item">
-                    <a href="">
-                        <div class="product-descript">
-                            <p id="product-descript-store-name">
-                                가게명
-                            </p>
-                            <p id="product-descript-product-name">
-                                제품명
-                            </p>
-                            <p id="product-descript-product-price">
-                                가격
-                            </p>
-                            <p id="product-descript-rating-review">
-                                <img style="width: 13px;" src="../../resources/image/star.png">
-                                <span>4.7</span>
-                                <span>리뷰</span>
-                                <span>1400</span>
-                            </p>
-                            
-                        </div>
-                        <div class="carousel-dimg">
-                            <img src="../../resources/image/clownfish-1453910_1920.jpg">
-                        </div>
-                    </a>
-                </div>
-
-                <div class="carousel-item">
-                    <a href="">
-                        <div class="product-descript">
-                            <p id="product-descript-store-name">
-                                가게명
-                            </p>
-                            <p id="product-descript-product-name">
-                                제품명
-                            </p>
-                            <p id="product-descript-product-price">
-                                가격
-                            </p>
-                            <p id="product-descript-rating-review">
-                                <img style="width: 13px;" src="../../resources/image/star.png">
-                                <span>4.7</span>
-                                <span>리뷰</span>
-                                <span>1400</span>
-                            </p>
-                            
-                        </div>
-                        <div class="carousel-dimg">
-                            <img src="../../resources/image/clownfish-1453910_1920.jpg">
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </section>
-
         <section class="sm-procuct-section" id="popular-product">
-            <div class="sm-procuct-section-title">
+            <div class="sm-procuct-section-title" >
                 인기 상품
             </div>
             <div class="carousel">
@@ -614,6 +426,111 @@
                             </p>
                             
                         </div>
+                        
+                        <div class="carousel-dimg">
+                            <img src="../../resources/image/clownfish-1453910_1920.jpg" >
+                        </div>
+                    </a>
+                </div>
+
+                <div class="carousel-item">
+                    <a href="">
+                        <div class="product-descript">
+                            <p id="product-descript-store-name">
+                                가게명
+                            </p>
+                            <p id="product-descript-product-name">
+                                제품명
+                            </p>
+                            <p id="product-descript-product-price">
+                                가격
+                            </p>
+                            <p id="product-descript-rating-review">
+                                <img style="width: 13px;" src="../../resources/image/star.png">
+                                <span>4.7</span>
+                                <span>리뷰</span>
+                                <span>1400</span>
+                            </p>
+                            
+                        </div>
+                        <div class="carousel-dimg">
+                            <img src="../../resources/image/clownfish-1453910_1920.jpg">
+                        </div>
+                    </a>
+                </div>
+
+                <div class="carousel-item">
+                    <a href="">
+                        <div class="product-descript">
+                            <p id="product-descript-store-name">
+                                가게명
+                            </p>
+                            <p id="product-descript-product-name">
+                                제품명
+                            </p>
+                            <p id="product-descript-product-price">
+                                가격
+                            </p>
+                            <p id="product-descript-rating-review">
+                                <img style="width: 13px;" src="../../resources/image/star.png">
+                                <span>4.7</span>
+                                <span>리뷰</span>
+                                <span>1400</span>
+                            </p>
+                            
+                        </div>
+                        <div class="carousel-dimg">
+                            <img src="../../resources/image/clownfish-1453910_1920.jpg" >
+                        </div>
+                    </a>
+                </div>
+
+                <div class="carousel-item">
+                    <a href="">
+                        <div class="product-descript">
+                            <p id="product-descript-store-name">
+                                가게명
+                            </p>
+                            <p id="product-descript-product-name">
+                                제품명
+                            </p>
+                            <p id="product-descript-product-price">
+                                가격
+                            </p>
+                            <p id="product-descript-rating-review">
+                                <img style="width: 13px;" src="../../resources/image/star.png">
+                                <span>4.7</span>
+                                <span>리뷰</span>
+                                <span>1400</span>
+                            </p>
+                            
+                        </div>
+                        <div class="carousel-dimg">
+                            <img src="../../resources/image/clownfish-1453910_1920.jpg">
+                        </div>
+                    </a>
+                </div>
+
+                <div class="carousel-item">
+                    <a href="">
+                        <div class="product-descript">
+                            <p id="product-descript-store-name">
+                                가게명
+                            </p>
+                            <p id="product-descript-product-name">
+                                제품명
+                            </p>
+                            <p id="product-descript-product-price">
+                                가격
+                            </p>
+                            <p id="product-descript-rating-review">
+                                <img style="width: 13px;" src="../../resources/image/star.png">
+                                <span>4.7</span>
+                                <span>리뷰</span>
+                                <span>1400</span>
+                            </p>
+                            
+                        </div>
                         <div class="carousel-dimg">
                             <img src="../../resources/image/clownfish-1453910_1920.jpg" >
                         </div>
@@ -674,9 +591,9 @@
             </div>
         </section>
 
-        <section class="sm-procuct-section" id="brand-new">
+        <section class="sm-procuct-section" id="general-product">
             <div class="sm-procuct-section-title">
-                최신 제품
+                수조 · 어항
             </div>
             <div class="carousel">
 
@@ -701,6 +618,32 @@
                             
                         </div>
                         <div class="carousel-dimg">
+                            <img src="../../resources/image/clownfish-1453910_1920.jpg">
+                        </div>
+                    </a>
+                </div>
+
+                <div class="carousel-item">
+                    <a href="">
+                        <div class="product-descript">
+                            <p id="product-descript-store-name">
+                                가게명
+                            </p>
+                            <p id="product-descript-product-name">
+                                제품명
+                            </p>
+                            <p id="product-descript-product-price">
+                                가격
+                            </p>
+                            <p id="product-descript-rating-review">
+                                <img style="width: 13px;" src="../../resources/image/star.png">
+                                <span>4.7</span>
+                                <span>리뷰</span>
+                                <span>1400</span>
+                            </p>
+                            
+                        </div>
+                        <div class="carousel-dimg">
                             <img src="../../resources/image/clownfish-1453910_1920.jpg" >
                         </div>
                     </a>
@@ -783,8 +726,105 @@
                         </div>
                     </a>
                 </div>
+
+                <div class="carousel-item">
+                    <a href="">
+                        <div class="product-descript">
+                            <p id="product-descript-store-name">
+                                가게명
+                            </p>
+                            <p id="product-descript-product-name">
+                                제품명
+                            </p>
+                            <p id="product-descript-product-price">
+                                가격
+                            </p>
+                            <p id="product-descript-rating-review">
+                                <img style="width: 13px;" src="../../resources/image/star.png">
+                                <span>4.7</span>
+                                <span>리뷰</span>
+                                <span>1400</span>
+                            </p>
+                            
+                        </div>
+                        <div class="carousel-dimg">
+                            <img src="../../resources/image/clownfish-1453910_1920.jpg" >
+                        </div>
+                    </a>
+                </div>
+    
+                <div class="carousel-item">
+                    <a href="">
+                        <div class="product-descript">
+                            <p id="product-descript-store-name">
+                                가게명
+                            </p>
+                            <p id="product-descript-product-name">
+                                제품명
+                            </p>
+                            <p id="product-descript-product-price">
+                                가격
+                            </p>
+                            <p id="product-descript-rating-review">
+                                <img style="width: 13px;" src="../../resources/image/star.png">
+                                <span>4.7</span>
+                                <span>리뷰</span>
+                                <span>1400</span>
+                            </p>
+                            
+                        </div>
+                        <div class="carousel-dimg">
+                            <img src="../../resources/image/clownfish-1453910_1920.jpg" >
+                        </div>
+                    </a>
+                </div>
+
+                <div class="carousel-item">
+                    <a href="">
+                        <div class="product-descript">
+                            <p id="product-descript-store-name">
+                                가게명
+                            </p>
+                            <p id="product-descript-product-name">
+                                제품명
+                            </p>
+                            <p id="product-descript-product-price">
+                                가격
+                            </p>
+                            <p id="product-descript-rating-review">
+                                <img style="width: 13px;" src="../../resources/image/star.png">
+                                <span>4.7</span>
+                                <span>리뷰</span>
+                                <span>1400</span>
+                            </p>
+                            
+                        </div>
+                        <div class="carousel-dimg">
+                            <img src="../../resources/image/clownfish-1453910_1920.jpg" >
+                        </div>
+                    </a>
+                </div>
+
             </div>
+           
         </section>
+
+
+        <!-- 페이징 처리 -->
+
+        <!-- <div class="paging-area" align="center">
+            <c:if test="${pi.currentPage ne 1}">
+                <button onclick="location.href = '${pageContext.request.contextPath}/review.re?rno=${rest.restNo}&pno=${i - 1}'">&lt;</button>
+            </c:if>
+            <c:forEach var="i" begin="${pi.startPage }" end="${pi.endPage }">
+                <button onclick="location.href = '${pageContext.request.contextPath}/review.re?rno=${rest.restNo}&pno=${i }'">${i}</button>
+            </c:forEach>
+            <c:if test="${pi.currentPage ne pi.maxPage}">
+                <button onclick="location.href = '${pageContext.request.contextPath}/review.re?rno=${rest.restNo}&pno=${i + 1}'">&gt;</button>
+            </c:if>
+            
+        </div> -->
+
 
     </main>
 
@@ -792,7 +832,21 @@
     <%@ include file="../commons/footer.jsp" %>
 
 </div>
+<!-- Slick carousel initialization -->
+<script>
+    $(document).ready(function(){
+        $('#popular-product .carousel').slick({
+            infinite: true,
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            autoplay: false,
+            arrows: true,
+            dots: true
+        });
 
+    });
+
+</script>
 
 </body>
 </html>
