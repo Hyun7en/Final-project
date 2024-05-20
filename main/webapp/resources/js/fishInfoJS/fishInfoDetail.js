@@ -9,7 +9,7 @@ var playlist = 'LtL4BLlLNko';
 					part: 'snippet',
 					maxResults: 50,
 					id: playlist,
-					key: 'AIzaSyClqfDmaU_wDRL_Jk0Yn8Kl10BKv5mdI0w'
+					key: ''
 				},
 				function (data) { 
                     console.log(data)
@@ -34,7 +34,7 @@ var playlist2 = 'OzGbT1jBQ84';
                 part: 'snippet',
                 maxResults: 50,
                 id: playlist2,
-                key: 'AIzaSyClqfDmaU_wDRL_Jk0Yn8Kl10BKv5mdI0w'
+                key: ''
             },
             function (data) { 
                 console.log(data)
