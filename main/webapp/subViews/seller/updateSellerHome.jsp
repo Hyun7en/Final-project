@@ -11,8 +11,25 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sellerCSS/insertSellerHome.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sellerCSS/sellerHomeManagement.css">
 
+<script>
+    $(document).ready(function() {
+        $('#addCategoryBtn').click(function() {
+            var category = $('#enroll-category').val().trim();
+            if (category) {
+                $('#categoryList').append('<div><li>' + category + '</li><button class="removeBtn">x</button></div>');
+                $('#enroll-category').val('');
+            } else {
+                alert('카테고리를 입력하세요.');
+            }
+        });
+
+        $(document).on('click', '.removeBtn', function() {
+            $(this).parent().parent().remove();
+        });
+    });
+</script>
 
 </head>
 <body>
@@ -31,15 +48,27 @@
             <form action="${pageContext.request.contextPath}/insertSeller" method="post" enctype="multipart/form-data">
                 <div>
                     <h4>스토어 소개</h4>
-                    <span><input type="text" name="storeDescription" placeholder="스토어 소개 입력" style="width: 300px; padding: 5px;"></span>
+                    <input id="store-introduce" type="text" name="storeDescription" placeholder="스토어 소개 입력" style="width: 300px; padding: 5px;">
                 </div>
                 <div>
                     <h4>대표 이미지</h4>
                     <input type="file" name="storeHomeImage" id="storeHomeImage">
                 </div>
                 <div class="image-container">
-                    <img src="${pageContext.request.contextPath}/getImage?id=1" >
+                    <img src="${pageContext.request.contextPath}/getImage?id=1" alt="대표 이미지">
                 </div>
+
+                <div id="div-enroll-category">
+                    <div>
+                        <h4>카테고리 등록</h4>
+                        <input id="enroll-category" type="text" id="categoryInput" placeholder="카테고리 입력">
+                        <button type="button" id="addCategoryBtn">추가</button>
+                    </div>
+                    <div>
+                        <ul id="categoryList"></ul>
+                    </div>
+                </div>                
+                
                 <div class="form-actions">
                     <button type="submit">등록하기</button>
                     <button type="reset">초기화</button>
@@ -52,6 +81,5 @@
     <%@ include file="../commons/footer.jsp" %>
 
 </div>
-
 </body>
 </html>

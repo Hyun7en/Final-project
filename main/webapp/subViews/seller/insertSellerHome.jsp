@@ -11,73 +11,25 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
-<!-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sellerCSS/insertSellerHome.css"> -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sellerCSS/sellerHomeManagement.css">
 
-<style>
-    
-    .content {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-        padding: 40px 200px 40px 200px;
-        height: calc(100vh - 40px);
-    }
+<script>
+    $(document).ready(function() {
+        $('#addCategoryBtn').click(function() {
+            var category = $('#enroll-category').val().trim();
+            if (category) {
+                $('#categoryList').append('<div><li>' + category + '</li><button class="removeBtn">x</button></div>');
+                $('#enroll-category').val('');
+            } else {
+                alert('카테고리를 입력하세요.');
+            }
+        });
 
-    .content h1 {
-        margin-bottom: 20px;
-    }
-
-    .content div {
-        margin-bottom: 30px;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-    }
-
-    .content div input{
-        margin-left: 20px;
-    }
-
-    .content div #store-introduce{
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-
-    .content div #enroll-category{
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-
-    .image-container img {
-        max-width: 100%;
-        height: auto;
-        border-radius: 5px;
-        box-shadow: 2px 4px 12px #00000014;
-    }
-
-    .form-actions button {
-        padding: 8px;
-        background-color: #0089FF;
-        cursor: pointer;
-        border-radius: 5px;
-        margin-right: 20px;
-        color: white;
-    }
-
-    .form-actions button:hover {
-        background-color: #005bb5;
-    }
-    .image-container{
-        width: 800px;
-        height: 400px;
-    }
-    .image-container img{
-        width: 800px;
-        height: 400px;
-    }
-
-
-</style>
+        $(document).on('click', '.removeBtn', function() {
+            $(this).parent().parent().remove();
+        });
+    });
+</script>
 
 </head>
 <body>
@@ -106,12 +58,16 @@
                     <img src="${pageContext.request.contextPath}/getImage?id=1" alt="대표 이미지">
                 </div>
 
-                <div>
-                    <h4>카테고리 등록</h4>
-                    <input id="enroll-category" type="text" id="categoryInput" placeholder="카테고리 입력">
-                    <button type="button" id="addCategoryBtn">추가</button>
-                    <ul id="categoryList"></ul>
-                </div>
+                <div id="div-enroll-category">
+                    <div>
+                        <h4>카테고리 등록</h4>
+                        <input id="enroll-category" type="text" id="categoryInput" placeholder="카테고리 입력">
+                        <button type="button" id="addCategoryBtn">추가</button>
+                    </div>
+                    <div>
+                        <ul id="categoryList"></ul>
+                    </div>
+                </div>                
                 
                 <div class="form-actions">
                     <button type="submit">등록하기</button>

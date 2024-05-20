@@ -42,8 +42,13 @@
 
             <div>
                 <h4>카테고리</h4>
-                <select name="" id="">
-                    
+                <select id="select-category" name="category" required>
+                    <option value="ddd">1111</option>
+                    <option value="ddd">1111</option>
+                    <option value="ddd">1111</option>
+                    <option value="ddd">1111</option>
+                    <option value="ddd">1111</option>
+
                 </select>
             </div>
             

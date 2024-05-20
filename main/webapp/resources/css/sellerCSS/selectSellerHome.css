@@ -31,8 +31,16 @@
         margin: 20px 0;
     }
 
+    .content div #select-category{
 
-
+    width: 200px; 
+    padding: 3px 10px; 
+    font-size: 15px;
+    font-family: inherit; 
+    border: 1px solid #ccc;
+    margin-left: 20px;
+  }
+    
     .content .form-actions a {
         padding: 6px;
         background-color: #0089FF;
@@ -44,11 +52,14 @@
     .form-actions a:hover {
         background-color: #005bb5;
     }
-    .image-container{
+
+    .image-container {
+        width: 800px;
         height: 400px;
-        width: 500px;
+        box-shadow: 2px 4px 12px #ccc;
     }
+
     .image-container img{
+        width: 800px;
         height: 400px;
-        width: 500px;
     }
