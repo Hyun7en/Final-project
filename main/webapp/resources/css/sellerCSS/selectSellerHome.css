@@ -34,10 +34,11 @@
 
 
     .content .form-actions a {
-        padding: 10px 20px;
+        padding: 6px;
         background-color: #0089FF;
         cursor: pointer;
         border-radius: 5px;
+        color: white;
     }
 
     .form-actions a:hover {
