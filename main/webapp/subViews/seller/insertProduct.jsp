@@ -105,9 +105,6 @@
                         <label for="category">카테고리</label>
                         <select id="category" name="category">
                             <option value="가전">가전</option>
-                            <option value="의류">의류</option>
-                            <option value="생활용품">생활용품</option>
-                            <!-- 추가 카테고리 옵션들 -->
                         </select>
                     </div>
                     <div class="form-group">
@@ -115,8 +112,12 @@
                         <input type="text" id="price" name="price" placeholder="판매가 입력">
                     </div>
                     <div class="form-group">
-                        <label for="stock">재고수량</label>
-                        <input type="text" id="stock" name="stock" placeholder="재고수량 입력">
+                        <label for="stock">배송방법</label>
+                        <input type="text" id="delivery-process" name="delivery-process" placeholder="배송방법 입력">
+                    </div>
+                    <div class="form-group">
+                        <label for="stock">배송비</label>
+                        <input type="text" id="delivery-charge" name="delivery-charge" placeholder="배송비 입력">
                     </div>
                 </div>
 
