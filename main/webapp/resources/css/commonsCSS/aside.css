@@ -1,0 +1,60 @@
+@charset "UTF-8";
+
+main {
+    display: flex;
+    flex: 1;
+    background-color: white;
+}
+
+aside {
+    width: 250px;
+    background-color: #1b1b1b;
+    color: white;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+aside ul li {
+    margin-bottom: 10px;
+}
+
+aside ul li div {
+    color: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+aside ul li div img {
+    height: 10px;
+    transition: transform 0.3s ease;
+}
+
+aside ul li div:hover, aside ul li div.selected {
+    color: #0089FF;
+}
+
+aside ul li div.selected img {
+    transform: rotate(180deg);
+}
+
+.sub-menu {
+    display: none;
+    list-style-type: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.sub-menu li {
+    margin-left: 20px;
+}
+
+.sub-menu li a {
+    color: white;
+    cursor: pointer;
+}
+
+.sub-menu li a:hover, .sub-menu li a.selected {
+    color: #0089FF;
+}

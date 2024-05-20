@@ -1,4 +1,5 @@
 @charset "UTF-8";
+
     main {
         background: #E0F1FF;
         padding-bottom: 200px;
@@ -116,7 +117,7 @@
         font-size: 13px;
     }
 
-    /* 추천 제품 slick */
+    /* 인기 상품 slick */
 
     .sm-procuct-section {
         padding: 100px 200px 0px 200px;
@@ -132,11 +133,14 @@
     /* Carousel Styles */
     .carousel {
         position: relative;
+    }
+
+    #popular-product .carousel{
         overflow: hidden;
     }
 
     .carousel-item {
-        width: 350px;
+        width: 340px;
         height: 450px;
         border-radius: 15px;
         box-shadow: 2px 4px 12px #00000014;
@@ -188,18 +192,6 @@
         border-radius: 15px;
     }
 
-    /* 특별 할인 */
-    #special-discount .sm-procuct-section-title{
-        color: #0089FF;
-    }
-
-    /* 인기 상품 */
-
-
-    /* 최신 상품 */
-    #brand-new .sm-procuct-section-title{
-        color: #0089FF;
-    }
     
     .slick-prev, .slick-next {
     z-index: 25; /* 버튼이 다른 요소 위에 표시되도록 설정 */
@@ -219,4 +211,16 @@
         right: 3px; /* 다음 버튼의 위치 설정 */
     }
 
+    #general-product .carousel {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    #general-product .carousel .carousel-item{
+        width: calc(25% - 40px); /* 전체 폭의 25%에서 간격을 뺀 값 */
+        margin-bottom: 40px;
+    }
 
+    #general-product .carousel-item {
+        width: calc(25% - 40px); /* 전체 폭의 25%에서 간격을 뺀 값 */
+        height: 450px;
+    }
