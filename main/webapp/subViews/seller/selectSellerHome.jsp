@@ -39,6 +39,13 @@
             <div class="image-container">
                 <img src="${pageContext.request.contextPath}/getImage?id=1" >
             </div>
+
+            <div>
+                <h4>카테고리</h4>
+                <select name="" id="">
+                    
+                </select>
+            </div>
             
             <div class="form-actions">
                 <a href="#">수정하기</a>
