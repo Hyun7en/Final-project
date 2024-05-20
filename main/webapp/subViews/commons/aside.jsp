@@ -53,7 +53,8 @@
                 <ul class="sub-menu">
                     <li><a href="#">상품 등록</a></li>
                     <li><a href="#">등록 상품 관리</a></li>
-                    <li><a href="#">스토어 홈 관리</a></li>
+                    <li><a href="#">판매자 홈 등록</a></li>
+                    <li><a href="#">판매자 홈 관리</a></li>
                 </ul>
             </li>
             <li>
