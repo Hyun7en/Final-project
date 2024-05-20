@@ -22,116 +22,7 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/footer.css">
 
-<style>
-    body{
-        background-color: #E0F1FF;
-        position: relative;
-    }
-    #seller-home{
-        min-height: 100%;
-        width: 100%;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    #seller-home-top{
-        width: 1200px;
-        height: 100px;
-        display: flex;
-        padding: 30px 0 30px 0;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    #seller-blue-button{
-        border: 0;
-        width: 150px;
-        height: 40px;
-        color: white;
-        background-color: #0089FF;
-        font-size: 18px;
-        margin-right: 0px;
-        border-radius: 10px;
-    }
-    #seller-blue-button img{
-        width: 25px;
-        height: 25px;
-    }
-    #seller-home-top p{
-        width: 900px;
-        height: 40px;
-        font-size: 30px;
-        font-weight: bold;
-        color: #0089FF;
-        text-align: center;
-        margin-bottom: 0;
-    }
-    #seller-home-nav{
-        width: 100%;
-        height: 80px;
-        display: flex;
-        font-size: 20px;
-        text-align: center;
-        border-top: 1px solid;
-        border-bottom: 1px solid;
-    }
-    #seller-home-nav a{
-        width: 150px;
-        height: 30px;
-        text-align: center;
-        color: black;
-        margin: 25px 0 25px 0;
-    }
-    #seller-home-banner{
-        width: 100%;
-        height: 400px;
-        background-color: black;
-        text-align: center;
-        margin-bottom: 50px;
-    }
-    #seller-home-banner img{
-        width: 1000px;
-        height: 400px;
-    }
-    #seller-home-list{
-        width: 1120px;
-        height: 2000px;
-        margin: 0 auto 0;
-    }
-    #seller-home-list p{
-        width: 100%;
-        height: 40px;
-        font-size: 30px;
-        font-weight: bold;
-        text-align: center;
-        margin-bottom: 20px
-    }
-    #seller-home-listnav{
-        width: 800px;
-        height: 40px;
-        font-size: 18px;
-        display: flex;
-        text-align: center;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    #seller-home-listnav a{
-        width: 100px;
-        height: 30px;
-        color: black;
-        
-    }
-    #seller-home-products{
-        width: 1120px;
-        height: 1105px;
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        grid-auto-rows: 305px;
-        column-gap: 40px;
-        row-gap: 95px;
-    }
-    #seller-home-products a{
-        border: 1px solid;
-        }
-</style>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sellerCSS/sellerHome.css">
 
 </head>
 <body>
@@ -159,7 +50,7 @@
                 <p>전체상품</p>
                 <div id="seller-home-listnav">
                     <a href="">인기도순</a>|
-                    <a href="">최신등록순</a>|
+                    <a href="" style="color: #0089FF; font-weight: bold;">최신등록순</a>|
                     <a href="">낮은 가격순</a>|
                     <a href="">높은 가격순</a>|
                     <a href="">할인율순</a>|
@@ -168,18 +59,219 @@
                     <a href="">평점 높은순</a>
                 </div>
                 <div id="seller-home-products">
-                    <a href=""></a>
-                    <a href=""></a>
-                    <a href=""></a>
-                    <a href=""></a>
-                    <a href=""></a>
-                    <a href=""></a>
-                    <a href=""></a>
-                    <a href=""></a>
-                    <a href=""></a>
-                    <a href=""></a>
-                    <a href=""></a>
-                    <a href=""></a>
+                    <div id="seller-home-goods">
+                        <a href="">
+                            <img src="${pageContext.request.contextPath}\resources\image\seller_sample1.png" id="seller_sample1" alt="상품사진 샘플1">
+                        </a>
+                            <div>
+                                <a href="">
+                                    <b>슬라이딩 어항뚜껑 35 × 45 어항 수조 뚜껑</b>
+                                    <strong>7,800원</strong>
+                                    <br>
+                                    <p>&#9733; 4.7 리뷰 15,191</p>
+                                </a>
+                                <button id="bookmarkgrey">
+                                    <img src="${pageContext.request.contextPath}\resources\image\bookmarkfishgrey.png" alt="북마크 회색" >
+                                </button>
+                            </div>
+                        </a>
+                    </div>
+                    <div id="seller-home-goods">
+                        <a href="">
+                            <img src="${pageContext.request.contextPath}\resources\image\seller_sample1.png" id="seller_sample1" alt="상품사진 샘플1">
+                        </a>
+                            <div>
+                                <a href="">
+                                    <b>슬라이딩 어항뚜껑 60 × 45 어항 수조 뚜껑</b>
+                                    <strong>7,800원</strong>
+                                    <br>
+                                    <p>&#9733; 4.7 리뷰 15,191</p>
+                                </a>
+                                <button id="bookmarkblue">
+                                    <img src="${pageContext.request.contextPath}\resources\image\bookmarkfishblue.png" alt="북마크 파란색" >
+                                </button>
+                                
+                            </div>
+                        </a>
+                    </div>
+                    <div id="seller-home-goods">
+                        <a href="">
+                            <img src="${pageContext.request.contextPath}\resources\image\seller_sample1.png" id="seller_sample1" alt="상품사진 샘플1">
+                        </a>
+                            <div>
+                                <a href="">
+                                    <b>슬라이딩 어항뚜껑 35 × 45 어항 수조 뚜껑</b>
+                                    <strong>7,800원</strong>
+                                    <br>
+                                    <p>&#9733; 4.7 리뷰 15,191</p>
+                                </a>
+                                <button id="bookmarkgrey">
+                                    <img src="${pageContext.request.contextPath}\resources\image\bookmarkfishgrey.png" alt="북마크 회색" >
+                                </button>
+                            </div>
+                        </a>
+                    </div>
+                    <div id="seller-home-goods">
+                        <a href="">
+                            <img src="${pageContext.request.contextPath}\resources\image\seller_sample1.png" id="seller_sample1" alt="상품사진 샘플1">
+                        </a>
+                            <div>
+                                <a href="">
+                                    <b>슬라이딩 어항뚜껑 60 × 45 어항 수조 뚜껑</b>
+                                    <strong>7,800원</strong>
+                                    <br>
+                                    <p>&#9733; 4.7 리뷰 15,191</p>
+                                </a>
+                                <button id="bookmarkblue">
+                                    <img src="${pageContext.request.contextPath}\resources\image\bookmarkfishblue.png" alt="북마크 파란색" >
+                                </button>
+                                
+                            </div>
+                        </a>
+                    </div>
+                    <div id="seller-home-goods">
+                        <a href="">
+                            <img src="${pageContext.request.contextPath}\resources\image\seller_sample1.png" id="seller_sample1" alt="상품사진 샘플1">
+                        </a>
+                            <div>
+                                <a href="">
+                                    <b>슬라이딩 어항뚜껑 35 × 45 어항 수조 뚜껑</b>
+                                    <strong>7,800원</strong>
+                                    <br>
+                                    <p>&#9733; 4.7 리뷰 15,191</p>
+                                </a>
+                                <button id="bookmarkgrey">
+                                    <img src="${pageContext.request.contextPath}\resources\image\bookmarkfishgrey.png" alt="북마크 회색" >
+                                </button>
+                            </div>
+                        </a>
+                    </div>
+                    <div id="seller-home-goods">
+                        <a href="">
+                            <img src="${pageContext.request.contextPath}\resources\image\seller_sample1.png" id="seller_sample1" alt="상품사진 샘플1">
+                        </a>
+                            <div>
+                                <a href="">
+                                    <b>슬라이딩 어항뚜껑 60 × 45 어항 수조 뚜껑</b>
+                                    <strong>7,800원</strong>
+                                    <br>
+                                    <p>&#9733; 4.7 리뷰 15,191</p>
+                                </a>
+                                <button id="bookmarkblue">
+                                    <img src="${pageContext.request.contextPath}\resources\image\bookmarkfishblue.png" alt="북마크 파란색" >
+                                </button>
+                                
+                            </div>
+                        </a>
+                    </div>
+                    <div id="seller-home-goods">
+                        <a href="">
+                            <img src="${pageContext.request.contextPath}\resources\image\seller_sample1.png" id="seller_sample1" alt="상품사진 샘플1">
+                        </a>
+                            <div>
+                                <a href="">
+                                    <b>슬라이딩 어항뚜껑 35 × 45 어항 수조 뚜껑</b>
+                                    <strong>7,800원</strong>
+                                    <br>
+                                    <p>&#9733; 4.7 리뷰 15,191</p>
+                                </a>
+                                <button id="bookmarkgrey">
+                                    <img src="${pageContext.request.contextPath}\resources\image\bookmarkfishgrey.png" alt="북마크 회색" >
+                                </button>
+                            </div>
+                        </a>
+                    </div>
+                    <div id="seller-home-goods">
+                        <a href="">
+                            <img src="${pageContext.request.contextPath}\resources\image\seller_sample1.png" id="seller_sample1" alt="상품사진 샘플1">
+                        </a>
+                            <div>
+                                <a href="">
+                                    <b>슬라이딩 어항뚜껑 60 × 45 어항 수조 뚜껑</b>
+                                    <strong>7,800원</strong>
+                                    <br>
+                                    <p>&#9733; 4.7 리뷰 15,191</p>
+                                </a>
+                                <button id="bookmarkblue">
+                                    <img src="${pageContext.request.contextPath}\resources\image\bookmarkfishblue.png" alt="북마크 파란색" >
+                                </button>
+                                
+                            </div>
+                        </a>
+                    </div>
+                    <div id="seller-home-goods">
+                        <a href="">
+                            <img src="${pageContext.request.contextPath}\resources\image\seller_sample1.png" id="seller_sample1" alt="상품사진 샘플1">
+                        </a>
+                            <div>
+                                <a href="">
+                                    <b>슬라이딩 어항뚜껑 35 × 45 어항 수조 뚜껑</b>
+                                    <strong>7,800원</strong>
+                                    <br>
+                                    <p>&#9733; 4.7 리뷰 15,191</p>
+                                </a>
+                                <button id="bookmarkgrey">
+                                    <img src="${pageContext.request.contextPath}\resources\image\bookmarkfishgrey.png" alt="북마크 회색" >
+                                </button>
+                            </div>
+                        </a>
+                    </div>
+                    <div id="seller-home-goods">
+                        <a href="">
+                            <img src="${pageContext.request.contextPath}\resources\image\seller_sample1.png" id="seller_sample1" alt="상품사진 샘플1">
+                        </a>
+                            <div>
+                                <a href="">
+                                    <b>슬라이딩 어항뚜껑 60 × 45 어항 수조 뚜껑</b>
+                                    <strong>7,800원</strong>
+                                    <br>
+                                    <p>&#9733; 4.7 리뷰 15,191</p>
+                                </a>
+                                <button id="bookmarkblue">
+                                    <img src="${pageContext.request.contextPath}\resources\image\bookmarkfishblue.png" alt="북마크 파란색" >
+                                </button>
+                                
+                            </div>
+                        </a>
+                    </div>
+                    <div id="seller-home-goods">
+                        <a href="">
+                            <img src="${pageContext.request.contextPath}\resources\image\seller_sample1.png" id="seller_sample1" alt="상품사진 샘플1">
+                        </a>
+                            <div>
+                                <a href="">
+                                    <b>슬라이딩 어항뚜껑 35 × 45 어항 수조 뚜껑</b>
+                                    <strong>7,800원</strong>
+                                    <br>
+                                    <p>&#9733; 4.7 리뷰 15,191</p>
+                                </a>
+                                <button id="bookmarkgrey">
+                                    <img src="${pageContext.request.contextPath}\resources\image\bookmarkfishgrey.png" alt="북마크 회색" >
+                                </button>
+                            </div>
+                        </a>
+                    </div>
+                    <div id="seller-home-goods">
+                        <a href="">
+                            <img src="${pageContext.request.contextPath}\resources\image\seller_sample1.png" id="seller_sample1" alt="상품사진 샘플1">
+                        </a>
+                            <div>
+                                <a href="">
+                                    <b>슬라이딩 어항뚜껑 60 × 45 어항 수조 뚜껑</b>
+                                    <strong>7,800원</strong>
+                                    <br>
+                                    <p>&#9733; 4.7 리뷰 15,191</p>
+                                </a>
+                                <button id="bookmarkblue">
+                                    <img src="${pageContext.request.contextPath}\resources\image\bookmarkfishblue.png" alt="북마크 파란색" >
+                                </button>
+                                
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div id="seller-home-pagenum">
+                    <img src="${pageContext.request.contextPath}\resources\image\pagingbar.png" alt="페이징 임시">
                 </div>
             </div>
         </main>
