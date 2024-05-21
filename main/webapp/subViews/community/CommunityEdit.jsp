@@ -23,8 +23,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/footer.css">
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/communityCSS/communityEdit.css">
-<style>
-</style>
 </head>
 <body>
     <div id="wrap">
