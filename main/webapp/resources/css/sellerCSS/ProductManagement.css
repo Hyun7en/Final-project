@@ -1,0 +1,85 @@
+@charset "UTF-8";
+
+    section {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        padding: 40px 200px 40px 200px;
+        overflow-y: scroll;
+    }
+
+    /* 스크롤바 없애기 */
+    body {
+        -ms-overflow-style: none;
+    }
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* 스크롤바 없애기 */
+
+    section h1 {
+        margin-bottom: 20px;
+    }
+
+    section form div{
+        margin-bottom: 20px;
+    }
+    section .form-group {
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+    }
+
+    section .form-group label {
+        width: 150px;
+        font-weight: bold;
+    }
+
+    section .form-group input, 
+    section .form-group select {
+        flex: 1;
+        padding: 5px;
+        font-size: 14px;
+    }
+    section .form-control{
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    #product-management{
+        display: flex;
+    }
+
+    #product-management div{
+        margin-right: 30px;
+    }
+
+    
+    .image-container {
+        width: 800px;
+        height: 400px;
+        box-shadow: 2px 4px 12px #ccc;
+    }
+    
+    .image-container img {
+        width: 800px;
+        height: 400px;
+    }
+
+    .form-actions button {
+        padding: 10px 20px;
+        border: 1px solid #ccc;
+        background-color: white;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    .form-actions button:hover {
+        background-color: #f0f0f0;
+    }
+
+    #summernote {
+        height: 300px;
+    }

@@ -33,24 +33,24 @@
 
     .content div #select-category{
 
-    width: 200px; 
-    padding: 3px 10px; 
-    font-size: 15px;
-    font-family: inherit; 
-    border: 1px solid #ccc;
-    margin-left: 20px;
-  }
+        width: 200px; 
+        padding: 3px 10px; 
+        font-size: 15px;
+        font-family: inherit; 
+        border: 1px solid #ccc;
+        margin-left: 20px;
+    }
     
     .content .form-actions a {
-        padding: 6px;
-        background-color: #0089FF;
+        padding: 10px 20px;
+        border: 1px solid #ccc;
+        background-color: white;
         cursor: pointer;
         border-radius: 5px;
-        color: white;
     }
 
     .form-actions a:hover {
-        background-color: #005bb5;
+        background-color: #f0f0f0;
     }
 
     .image-container {

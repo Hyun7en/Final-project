@@ -1,0 +1,55 @@
+@charset "UTF-8";
+
+
+
+     .content {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        padding: 40px 200px 40px 200px;
+        height: calc(100vh - 40px);
+        overflow-y: scroll;
+    }
+
+    /* 스크롤바 없애기 */
+    body {
+        -ms-overflow-style: none;
+    }
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* 스크롤바 없애기 */
+
+    .content h1 {
+        margin-bottom: 20px;
+    }
+    table {
+        margin-top: 50px;
+        width: 100%;
+    }
+    th, td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: center;
+    }
+    th {
+        background-color: #f0f0f0;
+    }
+    .pagination {
+        text-align: center;
+        margin-top: 20px;
+    }
+    .pagination ul {
+        list-style: none;
+        padding: 0;
+    }
+    .pagination li {
+        display: inline;
+        margin: 0 5px;
+    }
+    .pagination a {
+        text-decoration: none;
+        color: #000;
+    }
