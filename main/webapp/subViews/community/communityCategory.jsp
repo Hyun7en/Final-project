@@ -8,24 +8,21 @@
     <title>Header</title>
 
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <!-- Popper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <!-- Latest compiled JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<!-- Popper JS -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
     
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/header.css">
-    
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/footer.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/header.css">
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/communityCSS/communityDetail.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/footer.css">
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/communityCSS/communityList.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/communityCSS/communityList.css">
 
 </head>
 <body>
@@ -35,13 +32,14 @@
             <div id="com-head">
                 커뮤니티
             </div>
+            <!-- windows.onload 스크립트로 session에 저장된 value값을 불러온 뒤, value 값이 일치하는 button에 id="com-nav-selected" 부여-->
             <div id="com-nav">
-                <ul>
-                    <li><button class="com-nav-0" onclick="boCategory(0)" id="com-nav-selected" style="border-radius: 10px 0 0 10px;">일반</button></li>
-                    <li><button class="com-nav-10" onclick="boCategory(10)" value="10">꿀팁</button></li>
-                    <li><button class="com-nav-20" onclick="boCategory(20)" value="20">질문</button></li>
-                    <li><button class="com-nav-30" onclick="boCategory(30)" value="30" style="border-radius: 0 10px 10px 0;">중고거래</button></li>
-                </ul>
+                    <ul>
+                        <li><button class="com-nav-0" onclick="boCategory(0)" style="border-radius: 10px 0 0 10px;">일반</button></li>
+                        <li><button class="com-nav-10" onclick="boCategory(10)" id="com-nav-selected" value="10">꿀팁</button></li>
+                        <li><button class="com-nav-20" onclick="boCategory(20)" value="20">질문</button></li>
+                        <li><button class="com-nav-30" onclick="boCategory(30)" value="30" style="border-radius: 0 10px 10px 0;">중고거래</button></li>
+                    </ul>
             </div>
             <script>
                 function boCategory(category){
@@ -53,73 +51,6 @@
                     }
                 }
             </script>
-            <div id="com-detail">
-                <div id="com-detail-head">
-                    <div id="com-detail-title">
-                    첫 관상어 소개
-                    </div>
-                    <div id="com-detail-good">
-                    추천 수 | 9
-                    </div>
-                </div>
-                <div id="com-detail-info">
-                    <ul class="com-writer">왓더</ul>
-                    <ul class="com-enrolldate">작성일 | 0000.00.00</ul>
-                </div>
-                <div id="com-detail-content">
-                    <p>
-                        미안하다 이거 보여주려고 어그로끌었다..(이하생략)
-                    </p>
-                </div>
-                <div id="com-detail-goodarea">
-                    <div id="com-detail-goodbutton">
-                        <img src="${pageContext.request.contextPath}/resources/image/good.png" alt="추천 버튼" style="width: 30px; height: 30px;">
-                    </div>
-                    <div id="com-detail-goodcount">
-                        9 
-                    </div>
-                </div>
-                <table id="com-reply">
-                    <thead>
-                        <th id="com-reply-blank"></th>
-                        <th colspan="3" style="width: 800px;">댓글</th>
-                        <th id="com-reply-blank"></th>
-                    </thead>
-                    <tbody id="com-reply-info">
-                        <td id="com-reply-blank"></td>
-                        <td id="com-reply-writer">지저스</td>
-                        <td id="com-reply-enrolldate">작성일 | 0000.00.00</td>
-                        <td id="com-reply-edit">
-                            <img src="${pageContext.request.contextPath}/resources/image/Edit.png" alt="댓글 수정 이미지">
-                            <img src="${pageContext.request.contextPath}/resources/image/Cancel.png" alt="댓글 삭제 이미지">
-                        </td>
-                        <td id="com-reply-blank"></td>
-                    </tbody>
-                    <tbody id="com-reply-content">
-                        <td id="com-reply-goodbutton"><img src="${pageContext.request.contextPath}/resources/image/good.png" alt="추천 버튼" style="width: 30px; height: 30px;"></td>
-                        <td colspan="3" id="com-reply-words">
-                            <p>
-                            젠장, 또 대상혁이야. 이 글만 보고 자려고 했는데, 대상혁을 보고 말았어. 이제 나는 숭배해야만 해...
-                            숭배를 시작하면 잠이 확 깨 버릴 걸 알면서도, 나는 숭배해야만 해. 그것이 대상혁을 목도한 자의 사명이다. 자, 숭배를 시작하겠어.
-                            </p>
-                        </td>
-                        
-                        <td id="com-reply-blank"></td>
-                    </tbody>
-                </table>
-                <div id="com-reply-insert">
-                    <div>
-                        <textarea style="resize: none;"></textarea>
-                    </div>
-                    <div>
-                        <button id="com-reply-button">등록하기</button>
-                    </div>
-                </div>
-                <div id="com-detail-bottom">
-                    <button id="com-blue-button">수정</button>
-                    <button id="com-grey-button">삭제</button>
-                </div>
-            </div>
             <table class="com-list">
                 <thead id="com-list-header">
                     <th style="width: 60px; border-radius: 10px 0 0 0;">No</th>
@@ -165,7 +96,7 @@
                 </tbody>
                 <tbody id="com-list-body">
                     <td>5</td>
-                    <td><a id="com-list-selected" disabled>첫 관상어 소개</a></td> <!-- windows.onload 스크립트로 링크 삭제 -->
+                    <td><a href="">첫 관상어 소개</a></td>
                     <td>왓더</td>
                     <td>0000.00.00</td>
                     <td>0</td>
@@ -209,7 +140,7 @@
                     <input type="text" name="keyword" value="" placeholder="검색어 입력">
                     <button id="com-search-button" type="submit">검색</button>
                 </div>
-                <div class="com-bottom-right">
+                <div id="com-bottom-right">
                     <button id="com-blue-button">글쓰기</button>
                 </div>
             </div>
@@ -219,6 +150,5 @@
         </main>
         <%@ include file="../commons/footer.jsp" %>
     </div>
-
 </body>
 </html>

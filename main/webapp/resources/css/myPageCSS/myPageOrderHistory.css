@@ -1,0 +1,191 @@
+@charset "UTF-8";
+
+main{
+    background-color: #e0f1ff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#myPageOrderHistory-wrapper{
+    width: 1342px;
+    display: flex; 
+    padding: 30px 0;
+}
+
+#myPage-sidebar{
+    width: 15%;
+    height: 800px;
+    background-color: white;
+    border-radius: 16px;
+    margin-right: 20px;
+}
+
+#myPage-sidebar-profile-area{
+    width: 100%;
+    height: 25%;
+    border-bottom: 1px solid #afa8a8;
+}
+
+#myPage-sidebar-profile-img{
+    height: 70%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+#myPage-sidebar-profile-img img{
+    width: 140px;
+    border-radius: 150px;
+    padding: 20px;
+}
+
+#myPage-sidebar-profile-nickName{
+    height: 20%;
+    text-align: center;
+}
+
+#myPage-sidebar-profile-nickName b{
+    font-weight: 600;
+}
+
+#myPage-category-area{
+    height: 70%;
+    padding-top: 38px;
+}
+
+.myPage-category{
+    text-align: center;
+    width: 100%;
+    height: 70px;
+    line-height: 70px;
+}
+
+.myPage-category a{
+    font-size: 20px;
+    font-weight: 600;
+    text-decoration: none;
+    color: black;
+}
+
+#myPageOrderHistory-info-view{
+    width: 85%;
+}
+
+#myPageOrderHistory-delivery-status{
+    width: 100%;
+    border-radius: 16px;
+    background-color: white;
+    display: flex;
+}
+
+.delivery-status{
+    width: 374px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+}
+
+.delivery-status b{
+    font-size: 22px;
+}
+
+#de1, #de2 {
+    border-right: 1px solid black;
+}
+
+#myPageOrderHistory-list{
+    width: 100%;
+    background-color: white;
+    border-radius: 16px;
+    margin-top: 25px;
+}
+
+#myPage-category-title{
+    font-size: 20px;
+    font-weight: 600;
+    padding: 15px;
+    text-align: left;
+}
+
+#myPageOrderHistory{
+    width: 95%;
+    height: 230px;
+    border: 1px solid #afa8a8;
+    border-radius: 16px;
+    margin-bottom: 30px;
+    
+}
+
+#myPageOrderHistory-date{
+    padding: 7px 15px;
+    border-bottom: 1px solid #afa8a8;
+    text-align: left;
+}
+
+#myPageOrderHistory-info-area{
+    display: flex;
+    margin: 20px 0;
+}
+
+#myPageOrderHistory-img{
+    border-right: 1px solid #afa8a8;
+    width: 200px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    /* padding: 15px 20px; */
+}
+
+#myPageOrderHistory-img img{
+    width: 130px;
+    height: 130px;
+    border-radius: 16px;
+}
+
+#myPageOrderHistory-info{
+    border-right: 1px solid #afa8a8;
+    width: 70%;
+    padding: 15px 20px;
+    font-size: 15px;
+    text-align: left;
+}
+
+#ul2{
+    margin-top: 50px;
+}
+
+#myPageOrderHistory-button-area{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 40px;
+    padding: 0px 20px;
+}
+
+#myPageOrderHistory-button-area button{
+    width: 170px;
+    height: 30px;
+    color: white;
+    background-color: black;
+    border-radius: 50px;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+#btnList-area{
+    margin-top: 20px;
+}
+
+#btnList-area button{
+    width: 35px;
+    height: 35px;
+    background-color: white;
+    font-size: 15px;
+    cursor: pointer;
+}

@@ -16,14 +16,18 @@ body{
     font-weight: bold;
     margin-bottom: 30px;
 }
+#com-nav{
+    height: 45px;
+    margin-bottom: 40px;
+}
 #com-nav>ul{
     display: flex;
     text-align: center;
     padding: 0;
 }
-#com-nav ul li{
-    list-style: none;
-    margin-bottom: 40px;
+#com-nav>ul>li{
+    width: 225px;   
+    height: 45px;
 }
 #com-nav button{
     width: 225px;   
@@ -32,6 +36,11 @@ body{
     font-weight: bold;
     background-color: white;
     border: 1px solid #AFA8A8;
+}
+#com-nav button:hover, #com-nav #com-nav-selected{
+    background-color: #0089FF;
+    color: white;
+    border: 0px;
 }
 .com-list{
     width: 900px;
@@ -53,6 +62,14 @@ body{
     height: 30px;
     background-color: white;
 }
+#com-list-body a, #com-list-bottom a{
+    color: black;
+}
+#com-list-body a:hover, #com-list-bottom a:hover, #com-list-selected{
+    font-size: 16px;
+    font-weight: bold;
+}
+
 .com-bottom1{
     width: 900px;
     height: 40px;
