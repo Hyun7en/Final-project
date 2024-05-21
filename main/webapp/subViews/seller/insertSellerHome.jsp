@@ -29,6 +29,7 @@
             $(this).parent().parent().remove();
         });
     });
+    // 등록 취소하면 다 지워지고 등록이 다시 안됨 -> 수정
 </script>
 
 </head>
@@ -43,7 +44,7 @@
         <!-- aside -->
         <%@ include file="../commons/aside.jsp" %>
 
-        <section class="content">
+        <section>
             <h1>스토어 관리</h1>
             <form action="${pageContext.request.contextPath}/insertSeller" method="post" enctype="multipart/form-data">
                 <div>

@@ -29,7 +29,7 @@
     <%@ include file="../commons/aside.jsp" %>
 
        
-        <section class="content">
+        <section>
             <h1>판매자 정보</h1>
 
             <div>

@@ -11,6 +11,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sellerCSS/productListView.css">
+
 
 </head>
 <body>
@@ -24,7 +26,7 @@
         <!-- aside -->
         <%@ include file="../commons/aside.jsp" %>
 
-        <section class="content">
+        <section>
             <h1>스토어 관리 &gt; 등록상품관리</h1>
 
             <div id="search-area">

@@ -1,10 +1,9 @@
 @charset "UTF-8";
-
-.content {
+section {
     display: flex;
     flex-direction: column;
     flex: 1;
-    padding: 40px 200px 40px 200px;
+    padding: 40px 200px;
     height: calc(100vh - 40px);
     overflow-y: scroll;
 }
@@ -20,18 +19,18 @@ body {
 
 /* 스크롤바 없애기 */
 
-.content h1 {
+section h1 {
     margin-bottom: 20px;
 }
 
-.content div {
+section div {
     margin-bottom: 30px;
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-.content div input {
+section div input {
     margin-left: 20px;
 }
 

@@ -2,11 +2,11 @@
 
 
 
-     .content {
+    section {
         display: flex;
         flex-direction: column;
         flex: 1;
-        padding: 40px 200px 40px 200px;
+        padding: 40px 200px;
         height: calc(100vh - 40px);
         overflow-y: scroll;
     }
@@ -22,7 +22,7 @@
 
     /* 스크롤바 없애기 */
 
-    .content h1 {
+    section h1 {
         margin-bottom: 20px;
     }
     table {

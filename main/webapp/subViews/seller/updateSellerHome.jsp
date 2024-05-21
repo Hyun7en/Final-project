@@ -43,7 +43,7 @@
         <!-- aside -->
         <%@ include file="../commons/aside.jsp" %>
 
-        <section class="content">
+        <section>
             <h1>스토어 관리</h1>
             <form action="${pageContext.request.contextPath}/insertSeller" method="post" enctype="multipart/form-data">
                 <div>

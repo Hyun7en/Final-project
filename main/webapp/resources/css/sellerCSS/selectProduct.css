@@ -1,10 +1,12 @@
 @charset "UTF-8";
 
+    
     section {
         display: flex;
         flex-direction: column;
         flex: 1;
-        padding: 40px 200px 40px 200px;
+        padding: 40px 200px;
+        height: calc(100vh - 40px);
         overflow-y: scroll;
     }
 
@@ -68,7 +70,7 @@
         border: 1px solid #ccc;
         background-color: white;
         cursor: pointer;
-        border-radius: 5px;
+        /* border-radius: 5px; */
         color: black;
     }
 
@@ -77,9 +79,8 @@
     }
 
     #summernote{
-        width: 1000px;
-        height: 1000px;
         border: 1px solid #ccc;
     }
 
+  
   

@@ -10,10 +10,6 @@
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-<!-- Summernote CSS & JS -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.js"></script>
-
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sellerCSS/selectProduct.css">
 
@@ -112,7 +108,7 @@
                 </div>
 
                 <div class="image-container">
-                    <img src="${pageContext.request.contextPath}/getImage?id=1" alt="대표 이미지">
+                    <img src="../../resources/image/clownfish-1453910_1920.jpg" alt="대표 이미지">
                 </div>
 
                 <div class="form-group">
@@ -123,6 +119,7 @@
 
                 <div id="summernote">
                     <!-- summernote 상세 -->
+
                 </div>
 
                 <div class="form-actions">

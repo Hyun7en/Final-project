@@ -1,37 +1,37 @@
 @charset "UTF-8";
 
-    .content {
+    section {
         display: flex;
         flex-direction: column;
         flex: 1;
-        padding: 40px 200px 40px 200px;
+        padding: 40px 200px 40px;
         height: calc(100vh - 40px);
     }
 
-    .content h1 {
+    section h1 {
         margin-bottom: 20px;
     }
 
-    .content div {
+    section div {
         margin-bottom: 15px;
         display: flex;
         flex-direction: row;
         align-items: center;
     }
 
-    .content div h4 {
+    section div h4 {
         font-weight: bold;
     }
 
-    .content div span{
+    section div span{
         margin-left: 10px;
     }
 
-    .content .image-container {
+    section .image-container {
         margin: 20px 0;
     }
 
-    .content div #select-category{
+    section div #select-category{
 
         width: 200px; 
         padding: 3px 10px; 
@@ -41,7 +41,7 @@
         margin-left: 20px;
     }
     
-    .content .form-actions a {
+    section .form-actions a {
         padding: 10px 20px;
         border: 1px solid #ccc;
         background-color: white;
