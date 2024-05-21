@@ -20,7 +20,7 @@
 		<!-- header -->
         <%@ include file="../commons/header.jsp" %>
         
-        <main style="height: 4370px">
+        <main style="height: 4270px">
             <div id="main-text">
                 <div id="text-div">      
                         <div style="font-size: 40px; height:65px; color: #0089FF;" class="title show">
@@ -63,12 +63,15 @@
                     <div id="second-img">
                         <div id="feed-img">
                             <img src="../../resources/image/feed.png" alt="">
+                            <p class="s-explain">사료</p>
                         </div>
                         <div id="light-img">
                             <img src="../../resources/image/light.png" alt="">
+                            <p class="s-explain">조명</p>
                         </div>
                         <div id="temp-img">
                             <img src="../../resources/image/temp.png" alt="">
+                            <p class="s-explain">온도</p>
                         </div>
                     </div>
                 </div>
@@ -104,20 +107,5 @@
         <%@ include file="../commons/footer.jsp" %>
         
      </div>
-
-     <script>
-        ScrollReveal().reveal('.number',{duration:1600});
-        ScrollReveal().reveal('#first-img',{duration:1600});
-        ScrollReveal().reveal('#first-explane',{duration:1600});
-        ScrollReveal().reveal('#second-explane',{duration:1600});
-        ScrollReveal().reveal('#second-img',{duration:1600});
-        ScrollReveal().reveal('#third-explane',{duration:1600});
-        ScrollReveal().reveal('#third-img',{duration:1600});
-        ScrollReveal().reveal('#fourth-explane',{duration:1600});
-        ScrollReveal().reveal('#fourth-chatbox',{duration:1600});
-        ScrollReveal().reveal('#fourth-img',{duration:1600});
-
-        
-     </script>
 </body>
 </html>
