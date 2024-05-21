@@ -24,7 +24,7 @@
         <form id="login-input" method="POST">
             <input type="text" id="login-id" name="id" placeholder="아이디">
             <input type="password" id="login-pwd" name="pwd" placeholder="비밀번호">
-            <div id="login-staying"><input type="checkbox"  name="staying" value="on"> 로그인 상태 유지</div>
+            <div id="login-staying"><input type="checkbox" name="staying" value="Y"> 로그인 상태 유지</div>
             <button type="submit">로그인</button>
         </form>
         <div id="login-help">
