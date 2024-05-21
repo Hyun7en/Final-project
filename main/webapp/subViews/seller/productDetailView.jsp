@@ -30,7 +30,7 @@
     }
 
     #seller-home-top {
-        width: 1200px;
+        width: 100%;
         height: 100px;
         display: flex;
         padding: 30px 0;
@@ -48,7 +48,7 @@
     }
 
     #seller-home-nav {
-        width: 1200px;
+        width: 100%;
         height: 80px;
         display: flex;
         font-size: 20px;
@@ -79,7 +79,7 @@
     
     <main>
         <!-- Product Header -->
-        <section>
+        <div>
             <div id="seller-home-top">
                 <p>워터 박스</p>
             </div>
@@ -93,38 +93,51 @@
                 <a href="">수족관용품</a>
                 <a href="" style="margin-right: auto;">기타</a>
             </div>
-        </section>
-        <section>
-    <!-- Button to Open the Modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-        Open modal
-    </button>
-  
-
-    <!-- The Modal -->
-    <div class="modal" id="myModal">
-        <section class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-    
-            <!-- Modal Header -->
-            
-            <h2 class="modal-title">Modal Heading</h2>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            
-    
-            <!-- Modal body -->
-            <div class="modal-body">
-                
-            </div>
-    
-            <!-- Modal footer -->
-            <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
-    
         </div>
+
+        <section>
+            
         </section>
-    </div>
+
+        <section>
+            <!-- Button to Open the Modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                Open modal
+            </button>
+        
+
+            <!-- The Modal -->
+            <div class="modal" id="myModal">
+                <section class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+            
+                    <!-- Modal Header -->
+                    
+                    <h2 class="modal-title">Modal Heading</h2>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    
+            
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        
+                    </div>
+            
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+            
+                </div>
+                </section>
+            </div>
+        </section>
+
+        <section>
+
+        </section>
+
+        <section>
+
         </section>
     </main>
 
