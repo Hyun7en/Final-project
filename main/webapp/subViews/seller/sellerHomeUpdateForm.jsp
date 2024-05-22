@@ -11,22 +11,33 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sellerCSS/sellerHomeManagement.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sellerCSS/sellerHomeForm.css">
 
 <script>
     $(document).ready(function() {
-        $('#addCategoryBtn').click(function() {
-            var category = $('#enroll-category').val().trim();
+        let categories = [];
+
+        $('#add-categoryBtn').click(function() {
+            let category = $('#enroll-category').val().trim();
             if (category) {
-                $('#categoryList').append('<div><li>' + category + '</li><button class="removeBtn">x</button></div>');
+                categories.push(category);
+                $('#categoryList').append('<div data-category="' + category + '"><li>' + category + '</li><button class="removeBtn">x</button></div>');
                 $('#enroll-category').val('');
+                console.log(categories);
             } else {
                 alert('카테고리를 입력하세요.');
             }
         });
 
         $(document).on('click', '.removeBtn', function() {
-            $(this).parent().parent().remove();
+            let categoryDiv = $(this).parent();
+            let category = categoryDiv.data('category');
+            let index = categories.indexOf(category);
+            if (index > -1) {
+                categories.splice(index, 1);
+                categoryDiv.remove();
+                console.log(categories);
+            }
         });
     });
 </script>
@@ -62,7 +73,7 @@
                     <div>
                         <h4>카테고리 등록</h4>
                         <input id="enroll-category" type="text" id="categoryInput" placeholder="카테고리 입력">
-                        <button type="button" id="addCategoryBtn">추가</button>
+                        <button type="button" id="add-categoryBtn">추가</button>
                     </div>
                     <div>
                         <ul id="categoryList"></ul>
