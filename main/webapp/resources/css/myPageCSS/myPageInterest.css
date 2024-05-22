@@ -75,7 +75,7 @@ main{
     border-radius: 16px;
 }
 
-#myPage-category-title{
+#myPage-category-select-title{
 font-size: 20px;
 font-weight: 600;
 padding: 15px;
@@ -134,6 +134,7 @@ padding: 15px;
     color: white;
     background-color: black;
     border-radius: 50px;
+    cursor: pointer;
 }
 
 #btnList-area{
