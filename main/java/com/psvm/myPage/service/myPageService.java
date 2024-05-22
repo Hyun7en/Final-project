@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.psvm.myPage.vo.MyInfo;
 
-public interface myPageService {
+public interface MyPageService {
 	
 	ArrayList<MyInfo> selectMyInfo(int userNo);
 	

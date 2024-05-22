@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.psvm.myPage.vo.MyInfo;
 
 @Repository
-public class myPageDao {
+public class MyPageDao {
 	
 	public ArrayList<MyInfo> selectMyInfo(SqlSessionTemplate sqlSession, int userNo){
 		return (ArrayList)sqlSession.selectList("myPageMapper.selectMyInfo", userNo);

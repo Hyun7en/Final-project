@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.psvm.myPage.service.myPageServiceImpl;
+import com.psvm.myPage.service.MyPageServiceImpl;
 import com.psvm.myPage.vo.MyInfo;
 
-public class myPageController {
+public class MyPageController {
 	
 	@Autowired
-	private myPageServiceImpl myPageService;
+	private MyPageServiceImpl myPageService;
 	
 	@RequestMapping("myInfo.my")
 	public String selectMyInfo(int userNo, Model model) {

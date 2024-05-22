@@ -5,16 +5,16 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.psvm.myPage.dao.myPageDao;
+import com.psvm.myPage.dao.MyPageDao;
 import com.psvm.myPage.vo.MyInfo;
 
-public class myPageServiceImpl implements myPageService {
+public class MyPageServiceImpl implements MyPageService {
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
 	@Autowired
-	private myPageDao myPageDao;
+	private MyPageDao myPageDao;
 	
 
 	public ArrayList<MyInfo> selectMyInfo(int userNo){
