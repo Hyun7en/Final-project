@@ -1,5 +1,5 @@
 package com.psvm.community.service;
 
-public class communityService {
+public class CommunityService {
 
 }

@@ -1,5 +1,27 @@
 package com.psvm.member.dao;
 
-public class memberDao {
+import org.mybatis.spring.SqlSessionTemplate;
 
+import com.psvm.member.vo.Member;
+
+public class MemberDao {
+	public Member loginMember(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectOne("memberMapper.loginMember", m);
+	}
+	
+	public int idCheck(SqlSessionTemplate sqlSession, String checkId) {
+		return sqlSession.selectOne("memberMapper.idCheck", checkId);
+	}
+	
+	public int signupMember(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.insert("memberMapper.signupMember", m);
+	}
+	
+	public int updateMember(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.updateMember", m);
+	}
+	
+	public int deleteMember(SqlSessionTemplate sqlSession, String userId) {
+		return sqlSession.update("memberMapper.deleteMember", userId);
+	}
 }
