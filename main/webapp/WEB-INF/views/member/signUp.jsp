@@ -22,7 +22,7 @@
 <body>
     <div id="wrap">
         <div id="signup-logo">Aquaqu</div>
-        <form action="signup.me" id="signup-input" method="POST">
+        <form action="signUp.me" id="signup-input" method="POST">
             * : 필수 입력
             <input type="text" id="signup-id" name="userId" placeholder="아이디"> *
             <input type="password" id="signup-pwd" name="userPwd" placeholder="비밀번호"> *
