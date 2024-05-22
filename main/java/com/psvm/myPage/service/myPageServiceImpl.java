@@ -4,10 +4,12 @@ import java.util.ArrayList;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.psvm.myPage.dao.MyPageDao;
 import com.psvm.myPage.vo.MyInfo;
 
+@Service
 public class MyPageServiceImpl implements MyPageService {
 	
 	@Autowired
@@ -18,7 +20,8 @@ public class MyPageServiceImpl implements MyPageService {
 	
 
 	public ArrayList<MyInfo> selectMyInfo(int userNo){
-		return myPageDao.selectMyInfo(sqlSession, userNo);
+//		return myPageDao.selectMyInfo(sqlSession, userNo);
+		return null;
 	}
 	
 //	public int deleteMember(int userNo) {

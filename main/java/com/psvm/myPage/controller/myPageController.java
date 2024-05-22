@@ -3,23 +3,25 @@ package com.psvm.myPage.controller;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.psvm.myPage.service.MyPageServiceImpl;
 import com.psvm.myPage.vo.MyInfo;
 
+@Controller
 public class MyPageController {
 	
 	@Autowired
 	private MyPageServiceImpl myPageService;
 	
-	@RequestMapping("myInfo.my")
-	public String selectMyInfo(int userNo, Model model) {
+	@RequestMapping("myPage.me")
+	public String selectMyInfo() {
 		
-		ArrayList<MyInfo> myInfo = myPageService.selectMyInfo(userNo);
-		
-		model.addAttribute("myInfo", myInfo);
+//		ArrayList<MyInfo> myInfo = myPageService.selectMyInfo(userNo);
+//		
+//		model.addAttribute("myInfo", myInfo);
 		
 		return "myPage/myPageInfo";
 		
