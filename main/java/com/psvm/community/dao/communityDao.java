@@ -1,5 +1,8 @@
 package com.psvm.community.dao;
 
-public class CommunityDao {
+import org.springframework.stereotype.Repository;
 
+@Repository
+public class CommunityDao {
+	
 }

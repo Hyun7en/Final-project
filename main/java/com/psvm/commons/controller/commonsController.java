@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-public class commonsController {
+public class CommonsController {
 	@GetMapping("home.ma")
 	public String home() {
 		return "main/main";
