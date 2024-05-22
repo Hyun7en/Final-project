@@ -18,7 +18,7 @@
 
 	</resultMap>
 	
-	<select id="selectTest" resultMap="testResult">
+	<select id="selectTest" resultMap="communityResult">
 		SELECT *
 		FROM public.asd
 	</select>
