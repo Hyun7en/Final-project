@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- namespace: 해당 mapper파일의 고유한 별칭 -->
+<mapper namespace="testMapper">
+	<resultMap type="MyInfo" id="myInfoResult">
+	
+		<result column="user_no" property="userNo"/>
+			<result column="user_no" property="userNo"/>
+			<result column="like_fish" property="likeFish"/>
+			<result column="tail_fish" property="tailFish"/>
+			<result column="member_file_no" property="member_file_no"/>
+			<result column="user_name" property="userName"/>
+			<result column="user_id" property="userId"/>
+			<result column="user_pwd" property="userPwd"/>
+			<result column="authority" property="authority"/>
+			<result column="phone" property="phone"/>
+			<result column="activated" property="activated"/>
+			<result column="user_lv" property="userLv"/>
+			<result column="join_date" property="join_date"/>
+			<result column="email" property="email"/>
+			<result column="nickname" property="nickname"/>
+			<result column="birthday" property="birthday"/>
+			<result column="address" property="address"/>
+			<result column="gender" property="gender"/>
+	</resultMap>
+	
+	<select id="selectMyInfo" resultMap="myInfoResult">
+		SELECT nickname,
+			   user_lv,
+			   
+			   user_id,
+			   user_pwd,
+			   gender,
+			   phone,
+			   email,
+			   address
+		FROM member
+		WHERE user_no = 1
+	</select>
+
+</mapper>
