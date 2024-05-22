@@ -28,7 +28,7 @@
             <input type="password" id="signup-pwd" name="userPwd" placeholder="비밀번호"> *
             <input type="text" id="signup-email" name="email" placeholder="이메일"> *
 
-            <input type="text" id="signup-name" name="name" placeholder="이름"> *
+            <input type="text" id="signup-name" name="userName" placeholder="이름"> *
             <input type="text" id="signup-nickname" name="nickname" placeholder="닉네임"> *
             <input type="text" id="signup-birthday" name="birthday" placeholder="생년월일 8자리"> *
             <select name="gender" id="signup-gender">
@@ -42,7 +42,6 @@
             <input type="text" id="signup-tailFish" name="tailFish" placeholder="키우는 물고기">
             <button type="submit">가입하기</button>
         </form>
-        
     </div>
 </body>
 </html>
