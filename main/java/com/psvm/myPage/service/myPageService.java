@@ -6,7 +6,7 @@ import com.psvm.myPage.vo.MyInfo;
 
 public interface MyPageService {
 	
-	ArrayList<MyInfo> selectMyInfo(int userNo);
+//	ArrayList<MyInfo> selectMyInfo(int userNo);
 	
 //	int deleteMember(int userNo);
 //	
