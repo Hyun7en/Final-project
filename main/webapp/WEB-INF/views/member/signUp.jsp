@@ -42,7 +42,6 @@
             <input type="text" id="signup-tailFish" name="tailFish" placeholder="키우는 물고기">
             <button type="submit">가입하기</button>
         </form>
-        
     </div>
 </body>
 </html>

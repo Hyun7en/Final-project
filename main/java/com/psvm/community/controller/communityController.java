@@ -1,5 +1,5 @@
 package com.psvm.community.controller;
 
-public class communityController {
+public class CommunityController {
 
 }
