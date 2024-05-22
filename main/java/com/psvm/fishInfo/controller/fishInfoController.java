@@ -1,5 +1,8 @@
 package com.psvm.fishInfo.controller;
 
-public class fishInfoController {
+import org.springframework.stereotype.Controller;
 
+@Controller
+public class FishInfoController {
+	
 }
