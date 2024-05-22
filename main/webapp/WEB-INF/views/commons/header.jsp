@@ -24,17 +24,17 @@
                     
                 </div>
                 <div id="loginArea">
-                    <a href="#">로그인</a>
-                    <a href="#">회원가입</a>
+                    <a href="loginForm.me">로그인</a>
+                    <a href="signUpForm.me">회원가입</a>
                 </div>
             </div>
 
             <nav>
-                <a href="#">홈</a>
-                <a href="#">물고기 정보</a>
-                <a href="#">물고기 큐레이터</a>
-                <a href="#">커뮤니티</a>
-                <a href="#">스토어</a>
+                <a href="home.ma">홈</a>
+                <a href="fishInfo.ma">물고기 정보</a>
+                <a href="quration.ma">물고기 큐레이터</a>
+                <a href="community.ma">커뮤니티</a>
+                <a href="store.ma">스토어</a>
             </nav>
         </header>
 </body>
