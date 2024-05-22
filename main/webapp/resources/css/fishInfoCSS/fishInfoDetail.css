@@ -1,0 +1,359 @@
+main{
+    background-color: #E0F1FF;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    
+}
+
+#main-div{
+    width: 1050px;
+    height: 3300px;
+    margin-top: 80px;
+
+}
+
+#scientific-name p {
+    font-size: 16px;
+    color: #0089FF;
+    margin-bottom: 20px;
+}
+
+#fish-name{
+    font-size: 28px;
+    color: black;
+    font-weight: bold;
+    margin-bottom: 60px;
+}
+
+/* 첫 번째 컨텐츠 */
+#fish-img img{
+    width: 400px;
+    height: 400px;
+    margin-right: 20px;
+}
+
+#fish-img-info{
+    width: 1050px;
+    height: 400px;
+    display: flex;
+}
+
+#short-info{
+    height: 280px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 20px;
+    row-gap: 20px;
+}
+
+.short-info-inside > p{
+    padding-left: 10px;
+    color: white;
+}
+.short-title{
+    font-size: 16px;
+    font-weight: 600;
+    padding-top: 5px;
+}
+
+.short-info-1234{
+    width: 300px;
+    height: 120px;
+    background-color: #0089FF;
+    border-radius: 10px;
+    box-shadow: 0px 8px 6px -6px #666;
+}
+
+#short-div{
+    display: flex;
+    flex-direction: column;
+}
+
+
+#long-info{
+    width: 620px;
+    height: 138px;
+    padding-top: 10px;
+}
+
+.info-char{
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+/* 두 번째 컨텐츠 */
+#fish-div-two{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#two-p{
+    width: 100%;
+    height: 20px;
+    margin-top: 100px;
+    margin-bottom: 15px;
+}
+
+#two-p p {
+    font-size: 25px;
+    font-weight: 600;
+    color: black;
+    text-align: center;
+
+}
+
+#two-btn{
+    width: 400px;
+    display: flex;
+    justify-content: space-around;
+}
+
+#two-btn a{
+    text-decoration: none;
+    color: black;
+    text-align: center;
+    
+}
+
+.two-btn-div-1{
+    width: 93px;
+}
+
+.two-btn-div{
+    width: 50px;
+}
+
+.two-btn-div-4{
+    width: 108px;
+}
+
+.two-btn-div-5{
+    width: 150px;
+}
+
+.two-btn-div, .two-btn-div-1, .two-btn-div-4, .two-btn-div-5{
+    margin-right: 25px;
+    background-color: #E7E7E7;
+    border-radius: 16px;
+    height: 33px;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 8px 6px -6px #666;
+}
+
+.two-btn-div:hover, .two-btn-div-1:hover, .two-btn-div-4:hover, .two-btn-div-5:hover{
+    background-color: #0089FF;
+    color: white;
+}
+
+#two-img-explain{
+    display: flex;
+    margin-top: 50px;
+}
+
+.two-explain{
+    width: 600px;
+    height: 195px;
+    background-color: #0089FF;
+    border-radius: 16px;
+    box-shadow: 0px 8px 6px -6px #666;
+    padding-top: 20px;
+    margin-left: 70px;
+    margin-bottom: 20px;
+}
+
+.two-explain-title{
+    color: white;
+    font-size: 18;
+    font-weight: 600;
+    text-align: center;
+}
+
+.two-explain-contents{
+    color: white;
+    font-size: 14px;
+    width: 90%;
+    padding-left: 50px;
+    height: 140px;
+}
+
+/* 3번째 컨텐츠 */
+
+#go-store{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+}
+
+#go-store-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+#go-store-info p{
+    font-size: 25px;
+    font-weight: 600;
+}
+
+#go-store-info a{
+    font-size: 18px;
+    color: #0089FF;
+    text-decoration: none;
+}
+
+.store-product{
+    width: 1050px;
+    height: 210px;
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    column-gap: 50px;
+    row-gap: 20px;
+    border-radius: 16px;
+}
+
+.store-product a{
+    text-decoration: none;
+    color: black;
+}
+
+.store-product :nth-child(1){
+    border-radius: 16px;
+}
+
+.product-info :nth-child(2){
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.store-product img{
+    width: 165px;
+    height: 165px;
+}
+
+/* 네번 째 섹션 */
+#another-fish{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 120px;
+
+}
+
+
+/* 다섯번 째 섹션 */
+
+#go-youtube{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+}
+
+#go-youtube p{
+    font-size: 25px;
+    font-weight: 600;
+}
+
+#youtube-btn{
+    width: 70%;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
+}
+
+#youtube-btn a{
+    text-decoration: none;
+    color: black;
+    text-align: center;   
+}
+
+.youtube-contents{
+    width: 100%;
+    height: 250px;
+    display: flex;
+    margin-top: 40px;
+}
+
+.vedio{
+    width: 500px;
+    height: 260px;
+}
+
+.container{
+    width: 45%;
+}
+
+#quration-community{
+    width: 100%;
+    padding-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#q-c-title{
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.q-c-info{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 50px;
+}
+
+.q-c-info :nth-child(1){
+    padding-left: 20px;
+}
+
+.q-c-info :nth-child(2){
+    padding-right: 45px;
+}
+
+.q-c-info p{
+    font-size: 25;
+    font-weight: 600;
+}
+
+#goto-q-c a{
+    text-decoration: none;
+}
+
+.go-quration-community{
+    width: 260px;
+    height: 50px;
+    background-color: #0089FF;
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.go-quration-community p{
+    font-size: 20px;
+    color: white;
+
+}
+
+#goto-q-c{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 50px;
+    padding-left: 50px;
+}
+
+
+
+

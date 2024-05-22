@@ -21,23 +21,20 @@
 <body>
     <div id="wrap">
         <div id="login-logo">Aquaqu</div>
-        <form id="login-input" method="POST">
-            <input type="text" id="login-id" name="id" placeholder="아이디">
-            <input type="password" id="login-pwd" name="pwd" placeholder="비밀번호">
-            <div id="login-staying"><input type="checkbox"  name="staying" value="on"> 로그인 상태 유지</div>
+        <form action="login.me" id="login-input" method="POST">
+            <input type="text" id="login-id" name="userId" placeholder="아이디">
+            <input type="password" id="login-pwd" name="userPwd" placeholder="비밀번호">
+            <div id="login-staying"><input type="checkbox" name="staying" value="Y"> 로그인 상태 유지</div>
             <button type="submit">로그인</button>
         </form>
         <div id="login-help">
-            <a href="#" id="login-help-find">아이디 · 비밀번호 찾기</a>
-            <a href="#" id="login-help-signup">회원가입</a>
+            <a href="" id="login-help-find">아이디 · 비밀번호 찾기</a>
+            <a href="signUpForm.me" id="login-help-signup">회원가입</a>
         </div>
         <div id="login-easy">
             <p>간편 로그인/회원가입</p>
             <button><img src="${pageContext.request.contextPath}/resources/image/kakao_login_large.png" alt="카카오 로그인" ></button>
             <button><img src="${pageContext.request.contextPath}/resources/image/btnG_roundicon.png" alt="네이버 로그인"></button>
-        </div>
-        <div id="login-notmember">
-            <button type="button">비회원 주문배송 조회</button>
         </div>
     </div>
 </body>

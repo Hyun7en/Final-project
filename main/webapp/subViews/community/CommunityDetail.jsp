@@ -18,20 +18,10 @@
 
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
 
-    
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/header.css">
-    
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/footer.css">
-
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/communityCSS/communityDetail.css">
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/communityCSS/communityList.css">
 
-
-<style>
-    
-
-</style>
 </head>
 <body>
     <div id="wrap">
@@ -41,13 +31,23 @@
                 커뮤니티
             </div>
             <div id="com-nav">
-                    <ul>
-                        <li><button style="background-color: #0089FF; color: white; border: 0px; border-radius: 10px 0 0 10px;">일반</button></li>
-                        <li><button>꿀팁</button></li>
-                        <li><button>질문</button></li>
-                        <li><button style="border-radius: 0 10px 10px 0;">중고거래</button></li>
-                    </ul>
+                <ul>
+                    <li><button class="com-nav-0" onclick="boCategory(0)" style="border-radius: 10px 0 0 10px;">일반</button></li>
+                    <li><button class="com-nav-1" onclick="boCategory(1)" value="1">꿀팁</button></li>
+                    <li><button class="com-nav-2" onclick="boCategory(2)" value="2">질문</button></li>
+                    <li><button class="com-nav-3" onclick="boCategory(3)" value="3" style="border-radius: 0 10px 10px 0;">중고거래</button></li>
+                </ul>
             </div>
+            <script>
+                function boCategory(category){
+                    if(category === 0){ // 카테고리 번호 0 = 일반 버튼 누름
+                        location.href = "communityNorm.jsp"; // 일반 게시판 페이지로 이동
+                    }else{ // 카테고리 번호 10~30 = 일반 이외의 3가지 게시판 버튼 중 하나를 누름
+                        //session에 value 값 저장
+                        location.href = "communityCategory.jsp?category=" + category; // 해당 게시판 페이지로 이동
+                    }
+                }
+            </script>
             <div id="com-detail">
                 <div id="com-detail-head">
                     <div id="com-detail-title">
@@ -125,70 +125,70 @@
                 </thead>
                 <tbody id="com-list-body">
                     <td>10</td>
-                    <td>아쿠아프라자 다녀온 후기</td>
+                    <td><a href="">아쿠아프라자 다녀온 후기</a></td>
                     <td>이야후</td>
                     <td>0000.00.00</td>
                     <td>0</td>
                 </tbody>
                 <tbody id="com-list-body">
                     <td>9</td>
-                    <td>드립 칠 제목도 생각이 안 난다</td>
+                    <td><a href="">드립 칠 제목도 생각이 안 난다</a></td>
                     <td>할렐루야</td>
                     <td>0000.00.00</td>
                     <td>0</td>
                 </tbody>
                 <tbody id="com-list-body">
                     <td>8</td>
-                    <td>액퍼 커뮤니티 사이트인 줄 알았는데</td>
+                    <td><a href="">액퍼 커뮤니티 사이트인 줄 알았는데</a></td>
                     <td>비바</td>
                     <td>0000.00.00</td>
                     <td>0</td>
                 </tbody>
                 <tbody id="com-list-body">
                     <td>7</td>
-                    <td>낚시 관련 커뮤니티 사이트가 아니라고?</td>
+                    <td><a href="">낚시 관련 커뮤니티 사이트가 아니라고?</a></td>
                     <td>오예</td>
                     <td>0000.00.00</td>
                     <td>0</td>
                 </tbody>
                 <tbody id="com-list-body">
                     <td>6</td>
-                    <td>제목 뭐 하지</td>
+                    <td><a href="">제목 뭐 하지</a></td>
                     <td>지저스</td>
                     <td>0000.00.00</td>
                     <td>0</td>
                 </tbody>
                 <tbody id="com-list-body">
                     <td>5</td>
-                    <td style="font-weight: bold;">첫 관상어 소개</td>
+                    <td><a id="com-list-selected" disabled>첫 관상어 소개</a></td> <!-- windows.onload 스크립트로 링크 삭제 -->
                     <td>왓더</td>
                     <td>0000.00.00</td>
                     <td>0</td>
                 </tbody>
                 <tbody id="com-list-body">
                     <td>4</td>
-                    <td>가즈아</td>
+                    <td><a href="">가즈아</a></td>
                     <td>호눌룰루</td>
                     <td>0000.00.00</td>
                     <td>0</td>
                 </tbody>
                 <tbody id="com-list-body">
                     <td>3</td>
-                    <td>몰?루</td>
+                    <td><a href="">몰?루</a></td>
                     <td>요시</td>
                     <td>0000.00.00</td>
                     <td>0</td>
                 </tbody>
                 <tbody id="com-list-body">
                     <td>2</td>
-                    <td>첫 뻘글</td>
+                    <td><a href="">첫 뻘글</a></td>
                     <td>아자</td>
                     <td>0000.00.00</td>
                     <td>0</td>
                 </tbody>
                 <tbody id="com-list-bottom">
                     <td style="border-radius: 0 0 0 10px;">1</td>
-                    <td>첫 게시글</td>
+                    <td><a href="">첫 게시글</a></td>
                     <td>관리자</td>
                     <td>0000.00.00</td>
                     <td style="border-radius: 0 0 10px 0;">0</td>
