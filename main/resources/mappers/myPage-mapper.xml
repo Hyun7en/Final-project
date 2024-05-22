@@ -4,8 +4,8 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <!-- namespace: 해당 mapper파일의 고유한 별칭 -->
-<mapper namespace="testMapper">
-	<resultMap type="MyInfo" id="myInfoResult">
+<mapper namespace="MyPageMapper">
+	<resultMap type="Member" id="myInfoResult">
 	
 		<result column="user_no" property="userNo"/>
 			<result column="user_no" property="userNo"/>
