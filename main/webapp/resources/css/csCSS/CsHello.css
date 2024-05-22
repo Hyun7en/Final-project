@@ -1,0 +1,26 @@
+
+body{
+    background-color: #E0F1FF;
+    position: relative;
+}
+#community-normal{
+    min-height: 100%;
+    width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 60px;
+}
+.head-input {
+    border: 5px solid #0089FF;
+    color: #0089FF;
+    border-radius: 16px 16px 16px 16px;
+    text-align: center;    
+}
+#center01{
+    height: 30px;
+    background-color: white;
+    border-bottom: 1px solid #AFA8A8;
+    border: 10px solid #0089FF;
+    text-align: left;
+    border-radius: 10px;
+}

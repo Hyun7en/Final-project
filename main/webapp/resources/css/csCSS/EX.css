@@ -1,0 +1,108 @@
+@charset "UTF-8";
+
+body{
+    background-color: #E0F1FF;
+    position: relative;
+}
+#head {
+    margin: 0 0 20px 0;
+    border: 10px solid #0089FF;
+    background-color: #ffffff;
+    color: #0089FF;
+    border-radius: 16px 16px 16px 16px;
+    text-align: center;     
+    /* padding: 5px #0089FF;    */
+}
+/* input {
+    margin: 0 0 10px 0;
+    border: 10px solid #0089FF;
+    background-color: #ffffff;
+    color: #0089FF;
+    border-radius: 16px 16px 16px 16px;
+    text-align: center;     
+    padding: 5px #0089FF;   
+} */
+
+#community-normal{
+    min-height: 100%;
+    width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 60px;
+}
+#community-normal #com-head{
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+.com-list{
+    width: 900px;
+    font-size: 15px;
+    text-align: center;
+}
+#com-list-header th{
+    height: 40px;
+    background-color: #0089FF;
+    color: white;
+    font-weight: bold;
+}
+#com-list-body td{
+    height: 30px;
+    background-color: white;
+    border-bottom: 1px solid #AFA8A8;
+}
+#com-list-bottom td{
+    height: 30px;
+    background-color: white;
+}
+.com-bottom1{
+    width: 900px;
+    height: 40px;
+    margin-bottom: 100px;
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+}
+.com-bottom1>.com-bottom-left{
+    width: 750px;
+    margin-top: 5px;
+}
+.com-bottom1 select, .com-bottom1 input, .com-bottom1 button{
+    border-radius: 5px;
+    height: 30px;
+    margin-right: 10px;
+}
+.com-bottom1 input{
+    border: 0px;
+    width: 200px;
+    padding: 0;
+}
+.com-bottom1 #com-search-button{
+    border: 0;
+    width: 80px;
+    background: #0089FF;
+    color: white;
+}
+#com-blue-button, #com-grey-button {
+    border: 0;
+    width: 150px;
+    height: 40px;
+    color: white;
+    margin-right: 0px;
+    border-radius: 10px;
+}
+#com-blue-button{
+    background: #0089FF;
+}
+#com-grey-button{
+    background: #AFA8A8;
+}
+/* .com-bottom2{
+    width: 900px;
+    height: 30px;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 100px;
+} */
+
