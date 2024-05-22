@@ -1,5 +1,5 @@
 package com.psvm.commons.dao;
 
-public class commonsDao {
+public class CommonsDao {
 
 }

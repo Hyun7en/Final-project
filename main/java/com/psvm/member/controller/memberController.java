@@ -42,6 +42,7 @@ public class MemberController {
 			}
 			response.addCookie(ck);
 			session.setAttribute("loginUser", loginUser);
+			System.out.println(session.getAttribute("loginUser"));
 			mv.setViewName("redirect:/");
 		
 		
