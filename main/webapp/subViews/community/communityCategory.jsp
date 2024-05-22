@@ -17,10 +17,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
-    
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/header.css">
-
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/footer.css">
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/communityCSS/communityList.css">
 

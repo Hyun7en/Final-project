@@ -15,6 +15,7 @@
  		<!-- <typeAlias type="com.kh.spring.board.model.vo.Reply" alias="Reply" /> -->
  		<typeAlias type="com.psvm.example.vo.test" alias="test" />
  		<typeAlias type="com.psvm.member.vo.Member" alias="Member"/>
+ 		<typeAlias type="com.psvm.community.vo.Community" alias="Community"/>
  	</typeAliases>
  	
  	<!-- 
@@ -26,6 +27,7 @@
  	<mappers>
  		<mapper resource="/mappers/member-mapper.xml"/>
  		<mapper resource="/mappers/board-mapper.xml"/>
+ 		<mapper resource="/mappers/community-mapper.xml"/>
  		
  	</mappers>
 

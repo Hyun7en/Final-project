@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- namespace: 해당 mapper파일의 고유한 별칭 -->
+<mapper namespace="communityMapper">
+	<resultMap type="Community" id="communityResult">
+		<result column="BOARD_NO" property="boardNo"/>
+		<result column="USER_NO" property="userNo"/>
+		<result column="FILE_NO" property="fileNo"/>
+		<result column="BOARD_LEVEL" property="boardLevel"/>
+		<result column="WRITE_DATE" property="writeDate"/>
+		<result column="BOARD_TITLE" property="boardTitle"/>
+		<result column="BOARD_CONTENTS" property="boardContents"/>
+		<result column="BOARD_COUNT" property="boardCount"/>
+		<result column="BOARD_DIBS" property="boardDibs"/>
+
+	</resultMap>
+	
+	<select id="selectTest" resultMap="testResult">
+		SELECT *
+		FROM public.asd
+	</select>
+
+</mapper>
