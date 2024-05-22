@@ -75,6 +75,7 @@
         background-color: white;
         cursor: pointer;
         border-radius: 5px;
+        font-weight: bolder;
     }
 
     .form-actions button:hover {

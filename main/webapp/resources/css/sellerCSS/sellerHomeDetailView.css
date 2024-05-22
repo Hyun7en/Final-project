@@ -42,11 +42,13 @@
     }
     
     section .form-actions a {
-        padding: 10px 20px;
+        padding: 10px;
         border: 1px solid #ccc;
         background-color: white;
         cursor: pointer;
         border-radius: 5px;
+        color: black;
+        font-weight: bolder;
     }
 
     .form-actions a:hover {

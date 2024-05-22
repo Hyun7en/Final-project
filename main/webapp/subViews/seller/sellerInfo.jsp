@@ -81,8 +81,11 @@
                 <h4>*정산대금 입금계좌번호</h4>
                 <span id="account-number">ddd</span>
             </div>
+            
+            <div>
+                <button>수정 신청</button>
+            </div>
 
-            <a href="#">수정 신청</a>
         </section>
     </main>
 

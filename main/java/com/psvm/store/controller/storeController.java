@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class storeController {
 
 	
-	@RequestMapping("main.store")
+	@RequestMapping("storeMain.ma")
 	public String selectList() {
 		
 		return "store/storeMain";
