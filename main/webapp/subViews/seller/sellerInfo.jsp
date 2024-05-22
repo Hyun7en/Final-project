@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Seller Information</title>
+<title>판매자 정보</title>
 
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -81,7 +81,7 @@
                 <h4>*정산대금 입금계좌번호</h4>
                 <span id="account-number">ddd</span>
             </div>
-            
+
             <div>
                 <button>수정 신청</button>
             </div>
