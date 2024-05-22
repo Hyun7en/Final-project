@@ -18,11 +18,6 @@
 
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
 
-    
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/header.css">
-    
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/footer.css">
-
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/communityCSS/communityDetail.css">
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/communityCSS/communityList.css">
@@ -37,10 +32,10 @@
             </div>
             <div id="com-nav">
                 <ul>
-                    <li><button class="com-nav-0" onclick="boCategory(0)" id="com-nav-selected" style="border-radius: 10px 0 0 10px;">일반</button></li>
-                    <li><button class="com-nav-10" onclick="boCategory(10)" value="10">꿀팁</button></li>
-                    <li><button class="com-nav-20" onclick="boCategory(20)" value="20">질문</button></li>
-                    <li><button class="com-nav-30" onclick="boCategory(30)" value="30" style="border-radius: 0 10px 10px 0;">중고거래</button></li>
+                    <li><button class="com-nav-0" onclick="boCategory(0)" style="border-radius: 10px 0 0 10px;">일반</button></li>
+                    <li><button class="com-nav-1" onclick="boCategory(1)" value="1">꿀팁</button></li>
+                    <li><button class="com-nav-2" onclick="boCategory(2)" value="2">질문</button></li>
+                    <li><button class="com-nav-3" onclick="boCategory(3)" value="3" style="border-radius: 0 10px 10px 0;">중고거래</button></li>
                 </ul>
             </div>
             <script>
