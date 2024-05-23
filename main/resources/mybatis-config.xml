@@ -17,6 +17,7 @@
  		<typeAlias type="com.psvm.myPage.vo.MyInfo" alias="MyInfo" />
  		<typeAlias type="com.psvm.member.vo.Member" alias="Member"/>
  		<typeAlias type="com.psvm.community.vo.Community" alias="Community"/>
+ 		<typeAlias type="com.psvm.fishInfo.vo.Fish" alias="Fish"/>
  	</typeAliases>
  	
  	<!-- 
@@ -30,7 +31,7 @@
  		<mapper resource="/mappers/board-mapper.xml"/>
  		<mapper resource="/mappers/myPage-mapper.xml"/>
  		<mapper resource="/mappers/community-mapper.xml"/>
- 		
+ 		<mapper resource="/mappers/fish-mapper.xml"/>
  	</mappers>
 
  	

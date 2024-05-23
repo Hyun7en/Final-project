@@ -11,11 +11,7 @@ public class CommonsController {
 	public String home() {
 		return "main/main";
 	}
-	
-	@GetMapping("fishInfo.ma")
-	public String fishInfo() {
-		return "fishInfo/fishInfo";
-	}
+
 	
 	@GetMapping("quration.ma")
 	public String quration() {
