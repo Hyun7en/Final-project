@@ -13,7 +13,6 @@
     }
 
     section div {
-        margin-left: 200px;
         margin-bottom: 50px;
         display: flex;
         flex-direction: row;
