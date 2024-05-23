@@ -15,12 +15,32 @@
 		<result column="BOARD_CONTENTS" property="boardContents"/>
 		<result column="BOARD_COUNT" property="boardCount"/>
 		<result column="BOARD_DIBS" property="boardDibs"/>
-
+		<result column="STATUS" property="status"/>
+	</resultMap>
+	<resultMap type="CommunityAttachment" id="CommunityAttachmentResult">
+		<result column="FILE_NO" property="fileNo"/>
+		<result column="REF_NO" property="refNo"/>
+		<result column="UPLOAD_DATE" property="uploadDate"/>
+		<result column="FILE_LEVEL" property="fileLevel"/>
+		<result column="FILE_PATH" property="filePath"/>
+		<result column="ORIGIN_NAME" property="originName"/>
+		<result column="CHANGE_NAME" property="changeName"/>
 	</resultMap>
 	
-	<select id="selectTest" resultMap="communityResult">
-		SELECT *
-		FROM public.asd
+	<select id="selectListCount" resultType="_int">
+		SELECT	COUNT(*)
+		FROM	BOARD
+		WHERE	BOARD_LEVEL = #{boardLevel}
+		AND		STATUS = 'Y'
 	</select>
-
+	<select id="selectList" resultMap="communityResult">
+		SELECT BOARD_NO,
+			   BOARD_TITLE,
+			   USER_NO,
+			   WRITE_DATE,
+			   BOARD_COUNT
+		  FROM BOARD
+		 WHERE STATUS = 'Y'
+		 ORDER BY BOARD_NO DESC  
+	</select>
 </mapper>

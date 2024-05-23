@@ -1,4 +1,4 @@
-package com.psvm.attachment;
+package com.psvm.community.vo;
 
 import java.sql.Date;
 
@@ -14,8 +14,8 @@ import lombok.ToString;
 @Setter
 @ToString
 public class CommunityAttachment {
-	private int fileNo;
-	private int refNo; 
+	private int fileNo; //파일 번호
+	private int refNo; //참조번호
 	private Date uploadDate; // 업로드일
 	private int fileLevel; // 파일 레벨
 	private String filePath; // 파일 경로

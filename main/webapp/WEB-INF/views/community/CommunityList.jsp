@@ -8,17 +8,19 @@
     <title>Header</title>
 
     <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<!-- Popper JS -->
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<!-- Latest compiled JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
+    <script src=""></script>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/communityCSS/communityList.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
+
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/communityCSS/communityList.css">
 
 </head>
 <body>
@@ -30,20 +32,29 @@
             </div>
             <div id="com-nav">
                     <ul>
-                        <li><button class="com-nav-0" onclick="boCategory(0)" id="com-nav-selected" style="border-radius: 10px 0 0 10px;">일반</button></li>
-                        <li><button class="com-nav-10" onclick="boCategory(1)" value="1">꿀팁</button></li>
-                        <li><button class="com-nav-20" onclick="boCategory(2)" value="2">질문</button></li>
-                        <li><button class="com-nav-30" onclick="boCategory(3)" value="3" style="border-radius: 0 10px 10px 0;">중고거래</button></li>
+                        <li><button class="com-nav-0" onclick="boCategory(0)" name="boardLevel" value="0" style="border-radius: 10px 0 0 10px;">일반</button></li>
+                        <li><button class="com-nav-1" onclick="boCategory(1)" name="boardLevel" value="1">꿀팁</button></li>
+                        <li><button class="com-nav-2" onclick="boCategory(2)" name="boardLevel" value="2">질문</button></li>
+                        <li><button class="com-nav-3" onclick="boCategory(3)" name="boardLevel" value="3" style="border-radius: 0 10px 10px 0;">중고거래</button></li>
                     </ul>
             </div>
             <script>
                 function boCategory(category){
-                    if(category === 0){ // 카테고리 번호 0 = 일반 버튼 누름
-                        location.href = "CommunityNorm.jsp"; // 일반 게시판 페이지로 이동
-                    }else{ // 카테고리 번호 10~30 = 일반 이외의 3가지 게시판 버튼 중 하나를 누름
-                        //session에 value 값 저장
-                        location.href = "CommunityCategory.jsp?category=" + category; // 해당 게시판 페이지로 이동
+                        location.href = "list.co?category=" + category;
+                }
+                window.onload = function() {
+                    // URL에서 category 값을 추출하는 함수
+                    function getCategoryFromUrl() {
+                        const params = new URLSearchParams(window.location.search);
+                        return params.get('category');
                     }
+
+                    // category 값을 가져옴
+                    const category = getCategoryFromUrl();
+
+                    // category 값과 동일한 버튼에 id="com-nav-selected"를 부여
+                    const button = document.querySelector(".com-nav-" + category);
+                    button.id = "com-nav-selected";
                 }
             </script>
             <table class="com-list">
@@ -91,7 +102,7 @@
                 </tbody>
                 <tbody id="com-list-body">
                     <td>5</td>
-                    <td><a href="communityDetail.jsp">첫 관상어 소개</a></td>
+                    <td><a href="">첫 관상어 소개</a></td>
                     <td>왓더</td>
                     <td>0000.00.00</td>
                     <td>0</td>
@@ -136,7 +147,7 @@
                     <button id="com-search-button" type="submit">검색</button>
                 </div>
                 <div id="com-bottom-right">
-                    <button id="com-blue-button">글쓰기</button>
+                    <button onclick="location.href='enrollForm.co'" id="com-blue-button">글쓰기</button>
                 </div>
             </div>
             <div class="com-bottom2">

@@ -23,4 +23,5 @@ public class Community {
 	private String boardContents; //내용
 	private int boardCount; //조회수
 	private int boardDibs; //추천
+	private String status; //활성화 여부(Y=게시판에 표시 N=삭제됨)
 }

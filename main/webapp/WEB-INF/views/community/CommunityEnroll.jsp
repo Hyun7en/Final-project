@@ -39,7 +39,7 @@
             <div id="com-head">
                 글쓰기
             </div>
-            <form action="insert.co">
+            <form method="post" action="insert.co">
                 <div id="com-enroll-top">
                     <div>
                         게시판
@@ -72,7 +72,7 @@
                       placeholder: "게시글을 작성해주세요.",
                       height: 400,
                       maxHeight: 1000,
-                      width: 800,
+                      width: 900,
                       toolbar: [
                             // [groupName, [list of button]]
                             ['style', ['bold', 'italic', 'underline', 'clear']],
@@ -105,7 +105,7 @@
         
                     insertFileApi(fd, function(nameList){
                         for(let name of nameList) {
-                            $("#summernote").summernote('insertImage', "/summer" + name);	 
+                            $("#com-enroll-content-p").summernote('insertImage', "/psvm" + name);	 
                         }
                     });
                 }

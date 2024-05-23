@@ -6,10 +6,10 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.psvm.attachment.CommunityAttachment;
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.community.dao.CommunityDao;
 import com.psvm.community.vo.Community;
+import com.psvm.community.vo.CommunityAttachment;
 import com.psvm.community.vo.Reply;
 
 @Service
@@ -22,8 +22,8 @@ public class CommunityServiceImpl implements CommunityService{
 	private CommunityDao communityDao;
 	
 	@Override
-	public int selectListCount() {
-		int count = communityDao.selectListCount(sqlSession);
+	public int selectListCount(int boardLevel) {
+		int count = communityDao.selectListCount(sqlSession, boardLevel);
 		return count;
 	}
 
@@ -48,13 +48,18 @@ public class CommunityServiceImpl implements CommunityService{
 	}
 
 	@Override
-	public int insertBoard(Community c, CommunityAttachment ca) {
-		return communityDao.insertBoard(sqlSession, c, ca);
+	public int insertBoard(Community c) {
+		return communityDao.insertBoard(sqlSession, c);
 	}
 
 	@Override
-	public int updateBoard(Community c, CommunityAttachment ca) {
-		return communityDao.updateBoard(sqlSession, c, ca);
+	public int updateBoard(Community c) {
+		return communityDao.updateBoard(sqlSession, c);
+	}
+	
+	@Override
+	public int uploadBoardAttachment(CommunityAttachment ca) {
+		return communityDao.uploadBoardAttachment(sqlSession, ca);
 	}
 
 	@Override

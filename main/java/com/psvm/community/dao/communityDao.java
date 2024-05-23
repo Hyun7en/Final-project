@@ -6,15 +6,15 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.psvm.attachment.CommunityAttachment;
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.community.vo.Community;
+import com.psvm.community.vo.CommunityAttachment;
 import com.psvm.community.vo.Reply;
 
 @Repository
 public class CommunityDao {
-	public int selectListCount(SqlSessionTemplate sqlSession) {
-		return sqlSession.selectOne("communityMapper.selectListCount");
+	public int selectListCount(SqlSessionTemplate sqlSession, int boardLevel) {
+		return sqlSession.selectOne("communityMapper.selectListCount", boardLevel);
 	}
 	
 	public ArrayList<Community> selectList(SqlSessionTemplate sqlSession, PageInfo pi) {
@@ -35,13 +35,17 @@ public class CommunityDao {
 	public ArrayList<Reply> selectReply(SqlSessionTemplate sqlSession, int boardNo){
 		return (ArrayList)sqlSession.selectList("communityMapper.selectReply", boardNo);
 	}
-	
-	public int insertBoard(SqlSessionTemplate sqlSession, Community c, CommunityAttachment ca) {
+
+	public int insertBoard(SqlSessionTemplate sqlSession, Community c) {
 		return sqlSession.insert("communityMapper.insertBoard", c);
 	}
-	
-	public int updateBoard(SqlSessionTemplate sqlSession, Community c, CommunityAttachment ca) {
+
+	public int updateBoard(SqlSessionTemplate sqlSession, Community c) {
 		return sqlSession.update("communityMapper.updateBoard", c);
+	}
+	
+	public int uploadBoardAttachment(SqlSessionTemplate sqlSession, CommunityAttachment ca) {
+		return sqlSession.insert("communityMapper.uploadBoardAttachment", ca);
 	}
 	
 	public int insertReply(SqlSessionTemplate sqlSession, Reply r) {
