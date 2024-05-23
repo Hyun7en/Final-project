@@ -1,14 +1,11 @@
 package com.psvm.myPage.controller;
 
-import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.psvm.myPage.service.MyPageServiceImpl;
-import com.psvm.myPage.vo.MyInfo;
+import com.psvm.myPage.vo.ModifyInfo;
 
 @Controller
 public class MyPageController {
@@ -18,13 +15,19 @@ public class MyPageController {
 	
 	@RequestMapping("myPage.me")
 	public String selectMyInfo() {
-		
-//		ArrayList<MyInfo> myInfo = myPageService.selectMyInfo(userNo);
-//		
-//		model.addAttribute("myInfo", myInfo);
-		
 		return "myPage/myPageInfo";
 		
+	}
+	
+	@RequestMapping("modifyInfo.me")
+	public String modifyInfo(ModifyInfo m) {
+		System.out.println(m);
+		
+		
+		int result = myPageService.modifyInfo(m);
+		
+		
+		return "myPage/myPageInfo";
 	}
 	
 //	@RequestMapping("deleteMember.my")
@@ -41,16 +44,50 @@ public class MyPageController {
 //		}
 //		
 //	}
-//	
-//	public String interestProduct(int userNo, Model model) {
-//		
+	
+	@RequestMapping("interestProduct.my")
+	public String interestProduct() {
+		
 //		ArrayList<InterestProduct> InterestProduct = myPageService.selectInterestProduct(userNo);
 //		
 //		model.addAttribute("interestProduct", InterestProduct);
-//		
-//		return "myPage/myPageInterest";
-//		
-//	}
+		
+		return "myPage/myPageInterest";
+		
+	}
+	
+	@RequestMapping("orderHistory.my")
+	public String orderHistory() {
+		
+		return "myPage/myPageOrderHistory";
+	}
+	
+	@RequestMapping("writePost.my")
+	public String writePost() {
+		
+		return "myPage/myPageWritePost";
+	}
+	
+	@RequestMapping("cart.my")
+	public String cart() {
+		
+		return "myPage/myPageCart";
+	}
+	
+	@RequestMapping("inquiry.my")
+	public String inquiry() {
+		
+		return "myPage/myPageInquiry";
+	}
+	
+	@RequestMapping("sellerConversion.my")
+	public String sellerConversion() {
+		
+		return "myPage/myPageSellerConversion";
+	}
+	
+	
+	
 	
 	
 	

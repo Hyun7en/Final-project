@@ -1,13 +1,11 @@
 package com.psvm.myPage.service;
 
-import java.util.ArrayList;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.psvm.myPage.dao.MyPageDao;
-import com.psvm.myPage.vo.MyInfo;
+import com.psvm.myPage.vo.ModifyInfo;
 
 @Service
 public class MyPageServiceImpl implements MyPageService {
@@ -18,10 +16,8 @@ public class MyPageServiceImpl implements MyPageService {
 	@Autowired
 	private MyPageDao myPageDao;
 	
-
-	public ArrayList<MyInfo> selectMyInfo(int userNo){
-//		return myPageDao.selectMyInfo(sqlSession, userNo);
-		return null;
+	public int modifyInfo(ModifyInfo m) {
+		return myPageDao.modifyInfo(sqlSession, m);
 	}
 	
 //	public int deleteMember(int userNo) {

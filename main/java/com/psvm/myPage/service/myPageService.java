@@ -1,15 +1,13 @@
 package com.psvm.myPage.service;
 
-import java.util.ArrayList;
-
-import com.psvm.myPage.vo.MyInfo;
+import com.psvm.myPage.vo.ModifyInfo;
 
 public interface MyPageService {
 	
-//	ArrayList<MyInfo> selectMyInfo(int userNo);
+	int modifyInfo(ModifyInfo m);
 	
 //	int deleteMember(int userNo);
-//	
+	
 //	ArrayList<InterestProduct> selectInterestProduct(int userNo);
 //	
 }
