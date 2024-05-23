@@ -47,9 +47,9 @@
                             <th style="width: 120px; border-radius: 0 10px 0 0;">조회수</th>
                         </thead>
                         <tbody id="com-list-body">
-                            <td>10</td>
-                            <td>아쿠아프라자 다녀온 후기</td>
-                            <td>이야후</td>
+                            <td>공지</td>
+                            <td><b>신고 작성 시 주의사항</b></td>
+                            <td>관리자</td>
                             <td>0000.00.00</td>
                             <td>0</td>
                         </tbody>
@@ -130,9 +130,6 @@
         </main>
             <!-- footer -->
             <%@ include file="../commons/footer.jsp" %>
-
-     
-
-
+    </div>
 </body>
 </html>

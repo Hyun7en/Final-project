@@ -4,6 +4,13 @@ body{
     background-color: #E0F1FF;
     position: relative;
 }
+#community-normal{
+    min-height: 100%;
+    width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 60px;
+}
 input {
     border: 5px solid #0089FF;
     color: #0089FF;
