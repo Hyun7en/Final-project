@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
-public class storeController {
+public class StoreController {
 
 	
 	@RequestMapping("storeMain.ma")
