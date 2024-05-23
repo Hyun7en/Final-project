@@ -1,0 +1,84 @@
+@charset "UTF-8";
+
+main{
+    font-size: 15px;
+    display: flex;
+}
+
+#managerMemberLevelManagement-info-area{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 25px;
+    border-left: 1px solid black;
+}
+
+#manager-sidebar-category-select-title{
+    width: 100%;
+    border-bottom: 1px solid black;
+    padding-bottom: 5px;
+}
+
+#detail-setting{
+    width: 100%;
+    margin-top: 25px;
+    padding-bottom: 5px;
+}
+
+form{
+    width: 100%;
+}
+
+#levelManagement-area{
+    width: 100%;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+#levelManagement-area table{
+    width: 100%;
+    border-left: 1px solid #afa8a8;
+
+}
+
+#levelManagement-area table tr{
+    width: 100%;
+    border-bottom: 1px solid #afa8a8;
+    
+}
+
+#levelManagement-area table th{
+    height: 40px;
+    border-right: 1px solid #afa8a8;
+    background-color: #eeeeee;
+}
+
+#levelManagement-area table td{
+    height: 40px;
+    border-right: 1px solid #afa8a8;
+    text-align: left;
+    padding-left: 10px;
+}
+
+input{
+    width: 80%;
+    border: 1px solid black;
+    padding: 5px;
+}
+
+#save-btn-area{
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#save-btn-area button{
+    width: 70px;
+    height: 40px;
+    border: 1px solid black;
+    background-color: white;
+    cursor: pointer;
+}

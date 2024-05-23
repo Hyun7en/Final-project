@@ -1,13 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/header.css">
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/header.css">
-	
 </head>
 <body>
 	 <header>
@@ -24,8 +27,23 @@
                     
                 </div>
                 <div id="loginArea">
-                    <a href="loginForm.me">로그인</a>
-                    <a href="signUpForm.me">회원가입</a>
+                <c:choose>
+	            	<c:when test="${empty loginUser}">
+		                <!-- 로그인 전 -->
+			            <a href="loginForm.me">로그인</a>
+	                    <a href="signUpForm.me">회원가입</a>
+	            	</c:when>
+	                <c:otherwise>
+		                <!-- 로그인 후 -->
+		                <label>${loginUser.userName}님 환영합니다</label> &nbsp;&nbsp;
+		                <a href="myPage.me">마이페이지</a>
+		                <a href="logout.me">로그아웃</a>
+	                </c:otherwise>
+	            </c:choose>
+                
+                
+                
+
                 </div>
             </div>
 
@@ -34,7 +52,7 @@
                 <a href="fishInfo.ma">물고기 정보</a>
                 <a href="quration.ma">물고기 큐레이터</a>
                 <a href="community.ma">커뮤니티</a>
-                <a href="store.ma">스토어</a>
+                <a href="storeMain.ma">스토어</a>
             </nav>
         </header>
 </body>

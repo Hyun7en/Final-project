@@ -1,0 +1,150 @@
+@charset "UTF-8";
+
+main{
+    font-size: 15px;
+    display: flex;
+}
+
+#managerMemberInfoManagement-info-area{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 25px;
+    border-left: 1px solid black;
+}
+
+#manager-sidebar-category-select-title{
+    width: 100%;
+    border-bottom: 1px solid black;
+    padding-bottom: 5px;
+}
+
+#search-title{
+    width: 100%;
+    margin-top: 25px;
+    padding-bottom: 5px;
+}
+
+#search-condition-area{
+    width: 100%;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    margin-bottom: 40px;
+}
+
+#search-form{
+    width: 100%;
+}
+
+#search-condition-area table{
+    width: 100%;
+}
+
+#search-condition-area table tr{
+    width: 100%;
+    height: 50px;
+    border-bottom: 1px solid #afa8a8;
+}
+
+#search-condition-area table th{
+    width: 7%;
+    background-color: #eeeeee;
+    text-align: left;
+    padding-left: 5px;
+
+}
+
+#search-condition-area table td{
+    width: 93%;
+    text-align: left;
+    padding-left: 5px;
+}
+
+#search-condition-area table td select{
+    border: 1px solid black;
+    width: 90px;
+    height: 30px;
+}
+
+#search-bar{
+    width: 250px;
+    height: 30px;
+    border: 1px solid black;
+    margin-left: 5px;
+}
+
+.date-search-bar{
+    width: 120px;
+    height: 30px;
+    border: 1px solid black;
+    margin-right: 5px;
+    margin-left: 5px;
+    padding: 5px;
+}
+
+#search-btn-area{
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#search-btn-area button{
+    width: 70px;
+    height: 40px;
+    border: 1px solid black;
+    background-color: white;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+#search-result-list-area{
+    width: 100%;
+    border-top: 1px solid black;
+}
+
+#total-member{
+    padding: 5px;
+    border-bottom: 1px solid black;
+}
+
+#search-result-list table {
+    width: 100%;
+    border-left: 1px solid #afa8a8;
+}
+
+#search-result-list table tr{
+    height: 40px;
+    border-bottom: 1px solid #afa8a8;
+    text-align: center;
+}
+
+#search-result-list table th{
+    background-color: #eeeeee;
+    border-right: 1px solid #afa8a8;
+}
+
+#search-result-list table td{
+    border-right: 1px solid #afa8a8;
+}
+
+#search-result-list table td button{
+    width: 70px;
+    height: 35px;
+    border: 1px solid black;
+    background-color: white;
+    cursor: pointer;
+}
+
+#pageList-area{
+    margin-top: 20px;
+}
+
+#pageList-area a{
+    font-size: 20px;
+    cursor: pointer;
+    margin: 0 5px;
+}
+

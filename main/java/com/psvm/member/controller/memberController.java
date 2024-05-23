@@ -32,22 +32,30 @@ public class MemberController {
 	
 	@RequestMapping("login.me") //로그인
 	public ModelAndView loginMember(Member m, ModelAndView mv, HttpSession session, String saveId, HttpServletResponse response) {
-		
-		Member loginUser = memberService.loginMember(m);
-		
-		bcryptPasswordEncoder.matches(m.getUserPwd(), loginUser.getUserPwd());
-			Cookie ck = new Cookie("saveId", loginUser.getUserId());
-			if (saveId == null) {
-				ck.setMaxAge(0);
-			}
-			response.addCookie(ck);
-			session.setAttribute("loginUser", loginUser);
-			System.out.println(session.getAttribute("loginUser"));
-			mv.setViewName("redirect:/");
-		
-		
-		return mv;
+	    
+	    Member loginUser = memberService.loginMember(m);
+	     
+	    if (loginUser == null) { // 아이디가 없는 경우
+	        mv.addObject("errorMessage", "일치하는 아이디를 찾을 수 없습니다.");
+	        mv.setViewName("member/login");
+	        
+	    } else if (!bcryptPasswordEncoder.matches(m.getUserPwd(), loginUser.getUserPwd())){ 
+	        mv.addObject("errorMessage", "비밀번호가 일치하지 않습니다.");
+	        mv.setViewName("member/login");
+	    } else { // 성공
+	        Cookie ck = new Cookie("saveId", loginUser.getUserId());
+	        if (saveId == null) {
+	            ck.setMaxAge(0);
+	        }
+	        response.addCookie(ck);
+	        
+	        session.setAttribute("loginUser", loginUser);
+	        mv.setViewName("main/main");
+	    }
+	    
+	    return mv;
 	}
+
 	
 	@RequestMapping("logout.me") //로그아웃
 	public String logoutMember(HttpSession session) {
