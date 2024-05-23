@@ -7,7 +7,7 @@ main{
     justify-content: center;
 }
 
-#myPagePost-wrapper{
+#myPageWritePost-wrapper{
     width: 1342px;
     display: flex; 
     padding: 30px 0;
@@ -69,19 +69,19 @@ main{
     color: black;
 }
 
-#myPagePost-info-area{
+#myPageWritePost-info-area{
     width: 85%;
     /* background-color: white; */
 }
 
-#mypagePost-status-area{
+#myPageWritePost-status-area{
     width: 100%;
     border-radius: 16px;
     background-color: white;
     display: flex;
 }
 
-.mypagePost-status{
+.myPageWritePost-status{
     /* width: 280.75px; */
     width: 25%;
     height: 100px;
@@ -96,40 +96,40 @@ main{
     border-right: 1px solid #afa8a8;
 }
 
-#myPagePost-list-area{
+#myPageWritePost-list-area{
     width: 100%;
     background-color: white;
     border-radius: 16px;
     margin-top: 20px;
 }
 
-#myPagePost-list-area table{
+#myPageWritePost-list-area table{
     width: 100%;
     /* border: 1px solid black; */
     text-align: center;
     border-collapse: collapse;
 }
 
-#myPagePost-list-area tbody tr{
+#myPageWritePost-list-area tbody tr{
     width: 100%;
     padding: 16px;
     cursor: pointer;
 }
 
-#myPagePost-list-area th{
+#myPageWritePost-list-area th{
     border-bottom: 1px solid #afa8a8;
     padding-top: 20px;
     padding-bottom: 20px;
 }
 
-#myPagePost-list-area td{
+#myPageWritePost-list-area td{
     border-bottom: 1px solid #afa8a8;
     padding-top: 20px;
     padding-bottom: 20px;
 }
 
 #btnList-area{
-    margin-top: 20px;
+    margin-top: 100px;
 }
 
 #btnList-area button{

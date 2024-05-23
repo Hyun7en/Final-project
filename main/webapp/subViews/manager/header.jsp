@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
  <title>adminMenubar</title>
 
-    <link rel="stylesheet" href="../../resources/css/commonsCSS/reset.css">
+    <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="../../resources/css/managerCSS/header.css">
 
 </head>

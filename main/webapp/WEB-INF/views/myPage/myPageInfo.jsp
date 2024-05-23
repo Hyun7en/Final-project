@@ -99,7 +99,7 @@
                             </table>
                             <div id="myPageInfo-privacy-button-area">
                                 <button type="submit">정보수정</button>
-                                <button onclick="location.href='deleteMember.my'">회원탙퇴</button>
+                                <button id="deleteMember" onclick="location.href='deleteMember.my'">회원탙퇴</button>
                             </div>
                         </div>
                     </form>
@@ -114,6 +114,18 @@
         function chooseFile(){
             document.querySelector("#file").click();
         }
+        
+        $(function(){
+        	document.querySelector("deleteMember").onclick = fucntion(){
+        		const confirmCheck = confirm("정말 탈퇴하시겠습니까?");
+        		if(confirmCheck){
+        			location.href="deleteMember.my";
+        		} else{
+        			return false;
+        		}
+        	}
+        })
+        
      </script>
 </body>
 </html>
