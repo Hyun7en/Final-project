@@ -17,10 +17,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
-    
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/header.css">
-
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/footer.css">
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/communityCSS/communityList.css">
 
@@ -35,18 +31,18 @@
             <div id="com-nav">
                     <ul>
                         <li><button class="com-nav-0" onclick="boCategory(0)" id="com-nav-selected" style="border-radius: 10px 0 0 10px;">일반</button></li>
-                        <li><button class="com-nav-10" onclick="boCategory(10)" value="10">꿀팁</button></li>
-                        <li><button class="com-nav-20" onclick="boCategory(20)" value="20">질문</button></li>
-                        <li><button class="com-nav-30" onclick="boCategory(30)" value="30" style="border-radius: 0 10px 10px 0;">중고거래</button></li>
+                        <li><button class="com-nav-10" onclick="boCategory(1)" value="1">꿀팁</button></li>
+                        <li><button class="com-nav-20" onclick="boCategory(2)" value="2">질문</button></li>
+                        <li><button class="com-nav-30" onclick="boCategory(3)" value="3" style="border-radius: 0 10px 10px 0;">중고거래</button></li>
                     </ul>
             </div>
             <script>
                 function boCategory(category){
                     if(category === 0){ // 카테고리 번호 0 = 일반 버튼 누름
-                        location.href = "communityNorm.jsp"; // 일반 게시판 페이지로 이동
+                        location.href = "CommunityNorm.jsp"; // 일반 게시판 페이지로 이동
                     }else{ // 카테고리 번호 10~30 = 일반 이외의 3가지 게시판 버튼 중 하나를 누름
                         //session에 value 값 저장
-                        location.href = "communityCategory.jsp?category=" + category; // 해당 게시판 페이지로 이동
+                        location.href = "CommunityCategory.jsp?category=" + category; // 해당 게시판 페이지로 이동
                     }
                 }
             </script>

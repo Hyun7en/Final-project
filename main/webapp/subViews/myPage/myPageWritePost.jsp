@@ -9,7 +9,7 @@
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/myPageCSS/myPagePost.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/myPageCSS/myPageWritePost.css">
 
 	
    
@@ -20,7 +20,7 @@
         <%@ include file="../commons/header.jsp" %>
         
         <main>
-            <div id="myPagePost-wrapper">
+            <div id="myPageWritePost-wrapper">
                 <div id="myPage-sidebar">
                     <div id="myPage-sidebar-profile-area">
                         <div id="myPage-sidebar-profile-img">
@@ -32,32 +32,32 @@
                         <div class="myPage-category"><a href="">내 정보</a></div>
                         <div class="myPage-category"><a href="">관심상품</a></div>
                         <div class="myPage-category"><a href="">주문내역</a></div>
-                        <div class="myPage-category"><a style="color: #0089FF;" href="">작성한 글</a></div>
+                        <div class="myPage-category"><a style="color: #0089FF;" href="boardList.my">작성한 글</a></div>
                         <div class="myPage-category"><a href="">장바구니</a></div>
                         <div class="myPage-category"><a href="">1:1 문의</a></div>
                         <div class="myPage-category"><a href="">판매자 신청</a></div>
                     </div>
                 </div>
-                <div id="myPagePost-info-area">
-                    <div id="mypagePost-status-area">
-                        <div id="ps1" class="mypagePost-status">
+                <div id="myPageWritePost-info-area">
+                    <div id="myPageWritePost-status-area">
+                        <div id="ps1" class="myPageWritePost-status">
                             <b>일반 게시판</b>
                             <p>count 개</p>
                         </div>
-                        <div id="ps2" class="mypagePost-status">
+                        <div id="ps2" class="myPageWritePost-status">
                             <b>자랑 게시판</b>
                             <p>count 개</p>
                         </div>
-                        <div id="ps3" class="mypagePost-status">
+                        <div id="ps3" class="myPageWritePost-status">
                             <b>질문 게시판</b>
                             <p>count 개</p>
                         </div>
-                        <div class="mypagePost-status">
+                        <div class="myPageWritePost-status">
                             <b>꿀팁 게시판</b>
                             <p>count 개</p>
                         </div>
                     </div>
-                    <div id="myPagePost-list-area">
+                    <div id="myPageWritePost-list-area">
                         <table>
                             <thead>
                                 <th width="10%">글 종류</th>
