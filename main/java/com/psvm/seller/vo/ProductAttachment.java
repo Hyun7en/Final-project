@@ -1,5 +1,7 @@
 package com.psvm.seller.vo;
 
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,9 +13,13 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class SellerPage {
+public class ProductAttachment {
 	
+	private int productFileNo;
 	private int sellerPageNo;
-	private int businessNo;
-	private String sellerExpalin;
+	private int refPno;
+	private Date uploadDate;
+	private int fileLevel;
+	private String filePath;
+
 }

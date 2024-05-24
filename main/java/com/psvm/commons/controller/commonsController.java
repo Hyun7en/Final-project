@@ -33,20 +33,11 @@ public class CommonsController {
 	}
 	
 	
-	@GetMapping("enroll.pd")
-	public String productEnrollForm() {
-		return "seller/productEnrollForm";
-	}
-	
 	@GetMapping("list.pd")
 	public String productListView() {
 		return "seller/productListView";
 	}
-	
-	@GetMapping("enroll.srh")
-	public String sellerHomeEnrollForm() {
-		return "seller/sellerHomeEnrollForm";
-	}
+
 	
 	@GetMapping("manage.srh")
 	public String sellerHomeDetailView() {
