@@ -53,14 +53,13 @@ body{
     color: white;
     font-weight: bold;
 }
-#com-list-body td{
+#com-list-body td, #com-list-bottom td{
     height: 30px;
     background-color: white;
-    border-bottom: 1px solid #AFA8A8;
+    
 }
-#com-list-bottom td{
-    height: 30px;
-    background-color: white;
+#com-list-body td{
+    border-bottom: 1px solid #AFA8A8;
 }
 #com-list-body a, #com-list-bottom a{
     color: black;
