@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- namespace: 해당 mapper파일의 고유한 별칭 -->
+ <mapper namespace="sellerMapper">
+	<resultMap type="sellerInfo" id="sellerResult">
+		<result column="BUSINESS_NO" property="businessNO"/>
+		<result column="USER_NO" property="userNo"/>
+		<result column="BUSINESS_NAME" property="businessName"/>
+		<result column="SUB_BUSINESS_NAME" property="subBusinessName"/>
+		<result column="OPEN_BUSINESS_DATE" property="openBusinessDate"/>
+		<result column="STORE_NAME" property="storeName"/>
+		<result column="CRN" property="crn"/>
+		<result column="MAIN_BUSINESS_NAME" property="mainBusinessName"/>
+		<result column="MAIN_ITEM_NAME" property="mainItemName"/>
+		<result column="BUSINESS_ADDRESS" property="businessAddress"/>
+		<result column="BUSINESS_ACCOUNT" property="businessAccount"/>
+		
+
+	</resultMap>
+	
+	<select id="selectTest" resultMap="sellerResult">
+		SELECT *
+		FROM BUSINESS_INFO
+	</select>
+
+</mapper>

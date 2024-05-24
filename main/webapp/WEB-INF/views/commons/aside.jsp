@@ -45,16 +45,16 @@
             <li>
                 <div>판매자 정보 <img src="../../resources/image/triangle.png"></div>
                 <ul class="sub-menu">
-                    <li><a href="#">판매자 정보</a></li>
+                    <li><a href="info.sr">판매자 정보</a></li>
                 </ul>
             </li>
             <li>
                 <div>스토어 관리 <img src="../../resources/image/triangle.png"></div>
                 <ul class="sub-menu">
-                    <li><a href="#">상품 등록</a></li>
-                    <li><a href="#">등록 상품 관리</a></li>
-                    <li><a href="#">판매자 홈 등록</a></li>
-                    <li><a href="#">판매자 홈 관리</a></li>
+                    <li><a href="enroll.pd">상품 등록</a></li>
+                    <li><a href="list.pd">등록 상품 관리</a></li>
+                    <li><a href="enroll.srh">판매자 홈 등록</a></li>
+                    <li><a href="manage.srh">판매자 홈 관리</a></li>
                 </ul>
             </li>
             <li>

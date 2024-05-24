@@ -1,5 +1,6 @@
 package com.psvm.seller.service;
 
-public class sellerService {
+public interface SellerService {
 
+	
 }

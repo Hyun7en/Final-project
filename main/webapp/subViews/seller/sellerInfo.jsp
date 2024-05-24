@@ -34,52 +34,52 @@
 
             <div>
                 <h4>*사업자 등록번호</h4>
-                <span id="business-number">경기도 서울특별시 대구동 부산아파트</span>
+                <span id="business-number">${si.businessNo}</span>
             </div>
 
             <div>
                 <h4>*대표자 성명</h4>
-                <span id="ceo-name">ddd</span>
+                <span id="ceo-name">${si.businessNo}</span>
             </div>
 
             <div>
                 <h4>*대표자 성명2</h4>
-                <span id="ceo-name2">ddd</span>
+                <span id="ceo-name2">${si.businessNo}</span>
             </div>
 
             <div>
                 <h4>*개업일자</h4>
-                <span id="business-type">ddd</span>
+                <span id="business-type">${si.businessNo}</span>
             </div>
 
             <div>
                 <h4>*상호</h4>
-                <span id="company-name">ddd</span>
+                <span id="company-name">${si.businessNo}</span>
             </div>
 
             <div>
                 <h4>*업태명</h4>
-                <span id="business-classification">ddd</span>
+                <span id="business-classification">${si.businessNo}</span>
             </div>
 
             <div>
                 <h4>*종목명</h4>
-                <span id="business-category">dd</span>
+                <span id="business-category">${si.businessNo}</span>
             </div>
 
             <div>
                 <h4>*사업장 주소</h4>
-                <span id="business-address">ddd</span>
+                <span id="business-address">${si.businessNo}</span>
             </div>
 
             <div>
                 <h4>*정산대금 입금계좌 예금주</h4>
-                <span id="account-holder">ddd</span>
+                <span id="account-holder">${si.businessNo}</span>
             </div>
 
             <div>
                 <h4>*정산대금 입금계좌번호</h4>
-                <span id="account-number">ddd</span>
+                <span id="account-number">${si.businessNo}</span>
             </div>
 
             <div>

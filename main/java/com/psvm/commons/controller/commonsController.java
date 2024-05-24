@@ -32,4 +32,29 @@ public class CommonsController {
 		return "store/store";
 	}
 	
+	@GetMapping("info.sr")
+	public String sellerInfo() {
+		return "seller/sellerInfo";
+	}
+	
+	@GetMapping("enroll.pd")
+	public String productEnrollForm() {
+		return "seller/productEnrollForm";
+	}
+	
+	@GetMapping("list.pd")
+	public String productListView() {
+		return "seller/productListView";
+	}
+	
+	@GetMapping("enroll.srh")
+	public String sellerHomeEnrollForm() {
+		return "seller/sellerHomeEnrollForm";
+	}
+	
+	@GetMapping("manage.srh")
+	public String sellerHomeDetailView() {
+		return "seller/sellerHomeDetailView";
+	}
+	
 }
