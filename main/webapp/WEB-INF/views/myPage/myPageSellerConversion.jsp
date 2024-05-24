@@ -28,21 +28,22 @@
                     </div>
                     <div id="myPage-category-area">
                         <div class="myPage-category"><a href="myPage.me">내 정보</a></div>
-                        <div class="myPage-category"><a href="interestProduct.my">관심상품</a></div>
-                        <div class="myPage-category"><a href="orderHistory.my">주문내역</a></div>
-                        <div class="myPage-category"><a href="writePost.my">작성한 글</a></div>
-                        <div class="myPage-category"><a href="cart.my">장바구니</a></div>
-                        <div class="myPage-category"><a href="inquiry.my">1:1 문의</a></div>
-                        <div class="myPage-category"><a style="color: #0089FF;" href="sellerConversion.my">판매자 신청</a></div>
+                        <div class="myPage-category"><a href="interestProductPage.my?userNo=${loginUser.userNo}">관심상품</a></div>
+                        <div class="myPage-category"><a href="orderHistoryPage.my?userNo=${loginUser.userNo}">주문내역</a></div>
+                        <div class="myPage-category"><a href="writePostPage.my?userNo=${loginUser.userNo}">작성한 글</a></div>
+                        <div class="myPage-category"><a href="cartPage.my?userNo=${loginUser.userNo}">장바구니</a></div>
+                        <div class="myPage-category"><a href="inquiryPage.my?userNo=${loginUser.userNo}">1:1 문의</a></div>
+                        <div class="myPage-category"><a style="color: #0089FF;" href="sellerConversionPage.my">판매자 신청</a></div>
                     </div>
                 </div>
                 <div id="mypageSellerConversion-info-area">
                     <div id="myPage-category-select-title">
                         <h3>판매자 전환 신청</h3>
                     </div>
-                    <div id="mypageSellerConversion-input-area">
-                        <div id="mypageSellerConversion-input">
-                            <form action="#">
+                    <form action="sellerConversion.my">
+                        <div id="mypageSellerConversion-input-area">
+                            <div id="mypageSellerConversion-input">
+
                                 <div class="info-input-area">
                                     <div class="info-input-title"><b>사업자등록번호</b></div>
                                     <div><input type="text"></div>
@@ -96,13 +97,15 @@
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
-                    </div>
-                    <div id="btn-area">
-                        <button>초기화</button>
-                        <button>신청하기</button>
-                    </div>
+
+                        <div id="btn-area">
+                            <button type="reset">초기화</button>
+                            <button type="submit">신청하기</button>
+                        </div>
+
+                    </form>
                 </div>
 
             </div>

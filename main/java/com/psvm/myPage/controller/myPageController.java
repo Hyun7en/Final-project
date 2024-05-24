@@ -1,11 +1,18 @@
 package com.psvm.myPage.controller;
 
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.psvm.community.vo.Community;
+import com.psvm.member.vo.Member;
 import com.psvm.myPage.service.MyPageServiceImpl;
-import com.psvm.myPage.vo.ModifyInfo;
 
 @Controller
 public class MyPageController {
@@ -13,21 +20,29 @@ public class MyPageController {
 	@Autowired
 	private MyPageServiceImpl myPageService;
 	
+	// 내 정보 보여주는 컨트롤러
 	@RequestMapping("myPage.me")
 	public String selectMyInfo() {
 		return "myPage/myPageInfo";
-		
 	}
 	
-	@RequestMapping("modifyInfo.me")
-	public String modifyInfo(ModifyInfo m) {
-		System.out.println(m);
-		
+	@RequestMapping("modifyInfo.my")
+	public ModelAndView modifyInfo(HttpSession session, Member m, Model model, ModelAndView mv) {
 		
 		int result = myPageService.modifyInfo(m);
 		
+		if(result > 0) {
+			session.setAttribute("loginUser", myPageService.loginUser(m));
+			
+			mv.addObject("successMessage", "회원정보 수정 성공");
+			mv.setViewName("myPage/myPageInfo");
+		} else {
+			mv.addObject("errorMessage", "회원정보 수정 실패");
+			mv.setViewName("myPage/myPageInfo");
+		}
 		
-		return "myPage/myPageInfo";
+		return mv;
+		
 	}
 	
 //	@RequestMapping("deleteMember.my")
@@ -62,11 +77,20 @@ public class MyPageController {
 		return "myPage/myPageOrderHistory";
 	}
 	
+	
+	
 	@RequestMapping("writePost.my")
-	public String writePost() {
+	public String wirtePostList(HttpSession session, int userNo) {
+		System.out.println(userNo);
+		
+		ArrayList<Community> list = myPageService.wirtePostList(userNo);
+		
+		session.setAttribute("list", list);
 		
 		return "myPage/myPageWritePost";
 	}
+	
+	
 	
 	@RequestMapping("cart.my")
 	public String cart() {
@@ -82,6 +106,9 @@ public class MyPageController {
 	
 	@RequestMapping("sellerConversion.my")
 	public String sellerConversion() {
+		
+		
+		
 		
 		return "myPage/myPageSellerConversion";
 	}

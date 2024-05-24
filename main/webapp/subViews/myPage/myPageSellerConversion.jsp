@@ -40,9 +40,9 @@
                     <div id="myPage-category-select-title">
                         <h3>판매자 전환 신청</h3>
                     </div>
-                    <div id="mypageSellerConversion-input-area">
-                        <div id="mypageSellerConversion-input">
-                            <form action="#">
+                    <form action="sellerConversion.my">
+                        <div id="mypageSellerConversion-input-area">
+                            <div id="mypageSellerConversion-input">
                                 <div class="info-input-area">
                                     <div class="info-input-title"><b>사업자등록번호</b></div>
                                     <div><input type="text"></div>
@@ -96,15 +96,16 @@
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
-                    </div>
-                    <div id="btn-area">
-                        <button>초기화</button>
-                        <button>신청하기</button>
-                    </div>
-                </div>
 
+                        <div id="btn-area">
+                            <button type="reset">초기화</button>
+                            <button type="submit">신청하기</button>
+                        </div>
+
+                    </form>
+                </div>
             </div>
         </main>
                 

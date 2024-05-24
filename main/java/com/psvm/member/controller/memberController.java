@@ -94,7 +94,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("update.me") //회원정보 수정
-	public String updateMember(Member m, HttpSession session, Model model) {
+	public String selectMember(Member m, HttpSession session, Model model) {
 		
 		int result =  memberService.updateMember(m);
 		

@@ -30,11 +30,11 @@
                     </div>
                     <div id="myPage-category-area">
                         <div class="myPage-category"><a href="myPage.me">내 정보</a></div>
-                        <div class="myPage-category"><a href="interestProduct.my">관심상품</a></div>
-                        <div class="myPage-category"><a href="orderHistory.my">주문내역</a></div>
-                        <div class="myPage-category"><a style="color: #0089FF;" href="writePost.my">작성한 글</a></div>
-                        <div class="myPage-category"><a href="cart.my">장바구니</a></div>
-                        <div class="myPage-category"><a href="inquiry.my">1:1 문의</a></div>
+                        <div class="myPage-category"><a href="interestProduct.my?userNo=${loginUser.userNo}">관심상품</a></div>
+                        <div class="myPage-category"><a href="orderHistory.my?userNo=${loginUser.userNo}">주문내역</a></div>
+                        <div class="myPage-category"><a style="color: #0089FF;" href="writePost.my?userNo=${loginUser.userNo}">작성한 글</a></div>
+                        <div class="myPage-category"><a href="cart.my?userNo=${loginUser.userNo}">장바구니</a></div>
+                        <div class="myPage-category"><a href="inquiry.my?userNo=${loginUser.userNo}">1:1 문의</a></div>
                         <div class="myPage-category"><a href="sellerConversion.my">판매자 신청</a></div>
                     </div>
                 </div>
@@ -66,24 +66,14 @@
                                 <th width="10%">조회수</th>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>${board.type}일반</td>
-                                    <td>${board.title}물고기를 키워보자</td>
-                                    <td>${board.creatDate}2024.05.18</td>
-                                    <td>${board.views}20</td>
-                                </tr>
-                                <tr>
-                                    <td>${board.type}일반</td>
-                                    <td>${board.title}물고기를 키워보자</td>
-                                    <td>${board.creatDate}2024.05.18</td>
-                                    <td>${board.views}20</td>
-                                </tr>
-                                <tr>
-                                    <td>${board.type}일반</td>
-                                    <td>${board.title}물고기를 키워보자</td>
-                                    <td>${board.creatDate}2024.05.18</td>
-                                    <td>${board.views}20</td>
-                                </tr>
+                                <c:forEach var="b" items="${list}">
+                                    <tr>
+                                        <td>${b.boardLevel}</td>
+                                        <td>${b.boardTitle}</td>
+                                        <td>${b.writeDate}</td>
+                                        <td>${b.boardCount}</td>
+                                    </tr>
+                                </c:forEach>
                             </tbody>
                         </table>
                         <div id="btnList-area">

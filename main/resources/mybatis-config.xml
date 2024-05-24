@@ -14,9 +14,9 @@
  	<typeAliases>
  		<!-- <typeAlias type="com.kh.spring.board.model.vo.Reply" alias="Reply" /> -->
  		<typeAlias type="com.psvm.example.vo.test" alias="test" />
- 		<typeAlias type="com.psvm.myPage.vo.MyInfo" alias="MyInfo" />
  		<typeAlias type="com.psvm.member.vo.Member" alias="Member"/>
  		<typeAlias type="com.psvm.community.vo.Community" alias="Community"/>
+ 		<typeAlias type="com.psvm.myPage.vo.WritePost" alias="WritePost"/>
  	</typeAliases>
  	
  	<!-- 

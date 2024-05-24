@@ -11,12 +11,10 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class ModifyInfo {
-	private String nickname;
-//	private String intro;
-	private String gender;
-	private String phone;
-	private String email;
-	private String address;
-
+public class WritePost {
+	private String boardLevel;
+	private String boardTitle;
+	private String createDate;
+	private int count;
+	
 }

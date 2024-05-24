@@ -216,13 +216,22 @@ main{
     cursor: pointer;
 }
 
+#gender1, #gender2{
+    width: 20px;
+    height: 20px;
+    font-size: 15px;
+    background-color: #eeeeee;
+    margin-left: 5px;
+}
+
 input{
     width: 80%;
     height: 40px;
-    padding: 7px;
+    padding: 10px;
     font-size: 15px;
     border: 1px solid black;
     border-radius: 10px;
+    background-color: #eeeeee;
 }
 
 input::placeholder{
