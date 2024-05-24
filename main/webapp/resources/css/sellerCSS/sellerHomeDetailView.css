@@ -6,6 +6,8 @@
         flex: 1;
         padding: 40px 200px 40px;
         height: calc(100vh - 40px);
+        overflow-y: scroll;
+
     }
 
     section h1 {
