@@ -53,8 +53,9 @@ public class SellerController {
 	        log.info("Store Home Image: {}", storeHomeImage.getOriginalFilename());
 	        log.info("Categories: {}", categories);
 
-	        // SellerHome 객체 생성 및 데이터 설정
-	        SellerHome sellerHome = new SellerHome();
+	        // 객체 생성 및 데이터 설정
+	        
+	        SellerPage
 	        sellerHome.setStoreDescription(storeDescription);
 	        
 	        // 파일 처리

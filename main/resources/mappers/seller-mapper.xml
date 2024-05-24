@@ -17,8 +17,26 @@
 		<result column="MAIN_ITEM_NAME" property="mainItemName"/>
 		<result column="BUSINESS_ADDRESS" property="businessAddress"/>
 		<result column="BUSINESS_ACCOUNT" property="businessAccount"/>
-		
-
+	</resultMap>
+	
+	<resultMap type="SellerPage" id="sellerResult">
+		<result column="SELLER_PAGE_NO" property="sellerPageNo"/>
+		<result column="BUSINESS_NO" property="businessNo"/>
+		<result column="SELLER_EXPLAIN" property="sellerExplain"/>
+	</resultMap>
+	
+	<resultMap type="ProductCategory" id="sellerResult">
+		<result column="P_CATEGORY" property="pCategory"/>
+		<result column="SELLER_PAGE_NO" property="sellerPageNo"/>
+	</resultMap>
+	
+	<resultMap type="ProductAttachment" id="sellerResult">
+		<result column="PRODUCT_FILE_NO" property="productFileNo"/>
+		<result column="SELLER_PAGE_NO" property="sellerPageNo"/>
+		<result column="REF_PNO" property="refPno"/>
+		<result column="UPLOAD_DATE" property="uploadDate"/>
+		<result column="FILE_LEVEL" property="fileLevel"/>
+		<result column="FILE_PATH" property="filePath"/>
 	</resultMap>
 	
 	<select id="selectSeller" resultMap="sellerResult">

@@ -13,5 +13,6 @@ import lombok.ToString;
 @ToString
 public class ProductCategory {
 
-	private 
+	private String pCategory;
+	private int sellerPageNo;
 }
