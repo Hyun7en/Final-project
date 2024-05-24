@@ -23,4 +23,5 @@ public class Fish {
 	public String tendency;
 	public String field;
 	public String light;
+	public String url;
 }

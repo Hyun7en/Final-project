@@ -165,19 +165,15 @@ a:hover, a:focus {
     text-decoration: none;
     text-align: center;
     margin-top: 20px;
-    max-width: calc(100% - 38px);
 }
 
 #main-info {
     color: white;
     margin-top: 25px;
     text-decoration: none;
+    text-align: center;
 }
 
 #main-info p {
     margin: 0;
-    width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }

@@ -33,7 +33,7 @@ public class FishInfoController {
 		int boardCount = fishService.selectListCount();
 		
 		
-		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 5);
+		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 15);
 		ArrayList<Fish> list = fishService.selectList(pi);
 		
 		model.addAttribute("list", list);

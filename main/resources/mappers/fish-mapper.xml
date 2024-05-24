@@ -18,6 +18,7 @@
 		<result column="tendency" property="tendency"/>
 		<result column="field" property="field"/>
 		<result column="light" property="light"/>
+		<result column="file_path" property="url"/>
 		
 	</resultMap>
 	
@@ -27,8 +28,20 @@
 	</select>
 	
 	<select id="selectList" resultMap="fishInfoResult">
-		SELECT *
-		FROM public.fish
+		SELECT fish_no,
+			   fish_type,
+			   taste_type,
+			   fish_file_no,
+			   fish_name,
+			   temperature,
+			   ration_time,
+			   top_or_bottom,
+			   tendency,
+				field,
+				light,
+				file_path
+				FROM public.fish 
+				JOIN public.fish_attachment using(fish_file_no)
 		ORDER BY fish_no ASC
 	</select>
 </mapper>
