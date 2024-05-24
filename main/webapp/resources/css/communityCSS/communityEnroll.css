@@ -76,3 +76,6 @@ font-size: 15px;
 #com-grey-button{
     background: #AFA8A8;
 }
+.modal-title{
+    text-align: start;
+}

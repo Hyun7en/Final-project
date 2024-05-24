@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.community.vo.Community;
-import com.psvm.community.vo.CommunityAttachment;
 import com.psvm.community.vo.Reply;
 
 @Repository
@@ -32,8 +31,8 @@ public class CommunityDao {
 		return sqlSession.selectOne("communityMapper.selectBoard", boardNo);
 	}
 	
-	public ArrayList<Reply> selectReply(SqlSessionTemplate sqlSession, int boardNo){
-		return (ArrayList)sqlSession.selectList("communityMapper.selectReply", boardNo);
+	public ArrayList<Reply> selectReply(SqlSessionTemplate sqlSession, int bno){
+		return (ArrayList)sqlSession.selectList("communityMapper.selectReply", bno);
 	}
 
 	public int insertBoard(SqlSessionTemplate sqlSession, Community c) {
@@ -42,10 +41,6 @@ public class CommunityDao {
 
 	public int updateBoard(SqlSessionTemplate sqlSession, Community c) {
 		return sqlSession.update("communityMapper.updateBoard", c);
-	}
-	
-	public int uploadBoardAttachment(SqlSessionTemplate sqlSession, CommunityAttachment ca) {
-		return sqlSession.insert("communityMapper.uploadBoardAttachment", ca);
 	}
 	
 	public int insertReply(SqlSessionTemplate sqlSession, Reply r) {

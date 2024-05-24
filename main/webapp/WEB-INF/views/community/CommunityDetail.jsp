@@ -64,165 +64,208 @@
             <div id="com-detail">
                 <div id="com-detail-head">
                     <div id="com-detail-title">
-                    첫 관상어 소개
+                    ${c.boardTitle}
                     </div>
                     <div id="com-detail-good">
-                    추천 수 | 9
+                    추천 수 | ${c.boardDibs}
                     </div>
                 </div>
                 <div id="com-detail-info">
-                    <ul class="com-writer">왓더</ul>
-                    <ul class="com-enrolldate">작성일 | 0000.00.00</ul>
+                    <ul class="com-writer">${c.nickname}</ul>
+                    <ul class="com-enrolldate">작성일 | ${c.writeDate}</ul>
                 </div>
                 <div id="com-detail-content">
-                    <p>
-                        미안하다 이거 보여주려고 어그로끌었다..(이하생략)
-                    </p>
+                    ${c.boardContents}
                 </div>
                 <div id="com-detail-goodarea">
-                    <div id="com-detail-goodbutton">
+                    <button type="button" id="com-detail-goodbutton">
                         <img src="${pageContext.request.contextPath}/resources/image/good.png" alt="추천 버튼" style="width: 30px; height: 30px;">
-                    </div>
+                    </button>
                     <div id="com-detail-goodcount">
-                        9 
+                        ${c.boardDibs}
                     </div>
                 </div>
-                <table id="com-reply">
+
+
+                <table id="com-reply" class="table" align="center">
                     <thead>
-                        <th id="com-reply-blank"></th>
-                        <th colspan="3" style="width: 800px;">댓글</th>
-                        <th id="com-reply-blank"></th>
-                    </thead>
-                    <tbody id="com-reply-info">
-                        <td id="com-reply-blank"></td>
-                        <td id="com-reply-writer">지저스</td>
-                        <td id="com-reply-enrolldate">작성일 | 0000.00.00</td>
-                        <td id="com-reply-edit">
-                            <img src="${pageContext.request.contextPath}/resources/image/Edit.png" alt="댓글 수정 이미지">
-                            <img src="${pageContext.request.contextPath}/resources/image/Cancel.png" alt="댓글 삭제 이미지">
-                        </td>
-                        <td id="com-reply-blank"></td>
-                    </tbody>
-                    <tbody id="com-reply-content">
-                        <td id="com-reply-goodbutton"><img src="${pageContext.request.contextPath}/resources/image/good.png" alt="추천 버튼" style="width: 30px; height: 30px;"></td>
-                        <td colspan="3" id="com-reply-words">
-                            <p>
-                            젠장, 또 대상혁이야. 이 글만 보고 자려고 했는데, 대상혁을 보고 말았어. 이제 나는 숭배해야만 해...
-                            숭배를 시작하면 잠이 확 깨 버릴 걸 알면서도, 나는 숭배해야만 해. 그것이 대상혁을 목도한 자의 사명이다. 자, 숭배를 시작하겠어.
-                            </p>
-                        </td>
+                        <c:choose>
+                            <c:when test="${empty loginUser }">
+                                <tr id="com-reply-insert">
+                                    <th colspan="2">
+                                        <textarea id="com-reply-insertbox" name="replyContents" readonly cols="55" rows="2" style="resize:none;">로그인 후 이용 가능합니다.</textarea>
+                                    </th>
+                                    <th colspan="2" style="vertical-align:middle"><button id="com-reply-button" class="btn btn-secondary disabled">등록하기</button></th>
+                                </tr>
+                            </c:when>
+                            <c:otherwise>
+                                <tr id="com-reply-insert"> 
+                                    <th colspan="2">
+                                        <textarea id="com-reply-insertbox" name="replyContents" cols="55" rows="2" style="resize:none;"></textarea>
+                                    </th>
+                                    <th colspan="2" style="vertical-align:middle"><button id="com-reply-button" class="btn btn-secondary" onclick="addReply();">등록하기</button></th>
+                                </tr>
+                            </c:otherwise>
+                        </c:choose>
+                    
                         
-                        <td id="com-reply-blank"></td>
+                        
+                        <tr>
+                            <td colspan="4">댓글(<span id="rcount">0</span>)</td>
+                        </tr>
+        
+                    </thead>
+                    <tbody>
                     </tbody>
                 </table>
-                <div id="com-reply-insert">
-                    <div>
-                        <textarea style="resize: none;"></textarea>
-                    </div>
-                    <div>
-                        <button id="com-reply-button">등록하기</button>
-                    </div>
-                </div>
+            
+            <br><br>
+                <script>
+                    $(function(){
+                        getReplyList({bno : "${c.boardNo}"}, function(result){
+                            // reulst = reulst.map(r => {
+                            //     return {
+                            //         ...r,
+                            //         cNo : 1
+                            //     }
+                            // })
+        
+                            // reulst.push({
+                            //     cNo : 2,
+                            //     createDate : "2022-10-30",
+                            //     refBno : 0,
+                            //     replyContent : "안녕하세요",
+                            //     replyNo: 5,
+                            //     replyWriter: "admin"
+                            // });
+        
+                            // const rList = {
+                                
+                            // }
+                            // for (let r of reulst) {
+                            //     if (rList[r.cNo]) {
+                            //         rList[r.cNo].push(r);
+                            //     } else {
+                            //         rList[r.cNo] = [r];
+                            //     }
+                            // }
+                            // console.log(rList)
+                            
+                            setReplyCount(result.length)
+            
+                            
+                            
+        
+                            const replyBody = document.querySelector("#com-reply tbody");
+                            drawTableList(result, replyBody);
+                        })
+                    })
+                    
+                    //댓글 등록
+                    function addReply(){
+                        //boardNo
+                        //userId
+                        //댓글내용
+        
+                        const boardNo = "${c.boardNo}";
+                        const userNo = "${loginUser.userNo}";
+                        const content = document.querySelector("#com-reply-insertbox").value;
+        
+        
+                        addReplyAjax({
+                            boardNo: boardNo,
+                            userNo: userNo,
+                            replyContents: content
+                        }, function(res){
+                            getReplyList({bno : "${c.boardNo}"}, function(result){
+                                setReplyCount(result.length);
+                                drawTableList(result, document.querySelector("#com-reply tbody"));
+                            })
+                            
+                        })
+                    }
+        
+               
+                    //댓글 카운트 넣기
+                    function setReplyCount(count){
+                        const rCount = document.querySelector("#rcount");
+                        rCount.innerHTML = count;
+                    }
+        
+                    function addReplyAjax(data, callback){
+                        $.ajax({
+                            url: "rinsert.co",
+                            data : data,
+                            success : function(res){
+                                callback(res)
+                            }, error(){
+                                console.log("댓글 생성 ajax실패");
+                            }
+                        })
+                    }
+        
+                    // 댓글 목록 가져오기
+                    function getReplyList(data, callback){
+                        $.ajax({
+                            url: 'rlist.co',
+                            data : data,
+                            success: function(result){
+                                callback(result)
+                            },
+                            error: function(item){
+                                console.log(item);
+                                console.log("댓글요청 ajax 실패");
+                            }
+                        })
+                    }
+        
+                    function drawTableList(itemList, parent){
+                        $(parent).empty();
+                       
+                        //단순하게 보여주기위한 view를 작성할때  
+                        // let str = "";                
+                        // for (let reply of replyList) {
+                        //     str += `<tr>
+                        //                 <th>` + reply.replyWriter + `</th>
+                        //                 <td>` + reply.replyContent + `</td>
+                        //                 <td>` + reply.createDate + `</td>
+                        //             </tr>`;
+                        // }
+                        // replyBody.innerHTML = str;
+                       
+                        //이벤트를 넣는 뷰를 작성하고 싶을 때               
+                        for (let reply of itemList) {
+                          
+                            const replyRow = document.createElement('tr');
+                            replyRow.innerHTML = `<th id="com-reply-writer">` + reply.nickname + `</th>
+                                                  <td id="com-reply-words" colspan="2">` + reply.replyContents + `</td>
+                                                  <td id="com-reply-enrolldate">` + reply.replyDate + `<img src="${pageContext.request.contextPath}/resources/image/Cancel.png" alt="댓글 삭제 이미지"></td>`;
+                            parent.appendChild(replyRow);
+                            
+                            replyRow.onclick = function(){
+                            }
+                        }
+        
+                        //ui라이브러리형식으로 구성하기
+                        // for (let item of itemList) {
+                        //     const row = document.createElement('tr');
+                        //     row.innerHTML = `<th>` + item.tdData1 + `</th>
+                        //                           <td>` + item.tdData2 + `</td>
+                        //                           <td>` + item.tdData3 + `</td>`
+                        //     parent.appendChild(row);
+                            
+                        //     row.onclick = function(){
+                        //         item.rowEvent(item);
+                        //     }
+                        // }
+                       
+                    }
+                </script>
+
                 <div id="com-detail-bottom">
                     <button id="com-blue-button">수정</button>
                     <button id="com-grey-button">삭제</button>
                 </div>
-            </div>
-            <table class="com-list">
-                <thead id="com-list-header">
-                    <th style="width: 60px; border-radius: 10px 0 0 0;">No</th>
-                    <th style="width: 450px; background-color: bl;">제목</th>
-                    <th style="width: 135px;">글쓴이</th>
-                    <th style="width: 135px;">작성일</th>
-                    <th style="width: 120px; border-radius: 0 10px 0 0;">조회수</th>
-                </thead>
-                <tbody id="com-list-body">
-                    <td>10</td>
-                    <td><a href="">아쿠아프라자 다녀온 후기</a></td>
-                    <td>이야후</td>
-                    <td>0000.00.00</td>
-                    <td>0</td>
-                </tbody>
-                <tbody id="com-list-body">
-                    <td>9</td>
-                    <td><a href="">드립 칠 제목도 생각이 안 난다</a></td>
-                    <td>할렐루야</td>
-                    <td>0000.00.00</td>
-                    <td>0</td>
-                </tbody>
-                <tbody id="com-list-body">
-                    <td>8</td>
-                    <td><a href="">액퍼 커뮤니티 사이트인 줄 알았는데</a></td>
-                    <td>비바</td>
-                    <td>0000.00.00</td>
-                    <td>0</td>
-                </tbody>
-                <tbody id="com-list-body">
-                    <td>7</td>
-                    <td><a href="">낚시 관련 커뮤니티 사이트가 아니라고?</a></td>
-                    <td>오예</td>
-                    <td>0000.00.00</td>
-                    <td>0</td>
-                </tbody>
-                <tbody id="com-list-body">
-                    <td>6</td>
-                    <td><a href="">제목 뭐 하지</a></td>
-                    <td>지저스</td>
-                    <td>0000.00.00</td>
-                    <td>0</td>
-                </tbody>
-                <tbody id="com-list-body">
-                    <td>5</td>
-                    <td><a id="com-list-selected" disabled>첫 관상어 소개</a></td> <!-- windows.onload 스크립트로 링크 삭제 -->
-                    <td>왓더</td>
-                    <td>0000.00.00</td>
-                    <td>0</td>
-                </tbody>
-                <tbody id="com-list-body">
-                    <td>4</td>
-                    <td><a href="">가즈아</a></td>
-                    <td>호눌룰루</td>
-                    <td>0000.00.00</td>
-                    <td>0</td>
-                </tbody>
-                <tbody id="com-list-body">
-                    <td>3</td>
-                    <td><a href="">몰?루</a></td>
-                    <td>요시</td>
-                    <td>0000.00.00</td>
-                    <td>0</td>
-                </tbody>
-                <tbody id="com-list-body">
-                    <td>2</td>
-                    <td><a href="">첫 뻘글</a></td>
-                    <td>아자</td>
-                    <td>0000.00.00</td>
-                    <td>0</td>
-                </tbody>
-                <tbody id="com-list-bottom">
-                    <td style="border-radius: 0 0 0 10px;">1</td>
-                    <td><a href="">첫 게시글</a></td>
-                    <td>관리자</td>
-                    <td>0000.00.00</td>
-                    <td style="border-radius: 0 0 10px 0;">0</td>
-                </tbody>
-            </table>
-            <div class="com-bottom1">
-                <div class="com-bottom-left">
-                    <select name="condition" id="com-condition">
-                        <option value="title">제목</option>
-                        <option value="writer">글쓴이</option>
-                        <option value="content">내용</option>
-                    </select>
-                    <input type="text" name="keyword" value="" placeholder="검색어 입력">
-                    <button id="com-search-button" type="submit">검색</button>
-                </div>
-                <div class="com-bottom-right">
-                    <button id="com-blue-button">글쓰기</button>
-                </div>
-            </div>
-            <div class="com-bottom2">
-                이전  1  2  3  4  5  6  7  8  9  10  다음
             </div>
         </main>
         <%@ include file="../commons/footer.jsp" %>

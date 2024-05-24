@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.community.dao.CommunityDao;
 import com.psvm.community.vo.Community;
-import com.psvm.community.vo.CommunityAttachment;
 import com.psvm.community.vo.Reply;
 
 @Service
@@ -43,8 +42,8 @@ public class CommunityServiceImpl implements CommunityService{
 	}
 
 	@Override
-	public ArrayList<Reply> selectReply(int boardNo) {
-		return communityDao.selectReply(sqlSession, boardNo);
+	public ArrayList<Reply> selectReply(int bno) {
+		return communityDao.selectReply(sqlSession, bno);
 	}
 
 	@Override
@@ -55,11 +54,6 @@ public class CommunityServiceImpl implements CommunityService{
 	@Override
 	public int updateBoard(Community c) {
 		return communityDao.updateBoard(sqlSession, c);
-	}
-	
-	@Override
-	public int uploadBoardAttachment(CommunityAttachment ca) {
-		return communityDao.uploadBoardAttachment(sqlSession, ca);
 	}
 
 	@Override

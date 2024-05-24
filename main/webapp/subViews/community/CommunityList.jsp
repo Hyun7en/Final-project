@@ -132,12 +132,15 @@
                     <td>0000.00.00</td>
                     <td>0</td>
                 </tbody>
-                <tbody id="com-list-bottom">
-                    <td style="border-radius: 0 0 0 10px;">1</td>
+                <tbody id="com-list-body">
+                    <td>1</td>
                     <td><a href="">첫 게시글</a></td>
                     <td>관리자</td>
                     <td>0000.00.00</td>
-                    <td style="border-radius: 0 0 10px 0;">0</td>
+                    <td>0</td>
+                </tbody>
+                <tbody id="com-list-bottom">
+                    <td colspan="5"></td>
                 </tbody>
             </table>
             <div class="com-bottom1">

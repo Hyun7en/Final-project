@@ -65,76 +65,28 @@
                     <th style="width: 135px;">작성일</th>
                     <th style="width: 120px; border-radius: 0 10px 0 0;">조회수</th>
                 </thead>
-                <tbody id="com-list-body">
-                    <td>10</td>
-                    <td><a href="">아쿠아프라자 다녀온 후기</a></td>
-                    <td>이야후</td>
-                    <td>0000.00.00</td>
-                    <td>0</td>
-                </tbody>
-                <tbody id="com-list-body">
-                    <td>9</td>
-                    <td><a href="">드립 칠 제목도 생각이 안 난다</a></td>
-                    <td>할렐루야</td>
-                    <td>0000.00.00</td>
-                    <td>0</td>
-                </tbody>
-                <tbody id="com-list-body">
-                    <td>8</td>
-                    <td><a href="">액퍼 커뮤니티 사이트인 줄 알았는데</a></td>
-                    <td>비바</td>
-                    <td>0000.00.00</td>
-                    <td>0</td>
-                </tbody>
-                <tbody id="com-list-body">
-                    <td>7</td>
-                    <td><a href="">낚시 관련 커뮤니티 사이트가 아니라고?</a></td>
-                    <td>오예</td>
-                    <td>0000.00.00</td>
-                    <td>0</td>
-                </tbody>
-                <tbody id="com-list-body">
-                    <td>6</td>
-                    <td><a href="">제목 뭐 하지</a></td>
-                    <td>지저스</td>
-                    <td>0000.00.00</td>
-                    <td>0</td>
-                </tbody>
-                <tbody id="com-list-body">
-                    <td>5</td>
-                    <td><a href="">첫 관상어 소개</a></td>
-                    <td>왓더</td>
-                    <td>0000.00.00</td>
-                    <td>0</td>
-                </tbody>
-                <tbody id="com-list-body">
-                    <td>4</td>
-                    <td><a href="">가즈아</a></td>
-                    <td>호눌룰루</td>
-                    <td>0000.00.00</td>
-                    <td>0</td>
-                </tbody>
-                <tbody id="com-list-body">
-                    <td>3</td>
-                    <td><a href="">몰?루</a></td>
-                    <td>요시</td>
-                    <td>0000.00.00</td>
-                    <td>0</td>
-                </tbody>
-                <tbody id="com-list-body">
-                    <td>2</td>
-                    <td><a href="">첫 뻘글</a></td>
-                    <td>아자</td>
-                    <td>0000.00.00</td>
-                    <td>0</td>
-                </tbody>
-                <tbody id="com-list-bottom">
-                    <td style="border-radius: 0 0 0 10px;">1</td>
-                    <td><a href="">첫 게시글</a></td>
-                    <td>관리자</td>
-                    <td>0000.00.00</td>
-                    <td style="border-radius: 0 0 10px 0;">0</td>
-                </tbody>
+                <c:forEach var="b" items="${list}" varStatus="order">
+                    <c:choose>
+                        <c:when test="${order.last}">
+                            <tbody id="com-list-bottom">
+                                <td style="border-radius: 0 0 0 10px;">${b.boardNo}</td>
+                                <td><a href="detail.co?category=${b.boardLevel}&boardNo=${b.boardNo}">${b.boardTitle}</a></td>
+                                <td>${b.nickname}</td>
+                                <td>${b.writeDate}</td>
+                                <td style="border-radius: 0 0 10px 0;">${b.boardCount}</td>
+                            </tbody>
+                        </c:when>
+                        <c:otherwise>
+                            <tbody id="com-list-body">
+                                <td>${b.boardNo}</td>
+                                <td><a href="detail.co?boardNo=${b.boardNo}">${b.boardTitle}</a></td>
+                                <td>${b.nickname}</td>
+                                <td>${b.writeDate}</td>
+                                <td>${b.boardCount}</td>
+                            </tbody>
+                        </c:otherwise>
+                    </c:choose> 
+                </c:forEach>
             </table>
             <div class="com-bottom1">
                 <div class="com-bottom-left">

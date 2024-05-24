@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.community.vo.Community;
-import com.psvm.community.vo.CommunityAttachment;
 import com.psvm.community.vo.Reply;
 
 public interface CommunityService {
@@ -22,16 +21,13 @@ public interface CommunityService {
 	Community selectBoard(int boardNo);
 	
 	//댓글목록 조회
-	ArrayList<Reply> selectReply(int boardNo);
+	ArrayList<Reply> selectReply(int bno);
 	
 	//게시글 추가
 	int insertBoard(Community c);
 	
 	//게시글 수정
 	int updateBoard(Community c);
-	
-	//게시글 파일 첨부
-	int uploadBoardAttachment(CommunityAttachment ca);
 	
 	//댓글추가
 	int insertReply(Reply r);

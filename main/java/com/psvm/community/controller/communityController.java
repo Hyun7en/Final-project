@@ -20,11 +20,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import com.psvm.commons.template.Pagination;
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.community.service.CommunityService;
 import com.psvm.community.vo.Community;
-import com.psvm.community.vo.CommunityAttachment;
 import com.psvm.community.vo.Reply;
 
 import lombok.extern.slf4j.Slf4j;
@@ -67,22 +70,60 @@ public class CommunityController {
 //			
 //		}
 	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "rlist.co", produces = "application/json; charset-UTF-8")
+	public String ajaxSelectReplyList(int bno) {
+		ArrayList<Reply> rlist = communityService.selectReply(bno);
+		
+		GsonBuilder gsonBuilder = new GsonBuilder();
+	    gsonBuilder.registerTypeAdapter(java.sql.Date.class, new TypeAdapter<java.sql.Date>() {
+	        private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+	        @Override
+	        public void write(JsonWriter out, java.sql.Date value) throws IOException {
+	            if (value == null) {
+	                out.nullValue();
+	            } else {
+	                out.value(dateFormat.format(value));
+	            }
+	        }
+
+	        @Override
+	        public java.sql.Date read(JsonReader in) throws IOException {
+	            try {
+	                return new java.sql.Date(dateFormat.parse(in.nextString()).getTime());
+	            } catch (Exception e) {
+	                return null;
+	            }
+	        }
+	    });
+
+	    Gson gson = gsonBuilder.create();
+	    String json = gson.toJson(rlist);
+	    return json;
+	}
+	
 	@RequestMapping("enrollForm.co")//게시글 작성 화면
 	public String enrollForm() {
 		return "community/CommunityEnroll";
 	}
 	
-	//게시글 작성하기(화면)
-	@GetMapping("insert.co")
-	public String write() {
-		return "insert.co";
-	}
-	
 	//게시글 추가하기
 	@PostMapping("insert.co")
-	public String insertBoard(Community c) {
+	public String insertBoard(Community c, HttpSession session, Model model) {
 		System.out.println(c);
-		return "insert.co";
+		
+		int result = communityService.insertBoard(c);
+		
+		if (result > 0) { //성공 => list페이지로 이동
+//			session.setAttribute("alertMsg", "게시글 작성 성공");
+			return "redirect:list.co";
+		} else { //실패 => 에러페이지
+//			model.addAttribute("errorMsg", "게시글 작성 실패");
+			return "common/errorPage";
+		}
 	}
 	
 	//ajax로 들어오는 파일 업로드 요청 처리
@@ -133,15 +174,7 @@ public class CommunityController {
 		
 		return changeName;
 	}
-	
-	@ResponseBody
-	@RequestMapping(value = "rlist.co", produces = "application/json; charset-UTF-8")
-	public String ajaxSelectReplyList(int boardNo) {
-		ArrayList<Reply> list = communityService.selectReply(boardNo);
-		
-		return new Gson().toJson(list);
-	}
-	
+
 	@RequestMapping("updateForm.co")
 	public String updateForm(int boardNo, Model model) {
 		
@@ -149,11 +182,26 @@ public class CommunityController {
 		return "community/CommunityEdit";
 	}
 	
+	@RequestMapping("update.co")
+	public String updateBoard(Community c, HttpSession session, Model model) {
+		System.out.println(c);
+		
+		int result = communityService.updateBoard(c);
+		
+		if (result > 0) { //성공 => list페이지로 이동
+			session.setAttribute("alertMsg", "게시글 작성 성공");
+			return "redirect:detail.co?boardNo=" + c.getBoardNo();
+		} else { //실패 => 에러페이지
+			model.addAttribute("errorMsg", "게시글 작성 실패");
+			return "common/errorPage";
+		}
+	}
+	
 	@ResponseBody
-	@RequestMapping("rinsert.bo")
+	@RequestMapping("rinsert.co")
 	public String ajaxInsertReply(Reply r) {
 		//성공했을 때는 success, 실패했을 때 fail
-		
+		System.out.println(r);
 		return communityService.insertReply(r) > 0 ? "success" : "fail";
 	}
 	

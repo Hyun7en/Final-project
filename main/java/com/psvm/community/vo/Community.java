@@ -15,8 +15,8 @@ import lombok.ToString;
 @ToString
 public class Community {
 	private int boardNo; //게시글 번호
-	private int userNo; //작성
-	private int fileNo; //파일번호
+	private String nickname; //작성자 이름
+	private int userNo; //작성자 번호
 	private int boardLevel; //게시판 종류
 	private Date writeDate; //작성날짜
 	private String boardTitle; //제목

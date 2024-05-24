@@ -17,7 +17,7 @@
  		<typeAlias type="com.psvm.myPage.vo.MyInfo" alias="MyInfo" />
  		<typeAlias type="com.psvm.member.vo.Member" alias="Member"/>
  		<typeAlias type="com.psvm.community.vo.Community" alias="Community"/>
- 		<typeAlias type="com.psvm.community.vo.CommunityAttachment" alias="CommunityAttachment"/>
+ 		<typeAlias type="com.psvm.community.vo.Reply" alias="Reply"/>
  	</typeAliases>
  	
  	<!-- 

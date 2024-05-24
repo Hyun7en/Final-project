@@ -7,8 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Header</title>
 
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!-- Popper JS -->
@@ -27,7 +25,7 @@
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/communityCSS/communityEnroll.css">  
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/communityCSS/communityEnroll.css">
 <style>
 </style>
 </head>
@@ -44,21 +42,22 @@
                     <div>
                         게시판
                     </div>
-                    <select name="category">
-                        <option value="normal">일반</option>
-                        <option value="tip">꿀팁</option>
-                        <option value="question">질문</option>
-                        <option value="trade">중고거래</option>
+                    <select name="boardLevel">
+                        <option value="0">일반</option>
+                        <option value="1">꿀팁</option>
+                        <option value="2">질문</option>
+                        <option value="3">중고거래</option>
                     </select>
                 </div>
                 <div id="com-enroll-middle">
                     <div>
                         제목
                     </div>
-                    <input type="text" name="boardTitle">
+                    <input type="hidden" name="userNo" value="${loginUser.userNo}">
+                    <input type="text" name="boardTitle" maxlength="33" required>
                 </div>
                 <div id="com-enroll-content">
-                    <textarea name="content" id="com-enroll-content-p" style="resize: none;"></textarea>
+                    <textarea name="boardContents" id="com-enroll-content-p"></textarea>
                 </div>
                 <div id="com-enroll-bottom">
                     <button id="com-grey-button">취소</button>
@@ -105,14 +104,14 @@
         
                     insertFileApi(fd, function(nameList){
                         for(let name of nameList) {
-                            $("#com-enroll-content-p").summernote('insertImage', "/psvm" + name);	 
+                            $("#com-enroll-content-p").summernote('insertImage', "/psvm" + name);
                         }
                     });
                 }
         
                 function insertFileApi(data,callback){
                     $.ajax({
-                        url: "upload",
+                        url: "upload.co",
                         type: "POST",
                         data: data,
                         processData: false, //기본이 true로 true일때는 전송하는 data를 string으로 변환해서 요청
