@@ -32,10 +32,6 @@ public class CommonsController {
 		return "store/store";
 	}
 	
-	@GetMapping("info.sr")
-	public String sellerInfo() {
-		return "seller/sellerInfo";
-	}
 	
 	@GetMapping("enroll.pd")
 	public String productEnrollForm() {

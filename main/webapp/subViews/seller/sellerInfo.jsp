@@ -34,52 +34,57 @@
 
             <div>
                 <h4>*사업자 등록번호</h4>
-                <span id="business-number">${si.businessNo}</span>
+                <span id="business-number">${list.businessNo}</span>
             </div>
 
             <div>
                 <h4>*대표자 성명</h4>
-                <span id="ceo-name">${si.businessNo}</span>
+                <span id="ceo-name">${list.businessName}</span>
             </div>
 
             <div>
                 <h4>*대표자 성명2</h4>
-                <span id="ceo-name2">${si.businessNo}</span>
+                <span id="ceo-name2">${list.subBusinessName}</span>
             </div>
 
             <div>
                 <h4>*개업일자</h4>
-                <span id="business-type">${si.businessNo}</span>
+                <span id="business-type">${list.openBusinessDate}</span>
             </div>
 
             <div>
                 <h4>*상호</h4>
-                <span id="company-name">${si.businessNo}</span>
+                <span id="company-name">${list.storeName}</span>
+            </div>
+
+            <div>
+                <h4>*법인 등록 번호</h4>
+                <span id="business-classification">${list.crn}</span>
             </div>
 
             <div>
                 <h4>*업태명</h4>
-                <span id="business-classification">${si.businessNo}</span>
+                <span id="business-classification">${list.mainBusinessName}</span>
             </div>
 
             <div>
                 <h4>*종목명</h4>
-                <span id="business-category">${si.businessNo}</span>
+                <span id="business-category">${list.mainItemName}</span>
             </div>
 
             <div>
                 <h4>*사업장 주소</h4>
-                <span id="business-address">${si.businessNo}</span>
+                <span id="business-address">${list.businessAddress}</span>
             </div>
 
             <div>
                 <h4>*정산대금 입금계좌 예금주</h4>
-                <span id="account-holder">${si.businessNo}</span>
+                <span id="account-holder">${list.businessName}</span>
             </div>
 
             <div>
                 <h4>*정산대금 입금계좌번호</h4>
-                <span id="account-number">${si.businessNo}</span>
+                <span id="account-number">${list.businessAccount}</span>
             </div>
 
             <div>

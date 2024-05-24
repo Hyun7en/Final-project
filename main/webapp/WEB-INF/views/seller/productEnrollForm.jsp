@@ -33,7 +33,7 @@
         <%@ include file="../commons/aside.jsp" %>
 
         <section>
-            <h1>스토어 관리</h1>
+            <h1>스토어 관리 &gt; 상품 등록</h1>
             <form action="${pageContext.request.contextPath}/insertProduct" method="post" enctype="multipart/form-data">
                 <div id="product-management">
                     <div>

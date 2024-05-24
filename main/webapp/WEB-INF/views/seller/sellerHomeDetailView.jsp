@@ -27,7 +27,7 @@
         <%@ include file="../commons/aside.jsp" %>
 
         <section>
-            <h1>스토어 관리</h1>
+            <h1>스토어 관리 &gt; 판매자 홈 관리</h1>
             
             <div>
                 <h4>스토어 소개</h4>
