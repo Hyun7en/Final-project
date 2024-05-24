@@ -43,13 +43,13 @@
     <aside>
         <ul>
             <li>
-                <div>판매자 정보 <img src="../../resources/image/triangle.png"></div>
+                <div>판매자 정보 <img src="${pageContext.request.contextPath}/resources/image/triangle.png"></div>
                 <ul class="sub-menu">
                     <li><a href="info.sr">판매자 정보</a></li>
                 </ul>
             </li>
             <li>
-                <div>스토어 관리 <img src="../../resources/image/triangle.png"></div>
+                <div>스토어 관리 <img src="${pageContext.request.contextPath}/resources/image/triangle.png"></div>
                 <ul class="sub-menu">
                     <li><a href="enroll.pd">상품 등록</a></li>
                     <li><a href="list.pd">등록 상품 관리</a></li>
@@ -58,7 +58,7 @@
                 </ul>
             </li>
             <li>
-                <div>주문/배송 <img src="../../resources/image/triangle.png"></div>
+                <div>주문/배송 <img src="${pageContext.request.contextPath}/resources/image/triangle.png"></div>
                 <ul class="sub-menu">
                     <li><a href="#">세부사항 1</a></li>
                     <li><a href="#">세부사항 2</a></li>
@@ -66,7 +66,7 @@
                 </ul>
             </li>
             <li>
-                <div>취소/반품/교환 <img src="../../resources/image/triangle.png"></div>
+                <div>취소/반품/교환 <img src="${pageContext.request.contextPath}/resources/image/triangle.png"></div>
                 <ul class="sub-menu">
                     <li><a href="#">추후 기재</a></li>
                     <li><a href="#">추후 기재</a></li>
@@ -74,7 +74,7 @@
                 </ul>
             </li>
             <li>
-                <div>고객 문의 <img src="../../resources/image/triangle.png"></div>
+                <div>고객 문의 <img src="${pageContext.request.contextPath}/resources/image/triangle.png"></div>
                 <ul class="sub-menu">
                     <li><a href="#">추후 기재</a></li>
                     <li><a href="#">추후 기재</a></li>
@@ -82,7 +82,7 @@
                 </ul>
             </li>
             <li>
-                <div>정산 관리 <img src="../../resources/image/triangle.png"></div>
+                <div>정산 관리 <img src="${pageContext.request.contextPath}/resources/image/triangle.png"></div>
                 <ul class="sub-menu">
                     <li><a href="#">추후 기재</a></li>
                     <li><a href="#">추후 기재</a></li>
