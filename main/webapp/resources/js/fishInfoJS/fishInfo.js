@@ -3,24 +3,25 @@
 //     startFunction(1)
 // })
 
-function startFunction(cpage, cate){
-
-    const searchValue = document.getElementById("fish-search").value;
-		
-    if(searchValue == "" && cate==null){
-        getList({cpage: cpage}, function(data){
+function contentsFunction(cpage, cate){
+    event.preventDefault()
+    const searchValue = document.getElementById("searchArea").value;
+    console.log(searchValue);
+    console.log(cate);
+    // if(searchValue == "" && cate==null){
+    //     getList({cpage: cpage}, function(data){
+    //         drawList(data)
+    //     })
+    // } else if(cate!=null  && searchValue == "") {
+    //     console.log("cate 실행됨",cate);
+    //     categorySearch({cpage : cpage, cate : cate}, function(data){
+    //         drawList(data)
+    //     })
+    // }else if(searchValue != ""){
+        getSearchFish({cpage : cpage, fishName: searchValue}, function(data){
             drawList(data)
         })
-    } else if(cate!=null  && searchValue == "") {
-        console.log("cate 실행됨",cate);
-        categorySearch({cpage : cpage, cate : cate}, function(data){
-            drawList(data)
-        })
-    }else if(searchValue != "" && cate== null){
-        getSearchList({cpage : cpage, searchValue : searchValue}, function(data){
-            drawList(data)
-        })
-    }
+    // }
 }
 
 //searchBar의 엔터를 감지하기 위한 함수
@@ -48,10 +49,11 @@ function getList(data, callback){
 }
 
 //search하는 함수
-function getSearchList(data, callback){
+function getSearchFish(data, callback){
     $.ajax({
-            url: "search.pr",
-            dataType:"json",
+            url: "search.fi",
+            type:"post",
+            dataType: "json",
             data: data,
             success: function(data){
                 callback(data)
@@ -92,44 +94,49 @@ function categoryE(ths) {
 function drawList(data){
     let str = "";
     let Section = document.getElementById("main-container");
-
-    for(const p of data.list){
-        str += ` <a href="fishDetail.fi" id="main-info-a">
+    console.log(data);
+    for(const b of data.list){
+        const url = '${pageContext.request.contextPath}/resources/image/${b.url}'
+        console.log(url);
+        str += `
+                <a href="fishDetail.fi" id="main-info-a">
                     <div>
-                    <div id="main-info-p">
-                        <p>Guppy</p>
-                    </div>
-                    <div id="main-info-img">
-                        <img src="${pageContext.request.contextPath}/resources/image/goopy.jpg" alt="">
-                    </div>
-                    <div id="main-info">
-                        <p>이름 : `+p.fishname+`</p>
-                        <p>종류 : 열대어</p>
-                        <p>몸길이 : 3~4cm</p>
+                        <div id="main-info-p">
+                            <p>${b.fishName }</p>
+                        </div>
+                        <div id="main-info-img">
                         
-                    </div>
+                            <img src="${url}"; alt="">
+                        
+                        </div>
+                        <div id="main-info">
+                            <p>종류 : ${b.fishType}</p>
+                            <p>식성 : ${b.tasteType }</p>
+                            <p>성격 : ${b.tendency }</p>
+                    
+                        </div>
                     </div>
                 </a>
                 `
     }
     Section.innerHTML = str;
 
-    let pagi = document.getElementById("pagination");
+    let pagi = document.getElementsByClassName("pagination");
                     
     let pagingStr = "";
 
     if (data.pi.currentPage != 1) {
-        pagingStr += `<button onclick="contentsFunction(${data.pi.currentPage - 1 });">&lt;</button>`;
+        pagingStr += `<li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="contentsFunction(\${pi.currentPage - 1});">&laquo;</a></li>`;
+    } else{
+        pagingStr +=`<li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>`;
     }
     for (let p = data.pi.startPage; p <= data.pi.endPage; p++) {
-        if (p == data.pi.currentPage) {
-            pagingStr += `<button disabled>`+p+`</button>`;
-        } else {
-            pagingStr += `<button onclick="contentsFunction(${p});">`+p+`</button>`;
-        }
+            pagingStr += `<li class="page-item \${p == pi.currentPage ? 'active' : ''}"><a class="page-link" href="javascript:void(0);" onclick="contentsFunction(\${p})">\${p}</a></li>`;
     }
     if (data.pi.currentPage != data.pi.maxPage) {
-        pagingStr += `<button onclick="contentsFunction(${data.pi.currentPage + 1 });">&gt;</button>`;
+        pagingStr += `<li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="contentsFunction(\${pi.currentPage + 1})">&raquo;</a></li>`;
+    }else{
+        pagingStr +=`<li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>`;
     }
 
     pagi.innerHTML = pagingStr;

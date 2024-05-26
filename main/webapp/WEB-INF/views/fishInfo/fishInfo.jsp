@@ -35,9 +35,9 @@
                <hr width="100%"; color="black"; size="3">
 
                <div id="fish-search">
-                  <form action="">
+                  <form id="searchFish" action="" method="get" onsubmit="contentsFunction()">
                      <input type="submit" id="inputSubmit" value="" style="background-color: #E0F1FF; background-image:url(${pageContext.request.contextPath}/resources/image/searchBtn.png); width:26px; height:26px; position:absolute; left:0px; top: 23px;">
-                     <input type="text" id="searchArea" style=" background-color: #E0F1FF; width: 90%; border-width: 0; height: inherit; font-size:18px;"  placeholder="물고기 이름을 검색해주세요">
+                     <input type="text" id="searchArea" style=" background-color: #E0F1FF; width: 90%; border-width: 0; height: inherit; font-size:18px;" name="fishName"  placeholder="물고기 이름을 검색해주세요">
                   </form>
                </div>
 
@@ -56,7 +56,7 @@
                   <div>
                      <p>물고기 데이터 260종</p>
                   </div>
-                  <div>
+                  <div style="width:10%; display: flex; justify-content: space-evenly;">
                      <a href="#">인기순</a>|
                      <a href="#">최신순</a>
                   </div>
@@ -92,32 +92,31 @@
                
 
                <!-- 페이징 처리 들어오는 곳-->
-               <div id="pagination">
+               <div id="pagination-div">
 					<ul class="pagination">
 		            	<c:choose>
 		            		<c:when test="${ pi.currentPage eq 1 }">
-		            			<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+		            			<li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
 		            		</c:when>
 		            		<c:otherwise>
-		            			<li class="page-item"><a class="page-link" href="fishInfo.ma?cpage=${pi.currentPage - 1}">Previous</a></li>
+		            			<li class="page-item"><a class="page-link" href="fishInfo.ma?cpage=${pi.currentPage - 1}">&laquo;</a></li>
 		            		</c:otherwise>
 		            	</c:choose>
 		
 						<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-							<li class="page-item"><a class="page-link" href="fishInfo.ma?cpage=${p}">${p}</a></li>
+							<li class="page-item ${p == pi.currentPage ? 'active' : ''}"><a class="page-link" href="fishInfo.ma?cpage=${p}">${p}</a></li>
 						</c:forEach>
 		                
 		              <c:choose>
 		            		<c:when test="${ pi.currentPage eq pi.maxPage }">
-		            			<li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+		            			<li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
 		            		</c:when>
 		            		<c:otherwise>
-		            			<li class="page-item"><a class="page-link" href="fishInfo.ma?cpage=${pi.currentPage + 1}">Next</a></li>
+		            			<li class="page-item"><a class="page-link" href="fishInfo.ma?cpage=${pi.currentPage + 1}">&raquo;</a></li>
 		            		</c:otherwise>
 		            	</c:choose>
            			 </ul>
                </div>
-               
             </div>
         </main>
                 

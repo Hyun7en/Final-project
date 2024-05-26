@@ -18,7 +18,7 @@
 		<result column="tendency" property="tendency"/>
 		<result column="field" property="field"/>
 		<result column="light" property="light"/>
-		<result column="file_path" property="url"/>
+		<result column="origin_name" property="url"/>
 		
 	</resultMap>
 	
@@ -39,9 +39,34 @@
 			   tendency,
 				field,
 				light,
-				file_path
+				origin_name
 				FROM public.fish 
 				JOIN public.fish_attachment using(fish_file_no)
+		ORDER BY fish_no ASC
+	</select>
+	
+	<select id="selectAjaxCount" resultType="_int">
+		SELECT COUNT(*) 
+		FROM public.fish
+		WHERE fish_name = #{fishName}
+	</select>
+	
+	<select id="ajaxSearchFish" resultMap="fishInfoResult">
+		SELECT fish_no,
+			   fish_type,
+			   taste_type,
+			   fish_file_no,
+			   fish_name,
+			   temperature,
+			   ration_time,
+			   top_or_bottom,
+			   tendency,
+				field,
+				light,
+				origin_name
+		FROM public.fish 
+		JOIN public.fish_attachment using(fish_file_no)
+		WHERE fish_name like'%' || #{fishName} || '%'
 		ORDER BY fish_no ASC
 	</select>
 </mapper>

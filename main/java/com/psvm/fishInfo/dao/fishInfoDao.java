@@ -21,4 +21,16 @@ public class FishInfoDao {
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("fishMapper.selectList", null, rowBounds);
 	}
+	
+	public int selectAjaxCount(SqlSessionTemplate sqlSession, String fishName) {
+		return sqlSession.selectOne("fishMapper.selectAjaxCount",fishName);
+	}
+	
+	public ArrayList<Fish> ajaxSearchFish(SqlSessionTemplate sqlSession, PageInfo pi, String fishName){
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("fishMapper.ajaxSearchFish", fishName, rowBounds);
+	}
+	
 }
