@@ -29,7 +29,7 @@ public class SellerController {
 	@RequestMapping("info.sr")
 	public String selectSeller( Model model) {
 		
-		int userNo = 7;
+		int userNo = 5;
 		SellerInfo sr = sellerService.selectSeller(userNo);
 		
         log.info("Seller info: {}", sr);

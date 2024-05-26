@@ -19,7 +19,7 @@
 		<result column="BUSINESS_ACCOUNT" property="businessAccount"/>
 	</resultMap>
 	
-	<resultMap type="SellerPage" id="sellerResult">
+ 	<resultMap type="SellerPage" id="sellerResult">
 		<result column="SELLER_PAGE_NO" property="sellerPageNo"/>
 		<result column="BUSINESS_NO" property="businessNo"/>
 		<result column="SELLER_EXPLAIN" property="sellerExplain"/>
@@ -36,7 +36,8 @@
 		<result column="REF_PNO" property="refPno"/>
 		<result column="UPLOAD_DATE" property="uploadDate"/>
 		<result column="FILE_LEVEL" property="fileLevel"/>
-		<result column="FILE_PATH" property="filePath"/>
+		<result column="ORIGIN_NAME" property="originName"/>
+		<result column="CHANGE_NAME" property="changeName"/>		
 	</resultMap>
 	
 	<select id="selectSeller" resultMap="sellerResult">

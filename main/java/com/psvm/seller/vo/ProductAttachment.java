@@ -20,6 +20,8 @@ public class ProductAttachment {
 	private int refPno;
 	private Date uploadDate;
 	private int fileLevel;
-	private String filePath;
+	private String originName;
+	private String changeName;
+	
 
 }
