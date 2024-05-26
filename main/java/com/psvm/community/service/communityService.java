@@ -12,7 +12,7 @@ public interface CommunityService {
 	int selectListCount(int boardLevel);
 	
 	//게시글 리스트 조회
-	ArrayList<Community> selectList(PageInfo pi);
+	ArrayList<Community> selectList(PageInfo pi, int boardLevel);
 	
 	//게시글 조회수 증가
 	int increaseCount(int boardNo);

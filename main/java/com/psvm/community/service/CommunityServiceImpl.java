@@ -27,8 +27,8 @@ public class CommunityServiceImpl implements CommunityService{
 	}
 
 	@Override
-	public ArrayList<Community> selectList(PageInfo pi) {
-		return communityDao.selectList(sqlSession, pi);
+	public ArrayList<Community> selectList(PageInfo pi, int boardLevel) {
+		return communityDao.selectList(sqlSession, pi, boardLevel);
 	}
 
 	@Override

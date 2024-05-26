@@ -16,11 +16,11 @@ public class CommunityDao {
 		return sqlSession.selectOne("communityMapper.selectListCount", boardLevel);
 	}
 	
-	public ArrayList<Community> selectList(SqlSessionTemplate sqlSession, PageInfo pi) {
+	public ArrayList<Community> selectList(SqlSessionTemplate sqlSession, PageInfo pi, int boardLevel) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("communityMapper.selectList", null, rowBounds);
+		return (ArrayList)sqlSession.selectList("communityMapper.selectList", boardLevel, rowBounds);
 	}
 	
 	public int increaseCount(SqlSessionTemplate sqlSession, int boardNo) {
@@ -32,7 +32,7 @@ public class CommunityDao {
 	}
 	
 	public ArrayList<Reply> selectReply(SqlSessionTemplate sqlSession, int bno){
-		return (ArrayList)sqlSession.selectList("communityMapper.selectReply", bno);
+		return (ArrayList)sqlSession.selectList("communityMapper.selectReply", bno);	
 	}
 
 	public int insertBoard(SqlSessionTemplate sqlSession, Community c) {
