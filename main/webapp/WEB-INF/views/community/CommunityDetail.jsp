@@ -7,8 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Header</title>
 
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!-- Popper JS -->
@@ -37,30 +35,26 @@
                     <li><button class="com-nav-2" onclick="boCategory(2)" name="boardLevel" value="2">질문</button></li>
                     <li><button class="com-nav-3" onclick="boCategory(3)" name="boardLevel" value="3" style="border-radius: 0 10px 10px 0;">중고거래</button></li>
                 </ul>
-            </div>
-            <script>
-                function boCategory(category){
-                        location.href = "list.co?category=" + category + "?cpage=1";
+        </div>
+        <script>
+            function boCategory(category){
+                    location.href = "list.co?category=" + category;
+            }
+            window.onload = function() {
+                // URL에서 category 값을 추출하는 함수
+                function getCategoryFromUrl() {
+                    const params = new URLSearchParams(window.location.search);
+                    return params.get('category');
                 }
-                window.onload = function() {
-                    // URL에서 category 값을 추출하는 함수
-                    function getCategoryFromUrl() {
-                        const params = new URLSearchParams(window.location.search);
-                        return params.get('category');
-                    }
 
-                    // category 값을 가져옴
-                    const category = getCategoryFromUrl();
+                // category 값을 가져옴
+                const category = getCategoryFromUrl();
 
-                    // category 값과 동일한 버튼에 id="com-nav-selected"를 부여
-                    if (category !== null) {
-                        const button = document.querySelector(`.com-nav-${category}`);
-                        if (button) {
-                            button.id = "com-nav-selected";
-                        }
-                    }
-                }
-            </script>
+                // category 값과 동일한 버튼에 id="com-nav-selected"를 부여
+                const button = document.querySelector(".com-nav-" + category);
+                button.id = "com-nav-selected";
+            }
+        </script>
             <div id="com-detail">
                 <div id="com-detail-head">
                     <div id="com-detail-title">
@@ -92,18 +86,18 @@
                         <c:choose>
                             <c:when test="${empty loginUser }">
                                 <tr id="com-reply-insert">
-                                    <th colspan="2">
-                                        <textarea id="com-reply-insertbox" name="replyContents" readonly cols="55" rows="2" style="resize:none;">로그인 후 이용 가능합니다.</textarea>
+                                    <th colspan="2" style="width: 720px !important;">
+                                        <textarea id="com-reply-insertbox" name="replyContents" readonly cols="55" rows="2" style="resize:none; outline: none; padding-left: 10px; padding-top: 5px;">로그인 후 이용 가능합니다.</textarea>
                                     </th>
-                                    <th colspan="2" style="vertical-align:middle"><button id="com-reply-button" class="btn btn-secondary disabled">등록하기</button></th>
+                                    <th colspan="2" style="vertical-align:middle; width: 180px !important;"><button id="com-reply-button" class="btn btn-secondary disabled">등록하기</button></th>
                                 </tr>
                             </c:when>
                             <c:otherwise>
                                 <tr id="com-reply-insert"> 
-                                    <th colspan="2">
-                                        <textarea id="com-reply-insertbox" name="replyContents" cols="55" rows="2" style="resize:none;"></textarea>
+                                    <th colspan="2" style="width: 720px !important;">
+                                        <textarea id="com-reply-insertbox" name="replyContents" cols="55" rows="2" style="resize:none; outline: none; padding-left: 10px; padding-top: 5px;"></textarea>
                                     </th>
-                                    <th colspan="2" style="vertical-align:middle"><button id="com-reply-button" class="btn btn-secondary" onclick="addReply();">등록하기</button></th>
+                                    <th colspan="2" style="vertical-align:middle; width: 180px !important;"><button id="com-reply-button" class="btn btn-secondary" onclick="addReply();">등록하기</button></th>
                                 </tr>
                             </c:otherwise>
                         </c:choose>
@@ -111,7 +105,7 @@
                         
                         
                         <tr>
-                            <td colspan="4">댓글(<span id="rcount">0</span>)</td>
+                            <td colspan="4" style="height: 30px; background-color: #0089FF; color: white; padding-left: 10px;">댓글(<span id="rcount">0</span>)</td>
                         </tr>
         
                     </thead>
@@ -123,39 +117,9 @@
                 <script>
                     $(function(){
                         getReplyList({bno : "${c.boardNo}"}, function(result){
-                            // reulst = reulst.map(r => {
-                            //     return {
-                            //         ...r,
-                            //         cNo : 1
-                            //     }
-                            // })
-        
-                            // reulst.push({
-                            //     cNo : 2,
-                            //     createDate : "2022-10-30",
-                            //     refBno : 0,
-                            //     replyContent : "안녕하세요",
-                            //     replyNo: 5,
-                            //     replyWriter: "admin"
-                            // });
-        
-                            // const rList = {
-                                
-                            // }
-                            // for (let r of reulst) {
-                            //     if (rList[r.cNo]) {
-                            //         rList[r.cNo].push(r);
-                            //     } else {
-                            //         rList[r.cNo] = [r];
-                            //     }
-                            // }
-                            // console.log(rList)
                             
                             setReplyCount(result.length)
             
-                            
-                            
-        
                             const replyBody = document.querySelector("#com-reply tbody");
                             drawTableList(result, replyBody);
                         })
@@ -221,52 +185,120 @@
         
                     function drawTableList(itemList, parent){
                         $(parent).empty();
-                       
-                        //단순하게 보여주기위한 view를 작성할때  
-                        // let str = "";                
-                        // for (let reply of replyList) {
-                        //     str += `<tr>
-                        //                 <th>` + reply.replyWriter + `</th>
-                        //                 <td>` + reply.replyContent + `</td>
-                        //                 <td>` + reply.createDate + `</td>
-                        //             </tr>`;
-                        // }
-                        // replyBody.innerHTML = str;
-                       
-                        //이벤트를 넣는 뷰를 작성하고 싶을 때               
+
+                        //이벤트를 넣는 뷰를 작성하고 싶을 때
                         for (let reply of itemList) {
-                          
-                            const replyRow = document.createElement('tr');
-                            replyRow.innerHTML = `<th id="com-reply-writer">` + reply.nickname + `</th>
-                                                  <td id="com-reply-words" colspan="2">` + reply.replyContents + `</td>
+
+                            const replyRow1 = document.createElement('tr');
+                            replyRow1.innerHTML = `<th id="com-reply-writer" colspan="3">` + reply.nickname + `</th>
                                                   <td id="com-reply-enrolldate">` + reply.replyDate + `<img src="${pageContext.request.contextPath}/resources/image/Cancel.png" alt="댓글 삭제 이미지"></td>`;
-                            parent.appendChild(replyRow);
+                            parent.appendChild(replyRow1);
+
+                            const replyRow2 = document.createElement('tr');
+                            replyRow2.innerHTML = `<td id="com-reply-words" colspan="4">` + reply.replyContents + `</td>`;
+                            parent.appendChild(replyRow2);
                             
-                            replyRow.onclick = function(){
-                            }
                         }
         
-                        //ui라이브러리형식으로 구성하기
-                        // for (let item of itemList) {
-                        //     const row = document.createElement('tr');
-                        //     row.innerHTML = `<th>` + item.tdData1 + `</th>
-                        //                           <td>` + item.tdData2 + `</td>
-                        //                           <td>` + item.tdData3 + `</td>`
-                        //     parent.appendChild(row);
-                            
-                        //     row.onclick = function(){
-                        //         item.rowEvent(item);
-                        //     }
-                        // }
-                       
                     }
                 </script>
 
                 <div id="com-detail-bottom">
-                    <button id="com-blue-button">수정</button>
-                    <button id="com-grey-button">삭제</button>
+                    <c:if test="${loginUser.userNo eq c.userNo}">
+                        <button id="com-blue-button" onclick="location.href='updateForm.co?boardNo=${c.boardNo}'">수정</button>
+                        <button id="com-grey-button">삭제</button>
+                    </c:if>
                 </div>
             </div>
+
+            <script>
+                function show(boardLevel, cpage, boardNo){
+                    location.href = "detail.co?category=" + boardLevel + "&cpage=" + cpage + "&boardNo=" + boardNo;
+                }
+            </script>
+            <table class="com-list">
+                <thead id="com-list-header">
+                    <th style="width: 60px; border-radius: 10px 0 0 0;">No</th>
+                    <th style="width: 450px; background-color: bl;">제목</th>
+                    <th style="width: 135px;">글쓴이</th>
+                    <th style="width: 135px;">작성일</th>
+                    <th style="width: 120px; border-radius: 0 10px 0 0;">조회수</th>
+                </thead>
+                <c:forEach var="b" items="${list}" varStatus="order">
+                    <c:choose>
+                        <c:when test="${order.last}">
+                            <tbody id="com-list-bottom">
+                                <td style="border-radius: 0 0 0 10px;">${b.boardNo}</td>
+                                <td><a href="javascript:show(${b.boardLevel}, ${pi.currentPage}, ${b.boardNo})" class="com-link-${b.boardNo}">${b.boardTitle}</a></td>
+                                <td>${b.nickname}</td>
+                                <td>${b.writeDate}</td>
+                                <td style="border-radius: 0 0 10px 0;">${b.boardCount}</td>
+                            </tbody>
+                        </c:when>
+                        <c:otherwise>
+                            <tbody id="com-list-body">
+                                <td>${b.boardNo}</td>
+                                <td><a href="javascript:show(${b.boardLevel}, ${pi.currentPage}, ${b.boardNo})" class="com-link-${b.boardNo}">${b.boardTitle}</a></td>
+                                <td>${b.nickname}</td>
+                                <td>${b.writeDate}</td>
+                                <td>${b.boardCount}</td>
+                            </tbody>
+                        </c:otherwise>
+                    </c:choose> 
+                </c:forEach>
+            </table>
+            <div class="com-bottom1">
+                <div class="com-bottom-left">
+                    <select name="condition" id="com-condition">
+                        <option value="title">제목</option>
+                        <option value="writer">글쓴이</option>
+                        <option value="content">내용</option>
+                    </select>
+                    <input type="text" name="keyword" value="" placeholder="검색어 입력">
+                    <button id="com-search-button" type="submit">검색</button>
+                </div>
+                <div id="com-bottom-right">
+                    <c:choose>
+                        <c:when test="${empty loginUser}">
+                            <!-- 로그인 전 -->
+                            <button id="com-grey-button" disabled>글쓰기</button>
+                        </c:when>
+                        <c:otherwise>
+                            <!-- 로그인 후 -->
+                            <button onclick="location.href='enrollForm.co'" id="com-blue-button">글쓰기</button>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+            </div>
+            <div class="com-bottom2">
+                <div id="pagination-div">
+                    <ul class="pagination">
+                        <c:choose>
+                            <c:when test="${ pi.currentPage eq 1 }">
+                                <li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="page-item"><a class="page-link" href="list.co?category=${b.boardLevel}&cpage=${pi.currentPage - 1}">&laquo;</a></li>
+                            </c:otherwise>
+                    </c:choose>
+                
+                <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+                    <c:set var="b" value="${list[0].boardLevel}"/>
+                    <li class="page-item ${p == pi.currentPage ? 'active' : ''}"><a class="page-link" href="list.co?category=${b}&cpage=${p}">${p}</a></li>
+                </c:forEach>
+                    
+                  <c:choose>
+                        <c:when test="${ pi.currentPage eq pi.maxPage }">
+                            <li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="page-item"><a class="page-link" href="list.co?category=${b.boardLevel}&cpage=${pi.currentPage + 1}">&raquo;</a></li>
+                        </c:otherwise>
+                    </c:choose>
+                     </ul>
+                </div>
+            </div>
+
         </main>
         <%@ include file="../commons/footer.jsp" %>
     </div>

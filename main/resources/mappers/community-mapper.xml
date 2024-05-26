@@ -8,7 +8,6 @@
 	<resultMap type="Community" id="communityResult">
 		<result column="BOARD_NO" property="boardNo"/>
 		<result column="NICKNAME" property="nickname"/>
-		<!-- <result column="FILE_NO" property="fileNo"/> -->
 		<result column="BOARD_LEVEL" property="boardLevel"/>
 		<result column="WRITE_DATE" property="writeDate"/>
 		<result column="BOARD_TITLE" property="boardTitle"/>
