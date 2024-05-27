@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class CommonsController {
 	@GetMapping("home.ma")
 	public String home() {
-		return "main/main";
+		return "redirect:/";
 	}
 
 	

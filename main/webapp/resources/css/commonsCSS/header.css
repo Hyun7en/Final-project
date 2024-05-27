@@ -51,7 +51,7 @@ header{
     right: 10px;
 }
 
-#loginArea > a{
+#loginArea>form>a, #loginArea>a{
     text-decoration: none;
     color: black;
     margin-right: 50px;
