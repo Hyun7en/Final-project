@@ -1,5 +1,5 @@
 package com.psvm.store.dao;
 
-public class storeDao {
+public class StoreDao {
 
 }

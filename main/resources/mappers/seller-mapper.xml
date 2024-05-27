@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- namespace: 해당 mapper파일의 고유한 별칭 -->
+ <mapper namespace="sellerMapper">
+	<resultMap type="SellerInfo" id="sellerResult">
+		<result column="BUSINESS_NO" property="businessNo"/>
+		<result column="USER_NO" property="userNo"/>
+		<result column="BUSINESS_NAME" property="businessName"/>
+		<result column="SUB_BUSINESS_NAME" property="subBusinessName"/>
+		<result column="OPEN_BUSINESS_DATE" property="openBusinessDate"/>
+		<result column="STORE_NAME" property="storeName"/>
+		<result column="CRN" property="crn"/>
+		<result column="MAIN_BUSINESS_NAME" property="mainBusinessName"/>
+		<result column="MAIN_ITEM_NAME" property="mainItemName"/>
+		<result column="BUSINESS_ADDRESS" property="businessAddress"/>
+		<result column="BUSINESS_ACCOUNT" property="businessAccount"/>
+	</resultMap>
+	
+ 	<resultMap type="SellerPage" id="sellerResult">
+		<result column="SELLER_PAGE_NO" property="sellerPageNo"/>
+		<result column="BUSINESS_NO" property="businessNo"/>
+		<result column="SELLER_EXPLAIN" property="sellerExplain"/>
+	</resultMap>
+	
+	<resultMap type="ProductCategory" id="sellerResult">
+		<result column="P_CATEGORY" property="pCategory"/>
+		<result column="SELLER_PAGE_NO" property="sellerPageNo"/>
+	</resultMap>
+	
+	<resultMap type="ProductAttachment" id="sellerResult">
+		<result column="PRODUCT_FILE_NO" property="productFileNo"/>
+		<result column="SELLER_PAGE_NO" property="sellerPageNo"/>
+		<result column="REF_PNO" property="refPno"/>
+		<result column="UPLOAD_DATE" property="uploadDate"/>
+		<result column="FILE_LEVEL" property="fileLevel"/>
+		<result column="ORIGIN_NAME" property="originName"/>
+		<result column="CHANGE_NAME" property="changeName"/>		
+	</resultMap>
+	
+	<select id="selectSeller" resultMap="sellerResult">
+		SELECT *
+		FROM BUSINESS_INFO
+		WHERE USER_NO = #{userNo}
+	</select>
+	
+<!-- 	<insert id="insertSellerPage">
+		INSERT INTO
+					SELLER_PAGE (
+								 seller_page_no,
+								 business_no,
+								 seller_explain
+								 )
+						 VALUES (
+						 		 default,
+						 		 
+								 #{storeDescription}							 		 
+						 		 )	 
+	</insert>
+	
+	<insert id="insertProductCategory">
+		INSERT INTO 
+					PRODUCT_CATEGORY (
+								 	  p_category,
+								 	  seller_page_no
+								 	  )
+						 	  VALUES (
+						 		 
+						 		 	  )	
+	</insert>
+	
+	<insert id="insertProductAttachment">
+		   INSERT INTO 
+		   				PRODUCT_ATTACHMENT (
+		   									product_file_no,
+					   						SELLER_PAGE_NO, 
+					   						REF_PNO, 
+					   						UPLOAD_DATE, 
+					   						FILE_LEVEL, 
+					   						ORIGIN_NAME, 
+					   						CHANGE_NAME
+					   					  )
+					   			  VALUES  (
+							   			   default,
+							   			   , 
+							   			   #{refPno}, 
+							   			   #{uploadDate}, 
+							   			   #{fileLevel}, 
+							   			   #{originName}, 
+							   			   #{changeName}
+							   			  )
+  
+	</insert>
+	 -->
+	
+	
+
+</mapper>

@@ -5,7 +5,7 @@
 body{
 	font-family: "Gothic A1", sans-serif;
 	width: 100%;
-	
+  
 	/* 글자를 정말 매우 살짝 회전시키면 윈도우에선 안티앨리어싱 된 듯한 느낌 */
 	/* transform : rotate(0.04deg); */
 
@@ -20,7 +20,7 @@ main{
   padding-top: 85px; 
 }
 
-ol, ul {
+ol, ul, a {
 	list-style: none;
 	text-decoration: none;
 }
