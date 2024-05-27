@@ -18,9 +18,9 @@
  		<typeAlias type="com.psvm.member.vo.Member" alias="Member"/>
  		<typeAlias type="com.psvm.community.vo.Community" alias="Community"/>
  		<typeAlias type="com.psvm.seller.vo.SellerInfo" alias="SellerInfo"/>
- 		<!-- <typeAlias type="com.psvm.seller.vo.SellerPage" alias="SellerPage"/>
+ 		<typeAlias type="com.psvm.seller.vo.SellerPage" alias="SellerPage"/>
  		<typeAlias type="com.psvm.seller.vo.ProductCategory" alias="ProductCategory"/>
- 		<typeAlias type="com.psvm.seller.vo.ProductAttachment" alias="ProductAttachment"/>	 -->	
+ 		<typeAlias type="com.psvm.seller.vo.ProductAttachment" alias="ProductAttachment"/>		
  		<typeAlias type="com.psvm.fishInfo.vo.Fish" alias="Fish"/>
  		<typeAlias type="com.psvm.community.vo.Reply" alias="Reply"/>
  	</typeAliases>

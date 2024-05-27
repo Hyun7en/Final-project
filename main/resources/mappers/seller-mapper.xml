@@ -5,7 +5,7 @@
   
 <!-- namespace: 해당 mapper파일의 고유한 별칭 -->
  <mapper namespace="sellerMapper">
-	<resultMap type="SellerInfo" id="sellerResult">
+	<resultMap type="SellerInfo" id="sellerInfoResult">
 		<result column="BUSINESS_NO" property="businessNo"/>
 		<result column="USER_NO" property="userNo"/>
 		<result column="BUSINESS_NAME" property="businessName"/>
@@ -17,20 +17,21 @@
 		<result column="MAIN_ITEM_NAME" property="mainItemName"/>
 		<result column="BUSINESS_ADDRESS" property="businessAddress"/>
 		<result column="BUSINESS_ACCOUNT" property="businessAccount"/>
+		<result column="STATUS" property="status"/>	
 	</resultMap>
 	
- 	<resultMap type="SellerPage" id="sellerResult">
+ 	<resultMap type="SellerPage" id="sellerPageResult">
 		<result column="SELLER_PAGE_NO" property="sellerPageNo"/>
 		<result column="BUSINESS_NO" property="businessNo"/>
 		<result column="SELLER_EXPLAIN" property="sellerExplain"/>
 	</resultMap>
 	
-	<resultMap type="ProductCategory" id="sellerResult">
+	<resultMap type="ProductCategory" id="productCategoryResult">
 		<result column="P_CATEGORY" property="pCategory"/>
 		<result column="SELLER_PAGE_NO" property="sellerPageNo"/>
 	</resultMap>
 	
-	<resultMap type="ProductAttachment" id="sellerResult">
+	<resultMap type="ProductAttachment" id="productAttachmentResult">
 		<result column="PRODUCT_FILE_NO" property="productFileNo"/>
 		<result column="SELLER_PAGE_NO" property="sellerPageNo"/>
 		<result column="REF_PNO" property="refPno"/>
@@ -40,22 +41,20 @@
 		<result column="CHANGE_NAME" property="changeName"/>		
 	</resultMap>
 	
-	<select id="selectSeller" resultMap="sellerResult">
+	<select id="selectSeller" resultMap="sellerInfoResult">
 		SELECT *
-		FROM BUSINESS_INFO
+		FROM SELLER_INFO
 		WHERE USER_NO = #{userNo}
 	</select>
 	
-<!-- 	<insert id="insertSellerPage">
+	<insert id="insertSellerPage">
 		INSERT INTO
 					SELLER_PAGE (
-								 seller_page_no,
 								 business_no,
 								 seller_explain
 								 )
 						 VALUES (
-						 		 default,
-						 		 
+						 		 #{businessNo},
 								 #{storeDescription}							 		 
 						 		 )	 
 	</insert>
@@ -67,14 +66,14 @@
 								 	  seller_page_no
 								 	  )
 						 	  VALUES (
-						 		 
+							 		  #{categoriesJson}, 
+							 		  #{srNo}
 						 		 	  )	
 	</insert>
 	
 	<insert id="insertProductAttachment">
 		   INSERT INTO 
 		   				PRODUCT_ATTACHMENT (
-		   									product_file_no,
 					   						SELLER_PAGE_NO, 
 					   						REF_PNO, 
 					   						UPLOAD_DATE, 
@@ -83,8 +82,7 @@
 					   						CHANGE_NAME
 					   					  )
 					   			  VALUES  (
-							   			   default,
-							   			   , 
+							   			  #{srNo}, 
 							   			   #{refPno}, 
 							   			   #{uploadDate}, 
 							   			   #{fileLevel}, 
@@ -93,7 +91,7 @@
 							   			  )
   
 	</insert>
-	 -->
+	
 	
 	
 

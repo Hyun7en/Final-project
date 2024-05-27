@@ -44,6 +44,14 @@
             let categoriesInput = $('<input>').attr('type', 'hidden').attr('name', 'categories').val(JSON.stringify(categories));
             $(this).append(categoriesInput);
         });
+
+        $('#storeHomeImage').change(function(event) {
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                $('#preview-image').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        });
     });
 </script>
 
@@ -61,7 +69,7 @@
 
         <section>
             <h1>스토어 관리 &gt; 판매자 홈 등록</h1>
-            <form action="${pageContext.request.contextPath}/enroll.srh" method="post" enctype="multipart/form-data">
+            <form id="enrollForm" name="enrollForm" action="enroll.srh" method="post" enctype="multipart/form-data">
                 <div>
                     <h4>스토어 소개</h4>
                     <input id="store-introduce" type="text" name="storeDescription" placeholder="스토어 소개 입력" style="width: 300px; padding: 5px;">
@@ -71,7 +79,7 @@
                     <input type="file" name="storeHomeImage" id="storeHomeImage">
                 </div>
                 <div class="image-container">
-                    <img src="${pageContext.request.contextPath}/getImage?id=1" alt="대표 이미지">
+                    <img id="preview-image" src="getImage?id=1" alt="대표 이미지">
                 </div>
 
                 <div id="div-enroll-category">

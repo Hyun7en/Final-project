@@ -16,7 +16,6 @@ import lombok.ToString;
 public class Product {
 	
 	private int pNo;
-	private int userNo;
 	private String pCategory;
 	private String pOption;
 	private int pFileNo;
