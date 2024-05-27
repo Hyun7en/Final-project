@@ -29,9 +29,15 @@ public interface CommunityService {
 	//게시글 수정
 	int updateBoard(Community c);
 	
+	//게시글 삭제
+	int deleteBoard(int boardNo);
+	
 	//댓글추가
 	int insertReply(Reply r);
 	
 	//top5게시글 조회
 	ArrayList<Community> selectTopBoardList();
+	
+	//댓글삭제
+	int deleteReply(int boardReplyNo);
 }
