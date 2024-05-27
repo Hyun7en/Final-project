@@ -8,6 +8,7 @@
 	<resultMap type="Community" id="communityResult">
 		<result column="BOARD_NO" property="boardNo"/>
 		<result column="NICKNAME" property="nickname"/>
+		<result column="USER_NO" property="userNo"/>
 		<result column="BOARD_LEVEL" property="boardLevel"/>
 		<result column="WRITE_DATE" property="writeDate"/>
 		<result column="BOARD_TITLE" property="boardTitle"/>
@@ -37,10 +38,12 @@
 			  	BOARD_TITLE,
 			  	NICKNAME,
 			  	TO_CHAR(WRITE_DATE, 'YYYY-MM-DD') AS "WRITE_DATE",
-			  	BOARD_COUNT
+			  	BOARD_COUNT,
+			  	BOARD_LEVEL
 		FROM	BOARD
 		JOIN	MEMBER USING (USER_NO)
 		WHERE	STATUS = 'Y'
+		AND		BOARD_LEVEL = ${boardLevel}
 		ORDER	BY BOARD_NO DESC  
 	</select>
 	<update id="increaseCount">
@@ -53,6 +56,8 @@
 		SELECT	BOARD_NO,
 				BOARD_TITLE,
 				NICKNAME,
+				USER_NO,
+				BOARD_LEVEL,
 				BOARD_CONTENTS,
 				BOARD_COUNT,
 				TO_CHAR(WRITE_DATE, 'YYYY-MM-DD') AS "WRITE_DATE"
@@ -99,6 +104,7 @@
 	<update id="updateBoard">
 		UPDATE	BOARD
 		SET		BOARD_TITLE = #{boardTitle},
+				BOARD_LEVEL = #{boardLevel},
 				BOARD_CONTENTS = #{boardContents}
 		WHERE	BOARD_NO = #{boardNo}
 	</update>

@@ -36,22 +36,30 @@
                 글쓰기
             </div>
             <form method="post" action="update.co">
+                <input type="hidden" name="boardNo" value="${c.boardNo}">
+                <input type="hidden" name="userNo" value="${loginUser.userNo}">
+                <input type="hidden" name="recentPath" value="${recentPath}">
                 <div id="com-edit-top">
                     <div>
                         게시판
                     </div>
                     <select name="boardLevel">
-                        <option value="0">일반</option>
-                        <option value="1">꿀팁</option>
-                        <option value="2">질문</option>
-                        <option value="3">중고거래</option>
+                        <option id="com-category-0" value="0">일반</option>
+                        <option id="com-category-1" value="1">꿀팁</option>
+                        <option id="com-category-2" value="2">질문</option>
+                        <option id="com-category-3" value="3">중고거래</option>
                     </select>
+                    <script>
+                        window.onload = function(){
+                            const option = document.querySelector("#com-category-${c.boardLevel}");
+                            option.selected = true;
+                        }
+                    </script>
                 </div>
                 <div id="com-edit-middle">
                     <div>
                         제목
                     </div>
-                    <input type="hidden" name="userNo" value="${loginUser.userNo}">
                     <input type="text" name="boardTitle" maxlength="33" required value="${c.boardTitle}">
                 </div>
                 <div id="com-edit-content">

@@ -190,23 +190,28 @@
                         for (let reply of itemList) {
 
                             const replyRow1 = document.createElement('tr');
-                            replyRow1.innerHTML = `<th id="com-reply-writer" colspan="3">` + reply.nickname + `</th>
-                                                  <td id="com-reply-enrolldate">` + reply.replyDate + `<img src="${pageContext.request.contextPath}/resources/image/Cancel.png" alt="댓글 삭제 이미지"></td>`;
+                            replyRow1.innerHTML = `<th id="com-reply-writer" colspan="2">` + reply.nickname + `</th>
+                                                  <td id="com-reply-enrolldate">` + reply.replyDate + `</td>
+                                                  <td id="com-reply-edit"><img src="${pageContext.request.contextPath}/resources/image/Cancel.png" alt="댓글 삭제 이미지"></td>`;
                             parent.appendChild(replyRow1);
 
                             const replyRow2 = document.createElement('tr');
-                            replyRow2.innerHTML = `<td id="com-reply-words" colspan="4">` + reply.replyContents + `</td>`;
+                            replyRow2.innerHTML = `<td id="com-reply-blank"></td>
+                                                    <td id="com-reply-words" colspan="2">` + reply.replyContents + `</td>
+                                                    <td id="com-reply-blank"></td>`;
                             parent.appendChild(replyRow2);
                             
                         }
         
                     }
                 </script>
-
                 <div id="com-detail-bottom">
                     <c:if test="${loginUser.userNo eq c.userNo}">
-                        <button id="com-blue-button" onclick="location.href='updateForm.co?boardNo=${c.boardNo}'">수정</button>
+                        <form action="updateForm.co?boardNo=${c.boardNo}" method="post">
+                            <input type="hidden" name="recentLink" id="recentLink" value="">
+                            <button type="submit" id="com-blue-button" onclick="getRecentURL()">수정</button>
                         <button id="com-grey-button">삭제</button>
+                    </form>
                     </c:if>
                 </div>
             </div>
@@ -214,6 +219,10 @@
             <script>
                 function show(boardLevel, cpage, boardNo){
                     location.href = "detail.co?category=" + boardLevel + "&cpage=" + cpage + "&boardNo=" + boardNo;
+                }
+                function getRecentURL(){
+                    const recentLink = document.querySelector('#recentLink');
+                    recentLink.value = (window.location.pathname + window.location.search).substring(6);
                 }
             </script>
             <table class="com-list">

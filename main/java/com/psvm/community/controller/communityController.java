@@ -53,17 +53,17 @@ public class CommunityController {
 	@RequestMapping(value = "detail.co")//게시글 내용 띄우기
 	public String selectBoard(int boardNo, @RequestParam(value="cpage", defaultValue="1") int currentPage, @RequestParam(value="category", defaultValue="0") int boardLevel, Model model) {
 		
-		int result = communityService.increaseCount(boardNo);
-		
-		Community c = communityService.selectBoard(boardNo);
-		model.addAttribute("c", c);
-		
 		int boardCount = communityService.selectListCount(boardLevel);
 		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 5);
 		ArrayList<Community> list = communityService.selectList(pi, boardLevel);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
+		
+		int result = communityService.increaseCount(boardNo);
+		
+		Community c = communityService.selectBoard(boardNo);
+		model.addAttribute("c", c);
 		
 		return "community/CommunityDetail";
 		
@@ -181,20 +181,18 @@ public class CommunityController {
 
 	@RequestMapping("updateForm.co")
 	public String updateForm(int boardNo, Model model) {
-		
 		model.addAttribute("c", communityService.selectBoard(boardNo));
-		System.out.println(model.getAttribute("c"));
+
 		return "community/CommunityEdit";
 	}
 	
 	@RequestMapping("update.co")
-	public String updateBoard(Community c, int cpage, HttpSession session, Model model) {
-		System.out.println(c);
-		
+	public String updateBoard(Community c, HttpSession session, Model model) {
+
 		int result = communityService.updateBoard(c);
-		
+
 		if (result > 0) { //성공 => list페이지로 이동
-			return "redirect:detail.co?category=" + c.getBoardLevel() + "&cpage=" + cpage + "&boardNo=" + c.getBoardNo();
+			return "redirect:detail.co?category=" + c.getBoardLevel() + "&cpage=1&boardNo=" + c.getBoardNo();
 		} else { //실패 => 에러페이지
 			return "commons/error";
 		}
