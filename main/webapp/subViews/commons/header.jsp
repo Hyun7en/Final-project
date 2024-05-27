@@ -11,7 +11,7 @@
 </head>
 <body>
 	 <header>
-            <div id="Header" style="background-color: white">
+            <div id="Header">
                 <div id="logo">
                     <p>Aquaqu</p>
                 </div>
