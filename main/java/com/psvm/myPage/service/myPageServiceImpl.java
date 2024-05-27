@@ -10,6 +10,7 @@ import com.psvm.community.vo.Community;
 import com.psvm.member.vo.Member;
 import com.psvm.myPage.dao.MyPageDao;
 import com.psvm.myPage.vo.Inquiry;
+import com.psvm.seller.vo.SellerInfo;
 
 @Service
 public class MyPageServiceImpl implements MyPageService {
@@ -40,8 +41,20 @@ public class MyPageServiceImpl implements MyPageService {
 		return myPageDao.writePostList(sqlSession, userNo);
 	}
 	
+	public ArrayList<Integer> wirtePostListCount(int userNo) {
+		return myPageDao.writePostListCount(sqlSession, userNo);
+	}
+	
 	public ArrayList<Inquiry> inquiryList(int userNo){
 		return myPageDao.inquiryList(sqlSession, userNo);
+	}
+	
+	public String sellerConversionStatus(int userNo) {
+		return myPageDao.sellerConversionStatus(sqlSession, userNo);
+	}
+	
+	public int sellerInfoList(SellerInfo s){
+		return myPageDao.sellerInfoList(sqlSession, s);
 	}
 	
 }

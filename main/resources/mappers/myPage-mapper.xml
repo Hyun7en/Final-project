@@ -28,6 +28,10 @@
 		<result column="MEMBER_FILE_NO" property="memberFileNo"/>
 	</resultMap>
 	
+	
+	
+	
+	
 	<!-- 작성한 게시글 resultMapper -->
 	<resultMap type="Community" id="writePostResult">
 		<result column="board_level" property="boardLevel"/>
@@ -42,7 +46,8 @@
 		<result column="inquiry_title" property="inquiryTitle"/>
 		<result column="inquiry_date" property="inquiryDate"/>
 	</resultMap>
-
+	
+	
 	<!-- 회원 정보 수정 -->
 	<update id="modifyInfo">
 		UPDATE member
@@ -95,6 +100,16 @@
 		ORDER BY write_date DESC
 	</select>
 	
+	<!-- 작성한 게시글 종류별 갯수 조회 -->
+	<select id="writePostListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM board
+		WHERE status = 'Y'
+		AND user_no = #{userNo}
+		AND board_level IN (0, 1, 2, 3)
+		GROUP BY board_level	<!-- board_level을 그룹화해서 board_level이 0, 1, 2, 3인 게시글들을 종류별로 카운트 -->
+	</select>
+	
 	<!-- 작성한 문의글 리스트 조회 -->
 	<select id="inquiryList" resultMap="inquiryResult">
 		SELECT inquiry_no,
@@ -106,6 +121,41 @@
 		AND user_no = #{userNo}
 		ORDER BY inquiry_date DESC
 	</select>
+	
+	<select id="sellerConversionStatus" resultType="string">
+		SELECT status
+		FROM seller_info
+		WHERE user_no = #{userNo}
+	</select>
+	
+	<insert id="sellerInfoList">
+		INSERT INTO seller_info(
+			business_no,
+			user_no,
+			business_name,
+			sub_business_name,
+			open_business_date,
+			store_name,
+			crn,
+			main_business_name,
+			main_item_name,
+			business_address,
+			business_account
+		)
+		VALUES(
+			#{businessNo},
+			#{userNo},
+			#{businessName},
+			#{subBusinessName},
+			#{openBusinessDate},
+			#{storeName},
+			#{crn},
+			#{mainBusinessName},
+			#{mainItemName},
+			#{businessAddress},
+			#{businessAccount}
+		)
+	</insert>
 	
 
 

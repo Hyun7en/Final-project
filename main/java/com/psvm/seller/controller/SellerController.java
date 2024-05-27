@@ -32,11 +32,11 @@ public class SellerController {
     @Autowired
     private SellerService sellerService;
     
-    @Autowired
-    private SellerPage sellerPage;
-    
-    @Autowired
-    private ProductAttachment productAttachment;
+//    @Autowired
+//    private SellerPage sellerPage;
+//    
+//    @Autowired
+//    private ProductAttachment productAttachment;
     
     // 마이페이지에서 적은 판매자 정보 불러오기
     @RequestMapping("info.sr")

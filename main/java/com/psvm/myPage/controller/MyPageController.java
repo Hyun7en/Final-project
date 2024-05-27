@@ -1,6 +1,7 @@
 package com.psvm.myPage.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +15,7 @@ import com.psvm.community.vo.Community;
 import com.psvm.member.vo.Member;
 import com.psvm.myPage.service.MyPageServiceImpl;
 import com.psvm.myPage.vo.Inquiry;
+import com.psvm.seller.vo.SellerInfo;
 
 @Controller
 public class MyPageController {
@@ -28,7 +30,7 @@ public class MyPageController {
 	}
 	
 	@RequestMapping("modifyInfo.my")
-	public ModelAndView modifyInfo(HttpSession session, Member m, Model model, ModelAndView mv) {
+	public ModelAndView modifyInfo(HttpSession session, Member m, ModelAndView mv) {
 		
 		int result = myPageService.modifyInfo(m);
 		
@@ -78,19 +80,18 @@ public class MyPageController {
 		return "myPage/myPageOrderHistory";
 	}
 	
-	
-	
 	@RequestMapping("writePost.my")
 	public String wirtePostList(HttpSession session, int userNo) {
 		
 		ArrayList<Community> list = myPageService.wirtePostList(userNo);
 		
+		ArrayList<Integer> listCount = myPageService.wirtePostListCount(userNo);
+		
 		session.setAttribute("list", list);
+		session.setAttribute("listCount", listCount);
 		
 		return "myPage/myPageWritePost";
 	}
-	
-	
 	
 	@RequestMapping("cart.my")
 	public String cart() {
@@ -108,13 +109,32 @@ public class MyPageController {
 		return "myPage/myPageInquiry";
 	}
 	
-	@RequestMapping("sellerConversion.my")
-	public String sellerConversion() {
+	@RequestMapping("sellerConversionPage.my")
+	public String sellerConversionPage(HttpSession session, int userNo) {
 		
-		ArrayList<>
+		String status = myPageService.sellerConversionStatus(userNo);
+		System.out.println(status);
 		
-		
+		session.setAttribute("status", status);
+				
 		return "myPage/myPageSellerConversion";
+//		return "redirect:detail.bo?bno=" + b.getBoardNo();
+	}
+	
+	
+	@RequestMapping("sellerConversion.my")
+	public ModelAndView sellerConversion(HttpSession session, SellerInfo s, ModelAndView mv) {
+		int result = myPageService.sellerInfoList(s);
+		
+		if(result > 0) {
+			mv.addObject("successMessage", "판매자 신청 성공");
+			mv.setViewName("redirect:sellerConversionPage.my?userNo=" + s.getUserNo());
+		} else {
+			mv.addObject("errorMessage", "판매자 신청 실패");
+			mv.setViewName("myPage/myPageSellerConversion");
+		}
+		
+		return mv;
 	}
 	
 	

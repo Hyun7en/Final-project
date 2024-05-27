@@ -31,30 +31,30 @@
                     <div id="myPage-category-area">
                         <div class="myPage-category"><a href="myPage.me">내 정보</a></div>
                         <div class="myPage-category"><a href="interestProduct.my?userNo=${loginUser.userNo}">관심상품</a></div>
-                        <div class="myPage-category"><a href="orderHistory.my?userNo=${loginUser.userNo}">주문내역</a></div>
-                        <div class="myPage-category"><a style="color: #0089FF;" href="writePost.my?userNo=${loginUser.userNo}">작성한 글</a></div>
                         <div class="myPage-category"><a href="cart.my?userNo=${loginUser.userNo}">장바구니</a></div>
+                        <div class="myPage-category"><a href="orderHistory.my?userNo=${loginUser.userNo}">주문내역</a></div>
+                        <div class="myPage-category"><a style="color: #0089FF;" href="writePost.my?userNo=${loginUser.userNo}">작성한 글 </a></div>
                         <div class="myPage-category"><a href="inquiry.my?userNo=${loginUser.userNo}">1:1 문의</a></div>
-                        <div class="myPage-category"><a href="sellerConversion.my">판매자 신청</a></div>
+                        <div class="myPage-category"><a href="sellerConversionPage.my?userNo=${loginUser.userNo}">판매자 신청</a></div>
                     </div>
                 </div>
                 <div id="myPageWritePost-info-area">
                     <div id="myPageWritePost-status-area">
                         <div id="ps1" class="myPageWritePost-status">
                             <b>일반 게시판</b>
-                            <p>count 개</p>
+                            <p>${listCount[0]} 개</p>
                         </div>
                         <div id="ps2" class="myPageWritePost-status">
-                            <b>자랑 게시판</b>
-                            <p>count 개</p>
+                            <b>꿀팁 게시판</b>
+                            <p>${listCount[1]} 개</p>
                         </div>
                         <div id="ps3" class="myPageWritePost-status">
                             <b>질문 게시판</b>
-                            <p>count 개</p>
+                            <p>${listCount[2]} 개</p>
                         </div>
                         <div class="myPageWritePost-status">
-                            <b>꿀팁 게시판</b>
-                            <p>count 개</p>
+                            <b>중고거래 게시판</b>
+                            <p>${listCount[3]} 개</p>
                         </div>
                     </div>
                     <div id="myPageWritePost-list-area">
@@ -66,14 +66,23 @@
                                 <th width="10%">조회수</th>
                             </thead>
                             <tbody>
-                                <c:forEach var="b" items="${list}">
-                                    <tr>
-                                        <td>${b.boardLevel}</td>
-                                        <td>${b.boardTitle}</td>
-                                        <td>${b.writeDate}</td>
-                                        <td>${b.boardCount}</td>
-                                    </tr>
-                                </c:forEach>
+                                <c:choose>
+                                    <c:when test="${empty list}">
+                                        <tr>
+                                            <td colspan="4" style="text-align: center;"><p>작성한 게시글이 없습니다.</p></td>
+                                        </tr>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:forEach var="b" items="${list}">
+                                            <tr>
+                                                <td>${b.boardLevel}</td>
+                                                <td>${b.boardTitle}</td>
+                                                <td>${b.writeDate}</td>
+                                                <td>${b.boardCount}</td>
+                                            </tr>
+                                        </c:forEach>
+                                    </c:otherwise>
+                                </c:choose>
                             </tbody>
                         </table>
                         <div id="btnList-area">
