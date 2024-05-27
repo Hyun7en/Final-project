@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,6 +24,10 @@
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
+    <!-- alertify -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/communityCSS/communityEdit.css">
@@ -36,22 +41,30 @@
                 글쓰기
             </div>
             <form method="post" action="update.co">
+                <input type="hidden" name="boardNo" value="${c.boardNo}">
+                <input type="hidden" name="userNo" value="${loginUser.userNo}">
+                <input type="hidden" name="recentPath" value="${recentPath}">
                 <div id="com-edit-top">
                     <div>
                         게시판
                     </div>
                     <select name="boardLevel">
-                        <option value="0">일반</option>
-                        <option value="1">꿀팁</option>
-                        <option value="2">질문</option>
-                        <option value="3">중고거래</option>
+                        <option id="com-category-0" value="0">일반</option>
+                        <option id="com-category-1" value="1">꿀팁</option>
+                        <option id="com-category-2" value="2">질문</option>
+                        <option id="com-category-3" value="3">중고거래</option>
                     </select>
+                    <script>
+                        window.onload = function(){
+                            const option = document.querySelector("#com-category-${c.boardLevel}");
+                            option.selected = true;
+                        }
+                    </script>
                 </div>
                 <div id="com-edit-middle">
                     <div>
                         제목
                     </div>
-                    <input type="hidden" name="userNo" value="${loginUser.userNo}">
                     <input type="text" name="boardTitle" maxlength="33" required value="${c.boardTitle}">
                 </div>
                 <div id="com-edit-content">

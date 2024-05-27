@@ -26,12 +26,25 @@
                     </form>
                     
                 </div>
+                
                 <div id="loginArea">
                 <c:choose>
 	            	<c:when test="${empty loginUser}">
 		                <!-- 로그인 전 -->
-			            <a href="loginForm.me">로그인</a>
-	                    <a href="signUpForm.me">회원가입</a>
+                        <form action="loginForm.me" method="post">
+                            <input type="hidden" name="recentLink" id="recentLink">
+                        </form>
+                        <a href="javascript:void(0)" onclick="getRecentURL()" >로그인</a>
+                        <a href="signUpForm.me">회원가입</a>
+                        
+                        <script>
+                            function getRecentURL(){
+                                const recentLink = document.querySelector('#recentLink');
+                                recentLink.value = (window.location.pathname + window.location.search).substring(6);
+                                console.log(recentLink.value);
+                                recentLink.form.submit();
+                            }
+                        </script>
 	            	</c:when>
                     
 	                <c:otherwise>
@@ -74,7 +87,7 @@
                 <a href="home.ma">홈</a>
                 <a href="fishInfo.ma">물고기 정보</a>
                 <a href="quration.ma">물고기 큐레이터</a>
-                <a href="list.co?category=0">커뮤니티</a>
+                <a href="list.co?category=0&cpage=1">커뮤니티</a>
                 <a href="storeMain.ma">스토어</a>
             </nav>
         </header>

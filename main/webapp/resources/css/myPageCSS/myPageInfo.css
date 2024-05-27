@@ -71,13 +71,9 @@ main{
 #myPageInfo-info-area{
     width: 85%;
     height: auto;
-}
-
-#myPageInfo-siteInfo-area{
     background-color: white;
-    width: 100%;
-    height: auto;
     border-radius: 16px;
+
 }
 
 #myPage-category-select-title{
@@ -86,13 +82,13 @@ main{
     padding: 15px;
 }
 
-#myPageInfo-siteInfo-profile{
+#myPageInfo-profile-area{
     border-bottom: 1px solid #afa8a8;
     width: 100%;
     height: auto;
 }
 
-#myPageInfo-siteInfo-profile-img{
+#myPageInfo-profile-img{
     width: 100%;
     margin-top: 5px;
     display: flex;
@@ -100,19 +96,41 @@ main{
     justify-content: center;
 }
 
-#myPageInfo-siteInfo-profile-img img{
+#myPageInfo-profile-img img{
     width: 120px;
     border-radius: 150px;
 }
 
-#myPageInfo-siteInfo-profile-edit{
+#myPageInfo-profile-edit{
     display: flex;
     flex-direction: row;
     justify-content: center;
     padding: 15px 0;
 }
 
-#myPageInfo-siteInfo-profile-edit button{
+#myPageInfo-profile-edit label{
+    width: 150px;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 15px 0;
+    background-color: white;
+    cursor: pointer;
+    border: 1px solid black;
+    border-radius: 50px;
+}
+
+#myPageInfo-profile-edit input{
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}
+
+#myPageInfo-profile-edit button{
     width: 150px;
     height: 50px;
     border: 1px solid black;
@@ -123,45 +141,54 @@ main{
     cursor: pointer;
 }
 
-#myPageInfo-siteInfo table{
-    width: 100%;
+#myPageInfo-no-changeInfo-area{
+    display: flex;
+    justify-content: center;
 }
 
-#myPageInfo-siteInfo tr{
+#myPageInfo-no-changeInfo-area table{
+    width: 60%;
+}
+
+#myPageInfo-no-changeInfo-area tr{
     height: 80px;
     text-align: left;
 }
 
-#myPageInfo-siteInfo th{
-    width: 150px;
-    padding: 10px 0px 10px 20px;
+#myPageInfo-no-changeInfo-area th{
+    width: 100px;
+    /* padding: 10px 0px 10px 20px; */
     font-weight: 600;
 }
 
-#myPageInfo-privacy-area{
-    background-color: white;
-    border-radius: 16px;
-    margin-top: 25px;
-    padding-top: 5px;
+#myPageInfo-changeInfo-area{
+    /* background-color: white; */
+    /* border-radius: 16px; */
+    /* margin-top: 25px; */
+    /* padding-top: 5px; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
 }
 
-#myPageInfo-privacy-area table{
-    width: 100%;
+#myPageInfo-changeInfo-area table{
+    width: 60%;
 }
 
-#myPageInfo-privacy-area tr{
+#myPageInfo-changeInfo-area tr{
     width: 100%;
     height: 80px;
     text-align: left;
 }
 
-#myPageInfo-privacy-area th{
-    width: 150px;
-    padding: 10px 60px 10px 20px;
+#myPageInfo-changeInfo-area th{
+    width: 100px;
+    /* padding: 10px 60px 10px 20px; */
     font-weight: 600; 
 }
 
-#myPageInfo-privacy-button-area{
+#myPageInfo-modify-delete-button-area{
     height: 60px;
     margin-top: 15px;
     display: flex;
@@ -169,7 +196,7 @@ main{
     justify-content: center;
 }
 
-#myPageInfo-privacy-button-area button{
+#myPageInfo-modify-delete-button-area button{
     width: 120px;
     height: 40px;
     border-radius: 100px;
@@ -179,8 +206,34 @@ main{
     cursor: pointer;
 }
 
-input{
-    width: 100%;
-    font-size: 15px;
+.change-btn{
+    width: 55px;
+    height: 40px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-left: 5px;
+    cursor: pointer;
 }
 
+#gender1, #gender2{
+    width: 20px;
+    height: 20px;
+    font-size: 15px;
+    background-color: #eeeeee;
+    margin-left: 5px;
+}
+
+input{
+    width: 80%;
+    height: 40px;
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: #eeeeee;
+}
+
+input::placeholder{
+    color: black;
+}

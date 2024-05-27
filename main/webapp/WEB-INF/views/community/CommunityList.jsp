@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,8 +14,10 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script src=""></script>
+    
+    <!-- alertify -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
 
@@ -22,6 +25,32 @@
 
 </head>
 <body>
+    <c:if test="${ not empty successMessage}">
+		<script>
+			var successMessage = "${successMessage}";
+		    if (successMessage) {
+		        Swal.fire({
+		            icon: 'success',
+		            title: 'success!',
+		            html: successMessage
+		        });
+		    }
+		</script>
+		<c:remove var="successMessage" scope="session"/>
+	</c:if>
+    <c:if test="${ not empty infoMessage}">
+		<script>
+			var infoMessage = "${infoMessage}";
+		    if (infoMessage) {
+		        Swal.fire({
+		            icon: 'info',
+		            title: 'Notice',
+		            html: infoMessage
+		        });
+		    }
+		</script>
+		<c:remove var="infoMessage" scope="session"/>
+	</c:if>
     <div id="wrap">
         <%@ include file="../commons/header.jsp" %>
         <main id="community-normal">
