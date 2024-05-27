@@ -26,8 +26,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/communityCSS/communityEnroll.css">
-<style>
-</style>
 </head>
 <body>
     <div id="wrap">

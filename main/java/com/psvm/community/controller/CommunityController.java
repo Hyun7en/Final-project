@@ -43,21 +43,27 @@ public class CommunityController {
 	public String selectList(@RequestParam(value="cpage", defaultValue="1") int currentPage, @RequestParam(value="category", defaultValue="0") int boardLevel, Model model) {
 		int boardCount = communityService.selectListCount(boardLevel);
 		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 5);
-		ArrayList<Community> list = communityService.selectList(pi);
+		ArrayList<Community> list = communityService.selectList(pi, boardLevel);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
-		
 		return "community/CommunityList";
 	}
 	
 	@RequestMapping(value = "detail.co")//게시글 내용 띄우기
-	public String selectBoard(int boardNo, Model model) {
+	public String selectBoard(int boardNo, @RequestParam(value="cpage", defaultValue="1") int currentPage, @RequestParam(value="category", defaultValue="0") int boardLevel, Model model) {
 		
 		int result = communityService.increaseCount(boardNo);
 		
 		Community c = communityService.selectBoard(boardNo);
 		model.addAttribute("c", c);
+		
+		int boardCount = communityService.selectListCount(boardLevel);
+		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 5);
+		ArrayList<Community> list = communityService.selectList(pi, boardLevel);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
 		
 		return "community/CommunityDetail";
 		
@@ -113,16 +119,15 @@ public class CommunityController {
 	//게시글 추가하기
 	@PostMapping("insert.co")
 	public String insertBoard(Community c, HttpSession session, Model model) {
-		System.out.println(c);
 		
 		int result = communityService.insertBoard(c);
 		
 		if (result > 0) { //성공 => list페이지로 이동
 //			session.setAttribute("alertMsg", "게시글 작성 성공");
-			return "redirect:list.co";
+			return "redirect:list.co?category="+ c.getBoardLevel() +"&cpage=1";
 		} else { //실패 => 에러페이지
 //			model.addAttribute("errorMsg", "게시글 작성 실패");
-			return "common/errorPage";
+			return "commons/error";
 		}
 	}
 	
@@ -131,7 +136,6 @@ public class CommunityController {
 	@PostMapping("upload.co")
 	@ResponseBody
 	public String upload(List<MultipartFile> fileList, HttpSession session) {
-		System.out.println(fileList);
 		
 		List<String> changeNameList = new ArrayList<String>();
 		
@@ -179,21 +183,20 @@ public class CommunityController {
 	public String updateForm(int boardNo, Model model) {
 		
 		model.addAttribute("c", communityService.selectBoard(boardNo));
+		System.out.println(model.getAttribute("c"));
 		return "community/CommunityEdit";
 	}
 	
 	@RequestMapping("update.co")
-	public String updateBoard(Community c, HttpSession session, Model model) {
+	public String updateBoard(Community c, int cpage, HttpSession session, Model model) {
 		System.out.println(c);
 		
 		int result = communityService.updateBoard(c);
 		
 		if (result > 0) { //성공 => list페이지로 이동
-			session.setAttribute("alertMsg", "게시글 작성 성공");
-			return "redirect:detail.co?boardNo=" + c.getBoardNo();
+			return "redirect:detail.co?category=" + c.getBoardLevel() + "&cpage=" + cpage + "&boardNo=" + c.getBoardNo();
 		} else { //실패 => 에러페이지
-			model.addAttribute("errorMsg", "게시글 작성 실패");
-			return "common/errorPage";
+			return "commons/error";
 		}
 	}
 	
@@ -201,7 +204,6 @@ public class CommunityController {
 	@RequestMapping("rinsert.co")
 	public String ajaxInsertReply(Reply r) {
 		//성공했을 때는 success, 실패했을 때 fail
-		System.out.println(r);
 		return communityService.insertReply(r) > 0 ? "success" : "fail";
 	}
 	

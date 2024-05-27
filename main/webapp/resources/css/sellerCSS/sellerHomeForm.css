@@ -1,0 +1,111 @@
+@charset "UTF-8";
+section {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 40px 200px;
+    height: calc(100vh - 40px);
+    overflow-y: scroll;
+}
+
+/* 스크롤바 없애기 */
+body {
+    -ms-overflow-style: none;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* 스크롤바 없애기 */
+
+section h1 {
+    margin-bottom: 20px;
+}
+
+section div {
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+section div input {
+    margin-left: 20px;
+}
+
+/* 가게 소개 */
+#store-introduce {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.image-container {
+    width: 800px;
+    height: 400px;
+    box-shadow: 2px 4px 12px #ccc;
+}
+
+.image-container img {
+    width: 800px;
+    height: 400px;
+}
+
+/* 카테고리 등록 */
+#div-enroll-category {
+    display: block;
+}
+
+#enroll-category {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 25px;
+    padding-left: 5px;
+    line-height: 25px;
+}
+
+#add-categoryBtn {
+    width: 40px;
+    height: 25px;
+    background-color: #0089FF;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+#add-categoryBtn:hover {
+    background-color: #005bb5;
+}
+
+#categoryList div {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 150px;
+    height: 25px;
+    padding: 0 5px;
+    justify-content: space-between;
+}
+
+.removeBtn {
+    background-color: transparent;
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+/* 버튼 */
+.form-actions button {
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    background-color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.form-actions button:hover {
+    background-color: #f0f0f0;
+}

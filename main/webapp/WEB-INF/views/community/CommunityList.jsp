@@ -7,8 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Header</title>
 
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!-- Popper JS -->
@@ -40,7 +38,7 @@
             </div>
             <script>
                 function boCategory(category){
-                        location.href = "list.co?category=" + category;
+                        location.href = "list.co?category=" + category + "&cpage=1";
                 }
                 window.onload = function() {
                     // URL에서 category 값을 추출하는 함수
@@ -57,6 +55,11 @@
                     button.id = "com-nav-selected";
                 }
             </script>
+            <script>
+                function show(boardLevel, cpage, boardNo){
+                    location.href = "detail.co?category=" + boardLevel + "&cpage=" + cpage + "&boardNo=" + boardNo;
+                }
+            </script>
             <table class="com-list">
                 <thead id="com-list-header">
                     <th style="width: 60px; border-radius: 10px 0 0 0;">No</th>
@@ -70,7 +73,7 @@
                         <c:when test="${order.last}">
                             <tbody id="com-list-bottom">
                                 <td style="border-radius: 0 0 0 10px;">${b.boardNo}</td>
-                                <td><a href="detail.co?category=${b.boardLevel}&boardNo=${b.boardNo}">${b.boardTitle}</a></td>
+                                <td><a href="javascript:show(${b.boardLevel}, ${pi.currentPage}, ${b.boardNo})" class="com-link-${b.boardNo}">${b.boardTitle}</a></td>
                                 <td>${b.nickname}</td>
                                 <td>${b.writeDate}</td>
                                 <td style="border-radius: 0 0 10px 0;">${b.boardCount}</td>
@@ -79,7 +82,7 @@
                         <c:otherwise>
                             <tbody id="com-list-body">
                                 <td>${b.boardNo}</td>
-                                <td><a href="detail.co?boardNo=${b.boardNo}">${b.boardTitle}</a></td>
+                                <td><a href="javascript:show(${b.boardLevel}, ${pi.currentPage}, ${b.boardNo})" class="com-link-${b.boardNo}">${b.boardTitle}</a></td>
                                 <td>${b.nickname}</td>
                                 <td>${b.writeDate}</td>
                                 <td>${b.boardCount}</td>
@@ -99,11 +102,45 @@
                     <button id="com-search-button" type="submit">검색</button>
                 </div>
                 <div id="com-bottom-right">
-                    <button onclick="location.href='enrollForm.co'" id="com-blue-button">글쓰기</button>
+                    <c:choose>
+                        <c:when test="${empty loginUser}">
+                            <!-- 로그인 전 -->
+                            <button id="com-grey-button" disabled>글쓰기</button>
+                        </c:when>
+                        <c:otherwise>
+                            <!-- 로그인 후 -->
+                            <button onclick="location.href='enrollForm.co'" id="com-blue-button">글쓰기</button>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
             <div class="com-bottom2">
-                이전  1  2  3  4  5  6  7  8  9  10  다음
+                <div id="pagination-div">
+                    <ul class="pagination">
+                        <c:choose>
+                            <c:when test="${ pi.currentPage eq 1 }">
+                                <li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="page-item"><a class="page-link" href="list.co?category=${b.boardLevel}&cpage=${pi.currentPage - 1}">&laquo;</a></li>
+                            </c:otherwise>
+                    </c:choose>
+                
+                <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+                    <c:set var="b" value="${list[0].boardLevel}"/>
+                    <li class="page-item ${p == pi.currentPage ? 'active' : ''}"><a class="page-link" href="list.co?category=${b}&cpage=${p}">${p}</a></li>
+                </c:forEach>
+                    
+                  <c:choose>
+                        <c:when test="${ pi.currentPage eq pi.maxPage }">
+                            <li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="page-item"><a class="page-link" href="list.co?category=${b.boardLevel}&cpage=${pi.currentPage + 1}">&raquo;</a></li>
+                        </c:otherwise>
+                    </c:choose>
+                     </ul>
+                </div>
             </div>
         </main>
         <%@ include file="../commons/footer.jsp" %>

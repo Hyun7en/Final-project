@@ -6,7 +6,7 @@ header{
     position: fixed;
     width: 100%;
     top: 0;
-    z-index: 1;
+    z-index: 30;
     
 }
 
@@ -36,7 +36,7 @@ header{
     width: 500px;
     height: 30px;
     border-radius: 25px;
-    border: 1px solid #AFA8A8;
+    border: 1px solid #ccc;
     outline: none;
 }
 

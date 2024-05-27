@@ -23,19 +23,21 @@
    
 </head>
 <body>
+	<!-- 에러메세지 -->
 	<c:if test="${ not empty errorMessage}">
 		<script>
-			    var errorMessage = "${errorMessage}";
-    if (errorMessage) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Error!',
-            html: errorMessage
-        });
-    }
+			var errorMessage = "${errorMessage}";
+		    if (errorMessage) {
+		        Swal.fire({
+		            icon: 'error',
+		            title: 'Error!',
+		            html: errorMessage
+		        });
+		    }
 		</script>
 		<c:remove var="errorMessage" scope="session"/>
 	</c:if>
+	
     <div id="wrap">
         <div id="login-logo">Aquaqu</div>
         <form action="login.me" id="login-input" method="POST">

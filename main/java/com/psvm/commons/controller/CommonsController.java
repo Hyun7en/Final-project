@@ -11,11 +11,7 @@ public class CommonsController {
 	public String home() {
 		return "main/main";
 	}
-	
-	@GetMapping("fishInfo.ma")
-	public String fishInfo() {
-		return "fishInfo/fishInfo";
-	}
+
 	
 	@GetMapping("quration.ma")
 	public String quration() {
@@ -30,6 +26,18 @@ public class CommonsController {
 	@GetMapping("store.ma")
 	public String store() {
 		return "store/store";
+	}
+	
+	
+	@GetMapping("list.pd")
+	public String productListView() {
+		return "seller/productListView";
+	}
+
+	
+	@GetMapping("manage.srh")
+	public String sellerHomeDetailView() {
+		return "seller/sellerHomeDetailView";
 	}
 	
 }
