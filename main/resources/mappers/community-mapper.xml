@@ -108,6 +108,11 @@
 				BOARD_CONTENTS = #{boardContents}
 		WHERE	BOARD_NO = #{boardNo}
 	</update>
+	<update id="deleteBoard">
+		UPDATE	BOARD
+		SET		STATUS = 'N'
+		WHERE	BOARD_NO = #{boardNo}
+	</update>
 	<insert id="insertReply">
 		INSERT INTO BOARD_REPLY(
 				BOARD_REPLY_NO,
@@ -143,4 +148,9 @@
 		ORDER BY BOARD_DIBS DESC)
 		WHERE ROWNUM BETWEEN 1 AND 5
 	</select>
+	<update id="deleteReply">
+		UPDATE	BOARD_REPLY
+		SET		STATUS = 'N'
+		WHERE	BOARD_REPLY_NO = #{boardReplyNo}
+	</update>
 </mapper>

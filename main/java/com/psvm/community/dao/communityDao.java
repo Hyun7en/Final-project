@@ -43,12 +43,20 @@ public class CommunityDao {
 		return sqlSession.update("communityMapper.updateBoard", c);
 	}
 	
+	public int deleteBoard(SqlSessionTemplate sqlSession, int boardNo) {
+		return sqlSession.update("communityMapper.deleteBoard", boardNo);
+	}
+	
 	public int insertReply(SqlSessionTemplate sqlSession, Reply r) {
 		return sqlSession.insert("communityMapper.insertReply", r);
 	}
 	
 	public ArrayList<Community> selectTopBoardList(SqlSessionTemplate sqlSession){
 		return (ArrayList)sqlSession.selectList("communityMapper.selectTopBoardList");
+	}
+	
+	public int deleteReply(SqlSessionTemplate sqlSession, int boardReplyNo) {
+		return sqlSession.update("communityMapper.deleteReply", boardReplyNo);
 	}
 }
 

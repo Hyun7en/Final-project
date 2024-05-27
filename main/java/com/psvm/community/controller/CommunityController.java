@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -66,15 +67,6 @@ public class CommunityController {
 		model.addAttribute("c", c);
 		
 		return "community/CommunityDetail";
-		
-//		if (result > 0) {
-//			Community c = communityService.selectBoard(boardNo);
-//			model.addAttribute("c", c);
-//			
-//			return "community/CommunityDetail";
-//		} else {
-//			
-//		}
 	}
 	
 	
@@ -118,17 +110,18 @@ public class CommunityController {
 	
 	//게시글 추가하기
 	@PostMapping("insert.co")
-	public String insertBoard(Community c, HttpSession session, Model model) {
+	public ModelAndView insertBoard(Community c, HttpSession session, ModelAndView mv) {
 		
 		int result = communityService.insertBoard(c);
 		
 		if (result > 0) { //성공 => list페이지로 이동
-//			session.setAttribute("alertMsg", "게시글 작성 성공");
-			return "redirect:list.co?category="+ c.getBoardLevel() +"&cpage=1";
+			session.setAttribute("successMessage", "게시글이 작성되었습니다!");
+			mv.setViewName("redirect:list.co?category="+ c.getBoardLevel() +"&cpage=1");
 		} else { //실패 => 에러페이지
-//			model.addAttribute("errorMsg", "게시글 작성 실패");
-			return "commons/error";
+			mv.addObject("errorMessage", "오류가 발생했습니다.");
+			mv.setViewName("commons/error"); ;
 		}
+		return mv;
 	}
 	
 	//ajax로 들어오는 파일 업로드 요청 처리
@@ -187,15 +180,35 @@ public class CommunityController {
 	}
 	
 	@RequestMapping("update.co")
-	public String updateBoard(Community c, HttpSession session, Model model) {
+	public ModelAndView updateBoard(Community c, HttpSession session, ModelAndView mv) {
 
 		int result = communityService.updateBoard(c);
 
 		if (result > 0) { //성공 => list페이지로 이동
-			return "redirect:detail.co?category=" + c.getBoardLevel() + "&cpage=1&boardNo=" + c.getBoardNo();
+			session.setAttribute("successMessage", "게시글이 수정되었습니다!");
+			mv.setViewName("redirect:detail.co?category=" + c.getBoardLevel() + "&cpage=1&boardNo=" + c.getBoardNo());
 		} else { //실패 => 에러페이지
-			return "commons/error";
+			mv.addObject("errorMessage", "오류가 발생했습니다.");
+			mv.setViewName("redirect:updateForm.co?boardNo=" + c.getBoardNo());
 		}
+		
+		return mv;
+	}
+	
+	@RequestMapping("delete.co")
+	public ModelAndView deleteBoard(int boardLevel, int boardNo, HttpSession session, ModelAndView mv) {
+		
+		int result = communityService.deleteBoard(boardNo);
+
+		if (result > 0) { //성공 => list페이지로 이동
+			session.setAttribute("infoMessage", "게시글이 삭제되었습니다.");
+			mv.setViewName("redirect:list.co?category="+ boardLevel +"&cpage=1");
+		} else { //실패 => 에러페이지
+			mv.addObject("errorMessage", "오류가 발생했습니다.");
+			mv.setViewName("redirect:detail.co?category=" + boardLevel + "&cpage=1&boardNo=" + boardNo);
+		}
+		
+		return mv;
 	}
 	
 	@ResponseBody
@@ -209,5 +222,22 @@ public class CommunityController {
 	@RequestMapping(value="topList.co", produces="application/json; charset=UTF-8")
 	public String ajaxTopBoardList() {
 		return new Gson().toJson(communityService.selectTopBoardList());
+	}
+	
+	@ResponseBody
+	@RequestMapping("rdelete.co")
+	public ModelAndView deleteReply(int boardReplyNo, int boardLevel, int boardNo, HttpSession session, ModelAndView mv) {
+		System.out.println(boardReplyNo);
+		int result = communityService.deleteReply(boardReplyNo);
+
+		if (result > 0) { //성공 => list페이지로 이동
+			session.setAttribute("infoMessage", "댓글이 삭제되었습니다.");
+			mv.setViewName("redirect:detail.co?category=" + boardLevel + "&cpage=1&boardNo=" + boardNo);
+		} else { //실패 => 에러페이지
+			mv.addObject("errorMessage", "오류가 발생했습니다.");
+			mv.setViewName("redirect:detail.co?category=" + boardLevel + "&cpage=1&boardNo=" + boardNo);
+		}
+		
+		return mv;
 	}
 }

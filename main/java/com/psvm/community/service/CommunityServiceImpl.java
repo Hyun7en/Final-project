@@ -55,6 +55,11 @@ public class CommunityServiceImpl implements CommunityService{
 	public int updateBoard(Community c) {
 		return communityDao.updateBoard(sqlSession, c);
 	}
+	
+	@Override
+	public int deleteBoard(int boardNo) {
+		return communityDao.deleteBoard(sqlSession, boardNo);
+	}
 
 	@Override
 	public int insertReply(Reply r) {
@@ -64,5 +69,10 @@ public class CommunityServiceImpl implements CommunityService{
 	@Override
 	public ArrayList<Community> selectTopBoardList() {
 		return communityDao.selectTopBoardList(sqlSession);
+	}
+	
+	@Override
+	public int deleteReply(int boardReplyNo) {
+		return communityDao.deleteReply(sqlSession, boardReplyNo);
 	}
 }
