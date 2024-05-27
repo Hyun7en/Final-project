@@ -1,5 +1,5 @@
 package com.psvm.manager.controller;
 
-public class managerController {
+public class ManagerController {
 
 }

@@ -113,12 +113,14 @@ margin-bottom: 40px;
     margin-left: 10px;
 }
 #com-blue-button, #com-grey-button {
-border: 0;
-width: 150px;
-height: 40px;
-color: white;
-margin-right: 0px;
-border-radius: 10px;
+    border: 0;
+    width: 150px;
+    height: 40px;
+    color: white;
+    margin-right: 0px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 10px;
 }
 #com-blue-button{
     background: #0089FF;

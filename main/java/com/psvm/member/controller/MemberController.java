@@ -48,7 +48,7 @@ public class MemberController {
 	            ck.setMaxAge(0);
 	        }
 	        response.addCookie(ck);
-	        
+	        mv.addObject("successMessage", "로그인에 성공했습니다!");
 	        session.setAttribute("loginUser", loginUser);
 	        mv.setViewName("main/main");
 	    }

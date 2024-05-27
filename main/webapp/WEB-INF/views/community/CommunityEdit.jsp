@@ -7,8 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Header</title>
 
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!-- Popper JS -->
@@ -27,9 +25,7 @@
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/communityCSS/communityEnroll.css">  
-<style>
-</style>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/communityCSS/communityEdit.css">
 </head>
 <body>
     <div id="wrap">
@@ -39,40 +35,41 @@
             <div id="com-head">
                 글쓰기
             </div>
-            <form action="insert.co">
-                <div id="com-enroll-top">
+            <form method="post" action="update.co">
+                <div id="com-edit-top">
                     <div>
                         게시판
                     </div>
-                    <select name="category">
-                        <option value="normal">일반</option>
-                        <option value="tip">꿀팁</option>
-                        <option value="question">질문</option>
-                        <option value="trade">중고거래</option>
+                    <select name="boardLevel">
+                        <option value="0">일반</option>
+                        <option value="1">꿀팁</option>
+                        <option value="2">질문</option>
+                        <option value="3">중고거래</option>
                     </select>
                 </div>
-                <div id="com-enroll-middle">
+                <div id="com-edit-middle">
                     <div>
                         제목
                     </div>
-                    <input type="text" name="boardTitle">
+                    <input type="hidden" name="userNo" value="${loginUser.userNo}">
+                    <input type="text" name="boardTitle" maxlength="33" required value="${c.boardTitle}">
                 </div>
-                <div id="com-enroll-content">
-                    <textarea name="content" id="com-enroll-content-p" style="resize: none;"></textarea>
+                <div id="com-edit-content">
+                    <textarea name="boardContents" id="com-edit-content-p"></textarea>
                 </div>
-                <div id="com-enroll-bottom">
-                    <button id="com-grey-button">취소</button>
-                    <button type="submit" id="com-blue-button">등록</button>
+                <div id="com-edit-bottom">
+                    <input type="button" id="com-grey-button" onclick="window.history.back()" value="취소">
+                    <button type="submit" id="com-blue-button">수정</button>
                 </div>
             </form>
 
             <script>
                 $(document).ready(function() {
-                  $('#com-enroll-content-p').summernote({
+                  $('#com-edit-content-p').summernote({
                       placeholder: "게시글을 작성해주세요.",
                       height: 400,
                       maxHeight: 1000,
-                      width: 800,
+                      width: 900,
                       toolbar: [
                             // [groupName, [list of button]]
                             ['style', ['bold', 'italic', 'underline', 'clear']],
@@ -87,6 +84,7 @@
                             onImageUpload: fileUpload
                       }
                   });
+                  $('#com-edit-content-p').summernote('code', '${c.boardContents}');
                 });
                 
                 //썸머노트에 이미지업로드가 발생하였을 때 동작하는 함수
@@ -105,14 +103,14 @@
         
                     insertFileApi(fd, function(nameList){
                         for(let name of nameList) {
-                            $("#summernote").summernote('insertImage', "/summer" + name);	 
+                            $("#com-edit-content-p").summernote('insertImage', "/psvm" + name);
                         }
                     });
                 }
         
                 function insertFileApi(data,callback){
                     $.ajax({
-                        url: "upload",
+                        url: "upload.co",
                         type: "POST",
                         data: data,
                         processData: false, //기본이 true로 true일때는 전송하는 data를 string으로 변환해서 요청

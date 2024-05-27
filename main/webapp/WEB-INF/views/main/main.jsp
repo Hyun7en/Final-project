@@ -1,13 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-    <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mainCSS/main.css">
 	<script src="${pageContext.request.contextPath}/resources/js/mainJS/main.js"></script>
@@ -15,6 +22,19 @@
 
 </head>
 <body>
+	<c:if test="${ not empty successMessage}">
+		<script>
+			var successMessage = "${successMessage}";
+		    if (successMessage) {
+		        Swal.fire({
+		            icon: 'success',
+		            title: 'success!',
+		            html: successMessage
+		        });
+		    }
+		</script>
+		<c:remove var="successMessage" scope="session"/>
+	</c:if>
 	<div class="wrap">
 	
 		<!-- header -->

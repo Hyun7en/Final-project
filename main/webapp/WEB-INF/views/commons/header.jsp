@@ -74,7 +74,7 @@
                 <a href="home.ma">홈</a>
                 <a href="fishInfo.ma">물고기 정보</a>
                 <a href="quration.ma">물고기 큐레이터</a>
-                <a href="community.ma">커뮤니티</a>
+                <a href="list.co?category=0">커뮤니티</a>
                 <a href="storeMain.ma">스토어</a>
             </nav>
         </header>
