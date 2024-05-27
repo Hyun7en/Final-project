@@ -45,5 +45,56 @@
 		FROM BUSINESS_INFO
 		WHERE USER_NO = #{userNo}
 	</select>
+	
+	<insert id="insertSellerPage">
+		INSERT INTO
+					SELLER_PAGE (
+								 seller_page_no,
+								 business_no,
+								 seller_explain
+								 )
+						 VALUES (
+						 		 default,
+						 		 
+								 #{storeDescription}							 		 
+						 		 )	 
+	</insert>
+	
+	<insert id="insertProductCategory">
+		INSERT INTO 
+					PRODUCT_CATEGORY (
+								 	  p_category,
+								 	  seller_page_no
+								 	  )
+						 	  VALUES (
+						 		 
+						 		 	  )	
+	</insert>
+	
+	<insert id="insertProductAttachment">
+		   INSERT INTO 
+		   				PRODUCT_ATTACHMENT (
+		   									product_file_no,
+					   						SELLER_PAGE_NO, 
+					   						REF_PNO, 
+					   						UPLOAD_DATE, 
+					   						FILE_LEVEL, 
+					   						ORIGIN_NAME, 
+					   						CHANGE_NAME
+					   					  )
+					   			  VALUES  (
+							   			   default,
+							   			   , 
+							   			   #{refPno}, 
+							   			   #{uploadDate}, 
+							   			   #{fileLevel}, 
+							   			   #{originName}, 
+							   			   #{changeName}
+							   			  )
+  
+	</insert>
+	
+	
+	
 
 </mapper>

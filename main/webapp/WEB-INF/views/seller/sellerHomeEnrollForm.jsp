@@ -39,6 +39,11 @@
                 console.log(categories);
             }
         });
+
+        $('#enrollForm').submit(function(event) {
+            let categoriesInput = $('<input>').attr('type', 'hidden').attr('name', 'categories').val(JSON.stringify(categories));
+            $(this).append(categoriesInput);
+        });
     });
 </script>
 
@@ -56,7 +61,7 @@
 
         <section>
             <h1>스토어 관리 &gt; 판매자 홈 등록</h1>
-            <form action="${pageContext.request.contextPath}/insertSeller" method="post" enctype="multipart/form-data">
+            <form action="${pageContext.request.contextPath}/enroll.srh" method="post" enctype="multipart/form-data">
                 <div>
                     <h4>스토어 소개</h4>
                     <input id="store-introduce" type="text" name="storeDescription" placeholder="스토어 소개 입력" style="width: 300px; padding: 5px;">
