@@ -46,7 +46,7 @@
 		WHERE USER_NO = #{userNo}
 	</select>
 	
-	<insert id="insertSellerPage">
+<!-- 	<insert id="insertSellerPage">
 		INSERT INTO
 					SELLER_PAGE (
 								 seller_page_no,
@@ -93,7 +93,7 @@
 							   			  )
   
 	</insert>
-	
+	 -->
 	
 	
 
