@@ -44,5 +44,23 @@ public class FishInfoServiceImpl implements FishInfoService{
 		return fishInfoDao.ajaxSearchFish(sqlSession, pi, fishName);
 	}
 
+	@Override
+	public ArrayList<Fish> ajaxCategorySearch(PageInfo pi, String cate) {
+		
+		return fishInfoDao.ajaxCategorySearch(sqlSession, pi, cate);
+	}
+
+	@Override
+	public int selectcateCount(String cate) {
+		int count = fishInfoDao.selectcateCount(sqlSession, cate);
+		return count;
+	}
+
+	@Override
+	public ArrayList<Fish> fishDetail(String fishName) {
+		
+		return fishInfoDao.fishDetail(sqlSession, fishName);
+	}
+
 	
 }

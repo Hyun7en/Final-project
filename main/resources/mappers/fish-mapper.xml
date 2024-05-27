@@ -69,4 +69,29 @@
 		WHERE fish_name like'%' || #{fishName} || '%'
 		ORDER BY fish_no ASC
 	</select>
+	
+	<select id="selectcateCount" resultType="_int">
+		SELECT COUNT(*) 
+		FROM public.fish
+		WHERE fish_type = #{cate}
+	</select>
+	
+	<select id="ajaxCategorySearch" resultMap="fishInfoResult">
+		SELECT fish_no,
+			   fish_type,
+			   taste_type,
+			   fish_file_no,
+			   fish_name,
+			   temperature,
+			   ration_time,
+			   top_or_bottom,
+			   tendency,
+				field,
+				light,
+				origin_name
+		FROM public.fish
+		JOIN public.fish_attachment using(fish_file_no)
+		WHERE fish_type = #{cate}
+		ORDER BY fish_no ASC
+	</select>
 </mapper>

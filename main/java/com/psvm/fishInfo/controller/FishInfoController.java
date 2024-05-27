@@ -6,7 +6,6 @@ import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,8 +24,14 @@ public class FishInfoController {
 	@Autowired
 	private FishInfoService fishService;
 	
-	@GetMapping("fishDetail.fi")
-	public String fishDetail() {
+	@RequestMapping(value="fishDetail.fi", produces="application/json; charset=UTF-8")
+	public String fishDetail(@RequestParam(value="fishName") String fishName, Model model) {
+		
+		
+		ArrayList<Fish> list = fishService.fishDetail(fishName);
+		
+		
+		
 		return "fishInfo/fishInfoDetail";
 	}
 	
@@ -65,6 +70,29 @@ public class FishInfoController {
 		
 		return new Gson().toJson(map);
 	}
+	
+	@ResponseBody
+	@PostMapping(value="categorySearch.fi")
+	public String ajaxCategorySearch(@RequestParam("cate") String cate,@RequestParam("cpage") String cpage) {
+		int currentPage = Integer.parseInt(cpage);
+	
+		int boardCount = fishService.selectcateCount(cate);
+		
+		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 15);
+		
+		ArrayList<Fish> list = fishService.ajaxCategorySearch(pi ,cate);
+		
+		System.out.println(list);
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("pi", pi);
+		map.put("list",list);
+		
+		
+		return new Gson().toJson(map);
+	}
+	
+
 	
 	
 }
