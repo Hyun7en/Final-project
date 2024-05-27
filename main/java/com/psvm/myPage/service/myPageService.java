@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.psvm.community.vo.Community;
 import com.psvm.member.vo.Member;
+import com.psvm.myPage.vo.Inquiry;
 
 public interface MyPageService {
 	
@@ -16,5 +17,7 @@ public interface MyPageService {
 //	ArrayList<InterestProduct> selectInterestProduct(int userNo);
 
 	ArrayList<Community> wirtePostList(int userNo);
+	
+	ArrayList<Inquiry> inquiryList(int userNo);
 	
 }

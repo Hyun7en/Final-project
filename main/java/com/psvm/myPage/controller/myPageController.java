@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.psvm.community.vo.Community;
 import com.psvm.member.vo.Member;
 import com.psvm.myPage.service.MyPageServiceImpl;
+import com.psvm.myPage.vo.Inquiry;
 
 @Controller
 public class MyPageController {
@@ -81,7 +82,6 @@ public class MyPageController {
 	
 	@RequestMapping("writePost.my")
 	public String wirtePostList(HttpSession session, int userNo) {
-		System.out.println(userNo);
 		
 		ArrayList<Community> list = myPageService.wirtePostList(userNo);
 		
@@ -99,7 +99,11 @@ public class MyPageController {
 	}
 	
 	@RequestMapping("inquiry.my")
-	public String inquiry() {
+	public String inquiry(HttpSession session, int userNo) {
+		
+		ArrayList<Inquiry> list = myPageService.inquiryList(userNo);
+		
+		session.setAttribute("list", list);
 		
 		return "myPage/myPageInquiry";
 	}
@@ -107,7 +111,7 @@ public class MyPageController {
 	@RequestMapping("sellerConversion.my")
 	public String sellerConversion() {
 		
-		
+		ArrayList<>
 		
 		
 		return "myPage/myPageSellerConversion";

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.psvm.community.vo.Community;
 import com.psvm.member.vo.Member;
+import com.psvm.myPage.vo.Inquiry;
 
 @Repository
 public class MyPageDao {
@@ -28,11 +29,10 @@ public class MyPageDao {
 	
 	
 	public ArrayList<Community> writePostList(SqlSessionTemplate sqlSession, int userNo){
-		System.out.println(userNo);
-		
-		ArrayList result = (ArrayList)sqlSession.selectList("myPageMapper.writePostList", userNo);
-		System.out.println(result);
-		
-		return result;
+		return (ArrayList)sqlSession.selectList("myPageMapper.writePostList", userNo);
+	}
+	
+	public ArrayList<Inquiry> inquiryList(SqlSessionTemplate sqlSession, int userNo){
+		return (ArrayList)sqlSession.selectList("myPageMapper.inquiryList", userNo);
 	}
 }

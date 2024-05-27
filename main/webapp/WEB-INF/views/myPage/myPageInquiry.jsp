@@ -45,17 +45,17 @@
                             <table>
                                 <thead>
                                     <th width="15%">글 번호</th>
-                                    <th width="10%">구분</th>
-                                    <th width="50%">제목</th>
+                                    <th width="60%">제목</th>
                                     <th width="25%">작성일</th>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td width="15%">num</td>
-                                        <td width="10%">type</td>
-                                        <td width="50%">title</td>
-                                        <td width="25%">createDate</td>
-                                    </tr>
+                                    <c:forEach var="i" items="${list}">
+                                        <tr>
+                                            <td width="15%">${i.inquiryNo}</td>
+                                            <td width="60%">${i.inquiryTitle}</td>
+                                            <td width="25%">${i.inquiryDate}</td>
+                                        </tr>
+                                    </c:forEach>
                                 </tbody>
                             </table>
                         </div>

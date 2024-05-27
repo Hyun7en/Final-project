@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.psvm.community.vo.Community;
 import com.psvm.member.vo.Member;
 import com.psvm.myPage.dao.MyPageDao;
+import com.psvm.myPage.vo.Inquiry;
 
 @Service
 public class MyPageServiceImpl implements MyPageService {
@@ -36,8 +37,11 @@ public class MyPageServiceImpl implements MyPageService {
 //	}
 	
 	public ArrayList<Community> wirtePostList(int userNo){
-		System.out.println(userNo);
 		return myPageDao.writePostList(sqlSession, userNo);
+	}
+	
+	public ArrayList<Inquiry> inquiryList(int userNo){
+		return myPageDao.inquiryList(sqlSession, userNo);
 	}
 	
 }
