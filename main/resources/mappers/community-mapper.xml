@@ -7,20 +7,150 @@
 <mapper namespace="communityMapper">
 	<resultMap type="Community" id="communityResult">
 		<result column="BOARD_NO" property="boardNo"/>
+		<result column="NICKNAME" property="nickname"/>
 		<result column="USER_NO" property="userNo"/>
-		<result column="FILE_NO" property="fileNo"/>
 		<result column="BOARD_LEVEL" property="boardLevel"/>
 		<result column="WRITE_DATE" property="writeDate"/>
 		<result column="BOARD_TITLE" property="boardTitle"/>
 		<result column="BOARD_CONTENTS" property="boardContents"/>
 		<result column="BOARD_COUNT" property="boardCount"/>
 		<result column="BOARD_DIBS" property="boardDibs"/>
-
+		<result column="STATUS" property="status"/>
+	</resultMap>
+	<resultMap type="Reply" id="replyResult">
+		<result column="BOARD_REPLY_NO" property="boardReplyNo"/>
+		<result column="NICKNAME" property="nickname"/>
+		<result column="BOARD_NO" property="boardNo"/>
+		<result column="REPLY_CONTENTS" property="replyContents"/>
+		<result column="REPLY_DATE" property="replyDate"/>
+		<result column="REPLY_DIBS" property="replyDibs"/>
+		<result column="STATUS" property="status"/>
 	</resultMap>
 	
-	<select id="selectTest" resultMap="communityResult">
-		SELECT *
-		FROM public.asd
+	<select id="selectListCount" resultType="_int">
+		SELECT	COUNT(*)
+		FROM	BOARD
+		WHERE	BOARD_LEVEL = #{boardLevel}
+		AND		STATUS = 'Y'
 	</select>
-
+	<select id="selectList" resultMap="communityResult">
+		SELECT	BOARD_NO,
+			  	BOARD_TITLE,
+			  	NICKNAME,
+			  	TO_CHAR(WRITE_DATE, 'YYYY-MM-DD') AS "WRITE_DATE",
+			  	BOARD_COUNT,
+			  	BOARD_LEVEL
+		FROM	BOARD
+		JOIN	MEMBER USING (USER_NO)
+		WHERE	STATUS = 'Y'
+		AND		BOARD_LEVEL = ${boardLevel}
+		ORDER	BY BOARD_NO DESC  
+	</select>
+	<update id="increaseCount">
+		UPDATE BOARD
+		SET		BOARD_COUNT = BOARD_COUNT + 1
+		WHERE	BOARD_NO = #{boardNo}
+		AND		STATUS = 'Y'
+	</update>
+	<select id="selectBoard" resultMap="communityResult">
+		SELECT	BOARD_NO,
+				BOARD_TITLE,
+				NICKNAME,
+				USER_NO,
+				BOARD_LEVEL,
+				BOARD_CONTENTS,
+				BOARD_COUNT,
+				TO_CHAR(WRITE_DATE, 'YYYY-MM-DD') AS "WRITE_DATE"
+		FROM	BOARD
+		JOIN	MEMBER USING (USER_NO)
+		WHERE	STATUS = 'Y'
+		AND		BOARD_NO = #{boardNo}
+	</select>
+	<select id="selectReply" resultMap="replyResult">
+		SELECT	BOARD_REPLY_NO,
+				NICKNAME,
+				REPLY_CONTENTS,
+				TO_CHAR(REPLY_DATE, 'YYYY-MM-DD') AS "REPLY_DATE",
+				REPLY_DIBS
+		FROM	BOARD_REPLY
+		JOIN	MEMBER USING(USER_NO)
+		WHERE	STATUS = 'Y'
+		AND		BOARD_NO = #{bno}
+		ORDER BY BOARD_REPLY_NO DESC
+	</select>
+	<insert id="insertBoard">
+		INSERT INTO BOARD (
+				BOARD_NO,
+				USER_NO,
+				BOARD_LEVEL,
+				WRITE_DATE,
+				BOARD_TITLE,
+				BOARD_CONTENTS,
+				BOARD_COUNT,
+				BOARD_DIBS,
+				STATUS
+		) VALUES (
+			default,
+			#{userNo},
+			#{boardLevel},
+			now(),
+			#{boardTitle},
+			#{boardContents},
+			default,
+			default,
+			default
+		)
+	</insert>
+	<update id="updateBoard">
+		UPDATE	BOARD
+		SET		BOARD_TITLE = #{boardTitle},
+				BOARD_LEVEL = #{boardLevel},
+				BOARD_CONTENTS = #{boardContents}
+		WHERE	BOARD_NO = #{boardNo}
+	</update>
+	<update id="deleteBoard">
+		UPDATE	BOARD
+		SET		STATUS = 'N'
+		WHERE	BOARD_NO = #{boardNo}
+	</update>
+	<insert id="insertReply">
+		INSERT INTO BOARD_REPLY(
+				BOARD_REPLY_NO,
+				USER_NO,
+				BOARD_NO,
+				REPLY_CONTENTS,
+				REPLY_DATE,
+				REPLY_DIBS,
+				STATUS
+		)
+		VALUES(
+				default,
+				#{userNo},
+				#{boardNo},
+				#{replyContents},
+				now(),
+				default,
+				default
+		)
+	</insert>
+	<select id="selectTopBoardList" resultMap="communityResult">
+		SELECT *
+		FROM
+		(SELECT BOARD_NO,
+				BOARD_TITLE,
+			  	USER_NO,
+			  	TO_CHAR(WRITE_DATE, 'YYYY-MM-DD') AS "WRITE_DATE",
+			  	BOARD_COUNT
+		FROM	BOARD
+		JOIN	MEMBER USING(USER_NO)
+		WHERE	STATUS = 'Y'
+		AND		WRITE_DATE BETWEEN SYSDATE-6 AND SYSDATE
+		ORDER BY BOARD_DIBS DESC)
+		WHERE ROWNUM BETWEEN 1 AND 5
+	</select>
+	<update id="deleteReply">
+		UPDATE	BOARD_REPLY
+		SET		STATUS = 'N'
+		WHERE	BOARD_REPLY_NO = #{boardReplyNo}
+	</update>
 </mapper>

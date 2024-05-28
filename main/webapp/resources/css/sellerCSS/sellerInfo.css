@@ -1,0 +1,42 @@
+@charset "UTF-8";
+
+    section {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        padding: 40px 200px;
+        height: calc(100vh - 40px);
+        overflow-y: scroll;
+    }
+
+    section h1 {
+        margin-bottom: 20px;
+    }
+
+    section div {
+        margin-bottom: 50px;
+        display: flex;
+        flex-direction: row;
+    }
+
+    section div h4 {
+        font-weight: bold;
+    }
+
+    section div span {
+        margin-left: 20px;
+    }
+
+    section button {
+        padding: 10px;
+        background-color: white;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bolder;
+    }
+
+    section button:hover {
+        background-color: #f0f0f0;
+    }
+

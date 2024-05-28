@@ -6,8 +6,11 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.psvm.community.vo.Community;
+import com.psvm.member.vo.Member;
 import com.psvm.myPage.dao.MyPageDao;
-import com.psvm.myPage.vo.MyInfo;
+import com.psvm.myPage.vo.Inquiry;
+import com.psvm.seller.vo.SellerInfo;
 
 @Service
 public class MyPageServiceImpl implements MyPageService {
@@ -18,10 +21,12 @@ public class MyPageServiceImpl implements MyPageService {
 	@Autowired
 	private MyPageDao myPageDao;
 	
-
-	public ArrayList<MyInfo> selectMyInfo(int userNo){
-//		return myPageDao.selectMyInfo(sqlSession, userNo);
-		return null;
+	public int modifyInfo(Member m) {
+		return myPageDao.modifyInfo(sqlSession, m);
+	}
+	
+	public Member loginUser(Member m) {
+		return myPageDao.loginUser(sqlSession, m);
 	}
 	
 //	public int deleteMember(int userNo) {
@@ -31,5 +36,25 @@ public class MyPageServiceImpl implements MyPageService {
 //	public ArrayList<InterestProduct> selectInterestProduct(int userNo){
 //		return myPageDao.selectInterestProduct(sqlSession, userNo);
 //	}
+	
+	public ArrayList<Community> wirtePostList(int userNo){
+		return myPageDao.writePostList(sqlSession, userNo);
+	}
+	
+	public ArrayList<Integer> wirtePostListCount(int userNo) {
+		return myPageDao.writePostListCount(sqlSession, userNo);
+	}
+	
+	public ArrayList<Inquiry> inquiryList(int userNo){
+		return myPageDao.inquiryList(sqlSession, userNo);
+	}
+	
+	public String sellerConversionStatus(int userNo) {
+		return myPageDao.sellerConversionStatus(sqlSession, userNo);
+	}
+	
+	public int sellerInfoList(SellerInfo s){
+		return myPageDao.sellerInfoList(sqlSession, s);
+	}
 	
 }

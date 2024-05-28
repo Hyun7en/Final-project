@@ -6,7 +6,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.psvm.attachment.CommunityAttachment;
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.community.dao.CommunityDao;
 import com.psvm.community.vo.Community;
@@ -22,14 +21,14 @@ public class CommunityServiceImpl implements CommunityService{
 	private CommunityDao communityDao;
 	
 	@Override
-	public int selectListCount() {
-		int count = communityDao.selectListCount(sqlSession);
+	public int selectListCount(int boardLevel) {
+		int count = communityDao.selectListCount(sqlSession, boardLevel);
 		return count;
 	}
 
 	@Override
-	public ArrayList<Community> selectList(PageInfo pi) {
-		return communityDao.selectList(sqlSession, pi);
+	public ArrayList<Community> selectList(PageInfo pi, int boardLevel) {
+		return communityDao.selectList(sqlSession, pi, boardLevel);
 	}
 
 	@Override
@@ -43,18 +42,23 @@ public class CommunityServiceImpl implements CommunityService{
 	}
 
 	@Override
-	public ArrayList<Reply> selectReply(int boardNo) {
-		return communityDao.selectReply(sqlSession, boardNo);
+	public ArrayList<Reply> selectReply(int bno) {
+		return communityDao.selectReply(sqlSession, bno);
 	}
 
 	@Override
-	public int insertBoard(Community c, CommunityAttachment ca) {
-		return communityDao.insertBoard(sqlSession, c, ca);
+	public int insertBoard(Community c) {
+		return communityDao.insertBoard(sqlSession, c);
 	}
 
 	@Override
-	public int updateBoard(Community c, CommunityAttachment ca) {
-		return communityDao.updateBoard(sqlSession, c, ca);
+	public int updateBoard(Community c) {
+		return communityDao.updateBoard(sqlSession, c);
+	}
+	
+	@Override
+	public int deleteBoard(int boardNo) {
+		return communityDao.deleteBoard(sqlSession, boardNo);
 	}
 
 	@Override
@@ -65,5 +69,10 @@ public class CommunityServiceImpl implements CommunityService{
 	@Override
 	public ArrayList<Community> selectTopBoardList() {
 		return communityDao.selectTopBoardList(sqlSession);
+	}
+	
+	@Override
+	public int deleteReply(int boardReplyNo) {
+		return communityDao.deleteReply(sqlSession, boardReplyNo);
 	}
 }

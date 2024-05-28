@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,9 +35,9 @@
                <hr width="100%"; color="black"; size="3">
 
                <div id="fish-search">
-                  <form action="">
+                  <form id="searchFish" action="" method="get" onsubmit="contentsFunction()">
                      <input type="submit" id="inputSubmit" value="" style="background-color: #E0F1FF; background-image:url(${pageContext.request.contextPath}/resources/image/searchBtn.png); width:26px; height:26px; position:absolute; left:0px; top: 23px;">
-                     <input type="text" id="searchArea" style=" background-color: #E0F1FF; width: 90%; border-width: 0; height: inherit; font-size:18px;"  placeholder="물고기 이름을 검색해주세요">
+                     <input type="text" id="searchArea" style=" background-color: #E0F1FF; width: 90%; border-width: 0; height: inherit; font-size:18px;" name="fishName"  placeholder="물고기 이름을 검색해주세요">
                   </form>
                </div>
 
@@ -56,275 +56,67 @@
                   <div>
                      <p>물고기 데이터 260종</p>
                   </div>
-                  <div>
+                  <div style="width:10%; display: flex; justify-content: space-evenly;">
                      <a href="#">인기순</a>|
                      <a href="#">최신순</a>
                   </div>
                </div>
 
-               <!-- 더미데이터 반복 -->
-               <div id="main-container">      
-                     <a href="#" id="main-info-a">
-                        <div>
-                           <div id="main-info-p">
-                              <p>Guppy</p>
-                           </div>
-                           <div id="main-info-img">
-                              <img src="${pageContext.request.contextPath}/resources/image/goopy.jpg" alt="">
-                           </div>
-                           <div id="main-info">
-                              <p>이름 : 구피</p>
-                              <p>종류 : 열대어</p>
-                              <p>몸길이 : 3~4cm</p>
-                              
-                           </div>
-                        </div>
-                     </a>
+              
+               <div id="main-container">
+              		<c:forEach var="b" items="${list}">
+ 
+              			<a href="fishDetail.fi" id="main-info-a">
+	                     <div>
+		                     <div id="main-info-p">
+		                         <p>${b.fishName }</p>
+		                     </div>
+		                     <div id="main-info-img">
+     
+		                         <img src="${pageContext.request.contextPath}/resources/image/${b.url}" alt="">
+		                     </div>
+		                     <div id="main-info">
+		                         <p>종류 : ${b.fishType}</p>
+		                         <p>식성 : ${b.tasteType }</p>
+		                         <p>성격 : ${b.tendency }</p>
+                         
+	                    	 </div>
+	                     </div>
+                	 </a>
+              		</c:forEach>
 
-                     <a href="#" id="main-info-a">
-                        <div>
-                           <div id="main-info-p">
-                              <p>Guppy</p>
-                           </div>
-                           <div id="main-info-img">
-                              <img src="${pageContext.request.contextPath}/resources/image/goopy.jpg" alt="">
-                           </div>
-                           <div id="main-info">
-                              <p>이름 : 구피</p>
-                              <p>종류 : 열대어</p>
-                              <p>몸길이 : 3~4cm</p>
-                              
-                           </div>
-                        </div>
-                     </a>
 
-                     <a href="#" id="main-info-a">
-                        <div>
-                           <div id="main-info-p">
-                              <p>Guppy</p>
-                           </div>
-                           <div id="main-info-img">
-                              <img src="../../resources/image/goopy.jpg" alt="">
-                           </div>
-                           <div id="main-info">
-                              <p>이름 : 구피</p>
-                              <p>종류 : 열대어</p>
-                              <p>몸길이 : 3~4cm</p>
-                              
-                           </div>
-                        </div>
-                     </a>
 
-                     <a href="#" id="main-info-a">
-                        <div>
-                           <div id="main-info-p">
-                              <p>Guppy</p>
-                           </div>
-                           <div id="main-info-img">
-                              <img src="${pageContext.request.contextPath}/resources/image/goopy.jpg" alt="">
-                           </div>
-                           <div id="main-info">
-                              <p>이름 : 구피</p>
-                              <p>종류 : 열대어</p>
-                              <p>몸길이 : 3~4cm</p>
-                              
-                           </div>
-                        </div>
-                     </a>
-
-                     <a href="#" id="main-info-a">
-                        <div>
-                           <div id="main-info-p">
-                              <p>Guppy</p>
-                           </div>
-                           <div id="main-info-img">
-                              <img src="../../resources/image/goopy.jpg" alt="">
-                           </div>
-                           <div id="main-info">
-                              <p>이름 : 구피</p>
-                              <p>종류 : 열대어</p>
-                              <p>몸길이 : 3~4cm</p>
-                              
-                           </div>
-                        </div>
-                     </a>
-
-                     <a href="#" id="main-info-a">
-                        <div>
-                           <div id="main-info-p">
-                              <p>Guppy</p>
-                           </div>
-                           <div id="main-info-img">
-                              <img src="${pageContext.request.contextPath}/resources/image/goopy.jpg" alt="">
-                           </div>
-                           <div id="main-info">
-                              <p>이름 : 구피</p>
-                              <p>종류 : 열대어</p>
-                              <p>몸길이 : 3~4cm</p>
-                              
-                           </div>
-                        </div>
-                     </a>
-
-                     <a href="#" id="main-info-a">
-                        <div>
-                           <div id="main-info-p">
-                              <p>Guppy</p>
-                           </div>
-                           <div id="main-info-img">
-                              <img src="${pageContext.request.contextPath}/resources/image/goopy.jpg" alt="">
-                           </div>
-                           <div id="main-info">
-                              <p>이름 : 구피</p>
-                              <p>종류 : 열대어</p>
-                              <p>몸길이 : 3~4cm</p>
-                              
-                           </div>
-                        </div>
-                     </a>
-
-                     <a href="#" id="main-info-a">
-                        <div>
-                           <div id="main-info-p">
-                              <p>Guppy</p>
-                           </div>
-                           <div id="main-info-img">
-                              <img src="${pageContext.request.contextPath}/resources/image/goopy.jpg" alt="">
-                           </div>
-                           <div id="main-info">
-                              <p>이름 : 구피</p>
-                              <p>종류 : 열대어</p>
-                              <p>몸길이 : 3~4cm</p>
-                              
-                           </div>
-                        </div>
-                     </a>
-
-                     <a href="#" id="main-info-a">
-                        <div>
-                           <div id="main-info-p">
-                              <p>Guppy</p>
-                           </div>
-                           <div id="main-info-img">
-                              <img src="../../resources/image/goopy.jpg" alt="">
-                           </div>
-                           <div id="main-info">
-                              <p>이름 : 구피</p>
-                              <p>종류 : 열대어</p>
-                              <p>몸길이 : 3~4cm</p>
-                              
-                           </div>
-                        </div>
-                     </a>
-
-                     <a href="#" id="main-info-a">
-                        <div>
-                           <div id="main-info-p">
-                              <p>Guppy</p>
-                           </div>
-                           <div id="main-info-img">
-                              <img src="${pageContext.request.contextPath}/resources/image/goopy.jpg" alt="">
-                           </div>
-                           <div id="main-info">
-                              <p>이름 : 구피</p>
-                              <p>종류 : 열대어</p>
-                              <p>몸길이 : 3~4cm</p>
-                              
-                           </div>
-                        </div>
-                     </a>
-
-                     <a href="#" id="main-info-a">
-                        <div>
-                           <div id="main-info-p">
-                              <p>Guppy</p>
-                           </div>
-                           <div id="main-info-img">
-                              <img src="${pageContext.request.contextPath}/resources/image/goopy.jpg" alt="">
-                           </div>
-                           <div id="main-info">
-                              <p>이름 : 구피</p>
-                              <p>종류 : 열대어</p>
-                              <p>몸길이 : 3~4cm</p>
-                              
-                           </div>
-                        </div>
-                     </a>
-
-                     <a href="#" id="main-info-a">
-                        <div>
-                           <div id="main-info-p">
-                              <p>Guppy</p>
-                           </div>
-                           <div id="main-info-img">
-                              <img src="${pageContext.request.contextPath}/resources/image/goopy.jpg" alt="">
-                           </div>
-                           <div id="main-info">
-                              <p>이름 : 구피</p>
-                              <p>종류 : 열대어</p>
-                              <p>몸길이 : 3~4cm</p>
-                              
-                           </div>
-                        </div>
-                     </a>
-
-                     <a href="#" id="main-info-a">
-                        <div>
-                           <div id="main-info-p">
-                              <p>Guppy</p>
-                           </div>
-                           <div id="main-info-img">
-                              <img src="${pageContext.request.contextPath}/resources/image/goopy.jpg" alt="">
-                           </div>
-                           <div id="main-info">
-                              <p>이름 : 구피</p>
-                              <p>종류 : 열대어</p>
-                              <p>몸길이 : 3~4cm</p>
-                              
-                           </div>
-                        </div>
-                     </a>
-
-                     <a href="#" id="main-info-a">
-                        <div>
-                           <div id="main-info-p">
-                              <p>Guppy</p>
-                           </div>
-                           <div id="main-info-img">
-                              <img src="${pageContext.request.contextPath}/resources/image/goopy.jpg" alt="">
-                           </div>
-                           <div id="main-info">
-                              <p>이름 : 구피</p>
-                              <p>종류 : 열대어</p>
-                              <p>몸길이 : 3~4cm</p>
-                              
-                           </div>
-                        </div>
-                     </a>
-
-                     <a href="#" id="main-info-a">
-                        <div >
-                           <div id="main-info-p">
-                              <p>Guppy</p>
-                           </div>
-                           <div id="main-info-img">
-                              <img src="${pageContext.request.contextPath}/resources/image/goopy.jpg" alt="">
-                           </div>
-                           <div id="main-info">
-                              <p>이름 : 구피</p>
-                              <p>종류 : 열대어</p>
-                              <p>몸길이 : 3~4cm</p>
-                              
-                           </div>
-                        </div>
-                     </a>
-                     
+                  
                </div>
-               <!-- 더미데이터 반복 끝 -->
+               
 
                <!-- 페이징 처리 들어오는 곳-->
-               	
-               
+               <div id="pagination-div">
+					<ul class="pagination">
+		            	<c:choose>
+		            		<c:when test="${ pi.currentPage eq 1 }">
+		            			<li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
+		            		</c:when>
+		            		<c:otherwise>
+		            			<li class="page-item"><a class="page-link" href="fishInfo.ma?cpage=${pi.currentPage - 1}">&laquo;</a></li>
+		            		</c:otherwise>
+		            	</c:choose>
+		
+						<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+							<li class="page-item ${p == pi.currentPage ? 'active' : ''}"><a class="page-link" href="fishInfo.ma?cpage=${p}">${p}</a></li>
+						</c:forEach>
+		                
+		              <c:choose>
+		            		<c:when test="${ pi.currentPage eq pi.maxPage }">
+		            			<li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
+		            		</c:when>
+		            		<c:otherwise>
+		            			<li class="page-item"><a class="page-link" href="fishInfo.ma?cpage=${pi.currentPage + 1}">&raquo;</a></li>
+		            		</c:otherwise>
+		            	</c:choose>
+           			 </ul>
+               </div>
             </div>
         </main>
                 

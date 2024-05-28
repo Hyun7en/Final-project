@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- namespace: 해당 mapper파일의 고유한 별칭 -->
+<mapper namespace="fishMapper">
+	<resultMap type="Fish" id="fishInfoResult">
+	
+		<result column="fish_no" property="fishNo"/>
+		<result column="fish_type" property="fishType"/>
+		<result column="taste_type" property="tasteType"/>
+		<result column="fish_file_no" property="fishFileNo"/>
+		<result column="fish_name" property="fishName"/>
+		<result column="temperature" property="temperature"/>
+		<result column="ration_time" property="rationTime"/>
+		<result column="top_or_bottom" property="topOrBottom"/>
+		<result column="tendency" property="tendency"/>
+		<result column="field" property="field"/>
+		<result column="light" property="light"/>
+		<result column="origin_name" property="url"/>
+		
+	</resultMap>
+	
+	<select id="selectListCount" resultType="_int">
+		SELECT COUNT(*) 
+		FROM public.fish
+	</select>
+	
+	<select id="selectList" resultMap="fishInfoResult">
+		SELECT fish_no,
+			   fish_type,
+			   taste_type,
+			   fish_file_no,
+			   fish_name,
+			   temperature,
+			   ration_time,
+			   top_or_bottom,
+			   tendency,
+				field,
+				light,
+				origin_name
+				FROM public.fish 
+				JOIN public.fish_attachment using(fish_file_no)
+		ORDER BY fish_no ASC
+	</select>
+	
+	<select id="selectAjaxCount" resultType="_int">
+		SELECT COUNT(*) 
+		FROM public.fish
+		WHERE fish_name = #{fishName}
+	</select>
+	
+	<select id="ajaxSearchFish" resultMap="fishInfoResult">
+		SELECT fish_no,
+			   fish_type,
+			   taste_type,
+			   fish_file_no,
+			   fish_name,
+			   temperature,
+			   ration_time,
+			   top_or_bottom,
+			   tendency,
+				field,
+				light,
+				origin_name
+		FROM public.fish 
+		JOIN public.fish_attachment using(fish_file_no)
+		WHERE fish_name like'%' || #{fishName} || '%'
+		ORDER BY fish_no ASC
+	</select>
+</mapper>
