@@ -1,11 +1,11 @@
 package com.psvm.seller.dao;
 
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.psvm.seller.vo.ProductAttachment;
-import com.psvm.seller.vo.ProductCategory;
 import com.psvm.seller.vo.SellerInfo;
 import com.psvm.seller.vo.SellerPage;
 
@@ -19,24 +19,36 @@ public class SellerDao {
 		
 	}
 	
-	public int insertProductAttachment(SqlSessionTemplate sqlSession, ProductAttachment productAttachment){
+	public int selectBusinessNo(SqlSessionTemplate sqlSession, int userNo){
 		
-		
-		return sqlSession.insert("sellerMapper.insertProductAttachment", productAttachment);
-		
-	}
-
-	public int insertProductCategory(SqlSessionTemplate sqlSession, ProductCategory productCategory){
-		
-		
-		return sqlSession.insert("sellerMapper.insertProductCategory", productCategory);
+		return sqlSession.selectOne("sellerMapper.selectBusinessNo", userNo);
 		
 	}
-
 	public int insertSellerPage(SqlSessionTemplate sqlSession, SellerPage sellerPage){
-		
+	
 		
 		return sqlSession.insert("sellerMapper.insertSellerPage", sellerPage);
 		
 	}
+
+	public int insertProductCategory(SqlSessionTemplate sqlSession, ArrayList<String> categories){
+		
+		int result = 1;
+		
+		for(String category : categories) {
+			
+			if(!category.equals("")) {
+				result = result * sqlSession.insert("sellerMapper.insertProductCategory", category);
+			}
+			
+			
+		}
+			
+		return result;	
+	}
+	
+	public int selectSellerHomeDetail(SqlSessionTemplate sqlSession, int businessNo) {
+		return sqlSession.selectOne("SellerMapepr.selectSellerHomeDetail", businessNo);
+	}
+
 }

@@ -56,7 +56,7 @@
 
         <section>
             <h1>스토어 관리 &gt; 판매자 홈 수정</h1>
-            <form action="${pageContext.request.contextPath}/insertSeller" method="post" enctype="multipart/form-data">
+            <form id="enrollForm" action="#" method="post" enctype="multipart/form-data">
                 <div>
                     <h4>스토어 소개</h4>
                     <input id="store-introduce" type="text" name="storeDescription" placeholder="스토어 소개 입력" style="width: 300px; padding: 5px;">
@@ -72,7 +72,7 @@
                 <div id="div-enroll-category">
                     <div>
                         <h4>카테고리 등록</h4>
-                        <input id="enroll-category" type="text" id="categoryInput" placeholder="카테고리 입력">
+                        <input id="enroll-category" type="text" placeholder="카테고리 입력">
                         <button type="button" id="add-categoryBtn">추가</button>
                     </div>
                     <div>

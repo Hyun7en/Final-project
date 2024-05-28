@@ -5,6 +5,7 @@
   
 <!-- namespace: 해당 mapper파일의 고유한 별칭 -->
  <mapper namespace="sellerMapper">
+ 
 	<resultMap type="SellerInfo" id="sellerInfoResult">
 		<result column="BUSINESS_NO" property="businessNo"/>
 		<result column="USER_NO" property="userNo"/>
@@ -24,25 +25,41 @@
 		<result column="SELLER_PAGE_NO" property="sellerPageNo"/>
 		<result column="BUSINESS_NO" property="businessNo"/>
 		<result column="SELLER_EXPLAIN" property="sellerExplain"/>
+		<result column="SP_ENROLL_DATE" property="spEnrollDate"/>
+		<result column="SP_ORIGIN_NAME" property="spOriginName"/>
+		<result column="SP_CHANGE_NAME" property="spChangeName"/>
 	</resultMap>
-	
+
 	<resultMap type="ProductCategory" id="productCategoryResult">
 		<result column="P_CATEGORY" property="pCategory"/>
 		<result column="SELLER_PAGE_NO" property="sellerPageNo"/>
 	</resultMap>
 	
-	<resultMap type="ProductAttachment" id="productAttachmentResult">
-		<result column="PRODUCT_FILE_NO" property="productFileNo"/>
-		<result column="SELLER_PAGE_NO" property="sellerPageNo"/>
-		<result column="REF_PNO" property="refPno"/>
-		<result column="UPLOAD_DATE" property="uploadDate"/>
-		<result column="FILE_LEVEL" property="fileLevel"/>
-		<result column="ORIGIN_NAME" property="originName"/>
-		<result column="CHANGE_NAME" property="changeName"/>		
-	</resultMap>
+<!-- 	<resultMap type="Product" id="productResult">
+		<result column="P_NO" property="pNo"/>
+		<result column="P_CATEGORY" property="pCategory"/>
+		<result column="P_OPTION" property="pOption"/>
+		<result column="P_TITLE" property="pTitle"/>
+		<result column="P_STATUS" property="pStatus"/>
+		<result column="P_PRICE" property="pPrice"/>
+		<result column="P_CONTENT" property="pContent"/>
+		<result column="P_ENROLL_FORM" property="pEnrollForm"/>
+		<result column="P_STAR" property="pStar"/>
+		<result column="P_SELL_COUNT" property="pSellCount"/>
+		<result column="P_ORIGIN_NAME" property="pOriginName"/>
+		<result column="P_CHANGE_NAME" property="pChangeName"/>
+		
+	</resultMap> -->
 	
 	<select id="selectSeller" resultMap="sellerInfoResult">
 		SELECT *
+		  FROM SELLER_INFO
+		 WHERE USER_NO = #{userNo}
+		   AND STATUS = 'Y'
+	</select>
+	
+	<select id="selectBusinessNo" resultType="_int">
+		SELECT BUSINESS_NO
 		FROM SELLER_INFO
 		WHERE USER_NO = #{userNo}
 	</select>
@@ -51,11 +68,19 @@
 		INSERT INTO
 					SELLER_PAGE (
 								 business_no,
-								 seller_explain
+								 seller_explain,
+								 sp_enroll_Date,
+								 sp_origin_name,
+								 sp_change_name
+								 
 								 )
 						 VALUES (
 						 		 #{businessNo},
-								 #{storeDescription}							 		 
+								 #{sellerExpalin},
+								 default,
+								 #{spOriginName},
+								 #{spChangeName}
+								 							 		 
 						 		 )	 
 	</insert>
 	
@@ -66,32 +91,17 @@
 								 	  seller_page_no
 								 	  )
 						 	  VALUES (
-							 		  #{categoriesJson}, 
-							 		  #{srNo}
+							 		  #{category}, 
+							 		  CURRVAL('seller_page_seller_page_no_seq'::regclass)
 						 		 	  )	
 	</insert>
 	
-	<insert id="insertProductAttachment">
-		   INSERT INTO 
-		   				PRODUCT_ATTACHMENT (
-					   						SELLER_PAGE_NO, 
-					   						REF_PNO, 
-					   						UPLOAD_DATE, 
-					   						FILE_LEVEL, 
-					   						ORIGIN_NAME, 
-					   						CHANGE_NAME
-					   					  )
-					   			  VALUES  (
-							   			  #{srNo}, 
-							   			   #{refPno}, 
-							   			   #{uploadDate}, 
-							   			   #{fileLevel}, 
-							   			   #{originName}, 
-							   			   #{changeName}
-							   			  )
-  
-	</insert>
-	
+	<select id="selectSellerHomeDetail" resultMap="sellerPageResult">
+		SELECT SELLER_EXPLAIN,
+			   SP_ORIGIN_NAME
+		  FROM SellerPage
+		WHERE BUSINESS_NO = #{businessNo}
+	</select>
 	
 	
 

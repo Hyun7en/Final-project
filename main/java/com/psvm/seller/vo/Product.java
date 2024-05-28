@@ -18,11 +18,14 @@ public class Product {
 	private int pNo;
 	private String pCategory;
 	private String pOption;
-	private int pFileNo;
 	private String pTitle;
 	private String pStatus;
-	private int sellPrice;
-	private String pExplane;
+	private int pPrice;
+	private String pContent;
 	private Date pEnrollDate;
+	private int pStar;
+	private int pSellCount;
+	private String pOriginName;
+	private String pChangeName;
 	
 }

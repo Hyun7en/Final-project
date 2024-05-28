@@ -78,7 +78,7 @@
                             <input class="form-control" type="number" id="amount" name="amount" placeholder="판매수량 입력" required>
                         </div> 
 
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="category">
                                 옵션
                             </label>
@@ -87,7 +87,7 @@
                                     가전
                                 </option>
                             </select>
-                        </div>
+                        </div> -->
                     
                         <div class="form-group">
                             <label for="product-name">
