@@ -25,19 +25,19 @@
         <form action="signUp.me" id="signup-input" method="POST">
             <div class="signup-essential">
                 <p>필수 입력 항목</p>
-                <input type="text" id="signup-id" name="userId" placeholder="아이디" style="border-top: 2px solid #0089FF; border-bottom: 2px solid #0089FF;">
+                <input type="text" id="signup-id" name="userId" placeholder="아이디(5자 이상)" style="border-top: 2px solid #0089FF; border-bottom: 2px solid #0089FF;" required>
                 <div id="checkResult" style="display:none;"></div>
-                <input type="password" id="signup-pwd" name="userPwd" placeholder="비밀번호">
-                <input type="text" id="signup-email" name="email" placeholder="이메일">
-                <input type="text" id="signup-name" name="userName" placeholder="이름">
-                <input type="text" id="signup-nickname" name="nickname" placeholder="닉네임">
-                <input type="text" id="signup-birthday" name="birthday" placeholder="생년월일 8자리">
-                <select name="gender" id="signup-gender">
+                <input type="password" id="signup-pwd" name="userPwd" placeholder="비밀번호" required>
+                <input type="text" id="signup-email" name="email" placeholder="이메일" required>
+                <input type="text" id="signup-name" name="userName" placeholder="이름" required>
+                <input type="text" id="signup-nickname" name="nickname" placeholder="닉네임" required>
+                <input type="text" id="signup-birthday" name="birthday" placeholder="생년월일 8자리" required>
+                <select name="gender" id="signup-gender" required>
                     <option value="M">남성</option>
                     <option value="F">여성</option>
                 </select>
-                <input type="text" id="signup-address" name="address" placeholder="주소지">
-                <input type="text" id="signup-phone" name="phone" placeholder="전화 번호">
+                <input type="text" id="signup-address" name="address" placeholder="주소지" required>
+                <input type="text" id="signup-phone" name="phone" placeholder="전화 번호" required>
             </div>
             <div class="signup-additional">
                 <p>선택 입력 항목</p>

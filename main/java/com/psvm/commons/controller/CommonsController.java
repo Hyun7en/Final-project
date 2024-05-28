@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class CommonsController {
 	@GetMapping("home.ma")
 	public String home() {
-		return "main/main";
+		return "redirect:/";
 	}
 
 	
@@ -26,6 +26,18 @@ public class CommonsController {
 	@GetMapping("store.ma")
 	public String store() {
 		return "store/store";
+	}
+	
+	
+	@GetMapping("list.pd")
+	public String productListView() {
+		return "seller/productListView";
+	}
+
+	
+	@GetMapping("manage.srh")
+	public String sellerHomeDetailView() {
+		return "seller/sellerHomeDetailView";
 	}
 	
 }

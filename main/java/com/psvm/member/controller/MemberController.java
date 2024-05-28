@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -26,12 +27,15 @@ public class MemberController {
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
 	@RequestMapping("loginForm.me") //로그인 페이지 이동
-	public String loginFormMember() {
+	public String loginFormMember(@RequestParam(value="recentLink") String recentLink, Model model) {
+		if (recentLink != "") {
+			model.addAttribute("recentLink", recentLink);
+		}
 		return "member/login";
 	}
 	
 	@RequestMapping("login.me") //로그인
-	public ModelAndView loginMember(Member m, ModelAndView mv, HttpSession session, String saveId, HttpServletResponse response) {
+	public ModelAndView loginMember(Member m, @RequestParam(value="recentLink", defaultValue="/") String recentLink, ModelAndView mv, HttpSession session, String saveId, HttpServletResponse response) {
 	    
 	    Member loginUser = memberService.loginMember(m);
 	     
@@ -48,9 +52,9 @@ public class MemberController {
 	            ck.setMaxAge(0);
 	        }
 	        response.addCookie(ck);
-	        mv.addObject("successMessage", "로그인에 성공했습니다!");
+	        session.setAttribute("successMessage", "로그인에 성공했습니다!");
 	        session.setAttribute("loginUser", loginUser);
-	        mv.setViewName("main/main");
+	        mv.setViewName("redirect:" + recentLink);
 	    }
 	    
 	    return mv;
@@ -60,7 +64,7 @@ public class MemberController {
 	@RequestMapping("logout.me") //로그아웃
 	public String logoutMember(HttpSession session) {
 		session.removeAttribute("loginUser");
-		
+		session.setAttribute("successMessage", "로그아웃되었습니다.");
 		return "redirect:/";
 	}
 	
@@ -77,20 +81,22 @@ public class MemberController {
 	}
 	
 	@RequestMapping("signUp.me") //회원가입
-	public String signupMember(Member m, HttpSession session, Model model) {
+	public ModelAndView signupMember(Member m, HttpSession session, ModelAndView mv) {
 		String encPwd = bcryptPasswordEncoder.encode(m.getUserPwd());
 		
 		m.setUserPwd(encPwd);
 		
 		int result = memberService.signupMember(m);
 		
-		return "redirect:/";
+		if(result > 0) {
+			session.setAttribute("successMessage", "회원가입에 성공했습니다!");
+			mv.setViewName("redirect:/");
+		} else {
+			mv.addObject("errorMessage", "오류가 발생했습니다.");
+	        mv.setViewName("member/signUp");
+		}
 		
-//		if(result > 0) {
-//			
-//		} else {
-//			
-//		}
+		return mv;
 	}
 	
 	@RequestMapping("update.me") //회원정보 수정
