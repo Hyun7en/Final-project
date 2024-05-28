@@ -23,7 +23,7 @@ public class MyPageController {
 	@Autowired
 	private MyPageServiceImpl myPageService;
 	
-	// 내 정보 보여주는 컨트롤러
+	// 내 정보 페이지로 보내는 컨트롤러
 	@RequestMapping("myPage.me")
 	public String selectMyInfo() {
 		return "myPage/myPageInfo";
@@ -118,7 +118,6 @@ public class MyPageController {
 		session.setAttribute("status", status);
 				
 		return "myPage/myPageSellerConversion";
-//		return "redirect:detail.bo?bno=" + b.getBoardNo();
 	}
 	
 	

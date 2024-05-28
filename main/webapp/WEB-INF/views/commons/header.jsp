@@ -67,7 +67,7 @@
                             <c:otherwise>
                                 <!-- 관리자일 경우 로그인 후  -->
                                 <label>${loginUser.userName}님 환영합니다</label> &nbsp;&nbsp;
-                                <a href="#">관리자 페이지</a>
+                                <a href="main.ma">관리자 페이지</a>
                                 <a href="logout.me">로그아웃</a>
                             </c:otherwise>
 
