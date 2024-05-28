@@ -22,32 +22,34 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/communityCSS/communityList.css">
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/communityJS/communityList.js"></script>
+    <!-- success -->
 
 </head>
 <body>
     <c:if test="${ not empty successMessage}">
 		<script>
-			var successMessage = "${successMessage}";
-		    if (successMessage) {
-		        Swal.fire({
-		            icon: 'success',
-		            title: 'success!',
-		            html: successMessage
-		        });
-		    }
+            var successMessage = '${successMessage}';
+            if (successMessage) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'success!',
+                    html: successMessage
+                });
+            }
 		</script>
 		<c:remove var="successMessage" scope="session"/>
 	</c:if>
     <c:if test="${ not empty infoMessage}">
 		<script>
-			var infoMessage = "${infoMessage}";
-		    if (infoMessage) {
-		        Swal.fire({
-		            icon: 'info',
-		            title: 'Notice',
-		            html: infoMessage
-		        });
-		    }
+            var infoMessage = '${infoMessage}';
+            if (infoMessage) {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Notice',
+                    html: infoMessage
+                });
+            }
 		</script>
 		<c:remove var="infoMessage" scope="session"/>
 	</c:if>
@@ -59,36 +61,12 @@
             </div>
             <div id="com-nav">
                     <ul>
-                        <li><button class="com-nav-0" onclick="boCategory(0)" name="boardLevel" value="0" style="border-radius: 10px 0 0 10px;">일반</button></li>
-                        <li><button class="com-nav-1" onclick="boCategory(1)" name="boardLevel" value="1">꿀팁</button></li>
-                        <li><button class="com-nav-2" onclick="boCategory(2)" name="boardLevel" value="2">질문</button></li>
-                        <li><button class="com-nav-3" onclick="boCategory(3)" name="boardLevel" value="3" style="border-radius: 0 10px 10px 0;">중고거래</button></li>
+                        <li><button class="com-nav" onclick="boCategory(0)" name="boardLevel" value="0" style="border-radius: 10px 0 0 10px;">일반</button></li>
+                        <li><button class="com-nav" onclick="boCategory(1)" name="boardLevel" value="1">꿀팁</button></li>
+                        <li><button class="com-nav" onclick="boCategory(2)" name="boardLevel" value="2">질문</button></li>
+                        <li><button class="com-nav" onclick="boCategory(3)" name="boardLevel" value="3" style="border-radius: 0 10px 10px 0;">중고거래</button></li>
                     </ul>
             </div>
-            <script>
-                function boCategory(category){
-                        location.href = "list.co?category=" + category + "&cpage=1";
-                }
-                window.onload = function() {
-                    // URL에서 category 값을 추출하는 함수
-                    function getCategoryFromUrl() {
-                        const params = new URLSearchParams(window.location.search);
-                        return params.get('category');
-                    }
-
-                    // category 값을 가져옴
-                    const category = getCategoryFromUrl();
-
-                    // category 값과 동일한 버튼에 id="com-nav-selected"를 부여
-                    const button = document.querySelector(".com-nav-" + category);
-                    button.id = "com-nav-selected";
-                }
-            </script>
-            <script>
-                function show(boardLevel, cpage, boardNo){
-                    location.href = "detail.co?category=" + boardLevel + "&cpage=" + cpage + "&boardNo=" + boardNo;
-                }
-            </script>
             <table class="com-list">
                 <thead id="com-list-header">
                     <th style="width: 60px; border-radius: 10px 0 0 0;">No</th>

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -30,6 +31,7 @@ import com.psvm.commons.vo.PageInfo;
 import com.psvm.community.service.CommunityService;
 import com.psvm.community.vo.Community;
 import com.psvm.community.vo.Reply;
+import com.psvm.community.vo.ThumbUp;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -101,6 +103,51 @@ public class CommunityController {
 	    Gson gson = gsonBuilder.create();
 	    String json = gson.toJson(rlist);
 	    return json;
+	}
+	@ResponseBody
+	@RequestMapping("rinsert.co")
+	public String ajaxInsertReply(Reply r) {
+		//성공했을 때는 success, 실패했을 때 fail
+		return communityService.insertReply(r) > 0 ? "success" : "fail";
+	}
+
+	@ResponseBody
+	@RequestMapping("rdelete.co")
+	public ModelAndView deleteReply(int boardReplyNo, int boardLevel, int boardNo, HttpSession session, ModelAndView mv) {
+		
+		int result = communityService.deleteReply(boardReplyNo);
+
+		if (result > 0) { //성공 => list페이지로 이동
+			session.setAttribute("infoMessage", "댓글이 삭제되었습니다.");
+			mv.setViewName("redirect:detail.co?category=" + boardLevel + "&cpage=1&boardNo=" + boardNo);
+		} else { //실패 => 에러페이지
+			mv.addObject("errorMessage", "오류가 발생했습니다.");
+			mv.setViewName("redirect:detail.co?category=" + boardLevel + "&cpage=1&boardNo=" + boardNo);
+		}
+		
+		return mv;
+	}
+	
+	@ResponseBody
+	@RequestMapping("thumbUpCount.co")//추천 수 확인
+	public int ajaxThumbUpCount(int boardNo) {
+		
+		return communityService.thumbUpCount(boardNo);
+	}
+	
+	@ResponseBody
+	@RequestMapping("thumbUpCheck.co")//추천 버튼 클릭 여부 확인
+	public int ajaxthumbUpCheck(ThumbUp t) {
+		
+		return communityService.thumbUpCheck(t);
+	}
+	
+	@ResponseBody
+	@RequestMapping("thumbUpClick.co")//추천하기
+	public String ajaxthumbUpClick(ThumbUp t) {
+		//성공했을 때는 success, 실패했을 때 fail
+		System.out.println(t.toString());
+		return communityService.thumbUpClick(t) > 0 ? "success" : "fail";
 	}
 	
 	@RequestMapping("enrollForm.co")//게시글 작성 화면
@@ -212,32 +259,8 @@ public class CommunityController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("rinsert.co")
-	public String ajaxInsertReply(Reply r) {
-		//성공했을 때는 success, 실패했을 때 fail
-		return communityService.insertReply(r) > 0 ? "success" : "fail";
-	}
-	
-	@ResponseBody
 	@RequestMapping(value="topList.co", produces="application/json; charset=UTF-8")
 	public String ajaxTopBoardList() {
 		return new Gson().toJson(communityService.selectTopBoardList());
-	}
-	
-	@ResponseBody
-	@RequestMapping("rdelete.co")
-	public ModelAndView deleteReply(int boardReplyNo, int boardLevel, int boardNo, HttpSession session, ModelAndView mv) {
-		System.out.println(boardReplyNo);
-		int result = communityService.deleteReply(boardReplyNo);
-
-		if (result > 0) { //성공 => list페이지로 이동
-			session.setAttribute("infoMessage", "댓글이 삭제되었습니다.");
-			mv.setViewName("redirect:detail.co?category=" + boardLevel + "&cpage=1&boardNo=" + boardNo);
-		} else { //실패 => 에러페이지
-			mv.addObject("errorMessage", "오류가 발생했습니다.");
-			mv.setViewName("redirect:detail.co?category=" + boardLevel + "&cpage=1&boardNo=" + boardNo);
-		}
-		
-		return mv;
 	}
 }

@@ -13,18 +13,12 @@
     display: flex;
 }
 #com-detail-head>#com-detail-title{
-    width: 750px;
+    width: 950px;
     height: 40px;
     font-size: 20px;
     font-weight: 700;
     padding-left: 10px;
     padding-top: 10px;
-}
-#com-detail-head>#com-detail-good{
-    width: 150px;
-    height: 40px;
-    text-align: right;
-    padding: 10px;
 }
 #com-detail>#com-detail-info{
     height: 30px;
