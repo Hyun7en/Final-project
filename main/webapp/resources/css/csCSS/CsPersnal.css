@@ -16,13 +16,6 @@
     width: 900px;
     margin: 50px;
 }
-
-/* input {
-    border: 5px solid #0089FF;
-    color: #0089FF;
-    border-radius: 16px 16px 16px 16px;
-    text-align: center;        
-}  */
 .com-bottom1{
     width: 900px;
     height: 40px;
@@ -32,14 +25,9 @@
     display: flex;
 }
 .com-bottom2{
-    /* width: 900px; */
+    
     height: 30px;
     text-align: center;
     margin-top: 20px;
     margin-bottom: 100px;
 }
-/* .content-02{
-    border: 20px black;
-    margin-bottom: 30px;
-
-} */
