@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+import com.psvm.member.vo.Member;
 import com.psvm.seller.service.SellerService;
 import com.psvm.seller.vo.Product;
 import com.psvm.seller.vo.ProductCategory;
@@ -44,24 +45,43 @@ public class SellerController {
     @RequestMapping("info.sr")
     public String selectSeller(HttpSession session, Model model) {
     	
-    	int userNo = (int) session.getAttribute("loginUser.userNo");
-        SellerInfo sr = sellerService.selectSeller(userNo);
-        
-//        log.info("Seller info: {}", sr);
-        model.addAttribute("sr", sr);
+    	// 세션에서 loginUser 객체 가져오기
+    	Member loginUser = (Member)session.getAttribute("loginUser");
+
+    	// loginUser가 null이 아닌지 확인하고 userNo 접근
+    	if (loginUser != null) {
+    	    int userNo = loginUser.getUserNo();
+    	    
+    	    // userNo를 사용하는 로직
+    	    SellerInfo sr = sellerService.selectSeller(userNo);
+    	    model.addAttribute("sr", sr);
+    	}
         
         return "seller/sellerInfo";
     }
     
-//    @RequestMapping("detail.srh")
-//   	public String selectSellerHomeDetail(int businessNo, Model model) {
-//    	
-//    	System.out.println(businessNo);
-//    	
-//    	int result =sellerService.selectSellerHomeDetail(businessNo);
-//    	
-//   		return "seller/sellerHomeDetailView";
-//   	}
+    
+    // 로그인 한 user의 businessNo가져오는 메서드
+    public int getBusinessNoFromUserNo(HttpSession session) {
+    	// 세션에서 loginUser 객체 가져오기
+    	Member loginUser = (Member)session.getAttribute("loginUser");
+
+    	int userNo = loginUser.getUserNo();
+    	
+        int businessNo = sellerService.selectBusinessNo(userNo);
+        
+        return businessNo;
+    }
+    
+    @RequestMapping("detail.srh")
+   	public String selectSellerHomeDetail(HttpSession session, Model model) {
+    	
+    	int businessNo = getBusinessNoFromUserNo(session);
+    	
+    	int result =sellerService.selectSellerHomeDetail(businessNo);
+    	
+   		return "seller/sellerHomeDetailView";
+   	}
     
     // 판매자 홈 관련
     @RequestMapping("enrollForm.srh")
@@ -72,9 +92,8 @@ public class SellerController {
     @RequestMapping("insert.srh")
     public String insertSellerHome(SellerPage sellerPage,int userNo , MultipartFile storeHomeImage, @RequestParam("categoriesJson") String categoriesJson,
     		HttpSession session, Model model) {
-    
     	
-    	int businessNo = sellerService.selectBusinessNo(userNo); 
+    	int businessNo = getBusinessNoFromUserNo(session); 
     	
     	sellerPage.setBusinessNo(businessNo);
     	
@@ -152,57 +171,57 @@ public class SellerController {
   		return changeName;
   	}
     
-//    @RequestMapping("updateForm.srh")
-//  	public String sellerHomeUpdateForm() {
-//  		return "seller/sellerHomeUpdateForm";
-//  	}
-//    
-//    @RequestMapping("update.srh")
-//  	public String sellerHomeUpdate() {
-//  		return "seller";
-//  	}
-//   
-//    // 판매자 물품 관련
-//    @RequestMapping("enrollForm.pd")
-//  	public String productEnrollForm() {
-//  		return "seller/productEnrollForm";
-//  	}
-//    
-//    @RequestMapping("insert.pd")
-//  	public String insertProduct(Product product ) {
-//    	
-//  		return "list.pd";
-//  	}
-//    
-//    @RequestMapping(value = "/categories", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
-//    @ResponseBody
-//    public ArrayList<ProductCategory> getCategories() {
-//    	
-//        return null;
-//    }
-//    
-//    @RequestMapping("select.pd")
-//  	public String selectProduct() {
-//    	
-//  		return "";
-//  	}
-//    
-//    @RequestMapping("list.pd")
-//  	public String ProductList() {
-//    	
-//  		return "seller/productListView";
-//  	}
-//    
-//    @RequestMapping("updateForm.pd")
-//  	public String productUpdateForm() {
-//  		return "seller/productUpdateForm";
-//  	}
-//    
-//    @RequestMapping("update.pd")
-//  	public String updateProduct() {
-//  		return "";
-//  	}
-//    
-//   
+    @RequestMapping("updateForm.srh")
+  	public String sellerHomeUpdateForm() {
+  		return "seller/sellerHomeUpdateForm";
+  	}
+    
+    @RequestMapping("update.srh")
+  	public String sellerHomeUpdate() {
+  		return "seller";
+  	}
+   
+    // 판매자 물품 관련
+    @RequestMapping("enrollForm.pd")
+  	public String productEnrollForm() {
+  		return "seller/productEnrollForm";
+  	}
+    
+    @RequestMapping("insert.pd")
+  	public String insertProduct(Product product ) {
+    	
+  		return "list.pd";
+  	}
+    
+    @RequestMapping(value = "/categories", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public ArrayList<ProductCategory> getCategories() {
+    	
+        return null;
+    }
+    
+    @RequestMapping("select.pd")
+  	public String selectProduct() {
+    	
+  		return "";
+  	}
+    
+    @RequestMapping("list.pd")
+  	public String ProductList() {
+    	
+  		return "seller/productListView";
+  	}
+    
+    @RequestMapping("updateForm.pd")
+  	public String productUpdateForm() {
+  		return "seller/productUpdateForm";
+  	}
+    
+    @RequestMapping("update.pd")
+  	public String updateProduct() {
+  		return "";
+  	}
+    
+   
    
 }

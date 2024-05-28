@@ -28,9 +28,6 @@
     <!-- aside -->
     <%@ include file="../commons/aside.jsp" %>
 
-       <form action="#">
-        <input type="hidden" name="userNo" value={loginUser.userNo}>
-       </form>
         <section>
             <h1>판매자 정보 &gt; 판매자 정보</h1>
 
