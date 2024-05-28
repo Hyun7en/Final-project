@@ -26,16 +26,30 @@
     <!-- success -->
 
 </head>
-<body onload="categorySelected()">
+<body>
     <c:if test="${ not empty successMessage}">
 		<script>
-            window.onload = "callSuccessMsg(${successMessage})";
+            var successMessage = '${successMessage}';
+            if (successMessage) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'success!',
+                    html: successMessage
+                });
+            }
 		</script>
 		<c:remove var="successMessage" scope="session"/>
 	</c:if>
     <c:if test="${ not empty infoMessage}">
 		<script>
-			window.onload = "callInfoMsg(${infoMessage})";
+            var infoMessage = '${infoMessage}';
+            if (infoMessage) {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Notice',
+                    html: infoMessage
+                });
+            }
 		</script>
 		<c:remove var="infoMessage" scope="session"/>
 	</c:if>

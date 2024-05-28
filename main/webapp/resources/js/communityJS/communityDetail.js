@@ -1,17 +1,17 @@
+//(기능 안 하는 스크립트)
 //error 메시지
-function callErrorMsg(errMsg){
-    var errorMessage = errMsg;
-    if (errorMessage) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Error!',
-            html: errorMessage
-        });
-    }
-}
+// function callErrorMsg(errMsg){
+//     var errorMessage = errMsg;
+//     if (errorMessage) {
+//         Swal.fire({
+//             icon: 'error',
+//             title: 'Error!',
+//             html: errorMessage
+//         });
+//     }
+// }
 
 function deleteReply(boardReplyNo, boardLevel, boardNo){
-    console.log(boardReplyNo, boardLevel, boardNo);
     swal({
     title: "WARNING",
     text: "정말로 삭제하시겠습니까?",
@@ -44,18 +44,18 @@ function deleteBoard(boardLevel, boardNo){
 }
 
 //댓글 관련 스크립트
-$(function(){
-    getReplyList({bno : "${c.boardNo}"}, function(result){
+function callReply(CboardNo, Cancel, cBoardLevel){
+    getReplyList({bno : CboardNo}, function(result){
         
         setReplyCount(result.length)
 
         const replyBody = document.querySelector("#com-reply tbody");
-        drawTableList(result, replyBody);
+        drawTableList(result, replyBody, Cancel, cBoardLevel, CboardNo);
     })
-})
+}
 
 //댓글 등록
-function addReply(){
+function addReply(Cancel, cBoardLevel, CboardNo){
     //boardNo
     //userId
     //댓글내용
@@ -72,7 +72,7 @@ function addReply(){
     }, function(res){
         getReplyList({bno : "${c.boardNo}"}, function(result){
             setReplyCount(result.length);
-            drawTableList(result, document.querySelector("#com-reply tbody"));
+            drawTableList(result, document.querySelector("#com-reply tbody"), Cancel, cBoardLevel, CboardNo);
         })
         
     })
@@ -112,7 +112,7 @@ function getReplyList(data, callback){
     })
 }
 
-function drawTableList(itemList, parent){
+function drawTableList(itemList, parent, Cancel, cBoardLevel, CboardNo){
     $(parent).empty();
 
     //이벤트를 넣는 뷰를 작성하고 싶을 때
@@ -121,8 +121,9 @@ function drawTableList(itemList, parent){
         const replyRow1 = document.createElement('tr');
         replyRow1.innerHTML = `<th id="com-reply-writer" colspan="2">` + reply.nickname + `</th>
                               <td id="com-reply-enrolldate">` + reply.replyDate + `</td>
-                              <td id="com-reply-edit"><img src="${pageContext.request.contextPath}/resources/image/Cancel.png" alt="댓글 삭제 이미지" onclick="deleteReply(`
-                                 + reply.boardReplyNo + `, ${c.boardLevel}, ${c.boardNo})"></td>`;
+                              <td id="com-reply-edit"><img src="` + Cancel +
+                              `" alt="댓글 삭제 이미지" onclick="deleteReply(` + reply.boardReplyNo +
+                              `, ` + cBoardLevel + `, ` + CboardNo + `)"></td>`;
         parent.appendChild(replyRow1);
 
         const replyRow2 = document.createElement('tr');
@@ -135,24 +136,28 @@ function drawTableList(itemList, parent){
 }
 
 //추천 관련 스크립트
-$(function(){
-    getThumbUpCount({bno : "${c.boardNo}"}, {user : "${loginUser.userNo}"}), function(data){
-        setThumbUpCount(data.count1)
-        if(user != empty){
-            checkThumbUp(data.count2);
-        }
+function callThumbup(CboardNo, LuserNo){
+    const goodbutton = document.querySelector('#com-detail-goodbutton');
+    if (!LuserNo){ //로그인을 안 한 상태
+        goodbutton.disabled = true;
+        getThumbUpCount({boardNo : CboardNo}, function(count){
+            setThumbUpCount(count)
+        })
+    }else{ //로그인을 한 상태
+        checkThumbUp({userNo : LuserNo}, {boardNo : CboardNo}, goodbutton);
+        getThumbUpCount({boardNo : CboardNo}, function(count){
+            setThumbUpCount(count)
+        })
     }
-
-})
+}
 
 //추천 정보 가져오기
-function getThumbUpCount(bno, callback){
+function getThumbUpCount(boardNo, callback){
     $.ajax({
-        url: "thumbUpCheck.co",
-        data: bno, user,
-        success: function(data){
-            
-            callback(data);
+        url: "thumbUpCount.co",
+        data: boardNo,
+        success: function(count){
+            callback(count)
         },
         error: function(item){
             console.log(item);
@@ -160,35 +165,55 @@ function getThumbUpCount(bno, callback){
         }
     })
 }
-
 //추천 카운트 넣기
-function setThumbUpCount(count1){
+function setThumbUpCount(count){
     const thumbUpCount = document.querySelector('#thumbUpCount');
-    thumbUpCount.innerHTML = count1;
+    thumbUpCount.innerHTML = count;
 }
 
+//추천 버튼 클릭 여부 체크
+function checkThumbUp(userNo, boardNo, goodbutton){
+    $.ajax({
+        url: "thumbUpCheck.co",
+        data: userNo, boardNo,
+        success: function(result){
+            if (result > 1){
+                goodbutton.disabled = true;
+            }
+        },
+        error: function(item){
+            console.log(item);
+            console.log("추천 버튼 체크 ajax 실패");
+        }
+    })
+}
 
 //추천 버튼 클릭
-function thumbUp(userNo, boardNo){
+function thumbUpClick(userNo, boardNo){
+    const goodbutton = document.querySelector('#com-detail-goodbutton');
+    ajaxthumbUpClick({
+        userNo : userNo,
+        boardNo : boardNo
+    }, function(click){
+        console.log(boardNo);
+        goodbutton.disabled = true;
+        getThumbUpCount(boardNo, function(count){
+            setThumbUpCount(count)
+        })
+    }
+)}
 
+function ajaxthumbUpClick(data, callback){
+    console.log(data.userNo, data.boardNo);
     $.ajax({
-        url: 'thumbUp.co',
-        data : userNo, boardNo,
-        success: function(data){
-            checkThumbUp(data.newCount2);
-            setThumbUpCount(data.newCount1);
+        url: 'thumbUpClick.co',
+        data : data,
+        success: function(click){
+            callback(click)
         },
         error: function(item){
             console.log(item);
             console.log("추천 입력 실패");
         }
     })
-}
-
-//추천 버튼 클릭 여부 체크
-function checkThumbUp(count2){
-    const goodbutton = document.querySelector('#com-detail-goodbutton');
-    if(count2 > 0){
-        goodbutton.disabled = true;
-    }
 }

@@ -28,22 +28,43 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/communityJS/communityDetail.js"></script>
 
 </head>
-<body onload="categorySelected()">
+<body onload="callReply('${c.boardNo}', '${pageContext.request.contextPath}/resources/image/Cancel.png', '${c.boardLevel}'); callThumbup('${c.boardNo}', '${loginUser.userNo}'); categorySelected();">
     <c:if test="${ not empty errorMessage}">
 		<script>
-			window.onload = "callErrorMsg(${errorMessage})";
+			var errorMessage = '${errorMessage}';
+            if (errorMessage) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    html: errorMessage
+                });
+            }
 		</script>
 		<c:remove var="errorMessage" scope="session"/>
 	</c:if>
     <c:if test="${ not empty successMessage}">
 		<script>
-			window.onload = "callSuccessMsg(${successMessage})";
+			var successMessage = '${successMessage}';
+            if (successMessage) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'success!',
+                    html: successMessage
+                });
+            }
 		</script>
 		<c:remove var="successMessage" scope="session"/>
 	</c:if>
     <c:if test="${ not empty infoMessage}">
 		<script>
-			window.onload = "callInfoMsg(${infoMessage})";
+			var infoMessage = '${infoMessage}';
+            if (infoMessage) {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Notice',
+                    html: infoMessage
+                });
+            }
 		</script>
 		<c:remove var="infoMessage" scope="session"/>
 	</c:if>
@@ -62,7 +83,6 @@
                     <li><button class="com-nav" onclick="boCategory(3)" name="boardLevel" value="3" style="border-radius: 0 10px 10px 0;">중고거래</button></li>
                 </ul>
         </div>
-        <script>window.onload = "categorySelected()";</script>
             <div id="com-detail">
                 <div id="com-detail-head">
                     <div id="com-detail-title">
@@ -77,19 +97,9 @@
                     ${c.boardContents}
                 </div>
                 <div id="com-detail-goodarea">
-                    <c:choose>
-                        <c:when test="${empty loginUser}">
-                            <button type="button" id="com-detail-goodbutton" disabled>
-                                <img src="${pageContext.request.contextPath}/resources/image/good.png" alt="추천 버튼" style="width: 30px; height: 30px;">
-                            </button>
-                        </c:when>
-                        <c:otherwise>
-                            <button type="button" id="com-detail-goodbutton" onclick="thumbUp('${loginUser.userNo}', '${c.boardNo}');">
-                                <img src="${pageContext.request.contextPath}/resources/image/good.png" alt="추천 버튼" style="width: 30px; height: 30px;">
-                            </button>
-                        </c:otherwise>
-                    </c:choose>
-                    
+                    <button type="button" id="com-detail-goodbutton" onclick="thumbUpClick('${loginUser.userNo}', '${c.boardNo}');">
+                        <img src="${pageContext.request.contextPath}/resources/image/good.png" alt="추천 버튼" style="width: 30px; height: 30px;">
+                    </button>
                     <div id="com-detail-goodcount">
                         <span id="thumbUpCount">0</span>
                     </div>
@@ -112,7 +122,12 @@
                                     <th colspan="2" style="width: 720px !important;">
                                         <textarea id="com-reply-insertbox" name="replyContents" cols="55" rows="2" style="resize:none; outline: none; padding-left: 10px; padding-top: 5px;"></textarea>
                                     </th>
-                                    <th colspan="2" style="vertical-align:middle; width: 180px !important;"><button id="com-reply-button" class="btn btn-secondary" onclick="addReply();">등록하기</button></th>
+                                    <th colspan="2" style="vertical-align:middle; width: 180px !important;">
+                                        <button id="com-reply-button" class="btn btn-secondary"
+                                        onclick="addReply('${pageContext.request.contextPath}/resources/image/Cancel.png', '${c.boardLevel}', '${c.boardNo}')">
+                                            등록하기
+                                        </button>
+                                    </th>
                                 </tr>
                             </c:otherwise>
                         </c:choose>

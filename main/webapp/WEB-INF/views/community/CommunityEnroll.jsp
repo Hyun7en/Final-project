@@ -36,7 +36,16 @@
 </head>
 <body>
     <c:if test="${ not empty errorMessage}">
-        <script>window.onload="callErrorMsg()"</script>
+        <script>
+            var errorMessage = '${errorMessage}';
+            if (errorMessage) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    html: errorMessage
+                });
+            }
+        </script>
 		<c:remove var="errorMessage" scope="session"/>
 	</c:if>
     <div id="wrap">
