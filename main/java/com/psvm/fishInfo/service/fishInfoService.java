@@ -25,5 +25,5 @@ public interface FishInfoService {
 	ArrayList<Fish> ajaxCategorySearch(PageInfo pi, String cate);
 	
 	//물고기 상세 정보 조회
-	ArrayList<Fish> fishDetail(String fishName);
+	Fish fishDetail(String fishName);
 }

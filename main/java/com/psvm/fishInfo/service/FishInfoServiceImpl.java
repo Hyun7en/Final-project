@@ -57,8 +57,7 @@ public class FishInfoServiceImpl implements FishInfoService{
 	}
 
 	@Override
-	public ArrayList<Fish> fishDetail(String fishName) {
-		
+	public Fish fishDetail(String fishName) {
 		return fishInfoDao.fishDetail(sqlSession, fishName);
 	}
 

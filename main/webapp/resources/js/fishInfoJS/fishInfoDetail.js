@@ -51,3 +51,20 @@ var playlist2 = 'OzGbT1jBQ84';
         );
 
     };
+
+function detailDraw(data, name){
+    if(name=='field'){
+        drawInfo(data.field, data.caution)
+    } else if(name=='feed'){
+        drawInfo(data.feed)
+    } else if(name=='light'){
+        drawInfo(data.light)
+    } else if(name=='growTogeter'){
+        drawInfo(data.grow)
+    }
+}
+
+
+
+
+

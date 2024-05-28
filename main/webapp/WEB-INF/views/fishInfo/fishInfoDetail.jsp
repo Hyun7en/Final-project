@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,16 +21,17 @@
         <main>
         <div id="main-div">
             <section id="scientific-name">
-                <p>학명 Hepsetus</p>
+                <p>${fish.scientificName}</p>
             </section>
 
+
             <section id="fish-name">
-                아프리칸 파이크
+                ${fish.fishName}
             </section>
 
             <section id="fish-img-info">
                 <div id="fish-img">
-                    <img src="${pageContext.request.contextPath}/resources/image/fish1.png" alt="">
+                    <img src="${pageContext.request.contextPath}/resources/image/${fish.url}" alt="">
                 </div>
 
                 <div id="short-div">
@@ -40,8 +41,8 @@
                                 <img src="${pageContext.request.contextPath}/resources/image/fishIcon.png" alt="" style="width: 30px; height: 19px;">
                             </div>
                             <div class="short-info-inside">
-                                <p class="short-title">서식지 및 특징</p> <br>
-                                <p>아프리카 전역에 널리 서식</p>
+                                <p class="short-title">먹이</p> <br>
+                                <p>${fish.tasteType}</p>
                             </div>
                         </div>
 
@@ -50,8 +51,8 @@
                                 <img src="${pageContext.request.contextPath}/resources/image/growIcon.png" alt="" style="width: 19px; height: 19px;">
                             </div>
                             <div class="short-info-inside">
-                                <p class="short-title">최대 성장 크기</p> <br>
-                                <p>최대 70cm</p>
+                                <p class="short-title">수명</p> <br>
+                                <p>약2년</p>
                             </div>
                         </div>
 
@@ -61,7 +62,7 @@
                             </div>
                             <div class="short-info-inside">
                                 <p class="short-title">적정 수온</p> <br>
-                                <p>25~28 &#8451;</p>
+                                <p>${fish.temperature} &#8451;</p>
                             </div>
                         </div>
 
@@ -71,15 +72,12 @@
                             </div>
                             <div class="short-info-inside">
                                 <p class="short-title">선호 수질(Ph)</p> <br>
-                                <p>6 ~ 7.5</p>
+                                <p>${fish.field} ph</p>
                             </div>
                         </div>
                     </div>
                     <section id="long-info">
-                        아프리카 전역에 널리 퍼져있는 아프리칸 파이크 입니다. 석호나 강 호수 늪 다양한 환경에서
-                        서식하며 움직임을 감지해 사냥하는 아프리카식 포식자입니다. 같은 포식하는 타이거피쉬가 업슨ㄴ 곳에서만 사냥한다고 합니다.
-                        아프리칸 파이크는 어식성 어류로 생먹이를 잘 사냥하지만 순치가 매우 쉬운 어종입니다. 매장에서 냉짱을 주로먹고 있으며 동성사료도 혼합하여 급여 가능합니다.
-                        합사는 덩치가 큰 캣피쉬들이나 플레코 및 순한 큰 어류들을 추천해드립니다.
+                        ${fish.caution}
                     </section>
                 </div>
                 
@@ -91,10 +89,10 @@
                 </div>
 
                 <div id="two-btn">
-                    <a href="#"><div class="two-btn-div-1">서식환경 및 특징</div></a>
-                    <a href="#"><div class="two-btn-div">먹이</div></a>
-                    <a href="#"><div class="two-btn-div">조명</div></a>
-                    <a href="#"><div class="two-btn-div-4">같이 키우면 <br> 좋은 생물</div></a>
+                    <a href="javascript:void(0); onclick='detailDraw('${fish},field')'"><div class="two-btn-div-1">서식환경 및 특징</div></a>
+                    <a href="javascript:void(0); onclick='detailDraw('${fish},feed')'"><div class="two-btn-div">먹이</div></a>
+                    <a href="javascript:void(0); onclick='detailDraw('${fish},light')'"><div class="two-btn-div">조명</div></a>
+                    <a href="javascript:void(0); onclick='detailDraw('${fish},growTogeter')'"><div class="two-btn-div-4">같이 키우면 <br> 좋은 생물</div></a>
                 </div>
 
                 <div id="two-img-explain">

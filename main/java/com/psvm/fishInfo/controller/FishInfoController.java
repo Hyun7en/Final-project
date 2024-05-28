@@ -28,9 +28,10 @@ public class FishInfoController {
 	public String fishDetail(@RequestParam(value="fishName") String fishName, Model model) {
 		
 		
-		ArrayList<Fish> list = fishService.fishDetail(fishName);
+		Fish fish = fishService.fishDetail(fishName);		
 		
-		
+		System.out.println(fish);
+		model.addAttribute("fish", fish);
 		
 		return "fishInfo/fishInfoDetail";
 	}
@@ -87,7 +88,7 @@ public class FishInfoController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("pi", pi);
 		map.put("list",list);
-		
+
 		
 		return new Gson().toJson(map);
 	}

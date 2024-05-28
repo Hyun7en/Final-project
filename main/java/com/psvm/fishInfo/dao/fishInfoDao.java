@@ -44,8 +44,8 @@ public class FishInfoDao {
 		return (ArrayList)sqlSession.selectList("fishMapper.ajaxCategorySearch", cate, rowBounds);
 	}
 	
-	public ArrayList<Fish> fishDetail(SqlSessionTemplate sqlSession, String fishName){
-		return 
+	public Fish fishDetail(SqlSessionTemplate sqlSession, String fishName){
+		return sqlSession.selectOne("fishMapper.fishDetail", fishName);
 	}
 	
 }
