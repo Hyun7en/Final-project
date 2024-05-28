@@ -103,6 +103,12 @@ public class CommunityController {
 	    return json;
 	}
 	
+//	@ResponseBody
+//	@RequestMapping("thumbUpCheck.co")
+//	
+//	@ResponseBody
+//	@RequestMapping("thumbUp.co")
+	
 	@RequestMapping("enrollForm.co")//게시글 작성 화면
 	public String enrollForm() {
 		return "community/CommunityEnroll";
