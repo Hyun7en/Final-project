@@ -19,7 +19,7 @@
 		<result column="BUSINESS_ACCOUNT" property="businessAccount"/>
 	</resultMap>
 	
- 	<!-- <resultMap type="SellerPage" id="sellerPageResult">  -->
+
  	<!-- <resultMap type="SellerPage" id="sellerResult">
 		<result column="SELLER_PAGE_NO" property="sellerPageNo"/>
 		<result column="BUSINESS_NO" property="businessNo"/>
