@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.psvm.seller.dao.SellerDao;
+import com.psvm.seller.vo.ProductCategory;
 import com.psvm.seller.vo.SellerInfo;
 import com.psvm.seller.vo.SellerPage;
 
@@ -45,11 +46,14 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public int selectSellerHomeDetail(int businessNo) {
-		return sellerDao.selectBusinessNo(sqlSession, businessNo);
+	public ArrayList<ProductCategory> selectCategories(int businessNo) {
+		return sellerDao.selectCategories(sqlSession, businessNo);
 	}
-
-
+	
+	@Override
+	public SellerPage selectSellerHomeDetail(int businessNo) {
+		return sellerDao.selectSellerHomeDetail(sqlSession, businessNo);
+	}
 
 	
 }

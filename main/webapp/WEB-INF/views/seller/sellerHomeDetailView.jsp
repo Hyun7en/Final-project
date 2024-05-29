@@ -13,7 +13,8 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sellerCSS/sellerHomeDetailView.css">
 
-
+<!-- JS -->
+<script src="${pageContext.request.contextPath}/resources/js/sellerJS/category.js"></script>
 </head>
 <body>
 <div class="wrap">
@@ -26,49 +27,39 @@
         <!-- aside -->
         <%@ include file="../commons/aside.jsp" %>
 
-        <script>
-            console.log(businessNo);
-        </script>
-
         <section>
+            
             <h1>스토어 관리 &gt; 판매자 홈 관리</h1>
             
-            <div>
-                <h4>스토어 소개</h4>
-                <span>${sellerHomeDetail.sellerExpalin}</span>
-            </div>
-            
-            <h4>대표 이미지</h4>                    
-            
-            <div class="image-container">
-                <c:choose>
-                    <c:when test="${not empty b.originName }">
-                        <!-- case1 -->
-                        <a href="${sellerHomeDetail.changeName }" download="${sellerHomeDetail.originName }">${sellerHomeDetail.originName }</a>
-                    </c:when>
-                    <c:otherwise>
-                        <!-- case2 -->
-                        
-                    </c:otherwise>
-				</c:choose>
-            </div>
+            <c:choose>
+                <c:when test="${not empty sp and not empty sp.sellerExplain}">
+                    <div>
+                        <h4>스토어 소개</h4>
+                        <span>${sp.sellerExplain}</span>
+                    </div>
+                    
+                    <h4>대표 이미지</h4>                    
+                    
+                    <div class="image-container">
+                        <img src="${sp.spChangeName}" alt="테스트 이미지">
+                    </div>
 
-            <div>
-                <h4>카테고리</h4>
-                <select id="select-category" name="category" required>
-                    <option value="ddd">1111</option>
-                </select>
-            </div>
-            
-            <div class="form-actions">
-                <a href="enrollForm.srh">등록하기</a>
-                <a href="#">수정하기</a>
-            </div>
-            
-            <form action="" method="POST" id="postForm">
-                <input type="hidden" name="businessNo" value="${sellerPage.businessNo}">
-            </form>
+                    <div>
+                        <h4>카테고리</h4>
+                        <select id="select-category" name="category" required>
+                            
+                        </select>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <a href="updateForm.srh">수정하기</a>
+                    </div>
+                </c:when>
 
+                <c:otherwise>
+                   등록 부탁드립니다.
+                </c:otherwise>
+        </c:choose>
         </section>
     </main>
 

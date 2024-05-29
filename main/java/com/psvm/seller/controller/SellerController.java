@@ -56,6 +56,7 @@ public class SellerController {
     	    SellerInfo sr = sellerService.selectSeller(userNo);
     	    model.addAttribute("sr", sr);
     	}
+    	
         
         return "seller/sellerInfo";
     }
@@ -72,16 +73,6 @@ public class SellerController {
         
         return businessNo;
     }
-    
-    @RequestMapping("detail.srh")
-   	public String selectSellerHomeDetail(HttpSession session, Model model) {
-    	
-    	int businessNo = getBusinessNoFromUserNo(session);
-    	
-    	int result =sellerService.selectSellerHomeDetail(businessNo);
-    	
-   		return "seller/sellerHomeDetailView";
-   	}
     
     // 판매자 홈 관련
     @RequestMapping("enrollForm.srh")
@@ -170,15 +161,56 @@ public class SellerController {
   		
   		return changeName;
   	}
+  	
+    // 카테고리 불러오는 ajax
+    @RequestMapping(value = "categories.ax", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public String ajaxGetCategories(HttpSession session) {
+    	
+    	int businessNo = getBusinessNoFromUserNo(session);
+
+    	String str=  gson.toJson(sellerService.selectCategories(businessNo)); 
+    	System.out.println(str);
+    	
+        return gson.toJson(sellerService.selectCategories(businessNo));
+    }
+  	
+  	@RequestMapping("detail.srh")
+  	public String selectSellerHomeDetail(HttpSession session, Model model) {
+  	    int businessNo = getBusinessNoFromUserNo(session);
+
+  	    SellerPage sp = sellerService.selectSellerHomeDetail(businessNo);
+
+  	    
+  	    if (sp == null) {
+  	        model.addAttribute("sp", null); // 명시적으로 'sp'라는 이름으로 null을 추가
+  	    } else {
+  	        model.addAttribute("sp", sp); // 'sp'라는 이름으로 객체 추가
+  	    }
+
+  	    return "seller/sellerHomeDetailView";
+  	}
     
     @RequestMapping("updateForm.srh")
-  	public String sellerHomeUpdateForm() {
+  	public String sellerHomeUpdateForm(HttpSession session, Model model) {
+    	int businessNo = getBusinessNoFromUserNo(session);
+
+  	    SellerPage sp = sellerService.selectSellerHomeDetail(businessNo);
+
+  	    
+  	    if (sp == null) {
+  	        model.addAttribute("sp", null); // 명시적으로 'sp'라는 이름으로 null을 추가
+  	    } else {
+  	        model.addAttribute("sp", sp); // 'sp'라는 이름으로 객체 추가
+  	    }
+    	
   		return "seller/sellerHomeUpdateForm";
   	}
     
     @RequestMapping("update.srh")
   	public String sellerHomeUpdate() {
-  		return "seller";
+    	
+  		return "redirect:detail.srh";
   	}
    
     // 판매자 물품 관련
@@ -188,19 +220,12 @@ public class SellerController {
   	}
     
     @RequestMapping("insert.pd")
-  	public String insertProduct(Product product ) {
+  	public String insertProduct(Product product, MultipartFile productImage, Model model ) {
     	
   		return "list.pd";
   	}
     
-    @RequestMapping(value = "/categories", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
-    @ResponseBody
-    public ArrayList<ProductCategory> getCategories() {
-    	
-        return null;
-    }
-    
-    @RequestMapping("select.pd")
+    @RequestMapping("detail.pd")
   	public String selectProduct() {
     	
   		return "";

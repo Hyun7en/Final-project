@@ -14,12 +14,12 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.js"></script>
 
-<!-- css-->
+<!-- CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sellerCSS/ProductManagement.css">
 
-<!-- js -->
-
+<!-- JS -->
+<script src="${pageContext.request.contextPath}/resources/js/sellerJS/category.js"></script>
 </head>
 <body>
 <div class="wrap">
@@ -47,10 +47,8 @@
                             <label  for="category">
                                 카테고리
                             </label>
-                            <select class="form-control" id="category" name="category" required>
-                                <option value="가전">
-                                    가전
-                                </option>
+                            <select class="form-control" id="select-category" name="category" required>
+                                
                             </select>
                         </div>
                         <div class="form-group">

@@ -80,7 +80,7 @@
                 <input type="hidden" name="userNo" value="${loginUser.userNo}">
                 <div>
                     <h4>스토어 소개</h4>
-                    <input id="store-introduce" type="text" name="sellerExpalin" placeholder="스토어 소개 입력" style="width: 300px; padding: 5px;">
+                    <input id="store-introduce" type="text" name="sellerExplain" placeholder="스토어 소개 입력" style="width: 300px; padding: 5px;">
                 </div>
                 <div>
                     <h4>대표 이미지</h4>

@@ -22,7 +22,7 @@
 	</resultMap>
 	
  	<resultMap type="SellerPage" id="sellerPageResult">
-		<result column="SELLER_PAGE_NO" property="sellerPageNo"/>
+ 		<result column="SELLER_PAGE_NO" property="sellerPageNo"/>
 		<result column="BUSINESS_NO" property="businessNo"/>
 		<result column="SELLER_EXPLAIN" property="sellerExplain"/>
 		<result column="SP_ENROLL_DATE" property="spEnrollDate"/>
@@ -76,7 +76,7 @@
 								 )
 						 VALUES (
 						 		 #{businessNo},
-								 #{sellerExpalin},
+								 #{sellerExplain},
 								 default,
 								 #{spOriginName},
 								 #{spChangeName}
@@ -95,14 +95,22 @@
 							 		  CURRVAL('seller_page_seller_page_no_seq'::regclass)
 						 		 	  )	
 	</insert>
-	
-	<select id="selectSellerHomeDetail" resultMap="sellerPageResult">
-		SELECT SELLER_EXPLAIN,
-			   SP_ORIGIN_NAME
-		  FROM SellerPage
+
+	<select id="selectCategories" resultMap="productCategoryResult">
+		SELECT P_CATEGORY
+		  FROM PRODUCT_CATEGORY
+		  JOIN SELLER_PAGE USING (SELLER_PAGE_NO)
 		WHERE BUSINESS_NO = #{businessNo}
 	</select>
 	
+	<select id="selectSellerHomeDetail" resultMap="sellerPageResult">
+		SELECT SELLER_EXPLAIN,
+			   SP_ORIGIN_NAME,
+			   SP_CHANGE_NAME
+		  FROM SELLER_PAGE
+		 WHERE BUSINESS_NO = #{businessNo}
+	</select>
 	
+
 
 </mapper>
