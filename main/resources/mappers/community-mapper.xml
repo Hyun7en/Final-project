@@ -26,6 +26,12 @@
 		<result column="REPLY_DIBS" property="replyDibs"/>
 		<result column="STATUS" property="status"/>
 	</resultMap>
+	<resultMap type="ThumbUp" id="ThumbUpResult">
+		<result column="BOARD_NO" property="boardNo"/>
+		<result column="USER_NO" property="userNo"/>
+		
+	</resultMap>
+	
 	
 	<select id="selectListCount" resultType="_int">
 		SELECT	COUNT(*)
@@ -153,4 +159,27 @@
 		SET		STATUS = 'N'
 		WHERE	BOARD_REPLY_NO = #{boardReplyNo}
 	</update>
+	<select id="thumbUpCount" resultType="_int">
+		SELECT	COUNT(*)
+		FROM	BOARD_THUMBUP
+		WHERE	BOARD_NO = #{boardNo}
+	</select>
+	<select id="thumbUpCheck" resultType="_int">
+		SELECT	COUNT(*)
+		FROM	BOARD_THUMBUP
+		WHERE	BOARD_NO = #{boardNo}
+		AND		USER_NO = #{userNo}
+	</select>
+	<insert id="thumbUpClick">
+		INSERT INTO BOARD_THUMBUP(
+				USER_NO,
+				BOARD_NO,
+				THUMB_UP
+		)
+		VALUES(
+				#{userNo},
+				#{boardNo},
+				1
+		)
+	</insert>
 </mapper>

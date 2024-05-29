@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.community.vo.Community;
 import com.psvm.community.vo.Reply;
+import com.psvm.community.vo.ThumbUp;
 
 public interface CommunityService {
 
@@ -40,4 +41,13 @@ public interface CommunityService {
 	
 	//댓글삭제
 	int deleteReply(int boardReplyNo);
+	
+	//추천 수 조회
+	int thumbUpCount(int boardNo);
+	
+	//추천 여부 확인
+	int thumbUpCheck(ThumbUp t);
+	
+	//추천 누름
+	int thumbUpClick(ThumbUp t);
 }

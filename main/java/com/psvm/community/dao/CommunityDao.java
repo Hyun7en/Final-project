@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.community.vo.Community;
 import com.psvm.community.vo.Reply;
+import com.psvm.community.vo.ThumbUp;
 
 @Repository
 public class CommunityDao {
@@ -57,6 +58,18 @@ public class CommunityDao {
 	
 	public int deleteReply(SqlSessionTemplate sqlSession, int boardReplyNo) {
 		return sqlSession.update("communityMapper.deleteReply", boardReplyNo);
+	}
+	
+	public int thumbUpCount(SqlSessionTemplate sqlSession, int boardNo) {
+		return sqlSession.selectOne("communityMapper.thumbUpCount", boardNo);
+	}
+	
+	public int thumbUpCheck(SqlSessionTemplate sqlSession, ThumbUp t) {
+		return sqlSession.selectOne("communityMapper.thumbUpCheck", t);
+	}
+	
+	public int thumbUpClick(SqlSessionTemplate sqlSession, ThumbUp t) {
+		return sqlSession.insert("communityMapper.thumbUpClick", t);
 	}
 }
 
