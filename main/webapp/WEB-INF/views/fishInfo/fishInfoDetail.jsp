@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/fishInfoCSS/fishInfoDetail.css">
 	<script src="${pageContext.request.contextPath}/resources/js/fishInfoJS/fishInfoDetail.js"></script>
    
-<body>
+<body onload="InfoInit('${pageContext.request.contextPath}'), anotherFishAjax({fishType: '${fish.fishType}', tendency: '${fish.tendency}', tasteType: '${fish.tasteType}'});">
 	<div class="wrap">
 	
 		<!-- header -->
@@ -87,12 +87,13 @@
                 <div id="two-p">
                     <p>해당 물고기에 대해 자세히 알아보기</p>
                 </div>
-
+                
+                
                 <div id="two-btn">
-                    <a href="javascript:void(0); onclick='detailDraw('${fish},field')'"><div class="two-btn-div-1">서식환경 및 특징</div></a>
-                    <a href="javascript:void(0); onclick='detailDraw('${fish},feed')'"><div class="two-btn-div">먹이</div></a>
-                    <a href="javascript:void(0); onclick='detailDraw('${fish},light')'"><div class="two-btn-div">조명</div></a>
-                    <a href="javascript:void(0); onclick='detailDraw('${fish},growTogeter')'"><div class="two-btn-div-4">같이 키우면 <br> 좋은 생물</div></a>
+                    <a href="javascript:void(0);" onclick="detailDraw(`${fish.environment}`, `${fish.caution}`, 'field')"><div class="two-btn-div-1">서식환경 및 특징</div></a>
+                    <a href="javascript:void(0);" onclick="detailDraw(`${fish.rationTime}`,`${fish.feedType}` ,'feed')"><div class="two-btn-div">먹이</div></a>
+                    <a href="javascript:void(0);" onclick="detailDraw(`${fish.light}`,`${fish.temperature}` ,'light')"><div class="two-btn-div">조명</div></a>
+                    <a href="javascript:void(0);" onclick="detailDraw(`${fish.growTogether}`,`${fish.lifeSpan}`,'growTogeter')"><div class="two-btn-div-4">같이 키우면 <br> 좋은 생물</div></a>
                 </div>
 
                 <div id="two-img-explain">
@@ -102,14 +103,11 @@
                     <div >
                         <div class="two-explain">
                             <p class="two-explain-title">서식환경</p> <br>
-                            <p class="two-explain-contents">아프리카 전역에 널리 서식하며 덩치는 야생에서 60~70cm 정도로 육식성이라서 먹이로
-                                는 다른 물고기를 주로 사냥한다.</p>
+                            <p class="two-explain-contents">${fish.environment}</p>
                         </div>
                         <div class="two-explain">
                             <p class="two-explain-title">특징</p> <br>
-                            <p class="two-explain-contents">길고 모양이 창처럼 생긴 이 열대어는 이마가 납작하며 몸의 측면은 평평하지 않다 입은 깊게 찢어져 있으며 턱은 부리처럼 생겼다. 각각의 턱에는 두 줄의 치아가 있으며, 위턱은
-                                위로 움직일 수 있다. 지느러미들은 비교적 작은 편이다. 꼬리지느러미는 깊게 갈라져 
-                                있으며 기름지느러미는 매우 작다. 석호나 강 호수 늪 다양한 환경에서 서식하며 움직임을 감지해 사냥하는 아프리카 포식자입니다.</p>
+                            <p class="two-explain-contents">${fish.caution}</p>
                         </div>
                     </div>
                 </div>
@@ -118,7 +116,7 @@
             <section id="go-store">
                 <div id="go-store-info">
                     <p>해당 물고기를 키우는데 필요한 것이 있으신가요?</p>
-                    <a href="#">스토어 추천 바로가기</a>
+                    <a href="storeMain.ma">스토어 추천 바로가기</a>
                 </div>
 
                 <div class="store-product">
@@ -170,41 +168,8 @@
                     <p>해당 물고기가 속한 종의 다른 물고기가 궁금하신가요?</p>
                 </div>
 
-                <div class="store-product">
-                    <a href="#">
-                        <div class="product-info">
-                            <img src="${pageContext.request.contextPath}/resources/image/fishNeon.png" alt="">
-                            <p>네온 테트라</p>
-                        </div>
-                    </a>
-
-                    <a href="#">
-                        <div class="product-info">
-                            <img src="${pageContext.request.contextPath}/resources/image/fishNeon.png" alt="">
-                            <p>네온 테트라</p>
-                        </div>
-                    </a>
-
-                    <a href="#">
-                        <div class="product-info">
-                            <img src="${pageContext.request.contextPath}/resources/image/fishNeon.png" alt="">
-                            <p>네온 테트라</p>
-                        </div>
-                    </a>
-
-                    <a href="#">
-                        <div class="product-info">
-                            <img src="${pageContext.request.contextPath}/resources/image/fishNeon.png" alt="">
-                            <p>네온 테트라</p>
-                        </div>
-                    </a>
-
-                    <a href="#">
-                        <div class="product-info">
-                            <img src="${pageContext.request.contextPath}/resources/image/fishNeon.png" alt="">
-                            <p>네온 테트라</p>
-                        </div>
-                    </a>
+                <div class="store-product" >
+                    
                 </div>
                 
             </section>
@@ -264,7 +229,7 @@
                             <p>큐레이션으로 가기</p>
                         </div>
                      </a>
-                    <a href="">
+                    <a href="list.co?category=0&cpage=1">
                         <div class="go-quration-community">
                             <p>커뮤니티로 가기</p>
                         </div>

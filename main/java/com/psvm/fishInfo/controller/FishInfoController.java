@@ -2,11 +2,13 @@ package com.psvm.fishInfo.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -49,6 +51,25 @@ public class FishInfoController {
 		model.addAttribute("pi", pi);
 		
 		return "fishInfo/fishInfo";
+	}
+	
+	@ResponseBody
+	@PostMapping(value="anotherFishAjax.fi")
+	public String anotherFishAjax(@RequestBody Map<String, Object> data) {
+
+	    String fishType = ((String) data.get("fishType"));
+	    String tendency = ((String) data.get("tendency"));
+	    String tasteType = ((String) data.get("tasteType"));
+	    
+	    HashMap<String, String> map = new HashMap<>();
+	    map.put("fishType", fishType);
+	    map.put("tendency", tendency);
+	    map.put("tasteType", tasteType);
+	    
+	    ArrayList<Fish> list = fishService.anotherFishAjax(map);
+	    System.out.println(list);
+
+	    return new Gson().toJson(list);
 	}
 	
 	@ResponseBody

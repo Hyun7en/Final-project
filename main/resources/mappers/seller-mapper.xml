@@ -19,84 +19,10 @@
 		<result column="BUSINESS_ACCOUNT" property="businessAccount"/>
 	</resultMap>
 	
- 	<resultMap type="SellerPage" id="sellerPageResult">
- 	<!-- <resultMap type="SellerPage" id="sellerResult">
->>>>>>> 8d21567a6a1a101db5e2f886a357b1ed37bf6670
-		<result column="SELLER_PAGE_NO" property="sellerPageNo"/>
-		<result column="BUSINESS_NO" property="businessNo"/>
-		<result column="SELLER_EXPLAIN" property="sellerExplain"/>
-	</resultMap>
-	
-	<resultMap type="ProductCategory" id="sellerProductCategoryResult">
-		<result column="P_CATEGORY" property="pCategory"/>
-		<result column="SELLER_PAGE_NO" property="sellerPageNo"/>
-	</resultMap>
-	
-	<resultMap type="ProductAttachment" id="sellerProductAttachmentResult">
-		<result column="PRODUCT_FILE_NO" property="productFileNo"/>
-		<result column="SELLER_PAGE_NO" property="sellerPageNo"/>
-		<result column="REF_PNO" property="refPno"/>
-		<result column="UPLOAD_DATE" property="uploadDate"/>
-		<result column="FILE_LEVEL" property="fileLevel"/>
-		<result column="ORIGIN_NAME" property="originName"/>
-		<result column="CHANGE_NAME" property="changeName"/>		
-	</resultMap> -->
-	
 	<select id="selectSeller" resultMap="sellerInfoResult">
 		SELECT *
 		FROM BUSINESS_INFO
 		WHERE USER_NO = #{userNo}
 	</select>
-	
-<!-- 	<insert id="insertSellerPage">
-		INSERT INTO
-					SELLER_PAGE (
-								 seller_page_no,
-								 business_no,
-								 seller_explain
-								 )
-						 VALUES (
-						 		 default,
-						 		 
-								 #{storeDescription}							 		 
-						 		 )	 
-	</insert>
-	
-	<insert id="insertProductCategory">
-		INSERT INTO 
-					PRODUCT_CATEGORY (
-								 	  p_category,
-								 	  seller_page_no
-								 	  )
-						 	  VALUES (
-						 		 
-						 		 	  )	
-	</insert>
-	
-	<insert id="insertProductAttachment">
-		   INSERT INTO 
-		   				PRODUCT_ATTACHMENT (
-		   									product_file_no,
-					   						SELLER_PAGE_NO, 
-					   						REF_PNO, 
-					   						UPLOAD_DATE, 
-					   						FILE_LEVEL, 
-					   						ORIGIN_NAME, 
-					   						CHANGE_NAME
-					   					  )
-					   			  VALUES  (
-							   			   default,
-							   			   , 
-							   			   #{refPno}, 
-							   			   #{uploadDate}, 
-							   			   #{fileLevel}, 
-							   			   #{originName}, 
-							   			   #{changeName}
-							   			  )
-  
-	</insert>
-	 -->
-	
-	
 
 </mapper>

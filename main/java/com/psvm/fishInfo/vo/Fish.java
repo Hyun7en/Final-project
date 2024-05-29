@@ -28,4 +28,6 @@ public class Fish {
 	public String scientificName;
 	public String growTogether;
 	public String environment;
+	public String lifeSpan;
+	public String feedType;
 }

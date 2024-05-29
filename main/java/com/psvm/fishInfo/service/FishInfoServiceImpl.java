@@ -1,6 +1,7 @@
 package com.psvm.fishInfo.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +60,11 @@ public class FishInfoServiceImpl implements FishInfoService{
 	@Override
 	public Fish fishDetail(String fishName) {
 		return fishInfoDao.fishDetail(sqlSession, fishName);
+	}
+
+	@Override
+	public ArrayList<Fish> anotherFishAjax(HashMap<String, String> map) {
+		return fishInfoDao.anotherFishAjax(sqlSession, map);
 	}
 
 	

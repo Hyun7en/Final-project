@@ -1,6 +1,7 @@
 package com.psvm.fishInfo.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.fishInfo.vo.Fish;
@@ -26,4 +27,7 @@ public interface FishInfoService {
 	
 	//물고기 상세 정보 조회
 	Fish fishDetail(String fishName);
+	
+	//물고기 추천 ajaxs
+	ArrayList<Fish> anotherFishAjax(HashMap<String, String> map);
 }

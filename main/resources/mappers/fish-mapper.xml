@@ -35,6 +35,14 @@
 		<result column="scientific_name" property="scientificName"/>
 		<result column="grow_together" property="growTogether"/>
 		<result column="environment" property="environment"/>
+		<result column="life_span" property="lifeSpan"/>
+		<result column="feed_type" property="feedType"/>
+	</resultMap>
+	
+	<resultMap type="Fish" id="anotherFish">
+		<result column="fish_no" property="fishNo"/>
+		<result column="fish_name" property="fishName"/>
+		<result column="origin_name" property="url"/>
 	</resultMap>
 	
 	<select id="selectListCount" resultType="_int">
@@ -126,9 +134,23 @@
 				caution,
 				scientific_name,
 				grow_together,
-				environment
+				environment,
+				life_span,
+				feed_type
 		FROM public.fish 
 		JOIN public.fish_attachment using(fish_file_no)
+		JOIN public.feed using(taste_type)
 		WHERE fish_name = #{fishName}
+	</select>
+	
+	<select id="anotherFishAjax" parameterType="map" resultMap="anotherFish">
+		SELECT fish_no,
+			   fish_name,
+			   origin_name
+		FROM public.fish
+		JOIN public.fish_attachment using(fish_file_no)
+		WHERE fish_type = #{fishType} 
+          AND tendency = #{tendency} 
+          AND taste_type = #{tasteType}
 	</select>
 </mapper>
