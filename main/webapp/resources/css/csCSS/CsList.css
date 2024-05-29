@@ -45,11 +45,11 @@ body{
     background-color: white;
     border: 8px solid #0089FF;
     }
-#com-nav button img{
+/* #com-nav button img{
         width: 22.5px;
         height: 22.5px;
         border-radius: 22.5px;
-}
+} */
 #com-nav button:hover, #com-nav #com-nav-selected{
     background-color: #0089FF;
     color: white;
