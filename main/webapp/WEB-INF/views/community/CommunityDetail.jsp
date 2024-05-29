@@ -97,14 +97,22 @@
                     ${c.boardContents}
                 </div>
                 <div id="com-detail-goodarea">
-                    <button type="button" id="com-detail-goodbutton" onclick="thumbUpClick('${loginUser.userNo}', '${c.boardNo}');">
-                        <img src="${pageContext.request.contextPath}/resources/image/good.png" alt="추천 버튼" style="width: 30px; height: 30px;">
-                    </button>
+                    <c:choose>
+                        <c:when test="${empty loginUser}">
+                            <button class="goodbutton" type="button" id="com-detail-goodbuttonOff">
+                                <img src="${pageContext.request.contextPath}/resources/image/good.png" alt="추천 버튼" style="width: 30px; height: 30px;">
+                            </button>
+                        </c:when>
+                        <c:otherwise>
+                            <button class="goodbutton" type="button" id="com-detail-goodbutton" onclick="thumbUpClick('${loginUser.userNo}', '${c.boardNo}');" value="1">
+                                <img src="${pageContext.request.contextPath}/resources/image/good.png" alt="추천 버튼" style="width: 30px; height: 30px;">
+                            </button>
+                        </c:otherwise>
+                    </c:choose>
                     <div id="com-detail-goodcount">
                         <span id="thumbUpCount">0</span>
                     </div>
                 </div>
-
 
                 <table id="com-reply" class="table" align="center">
                     <thead>

@@ -136,19 +136,17 @@ function drawTableList(itemList, parent, Cancel, cBoardLevel, CboardNo){
 }
 
 //추천 관련 스크립트
-function callThumbup(CboardNo, LuserNo){
-    const goodbutton = document.querySelector('#com-detail-goodbutton');
-    if (!LuserNo){ //로그인을 안 한 상태
-        goodbutton.disabled = true;
-        getThumbUpCount({boardNo : CboardNo}, function(count){
-            setThumbUpCount(count)
-        })
-    }else{ //로그인을 한 상태
-        checkThumbUp({userNo : LuserNo}, {boardNo : CboardNo}, goodbutton);
-        getThumbUpCount({boardNo : CboardNo}, function(count){
-            setThumbUpCount(count)
-        })
+//추천 버튼 지정
+
+function callThumbup(CboardNo, LuserNo){ //onload로 작동하는 function
+    const goodbutton = document.querySelector('.goodbutton');
+    if (Object.keys(LuserNo).length === 0){
+        LuserNo = 0;
     }
+    checkThumbUp({userNo : LuserNo, boardNo : CboardNo}, LuserNo, goodbutton);
+    getThumbUpCount({boardNo : CboardNo}, function(count){
+        setThumbUpCount(count)
+    })
 }
 
 //추천 정보 가져오기
@@ -165,6 +163,7 @@ function getThumbUpCount(boardNo, callback){
         }
     })
 }
+
 //추천 카운트 넣기
 function setThumbUpCount(count){
     const thumbUpCount = document.querySelector('#thumbUpCount');
@@ -172,44 +171,49 @@ function setThumbUpCount(count){
 }
 
 //추천 버튼 클릭 여부 체크
-function checkThumbUp(userNo, boardNo, goodbutton){
-    $.ajax({
-        url: "thumbUpCheck.co",
-        data: userNo, boardNo,
-        success: function(result){
-            if (result > 1){
-                goodbutton.disabled = true;
+function checkThumbUp(ThumbUp, userNo, goodbutton){
+    if(userNo.value != 0) {
+        $.ajax({
+            url: "thumbUpCheck.co",
+            data: ThumbUp,
+            success: function(result){
+                if (result > 0){
+                    console.log(goodbutton);
+                    goodbutton.id = "com-detail-goodbuttonClicked";
+                    goodbutton.removeAttribute('onclick');
+                }
+            },
+            error: function(item){
+                console.log(item);
+                console.log("추천 버튼 체크 ajax 실패");
             }
-        },
-        error: function(item){
-            console.log(item);
-            console.log("추천 버튼 체크 ajax 실패");
-        }
-    })
+        })
+    }
 }
 
 //추천 버튼 클릭
 function thumbUpClick(userNo, boardNo){
-    const goodbutton = document.querySelector('#com-detail-goodbutton');
+    const goodbutton = document.querySelector('.goodbutton');
+    goodbutton.id = "com-detail-goodbuttonClicked";
+    goodbutton.removeAttribute('onclick');
     ajaxthumbUpClick({
         userNo : userNo,
         boardNo : boardNo
-    }, function(click){
+    }, function(res){
         console.log(boardNo);
-        goodbutton.disabled = true;
-        getThumbUpCount(boardNo, function(count){
+        getThumbUpCount({boardNo : boardNo}, function(count){
             setThumbUpCount(count)
         })
     }
 )}
 
 function ajaxthumbUpClick(data, callback){
-    console.log(data.userNo, data.boardNo);
     $.ajax({
         url: 'thumbUpClick.co',
         data : data,
-        success: function(click){
-            callback(click)
+        success: function(res){
+            console.log("추천 입력 성공")
+            callback(res)
         },
         error: function(item){
             console.log(item);
