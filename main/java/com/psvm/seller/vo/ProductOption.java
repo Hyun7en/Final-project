@@ -12,12 +12,10 @@ import lombok.ToString;
 @Setter
 @ToString
 public class ProductOption {
-	
-	private int pOptionNo;
-	private int pNo;
-	private String pOptionName;
 	private int pCount;
 	private String pStatus;
-	
+	private int pNo;
+	private String pOptionName;
+	private int pOptionNo;
 	
 }

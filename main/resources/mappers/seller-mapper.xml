@@ -45,15 +45,16 @@
 		<result column="P_STAR" property="pStar"/>
 		<result column="P_ORIGIN_NAME" property="pOriginName"/>
 		<result column="P_CHANGE_NAME" property="pChangeName"/>	
+		<result column="P_STATUS" property="pStatus"/>	
 	</resultMap> 
 	
-<!-- 	<resultMap type="ProductOption" id="productOptionResult">
-		<result column="P_OPTION_NO" property="pOptionNo"/>
-		<result column="P_OPTION_NAME" property="pOptionName"/>
-		<result column="P_NO" property="pNo"/>
+	<resultMap type="ProductOption" id="productOptionResult">
 		<result column="P_COUNT" property="pCount"/>
 		<result column="P_STATUS" property="pContent"/>	
-	</resultMap>  -->
+		<result column="P_NO" property="pNo"/>
+		<result column="P_OPTION_NAME" property="pOptionName"/>
+		<result column="P_OPTION_NO" property="pOptionNo"/>
+	</resultMap>  
 	
 	
 	<select id="selectSeller" resultMap="sellerInfoResult">
@@ -116,36 +117,54 @@
 		 WHERE BUSINESS_NO = #{businessNo}
 	</select>
 	
-		<insert id="insertProduct">
-		INSERT INTO 
-					PRODUCT (
-					 	      p_no,
-					 	      p_category,
-					 	      p_title,
-					 	      p_status,
-					 	      p_price,
-					 	      p_content,
-					 	      p_enroll_date,
-					 	      p_star,
-					 	      p_sell_count,
-					 	      p_origin_name,
-					 	      p_change_name
-					 	     )
-			 	     VALUES (
-				 		      #{pNo},
-				 		      #{category},
-				 		      #{pTitle},
-				 		      'Y',
-				 		      #{pPrice},
-				 		      #{pContent},
-				 		      default,
-				 		      default,
-				 		      default,
-				 		      #{pOriginName},
-				 		      #{pChangeName}
-			 		 	     )	
+	<select id="countByBusinessNo" resultType="int">
+        SELECT COUNT(*)
+        FROM SELLER_PAGE
+        WHERE BUSINESS_NO = #{businessNo}
+    </select>
+	
+	<insert id="insertProduct">
+	INSERT INTO 
+				PRODUCT (
+				 	      p_no,
+				 	      p_category,
+				 	      p_title,
+				 	      p_price,
+				 	      p_content,
+				 	      p_enroll_date,
+				 	      p_star,
+				 	      p_origin_name,
+				 	      p_change_name
+				 	      p_status
+				 	     )
+		 	     VALUES (
+			 		      #{pNo},
+			 		      #{category},
+			 		      #{pTitle},
+			 		      #{pPrice},
+			 		      #{pContent},
+			 		      default,
+			 		      default,
+			 		      #{pOriginName},
+			 		      #{pChangeName}
+			 		      default
+		 		 	     )	
 	</insert>
 	
-
+	<insert id="insertProductOption">
+		INSERT INTO 
+					PRODUCT_CATEGORY (
+									  p_count,
+								 	  p_status,
+								 	  p_no,
+								 	  p_option_name
+								 	  )
+						 	  VALUES (
+							 		  #{pCount},
+							 		  default,
+							 		  CURRVAL('product_p_no_seq'::regclass),
+							 		 #{option}
+						 		 	  )	
+	</insert>
 
 </mapper>

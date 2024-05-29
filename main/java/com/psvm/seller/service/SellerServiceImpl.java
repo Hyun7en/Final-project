@@ -40,10 +40,10 @@ public class SellerServiceImpl implements SellerService {
 	public int insertSellerHome(SellerPage sellerPage, ArrayList<String> categories) {
 		
 		int t1 = sellerDao.insertSellerPage(sqlSession, sellerPage);
-		int t3 = sellerDao.insertProductCategory(sqlSession, categories);
+		int t2 = sellerDao.insertProductCategory(sqlSession, categories);
 								
 		
-		return t1*t3;
+		return t1*t2;
 	}
 
 	@Override
@@ -56,10 +56,15 @@ public class SellerServiceImpl implements SellerService {
 		return sellerDao.selectSellerHomeDetail(sqlSession, businessNo);
 	}
 
+	@Transactional
 	@Override
-	public int insertProduct(Product product) {
+	public int insertProduct(Product product, ArrayList<String> options) {
 		
-		return sellerDao.insertProduct(sqlSession, product);
+		int t1 = sellerDao.insertpProduct(sqlSession, product);
+		int t2 = sellerDao.insertProductOption(sqlSession, options);
+								
+		
+		return t1*t2;
 	}
 
 	

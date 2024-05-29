@@ -76,6 +76,8 @@
 
         <section>
             <h1>스토어 관리 &gt; 판매자 홈 등록</h1>
+
+            <c:if test="${not sessionScope.SellerHomeRegistered}">
             <form id="enrollForm"  action="insert.srh" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="userNo" value="${loginUser.userNo}">
                 <div>
@@ -106,6 +108,10 @@
                     <button type="reset">초기화</button>
                 </div>
             </form>
+        </c:if>
+        <c:if test="${sessionScope.SellerHomeRegistered}">
+            <p>등록이 완료되었습니다.</p>
+        </c:if>
         </section>
     </main>
 

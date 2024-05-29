@@ -24,5 +24,6 @@ public class Product {
 	private int pStar;
 	private String pOriginName;
 	private String pChangeName;
+	private String pStatus;
 	
 }

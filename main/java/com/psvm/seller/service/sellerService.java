@@ -26,5 +26,5 @@ public interface SellerService {
 	public SellerPage selectSellerHomeDetail(int businessNo);
 	
 	// 상품 등록
-	public int insertProduct(Product product);
+	public int insertProduct(Product product, ArrayList<String> options);
 }

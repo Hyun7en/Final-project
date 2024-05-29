@@ -66,6 +66,12 @@
     <!-- footer -->
     <%@ include file="../commons/footer.jsp" %>
 
+    <c:if test="${not empty message}">
+        <script>
+            alert('${message}');
+        </script>
+    </c:if>
+
 </div>
 
 </body>

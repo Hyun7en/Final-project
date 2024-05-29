@@ -29,10 +29,9 @@ public class SellerDao {
 	}
 	
 	public int insertSellerPage(SqlSessionTemplate sqlSession, SellerPage sellerPage){
-	
 		
-		return sqlSession.insert("sellerMapper.insertSellerPage", sellerPage);
-		
+	    	return sqlSession.insert("sellerMapper.insertSellerPage", sellerPage);
+	    
 	}
 
 	public int insertProductCategory(SqlSessionTemplate sqlSession, ArrayList<String> categories){
@@ -61,11 +60,24 @@ public class SellerDao {
 	}
 	
 	
-	public int insertProduct(SqlSessionTemplate sqlSession, Product product) {
+	public int insertpProduct(SqlSessionTemplate sqlSession, Product product) {
 		
 		return sqlSession.insert("sellerMapper.insertProduct", product);
 	}
 
-
+	public int insertProductOption(SqlSessionTemplate sqlSession, ArrayList<String> options){
+	
+		int result = 1;
+		
+		for(String option : options) {
+			
+			if(!option.equals("")) {
+				result = result * sqlSession.insert("sellerMapper.insertProductOption", option);
+			}
+		
+	}
+		
+	return result;	
+}
 
 }
