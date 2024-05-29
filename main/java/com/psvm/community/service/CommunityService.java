@@ -1,6 +1,7 @@
 package com.psvm.community.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.community.vo.Community;
@@ -14,6 +15,12 @@ public interface CommunityService {
 	
 	//게시글 리스트 조회
 	ArrayList<Community> selectList(PageInfo pi, int boardLevel);
+	
+	//게시글 검색 결과 수 가져오기
+	int searchListCount(HashMap<String, String> map);
+	
+	//게시글 검색 결과 조회
+	ArrayList<Community> searchList(PageInfo pi, HashMap<String, String> map);
 	
 	//게시글 조회수 증가
 	int increaseCount(int boardNo);
