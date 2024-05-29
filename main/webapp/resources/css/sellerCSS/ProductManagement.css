@@ -57,6 +57,59 @@
         margin-right: 30px;
     }
 
+    /* 옵션 등록 */
+    #div-enroll-option {
+        display: block;
+    }
+
+    #div-enroll-option  div{
+        display: flex;
+    }
+
+    #div-enroll-option  div h4{
+        margin-right: 85px;
+    }
+
+    #enroll-option {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        height: 25px;
+        padding-left: 5px;
+        line-height: 25px;
+    }
+
+    #add-optionBtn {
+        width: 40px;
+        height: 25px;
+        background-color: #0089FF;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-left: 5px;
+    }
+
+    #add-optionBtn:hover {
+        background-color: #005bb5;
+    }
+
+    #optionList div {
+        display: flex;
+        align-items: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 150px;
+        height: 25px;
+        padding: 0 5px;
+        justify-content: space-between;
+    }
+
+    .removeBtn {
+        background-color: transparent;
+        cursor: pointer;
+        font-weight: bold;
+        margin-left: 10px;
+    }
+
     
     .image-container {
         width: 800px;

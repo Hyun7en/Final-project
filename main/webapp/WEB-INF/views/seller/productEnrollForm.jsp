@@ -20,6 +20,56 @@
 
 <!-- JS -->
 <script src="${pageContext.request.contextPath}/resources/js/sellerJS/category.js"></script>
+
+<script>
+    $(document).ready(function() {
+        let options = [];
+
+        $('#add-optionBtn').click(function() {
+            let option = $('#enroll-option').val().trim();
+            if (option) {
+                // 배열에 옵션이 이미 존재하는지 검사
+                if (options.includes(option)) {
+                    alert('이미 추가된 옵션입니다.');
+                } else {
+                    options.push(option);
+                    $('#optionList').append('<div data-option="' + option + '"><li>' + option + '</li><button class="removeBtn">x</button></div>');
+                    $('#enroll-option').val('');  // 입력 필드 초기화
+                    console.log(options);
+                }
+            } else {
+                alert('옵션을 입력하세요.');
+            }
+        });
+
+        $(document).on('click', '.removeBtn', function() {
+            let optionDiv = $(this).parent();
+            let option = optionDiv.data('option');
+            let index = options.indexOf(option);
+            if (index > -1) {
+                options.splice(index, 1);
+                optionDiv.remove();
+                console.log(options);
+            }
+        });
+
+        $('#enrollForm').submit(function(event) {
+            let optionsInput = $('<input>').attr('type', 'hidden').attr('name', 'optionsJson').val(JSON.stringify(options));
+            $(this).append(optionsInput);
+
+            console.log("Submitting options:", JSON.stringify(options));
+        });
+
+        $('#productImage').change(function(event) {
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                $('#preview-image').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        });
+    });
+
+</script>
 </head>
 <body>
 <div class="wrap">
@@ -38,13 +88,13 @@
                 <div id="product-management">
                     <div>
                         <div class="form-group">
-                            <label for="productName">
+                            <label for="pTitle">
                                 상품명
                             </label>
-                            <input class="form-control" type="text" id="productName" name="productName" placeholder="상품명 입력" required>
+                            <input class="form-control" type="text" id="pTitle" name="pTitle" placeholder="상품명 입력" required>
                         </div>
                         <div class="form-group">
-                            <label  for="category">
+                            <label  for="select-category">
                                 카테고리
                             </label>
                             <select class="form-control" id="select-category" name="category" required>
@@ -52,49 +102,28 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="price">
+                            <label for="pPrice">
                                 판매가
                             </label>
-                            <input class="form-control" type="text" id="price" name="price" placeholder="판매가 입력" required>
+                            <input class="form-control" type="number" min="0" step="100"  id="pPrice" name="pPrice" placeholder="판매가 입력" required>
                         </div>
+                   
                         <div class="form-group">
-                            <label for="delivery-process">
-                                배송방법
+                            <label for="pSellCount">
+                                수량
                             </label>
-                            <input class="form-control" type="text" id="delivery-process" name="delivery-process" placeholder="배송방법 입력" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="delivery-charge">
-                                배송비
-                            </label>
-                            <input class="form-control" type="text" id="delivery-charge" name="delivery-charge" placeholder="배송비 입력" required>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="form-group">
-                            <label for="amount">
-                                판매수량
-                            </label>
-                            <input class="form-control" type="number" id="amount" name="amount" placeholder="판매수량 입력" required>
+                            <input class="form-control" type="number" min="0" id="pSellCount" name="amount"  placeholder="판매수량 입력" required>
                         </div> 
 
-                        <!-- <div class="form-group">
-                            <label for="category">
-                                옵션
-                            </label>
-                            <select class="form-control" id="category" name="category" required>
-                                <option value="가전">
-                                    가전
-                                </option>
-                            </select>
-                        </div> -->
-                    
-                        <div class="form-group">
-                            <label for="product-name">
-                                상품명 입력
-                            </label>
-                            <input class="form-control" type="text" id="product-name" name="product-name" placeholder="상품명 입력" required>
+                        <div id="div-enroll-option">
+                            <div>
+                                <h4>옵션 등록</h4>
+                                <input id="enroll-option" type="text" placeholder="옵션 입력">
+                                <button type="button" id="add-optionBtn">추가</button>
+                            </div>
+                            <div>
+                                <ul id="optionList"></ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -103,10 +132,10 @@
                     <label for="productImage">
                         대표 이미지
                     </label>
-                    <input type="file" id="productImage" name="productImage" accept="image/*" required>
+                    <input type="file" id="productImage" name="productImage" required>
                 </div>
                 <div class="image-container">
-                    <img src="${pageContext.request.contextPath}/getImage?id=1" alt="대표 이미지">
+                    <img id="preview-image" src="getImage?id=1" alt="대표 이미지">
                 </div>
                 <div class="form-group">
                     <label for="summernote">
@@ -138,6 +167,7 @@
         $('#summernote').summernote({
             height: 300,
             placeholder: '상품 상세 정보를 입력하세요',
+            width: 900,
             toolbar: [
                 ['style', ['style']],
                 ['font', ['bold', 'italic', 'underline', 'clear']],

@@ -79,7 +79,7 @@
             <form id="enrollForm" action="#" method="post" enctype="multipart/form-data">
                 <div>
                     <h4>스토어 소개</h4>
-                    <input id="store-introduce" type="text" name="storeDescription" value="${}" placeholder="스토어 소개 입력" style="width: 300px; padding: 5px;">
+                    <input id="store-introduce" type="text" name="storeDescription" value="${sr.storeExplain}" placeholder="스토어 소개 입력" style="width: 300px; padding: 5px;">
                 </div>
                 <div>
                     <h4>대표 이미지</h4>

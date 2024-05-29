@@ -35,21 +35,26 @@
 		<result column="SELLER_PAGE_NO" property="sellerPageNo"/>
 	</resultMap>
 	
-<!-- 	<resultMap type="Product" id="productResult">
+	<resultMap type="Product" id="productResult">
 		<result column="P_NO" property="pNo"/>
 		<result column="P_CATEGORY" property="pCategory"/>
-		<result column="P_OPTION" property="pOption"/>
 		<result column="P_TITLE" property="pTitle"/>
-		<result column="P_STATUS" property="pStatus"/>
 		<result column="P_PRICE" property="pPrice"/>
 		<result column="P_CONTENT" property="pContent"/>
 		<result column="P_ENROLL_FORM" property="pEnrollForm"/>
 		<result column="P_STAR" property="pStar"/>
-		<result column="P_SELL_COUNT" property="pSellCount"/>
 		<result column="P_ORIGIN_NAME" property="pOriginName"/>
-		<result column="P_CHANGE_NAME" property="pChangeName"/>
-		
-	</resultMap> -->
+		<result column="P_CHANGE_NAME" property="pChangeName"/>	
+	</resultMap> 
+	
+<!-- 	<resultMap type="ProductOption" id="productOptionResult">
+		<result column="P_OPTION_NO" property="pOptionNo"/>
+		<result column="P_OPTION_NAME" property="pOptionName"/>
+		<result column="P_NO" property="pNo"/>
+		<result column="P_COUNT" property="pCount"/>
+		<result column="P_STATUS" property="pContent"/>	
+	</resultMap>  -->
+	
 	
 	<select id="selectSeller" resultMap="sellerInfoResult">
 		SELECT *
@@ -110,6 +115,36 @@
 		  FROM SELLER_PAGE
 		 WHERE BUSINESS_NO = #{businessNo}
 	</select>
+	
+		<insert id="insertProduct">
+		INSERT INTO 
+					PRODUCT (
+					 	      p_no,
+					 	      p_category,
+					 	      p_title,
+					 	      p_status,
+					 	      p_price,
+					 	      p_content,
+					 	      p_enroll_date,
+					 	      p_star,
+					 	      p_sell_count,
+					 	      p_origin_name,
+					 	      p_change_name
+					 	     )
+			 	     VALUES (
+				 		      #{pNo},
+				 		      #{category},
+				 		      #{pTitle},
+				 		      'Y',
+				 		      #{pPrice},
+				 		      #{pContent},
+				 		      default,
+				 		      default,
+				 		      default,
+				 		      #{pOriginName},
+				 		      #{pChangeName}
+			 		 	     )	
+	</insert>
 	
 
 

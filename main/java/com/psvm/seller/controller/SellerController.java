@@ -81,7 +81,7 @@ public class SellerController {
 	}
     
     @RequestMapping("insert.srh")
-    public String insertSellerHome(SellerPage sellerPage,int userNo , MultipartFile storeHomeImage, @RequestParam("categoriesJson") String categoriesJson,
+    public String insertSellerHome(SellerPage sellerPage , MultipartFile storeHomeImage, @RequestParam("categoriesJson") String categoriesJson,
     		HttpSession session, Model model) {
     	
     	int businessNo = getBusinessNoFromUserNo(session); 
@@ -107,24 +107,19 @@ public class SellerController {
 			
 			ArrayList<String> categories = gson.fromJson(categoriesJson, listType);
 			
-			System.out.println(categories);
-			
 			int result = sellerService.insertSellerHome(sellerPage, categories);
 			
 			if (result > 0) { //성공 => info페이지로 이동
 				
-				session.setAttribute("alertMsg", "작성 성공");
 				return "redirect:detail.srh";
 				
 			} else { //실패 => 에러페이지
 				
-				model.addAttribute("errorMsg", "작성 실패");
-				
 				return "common/error";
 			}
+			
 		} catch (JsonSyntaxException e) {
 			
-			session.setAttribute("alertMsg", "카테고리 파싱에 실패하였습니다.");
 			return "redirect:detail.srh";
 		}
 	
@@ -175,6 +170,7 @@ public class SellerController {
         return gson.toJson(sellerService.selectCategories(businessNo));
     }
   	
+    //
   	@RequestMapping("detail.srh")
   	public String selectSellerHomeDetail(HttpSession session, Model model) {
   	    int businessNo = getBusinessNoFromUserNo(session);
@@ -220,10 +216,45 @@ public class SellerController {
   	}
     
     @RequestMapping("insert.pd")
-  	public String insertProduct(Product product, MultipartFile productImage, Model model ) {
+  	public String insertProduct(Product product, MultipartFile productImage, HttpSession session, Model model ) {
     	
+    	int result = sellerService.insertProduct(product);
+    	
+    	if (result > 0) { //성공 => list페이지로 이동
+			session.setAttribute("successMessage", "게시글이 작성되었습니다!");
+			
+		} else { //실패 => 에러페이지
+			model.addAttribute("errorMessage", "작성 실패");
+			
+			return "common/error";
+		}
+    	
+    	if (!productImage.getOriginalFilename().equals("")) {
+			
+			String changeName = saveFile(productImage, session);
+			
+			product.setPOriginName(productImage.getOriginalFilename());
+			product.setPChangeName("resources/upFiles/" + changeName);
+		
+		}
+    	
+    	
+
   		return "list.pd";
   	}
+    
+    // 옵션 불러오는 ajax
+    @RequestMapping(value = "options.ax", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public String ajaxGetOptions(HttpSession session) {
+    	
+    	int businessNo = getBusinessNoFromUserNo(session);
+
+    	String str=  gson.toJson(sellerService.selectCategories(businessNo)); 
+    	System.out.println(str);
+    	
+        return gson.toJson(sellerService.selectCategories(businessNo));
+    }
     
     @RequestMapping("detail.pd")
   	public String selectProduct() {

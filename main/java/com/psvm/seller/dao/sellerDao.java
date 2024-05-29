@@ -3,9 +3,11 @@ package com.psvm.seller.dao;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.psvm.seller.vo.Product;
 import com.psvm.seller.vo.ProductCategory;
 import com.psvm.seller.vo.SellerInfo;
 import com.psvm.seller.vo.SellerPage;
@@ -58,6 +60,12 @@ public class SellerDao {
 		return sqlSession.selectOne("sellerMapper.selectSellerHomeDetail", businessNo);
 	}
 	
+	
+	public int insertProduct(SqlSessionTemplate sqlSession, Product product) {
+		
+		return sqlSession.insert("sellerMapper.insertProduct", product);
+	}
+
 
 
 }
