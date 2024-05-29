@@ -60,8 +60,8 @@ public class CommunityDao {
 		return sqlSession.update("communityMapper.deleteReply", boardReplyNo);
 	}
 	
-	public int thumbUpCount(SqlSessionTemplate sqlSession, int bno) {
-		return sqlSession.selectOne("communityMapper.thumbUpCount", bno);
+	public int thumbUpCount(SqlSessionTemplate sqlSession, int boardNo) {
+		return sqlSession.selectOne("communityMapper.thumbUpCount", boardNo);
 	}
 	
 	public int thumbUpCheck(SqlSessionTemplate sqlSession, ThumbUp t) {

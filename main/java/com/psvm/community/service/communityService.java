@@ -43,7 +43,7 @@ public interface CommunityService {
 	int deleteReply(int boardReplyNo);
 	
 	//추천 수 조회
-	int thumbUpCount(int bno);
+	int thumbUpCount(int boardNo);
 	
 	//추천 여부 확인
 	int thumbUpCheck(ThumbUp t);

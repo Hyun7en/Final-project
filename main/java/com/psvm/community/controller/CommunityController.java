@@ -131,14 +131,13 @@ public class CommunityController {
 	@ResponseBody
 	@RequestMapping("thumbUpCount.co")//추천 수 확인
 	public int ajaxThumbUpCount(int boardNo) {
-		
+		System.out.println(boardNo);
 		return communityService.thumbUpCount(boardNo);
 	}
 	
 	@ResponseBody
 	@RequestMapping("thumbUpCheck.co")//추천 버튼 클릭 여부 확인
 	public int ajaxthumbUpCheck(ThumbUp t) {
-		
 		return communityService.thumbUpCheck(t);
 	}
 	
@@ -146,7 +145,6 @@ public class CommunityController {
 	@RequestMapping("thumbUpClick.co")//추천하기
 	public String ajaxthumbUpClick(ThumbUp t) {
 		//성공했을 때는 success, 실패했을 때 fail
-		System.out.println(t.toString());
 		return communityService.thumbUpClick(t) > 0 ? "success" : "fail";
 	}
 	

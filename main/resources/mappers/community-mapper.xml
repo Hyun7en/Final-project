@@ -163,14 +163,12 @@
 		SELECT	COUNT(*)
 		FROM	BOARD_THUMBUP
 		WHERE	BOARD_NO = #{boardNo}
-		AND		THUMB_UP = '1'
 	</select>
 	<select id="thumbUpCheck" resultType="_int">
 		SELECT	COUNT(*)
 		FROM	BOARD_THUMBUP
 		WHERE	BOARD_NO = #{boardNo}
 		AND		USER_NO = #{userNo}
-		AND		THUMB_UP = '1'
 	</select>
 	<insert id="thumbUpClick">
 		INSERT INTO BOARD_THUMBUP(

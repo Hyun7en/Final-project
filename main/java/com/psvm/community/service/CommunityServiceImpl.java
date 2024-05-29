@@ -78,8 +78,8 @@ public class CommunityServiceImpl implements CommunityService{
 	}
 	
 	@Override
-	public int thumbUpCount(int bno) {
-		return communityDao.thumbUpCount(sqlSession, bno);
+	public int thumbUpCount(int boardNo) {
+		return communityDao.thumbUpCount(sqlSession, boardNo);
 	}
 	
 	@Override
