@@ -100,7 +100,7 @@
                     <c:choose>
                         <c:when test="${empty loginUser}">
                             <button class="goodbutton" type="button" id="com-detail-goodbuttonOff">
-                                <img src="${pageContext.request.contextPath}/resources/image/good.png" alt="추천 버튼" style="width: 30px; height: 30px;">
+                                <img src="${pageContext.request.contextPath}/resources/image/not_good.png" alt="추천 버튼" style="width: 30px; height: 30px;">
                             </button>
                         </c:when>
                         <c:otherwise>

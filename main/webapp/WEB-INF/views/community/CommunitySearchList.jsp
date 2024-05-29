@@ -26,7 +26,7 @@
     <!-- success -->
 
 </head>
-<body onload="categorySelected();">
+<body onload="categorySelected(); conditionSelected('${condition}')">
     <c:if test="${ not empty successMessage}">
 		<script>
             var successMessage = '${successMessage}';
@@ -39,19 +39,6 @@
             }
 		</script>
 		<c:remove var="successMessage" scope="session"/>
-	</c:if>
-    <c:if test="${ not empty infoMessage}">
-		<script>
-            var infoMessage = '${infoMessage}';
-            if (infoMessage) {
-                Swal.fire({
-                    icon: 'info',
-                    title: 'Notice',
-                    html: infoMessage
-                });
-            }
-		</script>
-		<c:remove var="infoMessage" scope="session"/>
 	</c:if>
     <div id="wrap">
         <%@ include file="../commons/header.jsp" %>
@@ -75,28 +62,37 @@
                     <th style="width: 135px;">작성일</th>
                     <th style="width: 120px; border-radius: 0 10px 0 0;">조회수</th>
                 </thead>
-                <c:forEach var="b" items="${list}" varStatus="order">
-                    <c:choose>
-                        <c:when test="${order.last}">
-                            <tbody id="com-list-bottom">
-                                <td style="border-radius: 0 0 0 10px;">${b.boardNo}</td>
-                                <td><a href="javascript:show(${b.boardLevel}, ${pi.currentPage}, ${b.boardNo})" class="com-link-${b.boardNo}">${b.boardTitle}</a></td>
-                                <td>${b.nickname}</td>
-                                <td>${b.writeDate}</td>
-                                <td style="border-radius: 0 0 10px 0;">${b.boardCount}</td>
-                            </tbody>
-                        </c:when>
-                        <c:otherwise>
-                            <tbody id="com-list-body">
-                                <td>${b.boardNo}</td>
-                                <td><a href="javascript:show(${b.boardLevel}, ${pi.currentPage}, ${b.boardNo})" class="com-link-${b.boardNo}">${b.boardTitle}</a></td>
-                                <td>${b.nickname}</td>
-                                <td>${b.writeDate}</td>
-                                <td>${b.boardCount}</td>
-                            </tbody>
-                        </c:otherwise>
-                    </c:choose> 
-                </c:forEach>
+                <c:choose>
+                    <c:when test="${empty list}">
+                        <tbody id="com-list-bottom">
+                            <td colspan="5" style="border-radius: 0 0 10px 10px;">검색 결과가 존재하지 않습니다.</td>
+                        </tbody>
+                    </c:when>
+                    <c:otherwise>
+                        <c:forEach var="b" items="${list}" varStatus="order">
+                            <c:choose>
+                                <c:when test="${order.last}">
+                                    <tbody id="com-list-bottom">
+                                        <td style="border-radius: 0 0 0 10px;">${b.boardNo}</td>
+                                        <td><a href="javascript:show(${b.boardLevel}, ${pi.currentPage}, ${b.boardNo})" class="com-link-${b.boardNo}">${b.boardTitle}</a></td>
+                                        <td>${b.nickname}</td>
+                                        <td>${b.writeDate}</td>
+                                        <td style="border-radius: 0 0 10px 0;">${b.boardCount}</td>
+                                    </tbody>
+                                </c:when>
+                                <c:otherwise>
+                                    <tbody id="com-list-body">
+                                        <td>${b.boardNo}</td>
+                                        <td><a href="javascript:show(${b.boardLevel}, ${pi.currentPage}, ${b.boardNo})" class="com-link-${b.boardNo}">${b.boardTitle}</a></td>
+                                        <td>${b.nickname}</td>
+                                        <td>${b.writeDate}</td>
+                                        <td>${b.boardCount}</td>
+                                    </tbody>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                    </c:otherwise>
+                </c:choose>
             </table>
             <div class="com-bottom1">
                 <div class="com-bottom-left">
@@ -105,6 +101,11 @@
                             <option value="title">제목</option>
                             <option value="writer">글쓴이</option>
                         </select>
+                        <c:if test="${not empty condition}">
+                            <script>
+                                window.onload = conditionSelected('${condition}');
+                            </script>
+                        </c:if>
                         <input type="text" name="keyword" value="${keyword}" placeholder="검색어 입력(대소문자 구분)">
                         <input type="hidden" name="boardLevel" value="${boardLevel}">
                         <button id="com-search-button" type="submit">검색</button>
