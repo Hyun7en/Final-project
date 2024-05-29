@@ -2,9 +2,13 @@ body{
     background-color: #E0F1FF;
     position: relative;
 }
+
+
+
 #community-normal{
     min-height: 100%;
     width: 900px;
+    /* height: 1500px; */
     margin: 0 auto;
     margin-left: auto;
     margin-right: auto;
@@ -19,13 +23,13 @@ body{
 #com-nav{
     height: 45px;
     margin-bottom: 40px;    
-    justify-content: space-around;
+    /* justify-content: space-around; */
 }
 #com-nav>ul{
-    /* display: flex;
-    justify-content: space-around; */
+    display: flex;
+    justify-content: space-around;
     text-align: center;
-    padding: 0;
+    padding: 10px;
 }
 #com-nav>ul>li{
     width: 225px;   
@@ -39,12 +43,17 @@ body{
     font-size: 20px;
     font-weight: bold;
     background-color: white;
-    border: 1px solid #AFA8A8;
+    border: 8px solid #0089FF;
     }
+#com-nav button img{
+        width: 22.5px;
+        height: 22.5px;
+        border-radius: 22.5px;
+}
 #com-nav button:hover, #com-nav #com-nav-selected{
     background-color: #0089FF;
     color: white;
-    border: 0px;
+    border: 20px;
 }
 
 .com-list{
@@ -81,13 +90,14 @@ body{
     margin-top: 40px;
     margin-left: auto;
     margin-right: auto;
-    display: flex;    
+    display: flex; 
+    margin-bottom: 100px;   
 }
-.com-bottom1>.com-bottom-left{
+/* .com-bottom1>.com-bottom-left{
     width: 750px;
     margin-top: 5px;
     margin-bottom: 100px;
-}
+} */
 .com-bottom1 select, .com-bottom1 input, .com-bottom1 button{
     border-radius: 5px;
     height: 30px;
@@ -123,6 +133,6 @@ body{
     width: 900px;
     /* height: 30px; */
     text-align: center;
-    /* margin-top: 20px; */
+    margin-top: 15px;
     margin-bottom: 100px;
 }

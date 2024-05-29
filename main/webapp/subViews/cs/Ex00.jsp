@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Header</title>
+    <title>연습용</title>
 
     <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
@@ -18,7 +18,7 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/communityCSS/communityList.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/csCSS/CsList.css">
 
 </head>
 <body>

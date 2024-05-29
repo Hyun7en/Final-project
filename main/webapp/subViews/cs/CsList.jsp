@@ -7,13 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>list</title>
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <!-- Popper JS -->
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<!-- Latest compiled JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
     
@@ -21,21 +20,22 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/footer.css">
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/communityCSS/communityList.css">
+<link rel="stylesheet" href="../../resources/css/csCSS/CsList.css">
 
 </head>
 <body>
-    <div class="wrap">
+    <div class="wrap" >
 	
 		<!-- header -->
         <%@ include file="../commons/header.jsp" %>
-        <main id="community-normal">
+        <main id="community-normal" >
             
-            <div id="com-nav">
+            <div id="com-nav" >
                     <ul>
                         <li>
                             <button class="com-nav-0" onclick="boCategory(0)" id="com-nav-selected" style="border-radius: 22.5px;">
-                                자주묻는 질문</button></li>
+                            <!-- <img src="/psvm/src/main/webapp/resources/image/pngtree-vector-question-mark-icon-png-image_1024598.jpg" alt=""> -->
+                            자주묻는 질문</button></li>
                             
                         <li><button class="com-nav-10" onclick="boCategory(1)" value="1" style="border-radius: 22.5px;">1:1 문의</button></li>
                         <li><button class="com-nav-20" onclick="boCategory(2)" value="2"style="border-radius: 22.5px;">신고센터</button></li>
@@ -136,11 +136,12 @@
                     <div class="com-bottom2">
                         이전 &nbsp; 1 &nbsp; 2 &nbsp; 3 &nbsp; 4 &nbsp; 5 &nbsp; 6 &nbsp; 7 &nbsp; 8 &nbsp; 9 &nbsp; 10 &nbsp; 다음
                     </div>
-                    <!-- </div> -->
-                </div>
-                <div id="com-bottom-right">
-                    <button id="com-blue-button">글쓰기</button>
-                </div>
+                    <div id="com-bottom-right">
+                        <button id="com-blue-button">글쓰기</button>
+                    </div>
+                <!-- </div> -->
+            </div>
+      
         </main>
         
         <!-- footer -->
