@@ -76,9 +76,6 @@
     border-radius: 10px;
     text-align: center;
 }
-#com-detail-goodbuttonOff img{
-    filter: invert(47%) sepia(14%) saturate(500%) hue-rotate(180deg) brightness(92%) contrast(89%);
-}
 #com-detail-goodbuttonClicked{
     width: 60px;
     height: 60px;

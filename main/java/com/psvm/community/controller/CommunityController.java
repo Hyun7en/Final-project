@@ -50,10 +50,31 @@ public class CommunityController {
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
+		model.addAttribute("boardLevel", boardLevel);
 		return "community/CommunityList";
 	}
 	
-	@RequestMapping(value = "detail.co")//게시글 내용 띄우기
+	@RequestMapping("searchlist.co")//게시글 목록 띄우기
+	public String searchList(@RequestParam(value="cpage", defaultValue="1") int currentPage, @RequestParam(value="category", defaultValue="0") int boardLevel, @RequestParam(value="condition", defaultValue="title") String condition, @RequestParam(value="keyword", defaultValue="") String keyword, Model model) {
+		
+		HashMap<String, String>map = new HashMap<>();
+		map.put("condition", condition);
+		map.put("keyword", keyword);
+		map.put("boardLevel", Integer.toString(boardLevel));
+		
+		int boardCount = communityService.searchListCount(map);
+		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 5);
+		ArrayList<Community> list = communityService.searchList(pi, map);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("condition", condition);
+		model.addAttribute("boardLevel", boardLevel);
+		return "community/CommunitySearchList";
+	}
+	
+	@RequestMapping("detail.co")//게시글 내용 띄우기
 	public String selectBoard(int boardNo, @RequestParam(value="cpage", defaultValue="1") int currentPage, @RequestParam(value="category", defaultValue="0") int boardLevel, Model model) {
 		
 		int boardCount = communityService.selectListCount(boardLevel);

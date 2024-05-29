@@ -1,6 +1,7 @@
 package com.psvm.community.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -22,6 +23,17 @@ public class CommunityDao {
 		
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("communityMapper.selectList", boardLevel, rowBounds);
+	}
+	
+	public int searchListCount(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
+		return sqlSession.selectOne("communityMapper.searchListCount", map);
+	}
+	
+	public ArrayList<Community> searchList(SqlSessionTemplate sqlSession, PageInfo pi, HashMap<String, String> map) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("communityMapper.searchList", map, rowBounds);
 	}
 	
 	public int increaseCount(SqlSessionTemplate sqlSession, int boardNo) {

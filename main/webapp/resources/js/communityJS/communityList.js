@@ -1,7 +1,3 @@
-window.onload = function(){
-    categorySelected();
-}
-
 //카테고리 링크
 function boCategory(category){
     location.href = "list.co?category=" + category + "&cpage=1";
@@ -21,6 +17,14 @@ function categorySelected() {
             button.id = "com-nav-selected";
         }
     })
+}
+
+//검색어 조건 고정
+function conditionSelected(condition){
+    if(Object.keys(condition).length !== 0){
+        const opt = document.querySelector("#com-condition option[value=" + condition + "]");
+        opt.setAttribute("selected", true);
+    }
 }
 
 //게시글 열람 링크
