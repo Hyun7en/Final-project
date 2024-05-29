@@ -22,11 +22,11 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/communityCSS/communityList.css">
-    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/communityJS/communityList.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/communityJS/CommunitySearchList.js"></script>
     <!-- success -->
 
 </head>
-<body onload="categorySelected(); conditionSelected('${condition}')">
+<body onload="categorySelected('${boardLevel}'); conditionSelected('${condition}');">
     <c:if test="${ not empty successMessage}">
 		<script>
             var successMessage = '${successMessage}';
@@ -101,11 +101,6 @@
                             <option value="title">제목</option>
                             <option value="writer">글쓴이</option>
                         </select>
-                        <c:if test="${not empty condition}">
-                            <script>
-                                window.onload = conditionSelected('${condition}');
-                            </script>
-                        </c:if>
                         <input type="text" name="keyword" value="${keyword}" placeholder="검색어 입력(대소문자 구분)">
                         <input type="hidden" name="boardLevel" value="${boardLevel}">
                         <button id="com-search-button" type="submit">검색</button>
