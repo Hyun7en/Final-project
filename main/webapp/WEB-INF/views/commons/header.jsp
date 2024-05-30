@@ -16,7 +16,7 @@
 	 <header>
             <div id="Header" style="background-color: white">
                 <div id="logo">
-                    <p>Aquaqu</p>
+                    <a href="home.ma"><p>Aquaqu</p></a>
                 </div>
                 <div id="searchBar">
                     <form action="">
@@ -52,14 +52,14 @@
                             <c:when test="${loginUser.authority == 0}">
                                 <!-- 일반 회원일 경우 로그인 후 -->
                                 <label>${loginUser.userName}님 환영합니다</label> &nbsp;&nbsp;
-                                <a href="myPage.me">마이페이지</a>
+                                <a href="myPage.me?userNo=${loginUser.userNo}">마이페이지</a>
                                 <a href="logout.me">로그아웃</a>
                             </c:when>
 
                             <c:when test="${loginUser.authority == 1}">
                                 <!-- 판매자일 경우 로그인 후  -->
                                 <label>${loginUser.userName}님 환영합니다</label> &nbsp;&nbsp;
-                                <a href="myPage.me">마이페이지</a>
+                                <a href="myPage.me?userNo=${loginUser.userNo}">마이페이지</a>
                                 <a href="info.sr">판매자 관리 페이지</a>
                                 <a href="logout.me">로그아웃</a>
                             </c:when>
@@ -67,7 +67,7 @@
                             <c:otherwise>
                                 <!-- 관리자일 경우 로그인 후  -->
                                 <label>${loginUser.userName}님 환영합니다</label> &nbsp;&nbsp;
-                                <a href="#">관리자 페이지</a>
+                                <a href="main.ma">관리자 페이지</a>
                                 <a href="logout.me">로그아웃</a>
                             </c:otherwise>
 
@@ -84,11 +84,11 @@
             </div>
 
             <nav>
-                <a href="home.ma">홈</a>
                 <a href="fishInfo.ma">물고기 정보</a>
                 <a href="quration.ma">물고기 큐레이터</a>
                 <a href="list.co?category=0&cpage=1">커뮤니티</a>
                 <a href="storeMain.ma">스토어</a>
+                <a href="${pageContext.request.contextPath}/subViews/cs/CsList.jsp">고객센터</a>
             </nav>
         </header>
 </body>

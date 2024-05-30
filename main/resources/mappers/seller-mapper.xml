@@ -5,6 +5,7 @@
   
 <!-- namespace: 해당 mapper파일의 고유한 별칭 -->
  <mapper namespace="sellerMapper">
+ 
 	<resultMap type="SellerInfo" id="sellerInfoResult">
 		<result column="BUSINESS_NO" property="businessNo"/>
 		<result column="USER_NO" property="userNo"/>
@@ -17,48 +18,80 @@
 		<result column="MAIN_ITEM_NAME" property="mainItemName"/>
 		<result column="BUSINESS_ADDRESS" property="businessAddress"/>
 		<result column="BUSINESS_ACCOUNT" property="businessAccount"/>
+		<result column="STATUS" property="status"/>	
 	</resultMap>
 	
+
 
  	<!-- <resultMap type="SellerPage" id="sellerResult">
-
 		<result column="SELLER_PAGE_NO" property="sellerPageNo"/>
+
+ 	<resultMap type="SellerPage" id="sellerPageResult">
+ 		<result column="SELLER_PAGE_NO" property="sellerPageNo"/>
 		<result column="BUSINESS_NO" property="businessNo"/>
 		<result column="SELLER_EXPLAIN" property="sellerExplain"/>
+		<result column="SP_ENROLL_DATE" property="spEnrollDate"/>
+		<result column="SP_ORIGIN_NAME" property="spOriginName"/>
+		<result column="SP_CHANGE_NAME" property="spChangeName"/>
 	</resultMap>
-	
-	<resultMap type="ProductCategory" id="sellerProductCategoryResult">
+
+	<resultMap type="ProductCategory" id="productCategoryResult">
 		<result column="P_CATEGORY" property="pCategory"/>
 		<result column="SELLER_PAGE_NO" property="sellerPageNo"/>
 	</resultMap>
 	
-	<resultMap type="ProductAttachment" id="sellerProductAttachmentResult">
-		<result column="PRODUCT_FILE_NO" property="productFileNo"/>
-		<result column="SELLER_PAGE_NO" property="sellerPageNo"/>
-		<result column="REF_PNO" property="refPno"/>
-		<result column="UPLOAD_DATE" property="uploadDate"/>
-		<result column="FILE_LEVEL" property="fileLevel"/>
-		<result column="ORIGIN_NAME" property="originName"/>
-		<result column="CHANGE_NAME" property="changeName"/>		
-	</resultMap> -->
+	<resultMap type="Product" id="productResult">
+		<result column="P_NO" property="pdNo"/>
+		<result column="P_CATEGORY" property="pdCategory"/>
+		<result column="P_TITLE" property="pdTitle"/>
+		<result column="P_PRICE" property="pdPrice"/>
+		<result column="P_CONTENT" property="pdContent"/>
+		<result column="P_ENROLL_DATE" property="pdEnrollDate"/>
+		<result column="P_STAR" property="pdStar"/>
+		<result column="P_ORIGIN_NAME" property="pdOriginName"/>
+		<result column="P_CHANGE_NAME" property="pdChangeName"/>	
+		<result column="P_STATUS" property="pdStatus"/>	
+	</resultMap> 
+	
+	<resultMap type="ProductOption" id="productOptionResult">
+		<result column="P_COUNT" property="pCount"/>
+		<result column="P_STATUS" property="pContent"/>	
+		<result column="P_NO" property="pNo"/>
+		<result column="P_OPTION_NAME" property="pOptionName"/>
+		<result column="P_OPTION_NO" property="pOptionNo"/>
+	</resultMap>  
+	
 	
 	<select id="selectSeller" resultMap="sellerInfoResult">
 		SELECT *
-		FROM BUSINESS_INFO
+		  FROM SELLER_INFO
+		 WHERE USER_NO = #{userNo}
+		   AND STATUS = 'Y'
+	</select>
+	
+	<select id="selectBusinessNo" resultType="_int">
+		SELECT BUSINESS_NO
+		FROM SELLER_INFO
 		WHERE USER_NO = #{userNo}
 	</select>
 	
-<!-- 	<insert id="insertSellerPage">
+	<insert id="insertSellerPage">
 		INSERT INTO
 					SELLER_PAGE (
-								 seller_page_no,
 								 business_no,
-								 seller_explain
+								 seller_explain,
+								 sp_enroll_Date,
+								 sp_origin_name,
+								 sp_change_name
+								 
 								 )
 						 VALUES (
-						 		 default,
-						 		 
-								 #{storeDescription}							 		 
+						 		 #{businessNo},
+								 #{sellerExplain},
+								 default,
+								 #{spOriginName},
+								 #{spChangeName}
+								 							 		 
 						 		 )	 
 	</insert>
 	
@@ -69,34 +102,89 @@
 								 	  seller_page_no
 								 	  )
 						 	  VALUES (
-						 		 
+							 		  #{category}, 
+							 		  CURRVAL('seller_page_seller_page_no_seq'::regclass)
+						 		 	  )	
+	</insert>
+
+	<select id="selectCategories" resultMap="productCategoryResult">
+		SELECT P_CATEGORY
+		  FROM PRODUCT_CATEGORY
+		  JOIN SELLER_PAGE USING (SELLER_PAGE_NO)
+		WHERE BUSINESS_NO = #{businessNo}
+	</select>
+	
+	<select id="selectSellerHomeDetail" resultMap="sellerPageResult">
+		SELECT SELLER_EXPLAIN,
+			   SP_ORIGIN_NAME,
+			   SP_CHANGE_NAME
+		  FROM SELLER_PAGE
+		 WHERE BUSINESS_NO = #{businessNo}
+	</select>
+	
+	<select id="countByBusinessNo" resultType="int">
+        SELECT COUNT(*)
+        FROM SELLER_PAGE
+        WHERE BUSINESS_NO = #{businessNo}
+    </select>
+	
+	<insert id="insertProduct">
+	INSERT INTO 
+				PRODUCT (
+				 	      p_category,
+				 	      p_title,
+				 	      p_price,
+				 	      p_content,
+				 	      p_enroll_date,
+				 	      p_star,
+				 	      p_origin_name,
+				 	      p_change_name,
+				 	      p_status
+				 	     )
+		 	     VALUES (
+			 		      #{pCategory},
+			 		      #{pTitle},
+			 		      #{pPrice},
+			 		      #{pContent},
+			 		      default,
+			 		      default,
+			 		      #{pOriginName},
+			 		      #{pChangeName},
+			 		      default
+		 		 	     )	
+	</insert>
+	
+	<insert id="insertProductOption">
+		INSERT INTO 
+					PRODUCT_OPTION (
+									  p_count,
+								 	  p_status,
+								 	  p_no,
+								 	  p_option_name
+								 	  )
+						 	  VALUES (
+							 		  #{pCount},
+							 		  default,
+							 		  CURRVAL('product_p_no_seq'::regclass),
+							 		 #{option}
 						 		 	  )	
 	</insert>
 	
-	<insert id="insertProductAttachment">
-		   INSERT INTO 
-		   				PRODUCT_ATTACHMENT (
-		   									product_file_no,
-					   						SELLER_PAGE_NO, 
-					   						REF_PNO, 
-					   						UPLOAD_DATE, 
-					   						FILE_LEVEL, 
-					   						ORIGIN_NAME, 
-					   						CHANGE_NAME
-					   					  )
-					   			  VALUES  (
-							   			   default,
-							   			   , 
-							   			   #{refPno}, 
-							   			   #{uploadDate}, 
-							   			   #{fileLevel}, 
-							   			   #{originName}, 
-							   			   #{changeName}
-							   			  )
-  
-	</insert>
-	 -->
+	<!-- 게시글의 총 갯수 조회 -->
+	<select id="selectProductListCount" resultType="_int">
+		SELECT COUNT(*)
+		  FROM PRODUCT
+		 WHERE P_STATUS = 'Y'
+	</select>
 	
-	
+	<select id="ProductList" resultMap="productResult">
+		SELECT P_NO,
+			   P_CATEGORY,
+			   P_TITLE,
+			   TO_CHAR(P_ENROLL_DATE, 'YYYY-MM-DD') AS "P_ENROLL_DATE"
+		  FROM PRODUCT
+		 WHERE P_STATUS = 'Y'
+		 ORDER BY P_NO DESC  
+	</select>
 
 </mapper>

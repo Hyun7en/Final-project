@@ -34,19 +34,14 @@ main{
 
 #side-list a{
     text-decoration: none;
-    color: black;
 }
 
 #side-list-head{
     background-color: #AFA8A8;
 }
 
-
-#side-list-selected{
-    background-color: #EEEEEE;
+.select a{
+    color: black;
 }
 
-#side-list-selected a{
-    color: #0089FF;
-}
 

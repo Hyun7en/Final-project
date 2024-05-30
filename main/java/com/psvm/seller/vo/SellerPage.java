@@ -1,5 +1,7 @@
 package com.psvm.seller.vo;
 
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,5 +17,8 @@ public class SellerPage {
 	
 	private int sellerPageNo;
 	private int businessNo;
-	private String sellerExpalin;
+	private String sellerExplain;
+	private Date spEnrollDate;
+	private String spOriginName;
+	private String spChangeName;
 }

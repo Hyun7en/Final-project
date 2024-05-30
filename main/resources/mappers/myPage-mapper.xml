@@ -5,8 +5,16 @@
   
 <!-- namespace: 해당 mapper파일의 고유한 별칭 -->
 <mapper namespace="myPageMapper">
-
-
+	<!-- 내 정보로 이동할 때 이미지 파일 가지고있는지 확인하기 위한 resultMapper -->
+	<resultMap type="MemberAttachment" id="selectMemberAttachmentResult">
+		<result column="member_file_no" property="memberFileNo"/>
+		<result column="ref_mno" property="refMno"/>
+		<result column="upload_date" property="uploadDate"/>
+		<result column="file_level" property="fileLevel"/>
+		<result column="origin_name" property="originName"/>
+		<result column="change_name" property="changeName"/>
+	</resultMap>
+	
 	<!-- 회원 정보 수정 후 세션에 변경된 값 반환하기 위한 resultMapper -->
 	<resultMap type="Member" id="loginUserResult">
 		<result column="USER_NO" property="userNo"/>
@@ -28,10 +36,6 @@
 		<result column="MEMBER_FILE_NO" property="memberFileNo"/>
 	</resultMap>
 	
-	
-	
-	
-	
 	<!-- 작성한 게시글 resultMapper -->
 	<resultMap type="Community" id="writePostResult">
 		<result column="board_level" property="boardLevel"/>
@@ -47,16 +51,60 @@
 		<result column="inquiry_date" property="inquiryDate"/>
 	</resultMap>
 	
+	<!-- 내 정보로 이동할 때 이미지 파일 가지고있는지 확인하기 위한 select -->
+	<select id="selectMemberAttachment" resultMap="selectMemberAttachmentResult">
+		SELECT member_file_no,
+			   ref_mno,
+			   upload_date,
+			   file_level,
+			   origin_name,
+			   change_name
+		FROM member_attachment
+		WHERE ref_mno = #{userNo}
+	</select>
 	
-	<!-- 회원 정보 수정 -->
+	<!-- 이미지 파일 제외한 회원정보 수정 -->
 	<update id="modifyInfo">
 		UPDATE member
 		SET nickname = #{nickname},
-		    gender = #{gender},
-		    phone = #{phone},
-		    email = #{email},
-		    address = #{address}
+			gender = #{gender},
+			phone = #{phone},
+			email = #{email},
+			address = #{address}
 		WHERE user_no = #{userNo}
+	</update>
+	
+	<!-- 이미지 파일 없을 때 이미지 파일 넣기 -->
+	<insert id="insertImageModifyInfo">
+		INSERT INTO member_attachment
+		(
+			member_file_no,
+			ref_mno,
+			upload_date,
+			file_level,
+			origin_name,
+			change_name
+		) 
+		VALUES
+		(
+			default,
+			#{refMno},
+			now(),
+			#{fileLevel},
+			#{originName},
+			#{changeName}
+		)
+	</insert>
+	
+	<!-- 이미지파일 있을 때 이미지파일 수정 -->
+	<update id="updateImageModifyInfo">
+		UPDATE member_attachment 
+		SET ref_mno = #{refMno},
+			upload_date = now(),
+			file_level = #{fileLevel},
+			origin_name = #{originName},
+			change_name = #{changeName}
+		WHERE ref_mno = #{refMno}
 	</update>
 	
 	<!-- 회원 정보 수정 후 세션에 변경된 값 넣기 -->

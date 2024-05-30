@@ -157,3 +157,11 @@ main{
     cursor: pointer;
     margin: 0 5px;
 }
+
+#side-list-selected3{
+    background-color: #EEEEEE;
+}
+
+#side-list-selected3 a{
+    color: #0089FF;
+}

@@ -2,12 +2,13 @@ package com.psvm.fishInfo.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,8 +26,15 @@ public class FishInfoController {
 	@Autowired
 	private FishInfoService fishService;
 	
-	@GetMapping("fishDetail.fi")
-	public String fishDetail() {
+	@RequestMapping(value="fishDetail.fi", produces="application/json; charset=UTF-8")
+	public String fishDetail(@RequestParam(value="fishName") String fishName, Model model) {
+		
+		System.out.println(fishName);
+		Fish fish = fishService.fishDetail(fishName);		
+		
+		
+		model.addAttribute("fish", fish);
+		
 		return "fishInfo/fishInfoDetail";
 	}
 	
@@ -43,6 +51,25 @@ public class FishInfoController {
 		model.addAttribute("pi", pi);
 		
 		return "fishInfo/fishInfo";
+	}
+	
+	@ResponseBody
+	@PostMapping(value="anotherFishAjax.fi")
+	public String anotherFishAjax(@RequestBody Map<String, Object> data) {
+
+	    String fishType = ((String) data.get("fishType"));
+	    String tendency = ((String) data.get("tendency"));
+	    String tasteType = ((String) data.get("tasteType"));
+	    
+	    HashMap<String, String> map = new HashMap<>();
+	    map.put("fishType", fishType);
+	    map.put("tendency", tendency);
+	    map.put("tasteType", tasteType);
+	    
+	    ArrayList<Fish> list = fishService.anotherFishAjax(map);
+	    System.out.println(list);
+
+	    return new Gson().toJson(list);
 	}
 	
 	@ResponseBody
@@ -65,6 +92,29 @@ public class FishInfoController {
 		
 		return new Gson().toJson(map);
 	}
+	
+	@ResponseBody
+	@PostMapping(value="categorySearch.fi")
+	public String ajaxCategorySearch(@RequestParam("cate") String cate,@RequestParam("cpage") String cpage) {
+		int currentPage = Integer.parseInt(cpage);
+	
+		int boardCount = fishService.selectcateCount(cate);
+		
+		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 15);
+		
+		ArrayList<Fish> list = fishService.ajaxCategorySearch(pi ,cate);
+		
+		System.out.println(list);
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("pi", pi);
+		map.put("list",list);
+
+		
+		return new Gson().toJson(map);
+	}
+	
+
 	
 	
 }

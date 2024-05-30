@@ -94,9 +94,13 @@ main{
     display: flex;
     flex-direction: row;
     justify-content: center;
+
 }
 
 #myPageInfo-profile-img img{
+    height: 120px;
+    border: 1px solid black;
+
     width: 120px;
     border-radius: 150px;
 }
@@ -122,6 +126,7 @@ main{
 }
 
 #myPageInfo-profile-edit input{
+    display: none;
     position: absolute;
     width: 0;
     height: 0;
