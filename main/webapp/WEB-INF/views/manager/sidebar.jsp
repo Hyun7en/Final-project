@@ -31,6 +31,10 @@
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVNGTT7tfDUT76FU0F7fjghG_3s1-xlCwrjc9CaCrCmw&s" alt="카테고리 관리 아이콘">
                     <div><p>카테고리 관리</p></div>
                 </c:when>
+                <c:when test="${categoryName eq 'customer'}">
+                    <img src="${pageContext.request.contextPath}/resources/image/icon_help.png" alt="카테고리 관리 아이콘">
+                    <div><p>고객지원</p></div>
+                </c:when>
             </c:choose>
         </div>
 
@@ -48,16 +52,15 @@
                     <div class="select" id="side-list-selected3"><a href="sellerProductApplication.ma?categoryName=seller">판매자 상품신청</a></div>
                 </c:when>
                 <c:when test="${categoryName eq 'category'}">
-                    <div id="side-list-selected"><a href="category.ma"></a></div>
+                    
                 
                 
                 
                 </c:when>
-                <c:when test="${categoryName eq '고객지원'}">
-
-
-
-
+                <c:when test="${categoryName eq 'customer'}">
+                    <div id="side-list-head">고객지원</div>
+                    <div class="select" id="side-list-selected1"><a href="customerOnetoOne.ma?categoryName=customer">1:1문의</a></div>
+                    <div class="select" id="side-list-selected2"><a href="customerOutlist.ma?categoryName=customer">회원 탈퇴내역</a></div>
                 </c:when>
             </c:choose>
 
