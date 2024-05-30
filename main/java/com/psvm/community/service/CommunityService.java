@@ -1,10 +1,12 @@
 package com.psvm.community.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.community.vo.Community;
 import com.psvm.community.vo.Reply;
+import com.psvm.community.vo.ThumbUp;
 
 public interface CommunityService {
 
@@ -13,6 +15,12 @@ public interface CommunityService {
 	
 	//게시글 리스트 조회
 	ArrayList<Community> selectList(PageInfo pi, int boardLevel);
+	
+	//게시글 검색 결과 수 가져오기
+	int searchListCount(HashMap<String, String> map);
+	
+	//게시글 검색 결과 조회
+	ArrayList<Community> searchList(PageInfo pi, HashMap<String, String> map);
 	
 	//게시글 조회수 증가
 	int increaseCount(int boardNo);
@@ -40,4 +48,13 @@ public interface CommunityService {
 	
 	//댓글삭제
 	int deleteReply(int boardReplyNo);
+	
+	//추천 수 조회
+	int thumbUpCount(int boardNo);
+	
+	//추천 여부 확인
+	int thumbUpCheck(ThumbUp t);
+	
+	//추천 누름
+	int thumbUpClick(ThumbUp t);
 }

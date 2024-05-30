@@ -22,84 +22,53 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/communityCSS/communityDetail.css">
-
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/communityCSS/communityList.css">
 
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/communityJS/communityList.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/communityJS/communityDetail.js"></script>
+
 </head>
-<body>
+<body onload="callReply('${c.boardNo}', '${pageContext.request.contextPath}/resources/image/Cancel.png', '${c.boardLevel}'); callThumbup('${c.boardNo}', '${loginUser.userNo}'); categorySelected();">
     <c:if test="${ not empty errorMessage}">
 		<script>
-			var errorMessage = "${errorMessage}";
-		    if (errorMessage) {
-		        Swal.fire({
-		            icon: 'error',
-		            title: 'Error!',
-		            html: errorMessage
-		        });
-		    }
+			var errorMessage = '${errorMessage}';
+            if (errorMessage) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    html: errorMessage
+                });
+            }
 		</script>
 		<c:remove var="errorMessage" scope="session"/>
 	</c:if>
     <c:if test="${ not empty successMessage}">
 		<script>
-			var successMessage = "${successMessage}";
-		    if (successMessage) {
-		        Swal.fire({
-		            icon: 'success',
-		            title: 'success!',
-		            html: successMessage
-		        });
-		    }
+			var successMessage = '${successMessage}';
+            if (successMessage) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'success!',
+                    html: successMessage
+                });
+            }
 		</script>
 		<c:remove var="successMessage" scope="session"/>
 	</c:if>
     <c:if test="${ not empty infoMessage}">
 		<script>
-			var infoMessage = "${infoMessage}";
-		    if (infoMessage) {
-		        Swal.fire({
-		            icon: 'info',
-		            title: 'Notice',
-		            html: infoMessage
-		        });
-		    }
+			var infoMessage = '${infoMessage}';
+            if (infoMessage) {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Notice',
+                    html: infoMessage
+                });
+            }
 		</script>
 		<c:remove var="infoMessage" scope="session"/>
 	</c:if>
-    <script>
-        function deleteReply(boardReplyNo, boardLevel, boardNo){
-            console.log(boardReplyNo, boardLevel, boardNo);
-            swal({
-            title: "WARNING",
-            text: "정말로 삭제하시겠습니까?",
-            type: "warning",
-            confirmButtonText: "예",
-            cancelButtonText: "아니요",
-            showCancelButton: true
-            })
-            .then((result) => {
-                if (result.value) {
-                    window.location = "rdelete.co?boardLevel=" + boardLevel + "&boardNo=" + boardNo + "&boardReplyNo=" + boardReplyNo;
-                }
-            })
-        }
-        function deleteBoard(boardLevel, boardNo){
-            console.log(boardLevel, boardNo);
-            swal({
-            title: "WARNING",
-            text: "정말로 삭제하시겠습니까?",
-            type: "warning",
-            confirmButtonText: "예",
-            cancelButtonText: "아니요",
-            showCancelButton: true
-            })
-            .then((result) => {
-                if (result.value) {
-                    window.location = "delete.co?boardLevel=" + boardLevel + "&boardNo=" + boardNo;
-                }
-            })
-        }
-    </script>
+
     <div id="wrap">
         <%@ include file="../commons/header.jsp" %>
         <main id="community-normal">
@@ -108,38 +77,16 @@
             </div>
             <div id="com-nav">
                 <ul>
-                    <li><button class="com-nav-0" onclick="boCategory(0)" name="boardLevel" value="0" style="border-radius: 10px 0 0 10px;">일반</button></li>
-                    <li><button class="com-nav-1" onclick="boCategory(1)" name="boardLevel" value="1">꿀팁</button></li>
-                    <li><button class="com-nav-2" onclick="boCategory(2)" name="boardLevel" value="2">질문</button></li>
-                    <li><button class="com-nav-3" onclick="boCategory(3)" name="boardLevel" value="3" style="border-radius: 0 10px 10px 0;">중고거래</button></li>
+                    <li><button class="com-nav" onclick="boCategory(0)" name="boardLevel" value="0" style="border-radius: 10px 0 0 10px;">일반</button></li>
+                    <li><button class="com-nav" onclick="boCategory(1)" name="boardLevel" value="1">꿀팁</button></li>
+                    <li><button class="com-nav" onclick="boCategory(2)" name="boardLevel" value="2">질문</button></li>
+                    <li><button class="com-nav" onclick="boCategory(3)" name="boardLevel" value="3" style="border-radius: 0 10px 10px 0;">중고거래</button></li>
                 </ul>
         </div>
-        <script>
-            function boCategory(category){
-                    location.href = "list.co?category=" + category;
-            }
-            window.onload = function() {
-                // URL에서 category 값을 추출하는 함수
-                function getCategoryFromUrl() {
-                    const params = new URLSearchParams(window.location.search);
-                    return params.get('category');
-                }
-
-                // category 값을 가져옴
-                const category = getCategoryFromUrl();
-
-                // category 값과 동일한 버튼에 id="com-nav-selected"를 부여
-                const button = document.querySelector(".com-nav-" + category);
-                button.id = "com-nav-selected";
-            }
-        </script>
             <div id="com-detail">
                 <div id="com-detail-head">
                     <div id="com-detail-title">
                     ${c.boardTitle}
-                    </div>
-                    <div id="com-detail-good">
-                    추천 수 | ${c.boardDibs}
                     </div>
                 </div>
                 <div id="com-detail-info">
@@ -150,14 +97,22 @@
                     ${c.boardContents}
                 </div>
                 <div id="com-detail-goodarea">
-                    <button type="button" id="com-detail-goodbutton">
-                        <img src="${pageContext.request.contextPath}/resources/image/good.png" alt="추천 버튼" style="width: 30px; height: 30px;">
-                    </button>
+                    <c:choose>
+                        <c:when test="${empty loginUser}">
+                            <button class="goodbutton" type="button" id="com-detail-goodbuttonOff">
+                                <img src="${pageContext.request.contextPath}/resources/image/not_good.png" alt="추천 버튼" style="width: 30px; height: 30px;">
+                            </button>
+                        </c:when>
+                        <c:otherwise>
+                            <button class="goodbutton" type="button" id="com-detail-goodbutton" onclick="thumbUpClick('${loginUser.userNo}', '${c.boardNo}');" value="1">
+                                <img src="${pageContext.request.contextPath}/resources/image/good.png" alt="추천 버튼" style="width: 30px; height: 30px;">
+                            </button>
+                        </c:otherwise>
+                    </c:choose>
                     <div id="com-detail-goodcount">
-                        ${c.boardDibs}
+                        <span id="thumbUpCount">0</span>
                     </div>
                 </div>
-
 
                 <table id="com-reply" class="table" align="center">
                     <thead>
@@ -175,7 +130,12 @@
                                     <th colspan="2" style="width: 720px !important;">
                                         <textarea id="com-reply-insertbox" name="replyContents" cols="55" rows="2" style="resize:none; outline: none; padding-left: 10px; padding-top: 5px;"></textarea>
                                     </th>
-                                    <th colspan="2" style="vertical-align:middle; width: 180px !important;"><button id="com-reply-button" class="btn btn-secondary" onclick="addReply();">등록하기</button></th>
+                                    <th colspan="2" style="vertical-align:middle; width: 180px !important;">
+                                        <button id="com-reply-button" class="btn btn-secondary"
+                                        onclick="addReply('${pageContext.request.contextPath}/resources/image/Cancel.png', '${c.boardLevel}', '${c.boardNo}')">
+                                            등록하기
+                                        </button>
+                                    </th>
                                 </tr>
                             </c:otherwise>
                         </c:choose>
@@ -192,98 +152,7 @@
                 </table>
             
             <br><br>
-                <script>
-                    $(function(){
-                        getReplyList({bno : "${c.boardNo}"}, function(result){
-                            
-                            setReplyCount(result.length)
-            
-                            const replyBody = document.querySelector("#com-reply tbody");
-                            drawTableList(result, replyBody);
-                        })
-                    })
-                    
-                    //댓글 등록
-                    function addReply(){
-                        //boardNo
-                        //userId
-                        //댓글내용
-        
-                        const boardNo = "${c.boardNo}";
-                        const userNo = "${loginUser.userNo}";
-                        const content = document.querySelector("#com-reply-insertbox").value;
-        
-        
-                        addReplyAjax({
-                            boardNo: boardNo,
-                            userNo: userNo,
-                            replyContents: content
-                        }, function(res){
-                            getReplyList({bno : "${c.boardNo}"}, function(result){
-                                setReplyCount(result.length);
-                                drawTableList(result, document.querySelector("#com-reply tbody"));
-                            })
-                            
-                        })
-                    }
-        
-               
-                    //댓글 카운트 넣기
-                    function setReplyCount(count){
-                        const rCount = document.querySelector("#rcount");
-                        rCount.innerHTML = count;
-                    }
-        
-                    function addReplyAjax(data, callback){
-                        $.ajax({
-                            url: "rinsert.co",
-                            data : data,
-                            success : function(res){
-                                callback(res)
-                            }, error(){
-                                console.log("댓글 생성 ajax실패");
-                            }
-                        })
-                    }
-        
-                    // 댓글 목록 가져오기
-                    function getReplyList(data, callback){
-                        $.ajax({
-                            url: 'rlist.co',
-                            data : data,
-                            success: function(result){
-                                callback(result)
-                            },
-                            error: function(item){
-                                console.log(item);
-                                console.log("댓글요청 ajax 실패");
-                            }
-                        })
-                    }
-        
-                    function drawTableList(itemList, parent){
-                        $(parent).empty();
 
-                        //이벤트를 넣는 뷰를 작성하고 싶을 때
-                        for (let reply of itemList) {
-
-                            const replyRow1 = document.createElement('tr');
-                            replyRow1.innerHTML = `<th id="com-reply-writer" colspan="2">` + reply.nickname + `</th>
-                                                  <td id="com-reply-enrolldate">` + reply.replyDate + `</td>
-                                                  <td id="com-reply-edit"><img src="${pageContext.request.contextPath}/resources/image/Cancel.png" alt="댓글 삭제 이미지" onclick="deleteReply(`
-                                                     + reply.boardReplyNo + `, ${c.boardLevel}, ${c.boardNo})"></td>`;
-                            parent.appendChild(replyRow1);
-
-                            const replyRow2 = document.createElement('tr');
-                            replyRow2.innerHTML = `<td id="com-reply-blank"></td>
-                                                    <td id="com-reply-words" colspan="2">` + reply.replyContents + `</td>
-                                                    <td id="com-reply-blank"></td>`;
-                            parent.appendChild(replyRow2);
-                            
-                        }
-        
-                    }
-                </script>
                 <div id="com-detail-bottom">
                     <c:if test="${loginUser.userNo eq c.userNo}">
                         <button type="button" id="com-blue-button" onclick="location.href='updateForm.co?boardNo=${c.boardNo}'">수정</button>
@@ -291,12 +160,6 @@
                     </c:if>
                 </div>
             </div>
-
-            <script>
-                function show(boardLevel, cpage, boardNo){
-                    location.href = "detail.co?category=" + boardLevel + "&cpage=" + cpage + "&boardNo=" + boardNo;
-                }
-            </script>
             <table class="com-list">
                 <thead id="com-list-header">
                     <th style="width: 60px; border-radius: 10px 0 0 0;">No</th>

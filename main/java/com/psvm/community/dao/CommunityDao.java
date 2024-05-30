@@ -1,6 +1,7 @@
 package com.psvm.community.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.community.vo.Community;
 import com.psvm.community.vo.Reply;
+import com.psvm.community.vo.ThumbUp;
 
 @Repository
 public class CommunityDao {
@@ -21,6 +23,17 @@ public class CommunityDao {
 		
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("communityMapper.selectList", boardLevel, rowBounds);
+	}
+	
+	public int searchListCount(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
+		return sqlSession.selectOne("communityMapper.searchListCount", map);
+	}
+	
+	public ArrayList<Community> searchList(SqlSessionTemplate sqlSession, PageInfo pi, HashMap<String, String> map) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("communityMapper.searchList", map, rowBounds);
 	}
 	
 	public int increaseCount(SqlSessionTemplate sqlSession, int boardNo) {
@@ -57,6 +70,18 @@ public class CommunityDao {
 	
 	public int deleteReply(SqlSessionTemplate sqlSession, int boardReplyNo) {
 		return sqlSession.update("communityMapper.deleteReply", boardReplyNo);
+	}
+	
+	public int thumbUpCount(SqlSessionTemplate sqlSession, int boardNo) {
+		return sqlSession.selectOne("communityMapper.thumbUpCount", boardNo);
+	}
+	
+	public int thumbUpCheck(SqlSessionTemplate sqlSession, ThumbUp t) {
+		return sqlSession.selectOne("communityMapper.thumbUpCheck", t);
+	}
+	
+	public int thumbUpClick(SqlSessionTemplate sqlSession, ThumbUp t) {
+		return sqlSession.insert("communityMapper.thumbUpClick", t);
 	}
 }
 

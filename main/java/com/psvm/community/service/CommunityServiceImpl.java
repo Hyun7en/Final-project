@@ -1,6 +1,7 @@
 package com.psvm.community.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import com.psvm.commons.vo.PageInfo;
 import com.psvm.community.dao.CommunityDao;
 import com.psvm.community.vo.Community;
 import com.psvm.community.vo.Reply;
+import com.psvm.community.vo.ThumbUp;
 
 @Service
 public class CommunityServiceImpl implements CommunityService{
@@ -22,13 +24,22 @@ public class CommunityServiceImpl implements CommunityService{
 	
 	@Override
 	public int selectListCount(int boardLevel) {
-		int count = communityDao.selectListCount(sqlSession, boardLevel);
-		return count;
+		return communityDao.selectListCount(sqlSession, boardLevel);
 	}
 
 	@Override
 	public ArrayList<Community> selectList(PageInfo pi, int boardLevel) {
 		return communityDao.selectList(sqlSession, pi, boardLevel);
+	}
+	
+	@Override
+	public int searchListCount(HashMap<String, String> map) {
+		return communityDao.searchListCount(sqlSession, map);
+	}
+	
+	@Override
+	public ArrayList<Community> searchList(PageInfo pi, HashMap<String, String> map) {
+		return communityDao.searchList(sqlSession, pi, map);
 	}
 
 	@Override
@@ -74,5 +85,20 @@ public class CommunityServiceImpl implements CommunityService{
 	@Override
 	public int deleteReply(int boardReplyNo) {
 		return communityDao.deleteReply(sqlSession, boardReplyNo);
+	}
+	
+	@Override
+	public int thumbUpCount(int boardNo) {
+		return communityDao.thumbUpCount(sqlSession, boardNo);
+	}
+	
+	@Override
+	public int thumbUpCheck(ThumbUp t) {
+		return communityDao.thumbUpCheck(sqlSession, t);
+	}
+	
+	@Override
+	public int thumbUpClick(ThumbUp t) {
+		return communityDao.thumbUpClick(sqlSession, t);
 	}
 }

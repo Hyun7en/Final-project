@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -30,6 +31,7 @@ import com.psvm.commons.vo.PageInfo;
 import com.psvm.community.service.CommunityService;
 import com.psvm.community.vo.Community;
 import com.psvm.community.vo.Reply;
+import com.psvm.community.vo.ThumbUp;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -48,10 +50,31 @@ public class CommunityController {
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
+		model.addAttribute("boardLevel", boardLevel);
 		return "community/CommunityList";
 	}
 	
-	@RequestMapping(value = "detail.co")//게시글 내용 띄우기
+	@RequestMapping("searchlist.co")//게시글 목록 띄우기
+	public String searchList(@RequestParam(value="cpage", defaultValue="1") int currentPage, @RequestParam(value="category", defaultValue="0") int boardLevel, @RequestParam(value="condition", defaultValue="title") String condition, @RequestParam(value="keyword", defaultValue="") String keyword, Model model) {
+		
+		HashMap<String, String>map = new HashMap<>();
+		map.put("condition", condition);
+		map.put("keyword", keyword);
+		map.put("boardLevel", Integer.toString(boardLevel));
+		
+		int boardCount = communityService.searchListCount(map);
+		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 5);
+		ArrayList<Community> list = communityService.searchList(pi, map);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("condition", condition);
+		model.addAttribute("boardLevel", boardLevel);
+		return "community/CommunitySearchList";
+	}
+	
+	@RequestMapping("detail.co")//게시글 내용 띄우기
 	public String selectBoard(int boardNo, @RequestParam(value="cpage", defaultValue="1") int currentPage, @RequestParam(value="category", defaultValue="0") int boardLevel, Model model) {
 		
 		int boardCount = communityService.selectListCount(boardLevel);
@@ -101,6 +124,49 @@ public class CommunityController {
 	    Gson gson = gsonBuilder.create();
 	    String json = gson.toJson(rlist);
 	    return json;
+	}
+	@ResponseBody
+	@RequestMapping("rinsert.co")
+	public String ajaxInsertReply(Reply r) {
+		//성공했을 때는 success, 실패했을 때 fail
+		return communityService.insertReply(r) > 0 ? "success" : "fail";
+	}
+
+	@ResponseBody
+	@RequestMapping("rdelete.co")
+	public ModelAndView deleteReply(int boardReplyNo, int boardLevel, int boardNo, HttpSession session, ModelAndView mv) {
+		
+		int result = communityService.deleteReply(boardReplyNo);
+
+		if (result > 0) { //성공 => list페이지로 이동
+			session.setAttribute("infoMessage", "댓글이 삭제되었습니다.");
+			mv.setViewName("redirect:detail.co?category=" + boardLevel + "&cpage=1&boardNo=" + boardNo);
+		} else { //실패 => 에러페이지
+			mv.addObject("errorMessage", "오류가 발생했습니다.");
+			mv.setViewName("redirect:detail.co?category=" + boardLevel + "&cpage=1&boardNo=" + boardNo);
+		}
+		
+		return mv;
+	}
+	
+	@ResponseBody
+	@RequestMapping("thumbUpCount.co")//추천 수 확인
+	public int ajaxThumbUpCount(int boardNo) {
+		System.out.println(boardNo);
+		return communityService.thumbUpCount(boardNo);
+	}
+	
+	@ResponseBody
+	@RequestMapping("thumbUpCheck.co")//추천 버튼 클릭 여부 확인
+	public int ajaxthumbUpCheck(ThumbUp t) {
+		return communityService.thumbUpCheck(t);
+	}
+	
+	@ResponseBody
+	@RequestMapping("thumbUpClick.co")//추천하기
+	public String ajaxthumbUpClick(ThumbUp t) {
+		//성공했을 때는 success, 실패했을 때 fail
+		return communityService.thumbUpClick(t) > 0 ? "success" : "fail";
 	}
 	
 	@RequestMapping("enrollForm.co")//게시글 작성 화면
@@ -212,32 +278,8 @@ public class CommunityController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("rinsert.co")
-	public String ajaxInsertReply(Reply r) {
-		//성공했을 때는 success, 실패했을 때 fail
-		return communityService.insertReply(r) > 0 ? "success" : "fail";
-	}
-	
-	@ResponseBody
 	@RequestMapping(value="topList.co", produces="application/json; charset=UTF-8")
 	public String ajaxTopBoardList() {
 		return new Gson().toJson(communityService.selectTopBoardList());
-	}
-	
-	@ResponseBody
-	@RequestMapping("rdelete.co")
-	public ModelAndView deleteReply(int boardReplyNo, int boardLevel, int boardNo, HttpSession session, ModelAndView mv) {
-		System.out.println(boardReplyNo);
-		int result = communityService.deleteReply(boardReplyNo);
-
-		if (result > 0) { //성공 => list페이지로 이동
-			session.setAttribute("infoMessage", "댓글이 삭제되었습니다.");
-			mv.setViewName("redirect:detail.co?category=" + boardLevel + "&cpage=1&boardNo=" + boardNo);
-		} else { //실패 => 에러페이지
-			mv.addObject("errorMessage", "오류가 발생했습니다.");
-			mv.setViewName("redirect:detail.co?category=" + boardLevel + "&cpage=1&boardNo=" + boardNo);
-		}
-		
-		return mv;
 	}
 }
