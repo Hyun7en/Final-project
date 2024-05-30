@@ -29,10 +29,10 @@ public class FishInfoController {
 	@RequestMapping(value="fishDetail.fi", produces="application/json; charset=UTF-8")
 	public String fishDetail(@RequestParam(value="fishName") String fishName, Model model) {
 		
-		
+		System.out.println(fishName);
 		Fish fish = fishService.fishDetail(fishName);		
 		
-		System.out.println(fish);
+		
 		model.addAttribute("fish", fish);
 		
 		return "fishInfo/fishInfoDetail";

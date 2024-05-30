@@ -135,11 +135,11 @@
 				scientific_name,
 				grow_together,
 				environment,
-				life_span,
-				feed_type
+				life_span
+
 		FROM public.fish 
 		JOIN public.fish_attachment using(fish_file_no)
-		JOIN public.feed using(taste_type)
+
 		WHERE fish_name = #{fishName}
 	</select>
 	
@@ -149,8 +149,7 @@
 			   origin_name
 		FROM public.fish
 		JOIN public.fish_attachment using(fish_file_no)
-		WHERE fish_type = #{fishType} 
-          AND tendency = #{tendency} 
-          AND taste_type = #{tasteType}
+		WHERE fish_type = #{fishType}
+		LIMIT 5
 	</select>
 </mapper>

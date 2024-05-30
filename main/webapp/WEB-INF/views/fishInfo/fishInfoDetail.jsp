@@ -168,7 +168,7 @@
                     <p>해당 물고기가 속한 종의 다른 물고기가 궁금하신가요?</p>
                 </div>
 
-                <div class="store-product" >
+                <div id="store-another-fish" >
                     
                 </div>
                 
@@ -182,35 +182,28 @@
                 </div>
 
                 <div id="youtube-btn">
-                    <a href="#"><div class="two-btn-div-1">물갈이 하는 방법</div></a>
-                    <a href="#"><div class="two-btn-div-1">먹이주는 방법</div></a>
-                    <a href="#"><div class="two-btn-div-5">물고기가 힘들어보일 때</div></a>
-                    <a href="#"><div class="two-btn-div-1">인테리어</div></a>
-                    <a href="#"><div class="two-btn-div-5">수온/수질 맞추는 방법</div></a>
-                    <a href="#"><div class="two-btn-div-4">물고기 키우는 꿀팁</div></a>
+                    <a href="javascript:void(0);" onclick="drawYoutube('t1');"><div class="two-btn-div-1">물갈이 하는 방법</div></a>
+                    <a href="javascript:void(0);" onclick="drawYoutube('t2');"><div class="two-btn-div-1">먹이주는 방법</div></a>
+                    <a href="javascript:void(0);" onclick="drawYoutube('t3');"><div class="two-btn-div-5">물고기가 힘들어보일 때</div></a>
+                    <a href="javascript:void(0);" onclick="drawYoutube('t4');"><div class="two-btn-div-1">인테리어</div></a>
+                    <a href="javascript:void(0);" onclick="drawYoutube('t5');"><div class="two-btn-div-5">수온/수질 맞추는 방법</div></a>
+                    <a href="javascript:void(0);" onclick="drawYoutube('t6');"><div class="two-btn-div-4">물고기 키우는 꿀팁</div></a>
 
                 </div>
 
-               
+            
                 <div class="youtube-contents">
                     <div class="vedio">
-                        <iframe width="475" height="260" src="https://www.youtube.com/embed/LtL4BLlLNko?si=7wYvDVZFE0UBE6c6" title="YouTube video player"
+                        <iframe width="475" height="260" src="https://www.youtube.com/embed/hNv-O1zmqkA?si=RjKi2DwRLNywBKc-" title="YouTube video player"
                         frameborder="16" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="border-radius: 16px;"></iframe>
                     </div>
-                    <div class="container">
-                        <ul id="result"></ul>
+                    <div class="vedio">
+                        <iframe width="475" height="260" src="https://www.youtube.com/embed/2FZf6xqlNt0?si=jAEyxceiS4_f9-J2" title="YouTube video player" 
+                        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="border-radius: 16px;"></iframe>
                     </div>
                 </div>
 
-                <div class="youtube-contents">
-                    <div class="vedio">
-                        <iframe width="475" height="260" src="https://www.youtube.com/embed/OzGbT1jBQ84?si=rewbx7a0nc8Ym9a0" title="YouTube video player" 
-                        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="border-radius: 16px;"></iframe>
-                    </div>
-                    <div class="container">
-                        <ul id="result2"></ul>
-                    </div>
-                </div>
+
             </section>
 
             <section id="quration-community">
@@ -224,7 +217,7 @@
                 </div>
 
                 <div id="goto-q-c">
-                    <a href="">
+                    <a href="gotoCuration.cu">
                         <div class="go-quration-community">
                             <p>큐레이션으로 가기</p>
                         </div>

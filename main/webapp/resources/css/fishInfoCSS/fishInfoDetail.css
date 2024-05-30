@@ -8,7 +8,7 @@ main{
 
 #main-div{
     width: 1050px;
-    height: 3300px;
+    height: 3000px;
     margin-top: 80px;
 
 }
@@ -153,6 +153,13 @@ main{
     color: white;
 }
 
+#two-img img{
+    height: 400px;
+    width: 400px;
+    border-radius: 100%;
+    object-fit: cover;
+}
+
 #two-img-explain{
     display: flex;
     margin-top: 50px;
@@ -241,6 +248,29 @@ main{
     height: 165px;
 }
 
+#store-another-fish{
+    width: 1050px;
+    height: 210px;
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    column-gap: 50px;
+    row-gap: 20px;
+    border-radius: 16px;
+}
+
+#store-another-fish img{
+    width: 165px;
+    height: 165px;
+    border-radius: 16px;
+}
+
+#store-another-fish a{
+    text-decoration: none;
+    color: black;
+    text-align: center;
+}
+
+
 /* 네번 째 섹션 */
 #another-fish{
     display: flex;
@@ -283,6 +313,8 @@ main{
     height: 250px;
     display: flex;
     margin-top: 40px;
+    align-items: center;
+    justify-content: center;
 }
 
 .vedio{
