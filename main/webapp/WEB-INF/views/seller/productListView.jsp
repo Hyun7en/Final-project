@@ -42,15 +42,6 @@
 
             </div>
 
-            <c:if test="${not empty condition}">
-                <script>
-                    window.onload = function () {
-                        const opt = document.querySelector("#search-area option[value=${condition}]");
-                        opt.setAttribute("selected", true);
-                    }
-                </script>
-            </c:if>
-
             <table>
                 <thead>
                     <tr>
@@ -61,14 +52,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach var="pd" items="${product}">
-	            	<tr onclick = "location.href = 'detail.pd?pno=${pd.pNo}'">
-	           			<td>${pd.boardNo }</td>
-	           			<td>${pd.boardTitle }</td>
-	           			<td>${pd.boardWriter }</td>
-	           			<td>${pd.count }</td>
-	           		</tr>
-           		</c:forEach>
+                    <c:forEach var="pd" items="${list}">
+                        <tr onclick = "location.href = 'detail.pd?pno=${pd.pdNo}'">
+                            <td>${pd.pdNo}</td>
+                            <td>${pd.pdCategory}</td>
+                            <td>${pd.pdTitle}</td>
+                            <td>${pd.pdEnrollDate}</td>
+                        </tr>
+                    
+           		    </c:forEach>
                 </tbody>
             </table>
 

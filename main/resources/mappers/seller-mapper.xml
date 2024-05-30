@@ -36,16 +36,16 @@
 	</resultMap>
 	
 	<resultMap type="Product" id="productResult">
-		<result column="P_NO" property="pNo"/>
-		<result column="P_CATEGORY" property="pCategory"/>
-		<result column="P_TITLE" property="pTitle"/>
-		<result column="P_PRICE" property="pPrice"/>
-		<result column="P_CONTENT" property="pContent"/>
-		<result column="P_ENROLL_FORM" property="pEnrollForm"/>
-		<result column="P_STAR" property="pStar"/>
-		<result column="P_ORIGIN_NAME" property="pOriginName"/>
-		<result column="P_CHANGE_NAME" property="pChangeName"/>	
-		<result column="P_STATUS" property="pStatus"/>	
+		<result column="P_NO" property="pdNo"/>
+		<result column="P_CATEGORY" property="pdCategory"/>
+		<result column="P_TITLE" property="pdTitle"/>
+		<result column="P_PRICE" property="pdPrice"/>
+		<result column="P_CONTENT" property="pdContent"/>
+		<result column="P_ENROLL_DATE" property="pdEnrollDate"/>
+		<result column="P_STAR" property="pdStar"/>
+		<result column="P_ORIGIN_NAME" property="pdOriginName"/>
+		<result column="P_CHANGE_NAME" property="pdChangeName"/>	
+		<result column="P_STATUS" property="pdStatus"/>	
 	</resultMap> 
 	
 	<resultMap type="ProductOption" id="productOptionResult">
@@ -164,5 +164,22 @@
 							 		 #{option}
 						 		 	  )	
 	</insert>
+	
+	<!-- 게시글의 총 갯수 조회 -->
+	<select id="selectProductListCount" resultType="_int">
+		SELECT COUNT(*)
+		  FROM PRODUCT
+		 WHERE P_STATUS = 'Y'
+	</select>
+	
+	<select id="ProductList" resultMap="productResult">
+		SELECT P_NO,
+			   P_CATEGORY,
+			   P_TITLE,
+			   TO_CHAR(P_ENROLL_DATE, 'YYYY-MM-DD') AS "P_ENROLL_DATE"
+		  FROM PRODUCT
+		 WHERE P_STATUS = 'Y'
+		 ORDER BY P_NO DESC  
+	</select>
 
 </mapper>

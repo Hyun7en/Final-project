@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.psvm.commons.vo.PageInfo;
 import com.psvm.seller.dao.SellerDao;
 import com.psvm.seller.vo.Product;
 import com.psvm.seller.vo.ProductCategory;
@@ -66,6 +67,19 @@ public class SellerServiceImpl implements SellerService {
 								
 		
 		return t1*t2;
+	}
+
+	@Override
+	public int selectProductListCount() {
+		int count = sellerDao.selectProductListCount(sqlSession);
+		
+		return count;
+	}
+
+	@Override
+	public ArrayList<Product> ProductList(PageInfo pi) {
+		
+		return sellerDao.ProductList(sqlSession, pi);
 	}
 
 	

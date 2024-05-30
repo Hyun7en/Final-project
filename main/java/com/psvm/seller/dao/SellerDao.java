@@ -4,10 +4,12 @@ package com.psvm.seller.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.psvm.commons.vo.PageInfo;
 import com.psvm.seller.vo.Product;
 import com.psvm.seller.vo.ProductCategory;
 import com.psvm.seller.vo.SellerInfo;
@@ -92,4 +94,15 @@ public class SellerDao {
 		return result;	
 	}
 
+	public int selectProductListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("sellerMapper.selectProductListCount");
+	}
+
+	public ArrayList<Product> ProductList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("sellerMapper.ProductList", null, rowBounds);
+	}
 }

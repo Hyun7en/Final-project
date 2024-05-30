@@ -25,6 +25,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+import com.psvm.commons.template.Pagination;
+import com.psvm.commons.vo.PageInfo;
 import com.psvm.member.vo.Member;
 import com.psvm.seller.service.SellerService;
 import com.psvm.seller.vo.Product;
@@ -215,8 +217,8 @@ public class SellerController {
     	
          if (!productImage.getOriginalFilename().isEmpty()) {
              String changeName = saveFile(productImage, session);
-             product.setPOriginName(productImage.getOriginalFilename());
-             product.setPChangeName("resources/upFiles/" + changeName);
+             product.setPdOriginName(productImage.getOriginalFilename());
+             product.setPdChangeName("resources/upFiles/" + changeName);
          }
 
          try {
@@ -296,6 +298,25 @@ public class SellerController {
   		return changeName;
   	}
     
+  	//상품 리스트
+    @RequestMapping("list.pd")
+  	public String ProductList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
+		int boardCount = sellerService.selectProductListCount();
+		//logger.info("list.bo 실행");
+		
+		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 5);
+		ArrayList<Product> list = sellerService.ProductList(pi);
+		
+		System.out.println(list);
+
+		log.info("list",list);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
+		
+		return "seller/productListView";
+	}
+    
     // 옵션 불러오는 ajax
     @RequestMapping(value = "options.ax", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
     @ResponseBody
@@ -306,17 +327,15 @@ public class SellerController {
         return gson.toJson(sellerService.selectCategories(businessNo));
     }
     
-    @RequestMapping("detail.pd")
-  	public String selectProduct() {
-    	
-  		return "";
-  	}
-    
-    @RequestMapping("list.pd")
-  	public String ProductList() {
-    	
-  		return "seller/productListView";
-  	}
+//    @RequestMapping("detail.pd")
+//	public String selectProduct(int pno, Model model) {
+//		
+//		
+//			Product p = sellerService.selectProduct(pno);
+//			model.addAttribute("p", p);
+//			
+//			return "seller/sellerProductDetailView";
+//	}
     
     @RequestMapping("updateForm.pd")
   	public String productUpdateForm() {
