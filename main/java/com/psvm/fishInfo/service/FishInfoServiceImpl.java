@@ -1,6 +1,7 @@
 package com.psvm.fishInfo.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,28 @@ public class FishInfoServiceImpl implements FishInfoService{
 	public ArrayList<Fish> ajaxSearchFish(PageInfo pi, String fishName) {
 		
 		return fishInfoDao.ajaxSearchFish(sqlSession, pi, fishName);
+	}
+
+	@Override
+	public ArrayList<Fish> ajaxCategorySearch(PageInfo pi, String cate) {
+		
+		return fishInfoDao.ajaxCategorySearch(sqlSession, pi, cate);
+	}
+
+	@Override
+	public int selectcateCount(String cate) {
+		int count = fishInfoDao.selectcateCount(sqlSession, cate);
+		return count;
+	}
+
+	@Override
+	public Fish fishDetail(String fishName) {
+		return fishInfoDao.fishDetail(sqlSession, fishName);
+	}
+
+	@Override
+	public ArrayList<Fish> anotherFishAjax(HashMap<String, String> map) {
+		return fishInfoDao.anotherFishAjax(sqlSession, map);
 	}
 
 	

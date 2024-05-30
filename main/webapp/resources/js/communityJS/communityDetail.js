@@ -11,6 +11,44 @@
 //     }
 // }
 
+function boCategory(category){
+    location.href = "list.co?category=" + category + "&cpage=1";
+}
+
+function categorySelected() {
+    function getCategoryFromUrl() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get('category');
+    }
+    var buttons = document.querySelectorAll(".com-nav");
+    const category = getCategoryFromUrl();
+
+    buttons.forEach(function(button){
+
+        if(button.value === category){
+            button.id = "com-nav-selected";
+        }
+    })
+}
+
+function categorySelectedsc(boardLevel) {
+    var buttons = document.querySelectorAll(".com-nav");
+    buttons.forEach(function(button){
+        if(button.value === boardLevel){
+            button.id = "com-nav-selected";
+        }
+    })
+}
+
+//검색어 조건 고정
+function conditionSelected(condition){
+    console.log(condition)
+    if(Object.keys(condition).length !== 0){
+        const opt = document.querySelector("#com-condition option[value=" + condition + "]");
+        opt.setAttribute("selected", true);
+    }
+}
+
 function deleteReply(boardReplyNo, boardLevel, boardNo){
     swal({
     title: "WARNING",
@@ -220,4 +258,30 @@ function ajaxthumbUpClick(data, callback){
             console.log("추천 입력 실패");
         }
     })
+}
+
+//게시글 열람 링크(list)
+function show(boardLevel, cpage, boardNo){
+    location.href = "detail.co?category=" + boardLevel + "&cpage=" + cpage + "&boardNo=" + boardNo;
+}
+
+//게시글 열람 링크(searchlist)
+function showsearch(boardNo){
+    document.querySelector(`#show-${boardNo}`).submit()
+}
+
+
+
+//페이지 이동(searchlist)
+function prevpage(){
+    document.querySelector('#prevpage-link').submit();
+}
+
+function numpage(num){
+    console.log(num);
+    document.querySelector(`#numpage-link-${num}`).submit();
+}
+
+function nextpage(){
+    document.querySelector('#nextpage-link').submit();
 }

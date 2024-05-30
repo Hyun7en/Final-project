@@ -12,6 +12,18 @@
 		<result column="taste_type" property="tasteType"/>
 		<result column="fish_file_no" property="fishFileNo"/>
 		<result column="fish_name" property="fishName"/>
+		<result column="tendency" property="tendency"/>
+		<result column="origin_name" property="url"/>
+
+	</resultMap>
+	
+	<resultMap type="Fish" id="fishDetailInfoResult">
+	
+		<result column="fish_no" property="fishNo"/>
+		<result column="fish_type" property="fishType"/>
+		<result column="taste_type" property="tasteType"/>
+		<result column="fish_file_no" property="fishFileNo"/>
+		<result column="fish_name" property="fishName"/>
 		<result column="temperature" property="temperature"/>
 		<result column="ration_time" property="rationTime"/>
 		<result column="top_or_bottom" property="topOrBottom"/>
@@ -19,7 +31,18 @@
 		<result column="field" property="field"/>
 		<result column="light" property="light"/>
 		<result column="origin_name" property="url"/>
-		
+		<result column="caution" property="caution"/>
+		<result column="scientific_name" property="scientificName"/>
+		<result column="grow_together" property="growTogether"/>
+		<result column="environment" property="environment"/>
+		<result column="life_span" property="lifeSpan"/>
+		<result column="feed_type" property="feedType"/>
+	</resultMap>
+	
+	<resultMap type="Fish" id="anotherFish">
+		<result column="fish_no" property="fishNo"/>
+		<result column="fish_name" property="fishName"/>
+		<result column="origin_name" property="url"/>
 	</resultMap>
 	
 	<select id="selectListCount" resultType="_int">
@@ -68,5 +91,65 @@
 		JOIN public.fish_attachment using(fish_file_no)
 		WHERE fish_name like'%' || #{fishName} || '%'
 		ORDER BY fish_no ASC
+	</select>
+	
+	<select id="selectcateCount" resultType="_int">
+		SELECT COUNT(*) 
+		FROM public.fish
+		WHERE fish_type = #{cate}
+	</select>
+	
+	<select id="ajaxCategorySearch" resultMap="fishInfoResult">
+		SELECT fish_no,
+			   fish_type,
+			   taste_type,
+			   fish_file_no,
+			   fish_name,
+			   temperature,
+			   ration_time,
+			   top_or_bottom,
+			   tendency,
+				field,
+				light,
+				origin_name
+		FROM public.fish
+		JOIN public.fish_attachment using(fish_file_no)
+		WHERE fish_type = #{cate}
+		ORDER BY fish_no ASC
+	</select>
+	
+	<select id="fishDetail" resultMap="fishDetailInfoResult">
+		SELECT fish_no,
+			   fish_type,
+			   taste_type,
+			   fish_file_no,
+			   fish_name,
+			   temperature,
+			   ration_time,
+			   top_or_bottom,
+			   tendency,
+				field,
+				light,
+				origin_name,
+				caution,
+				scientific_name,
+				grow_together,
+				environment,
+				life_span
+
+		FROM public.fish 
+		JOIN public.fish_attachment using(fish_file_no)
+
+		WHERE fish_name = #{fishName}
+	</select>
+	
+	<select id="anotherFishAjax" parameterType="map" resultMap="anotherFish">
+		SELECT fish_no,
+			   fish_name,
+			   origin_name
+		FROM public.fish
+		JOIN public.fish_attachment using(fish_file_no)
+		WHERE fish_type = #{fishType}
+		LIMIT 5
 	</select>
 </mapper>

@@ -1,6 +1,7 @@
 package com.psvm.fishInfo.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -31,6 +32,25 @@ public class FishInfoDao {
 		
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("fishMapper.ajaxSearchFish", fishName, rowBounds);
+	}
+	
+	public int selectcateCount(SqlSessionTemplate sqlSession, String cate) {
+		return sqlSession.selectOne("fishMapper.selectcateCount",cate);
+	}
+	
+	public ArrayList<Fish> ajaxCategorySearch(SqlSessionTemplate sqlSession, PageInfo pi, String cate){
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("fishMapper.ajaxCategorySearch", cate, rowBounds);
+	}
+	
+	public Fish fishDetail(SqlSessionTemplate sqlSession, String fishName){
+		return sqlSession.selectOne("fishMapper.fishDetail", fishName);
+	}
+	
+	public ArrayList<Fish> anotherFishAjax(SqlSessionTemplate sqlSession, HashMap<String, String> map){
+		return (ArrayList)sqlSession.selectList("fishMapper.anotherFishAjax", map);
 	}
 	
 }
