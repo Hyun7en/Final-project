@@ -72,5 +72,17 @@ public class ManagerController {
 		return "manager/managerSellerProductApplication";
 	}
 	
+	@RequestMapping("customerOnetoOne.ma")
+	public String customerOnetoOne(HttpSession session, String categoryName) {
+		session.setAttribute("categoryName", categoryName);
+		return "manager/managerCustomerOnetoOne";
+		
+	}
 	
+	@RequestMapping("customerOutlist.ma")
+	public String customerOutlist(HttpSession session, String categoryName) {
+		session.setAttribute("categoryName", categoryName);
+		return "manager/managerCustomerOutlist";
+		
+	}
 }

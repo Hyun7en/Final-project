@@ -21,11 +21,6 @@
 		<result column="STATUS" property="status"/>	
 	</resultMap>
 	
-
-
- 	<!-- <resultMap type="SellerPage" id="sellerResult">
-		<result column="SELLER_PAGE_NO" property="sellerPageNo"/>
-
  	<resultMap type="SellerPage" id="sellerPageResult">
  		<result column="SELLER_PAGE_NO" property="sellerPageNo"/>
 		<result column="BUSINESS_NO" property="businessNo"/>
@@ -183,8 +178,11 @@
 			   P_TITLE,
 			   TO_CHAR(P_ENROLL_DATE, 'YYYY-MM-DD') AS "P_ENROLL_DATE"
 		  FROM PRODUCT
+		  JOIN product_category using(p_category)
+		  JOIN seller_page	using(seller_page_no)
 		 WHERE P_STATUS = 'Y'
-		 ORDER BY P_NO DESC  
+		   and business_no = #{businessNo}
+		 ORDER BY P_NO DESC; 
 	</select>
 
 </mapper>
