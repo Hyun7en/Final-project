@@ -54,11 +54,15 @@ public class MyPageDao {
 		return (ArrayList)sqlSession.selectList("myPageMapper.inquiryList", userNo);
 	}
 	
-	public String sellerConversionStatus(SqlSessionTemplate sqlSession, int userNo) {
-		return sqlSession.selectOne("myPageMapper.sellerConversionStatus", userNo);
+	public int selectSellerConversionAuthority(SqlSessionTemplate sqlSession, int userNo) {
+		return sqlSession.selectOne("myPageMapper.selectSellerConversionAuthority", userNo);
 	}
 	
-	public int sellerInfoList(SqlSessionTemplate sqlSession, SellerInfo s){
-		return sqlSession.insert("myPageMapper.sellerInfoList", s);
+	public String selectSellerConversionStatus(SqlSessionTemplate sqlSession, int userNo) {
+		return sqlSession.selectOne("myPageMapper.selectSellerConversionStatus", userNo);
+	}
+	
+	public int sellerInfoInsert(SqlSessionTemplate sqlSession, SellerInfo s){
+		return sqlSession.insert("myPageMapper.sellerInfoInsert", s);
 	}
 }
