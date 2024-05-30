@@ -15,7 +15,7 @@
 <body>
     <header>
         <div id="adminMenubar-logo">
-            <h1>Aquaqu</h1>
+            <a href="home.ma"><h1>Aquaqu</h1></a>
             <div id="adminMenubar-link">
                 <ul>
                     <li>

@@ -60,15 +60,15 @@
                         </li>
 
                         <li class="quick-move-li">
-                            <a href="#">관심상품</a>
+                            <a href="interestProduct.my">관심상품</a>
                         </li>
 
                         <li class="quick-move-li">
-                            <a href="#">주문 내역</a>
+                            <a href="orderHistory.my">주문 내역</a>
                         </li>
 
                         <li class="quick-move-li">
-                            <a href="#">장바구니</a>
+                            <a href="cart.my">장바구니</a>
                         </li>
 
                         <li class="quick-move-li">
