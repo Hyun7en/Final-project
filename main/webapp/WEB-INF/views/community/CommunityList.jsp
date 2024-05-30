@@ -75,28 +75,37 @@
                     <th style="width: 135px;">작성일</th>
                     <th style="width: 120px; border-radius: 0 10px 0 0;">조회수</th>
                 </thead>
-                <c:forEach var="b" items="${list}" varStatus="order">
-                    <c:choose>
-                        <c:when test="${order.last}">
-                            <tbody id="com-list-bottom">
-                                <td style="border-radius: 0 0 0 10px;">${b.boardNo}</td>
-                                <td><a href="javascript:show(${b.boardLevel}, ${pi.currentPage}, ${b.boardNo})" class="com-link-${b.boardNo}">${b.boardTitle}</a></td>
-                                <td>${b.nickname}</td>
-                                <td>${b.writeDate}</td>
-                                <td style="border-radius: 0 0 10px 0;">${b.boardCount}</td>
-                            </tbody>
-                        </c:when>
-                        <c:otherwise>
-                            <tbody id="com-list-body">
-                                <td>${b.boardNo}</td>
-                                <td><a href="javascript:show(${b.boardLevel}, ${pi.currentPage}, ${b.boardNo})" class="com-link-${b.boardNo}">${b.boardTitle}</a></td>
-                                <td>${b.nickname}</td>
-                                <td>${b.writeDate}</td>
-                                <td>${b.boardCount}</td>
-                            </tbody>
-                        </c:otherwise>
-                    </c:choose> 
-                </c:forEach>
+                <c:choose>
+                    <c:when test="${empty list}">
+                        <tbody id="com-list-bottom">
+                            <td colspan="5" style="border-radius: 0 0 10px 10px;">게시글이 존재하지 않습니다.</td>
+                        </tbody>
+                    </c:when>
+                    <c:otherwise>
+                        <c:forEach var="b" items="${list}" varStatus="order">
+                            <c:choose>
+                                <c:when test="${order.last}">
+                                    <tbody id="com-list-bottom">
+                                        <td style="border-radius: 0 0 0 10px;">${b.boardNo}</td>
+                                        <td><a href="javascript:show(${b.boardLevel}, ${pi.currentPage}, ${b.boardNo})" class="com-link-${b.boardNo}">${b.boardTitle}</a></td>
+                                        <td>${b.nickname}</td>
+                                        <td>${b.writeDate}</td>
+                                        <td style="border-radius: 0 0 10px 0;">${b.boardCount}</td>
+                                    </tbody>
+                                </c:when>
+                                <c:otherwise>
+                                    <tbody id="com-list-body">
+                                        <td>${b.boardNo}</td>
+                                        <td><a href="javascript:show(${b.boardLevel}, ${pi.currentPage}, ${b.boardNo})" class="com-link-${b.boardNo}">${b.boardTitle}</a></td>
+                                        <td>${b.nickname}</td>
+                                        <td>${b.writeDate}</td>
+                                        <td>${b.boardCount}</td>
+                                    </tbody>
+                                </c:otherwise>
+                            </c:choose> 
+                        </c:forEach>
+                    </c:otherwise>
+                </c:choose>
             </table>
             <div class="com-bottom1">
                 <div class="com-bottom-left">
@@ -131,7 +140,7 @@
                                 <li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
                             </c:when>
                             <c:otherwise>
-                                <li class="page-item"><a class="page-link" href="list.co?category=${b.boardLevel}&cpage=${pi.currentPage - 1}">&laquo;</a></li>
+                                <li class="page-item"><a class="page-link" href="list.co?category=${boardLevel}&cpage=${pi.currentPage - 1}">&laquo;</a></li>
                             </c:otherwise>
                     </c:choose>
                 
@@ -145,7 +154,7 @@
                             <li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
                         </c:when>
                         <c:otherwise>
-                            <li class="page-item"><a class="page-link" href="list.co?category=${b.boardLevel}&cpage=${pi.currentPage + 1}">&raquo;</a></li>
+                            <li class="page-item"><a class="page-link" href="list.co?category=${boardLevel}&cpage=${pi.currentPage + 1}">&raquo;</a></li>
                         </c:otherwise>
                     </c:choose>
                      </ul>

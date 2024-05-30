@@ -65,7 +65,7 @@
                 <c:choose>
                     <c:when test="${empty list}">
                         <tbody id="com-list-bottom">
-                            <td colspan="5" style="border-radius: 0 0 10px 10px;">검색 결과가 존재하지 않습니다.</td>
+                            <td colspan="5" style="border-radius: 0 0 10px 10px;">게시글이 존재하지 않습니다.</td>
                         </tbody>
                     </c:when>
                     <c:otherwise>
@@ -73,20 +73,32 @@
                             <c:choose>
                                 <c:when test="${order.last}">
                                     <tbody id="com-list-bottom">
-                                        <td style="border-radius: 0 0 0 10px;">${b.boardNo}</td>
-                                        <td><a href="javascript:show(${b.boardLevel}, ${pi.currentPage}, ${b.boardNo})" class="com-link-${b.boardNo}">${b.boardTitle}</a></td>
-                                        <td>${b.nickname}</td>
-                                        <td>${b.writeDate}</td>
-                                        <td style="border-radius: 0 0 10px 0;">${b.boardCount}</td>
+                                        <form id="show-${b.boardNo}" action="detail.co?category=${b.boardLevel}&cpage=${pi.currentPage}&boardNo=${b.boardNo}" method="post">
+                                            <input type="hidden" name="condition" value="${condition}">
+                                            <input type="hidden" name="keyword" value="${keyword}">
+                                            <input type="hidden" name="boardLevel" value="${boardLevel}">
+                                            <input type="hidden" name="currentPage" value="${pi.currentPage}">
+                                            <td style="border-radius: 0 0 0 10px;">${b.boardNo}</td>
+                                            <td><a href="#" onclick="showsearch('${b.boardNo}')" class="com-link-${b.boardNo}">${b.boardTitle}</a></td>
+                                            <td>${b.nickname}</td>
+                                            <td>${b.writeDate}</td>
+                                            <td style="border-radius: 0 0 10px 0;">${b.boardCount}</td>
+                                        </form>
                                     </tbody>
                                 </c:when>
                                 <c:otherwise>
                                     <tbody id="com-list-body">
-                                        <td>${b.boardNo}</td>
-                                        <td><a href="javascript:show(${b.boardLevel}, ${pi.currentPage}, ${b.boardNo})" class="com-link-${b.boardNo}">${b.boardTitle}</a></td>
-                                        <td>${b.nickname}</td>
-                                        <td>${b.writeDate}</td>
-                                        <td>${b.boardCount}</td>
+                                        <form id="show-${b.boardNo}" action="detail.co?category=${b.boardLevel}&cpage=${pi.currentPage}&boardNo=${b.boardNo}" method="post">
+                                            <input type="hidden" name="condition" value="${condition}">
+                                            <input type="hidden" name="keyword" value="${keyword}">
+                                            <input type="hidden" name="boardLevel" value="${boardLevel}">
+                                            <input type="hidden" name="currentPage" value="${pi.currentPage}">
+                                            <td style="border-radius: 0 0 0 10px;">${b.boardNo}</td>
+                                            <td><a href="#" onclick="showsearch('${b.boardNo}')" class="com-link-${b.boardNo}">${b.boardTitle}</a></td>
+                                            <td>${b.nickname}</td>
+                                            <td>${b.writeDate}</td>
+                                            <td style="border-radius: 0 0 10px 0;">${b.boardCount}</td>
+                                        </form>
                                     </tbody>
                                 </c:otherwise>
                             </c:choose>
@@ -127,24 +139,42 @@
                                 <li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
                             </c:when>
                             <c:otherwise>
-                                <li class="page-item"><a class="page-link" href="list.co?category=${b.boardLevel}&cpage=${pi.currentPage - 1}">&laquo;</a></li>
+                                <form id="prevpage-link" action="searchlist.co?category=${boardLevel}&cpage=${pi.currentPage - 1}" method="post">
+                                    <input type="hidden" name="condition" value="${condition}">
+                                    <input type="hidden" name="keyword" value="${keyword}">
+                                    <input type="hidden" name="boardLevel" value="${boardLevel}">
+                                    <input type="hidden" name="currentPage" value="${pi.currentPage - 1}">
+                                </form>
+                                <li class="page-item"><a class="page-link" href="#" onclick="return prevpage()">&laquo;</a></li>
                             </c:otherwise>
-                    </c:choose>
+                        </c:choose>
+            
+                        <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+                            <c:set var="b" value="${boardLevel}"/>
+                            <form id="numpage-link-${p}" action="searchlist.co?category=${b}&cpage=${p}" method="post">
+                                <input type="hidden" name="condition" value="${condition}">
+                                <input type="hidden" name="keyword" value="${keyword}">
+                                <input type="hidden" name="boardLevel" value="${b}">
+                                <input type="hidden" name="currentPage" value="${p}">
+                            </form>
+                            <li class="page-item ${p == pi.currentPage ? 'active' : ''}"><a class="page-link" href="#" onclick="return numpage('${p}')">${p}</a></li>
+                        </c:forEach>
                 
-                <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-                    <c:set var="b" value="${boardLevel}"/>
-                    <li class="page-item ${p == pi.currentPage ? 'active' : ''}"><a class="page-link" href="list.co?category=${b}&cpage=${p}">${p}</a></li>
-                </c:forEach>
-                    
-                  <c:choose>
-                        <c:when test="${ pi.currentPage eq pi.maxPage }">
-                            <li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
-                        </c:when>
-                        <c:otherwise>
-                            <li class="page-item"><a class="page-link" href="list.co?category=${b.boardLevel}&cpage=${pi.currentPage + 1}">&raquo;</a></li>
-                        </c:otherwise>
-                    </c:choose>
-                     </ul>
+                        <c:choose>
+                            <c:when test="${ pi.currentPage eq pi.maxPage }">
+                                <li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
+                            </c:when>
+                            <c:otherwise>
+                                <form id="nextpage-link" action="searchlist.co?category=${boardLevel}&cpage=${pi.currentPage - 1}" method="post">
+                                    <input type="hidden" name="condition" value="${condition}">
+                                    <input type="hidden" name="keyword" value="${keyword}">
+                                    <input type="hidden" name="boardLevel" value="${boardLevel}">
+                                    <input type="hidden" name="currentPage" value="${pi.currentPage - 1}">
+                                </form>
+                                <li class="page-item"><a class="page-link" href="#" onclick="return nextpage()">&raquo;</a></li>
+                            </c:otherwise>
+                        </c:choose>
+                    </ul>
                 </div>
             </div>
         </main>

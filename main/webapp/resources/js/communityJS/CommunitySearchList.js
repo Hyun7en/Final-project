@@ -4,8 +4,6 @@ function boCategory(category){
 }
 
 function categorySelected(boardLevel) {
-    console.log(boardLevel);
-
     var buttons = document.querySelectorAll(".com-nav");
     buttons.forEach(function(button){
         if(button.value === boardLevel){
@@ -24,8 +22,20 @@ function conditionSelected(condition){
 }
 
 //게시글 열람 링크
-function show(boardLevel, cpage, boardNo){
-    location.href = "detail.co?category=" + boardLevel + "&cpage=" + cpage + "&boardNo=" + boardNo;
+function showsearch(boardNo){
+    document.querySelector(`#show-${boardNo}`).submit()
+}
+
+function prevpage(){
+    document.querySelector('#prevpage-link').submit();
+}
+
+function numpage(num){
+    document.querySelector(`#numpage-link-${num}`).submit();
+}
+
+function nextpage(){
+    document.querySelector('#nextpage-link').submit();
 }
 
 //(기능 안 하는 스크립트)
