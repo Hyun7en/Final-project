@@ -24,11 +24,10 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/communityCSS/communityDetail.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/communityCSS/communityList.css">
 
-    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/communityJS/communityList.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/communityJS/communityDetail.js"></script>
 
 </head>
-<body onload="callReply('${c.boardNo}', '${pageContext.request.contextPath}/resources/image/Cancel.png', '${c.boardLevel}'); callThumbup('${c.boardNo}', '${loginUser.userNo}'); categorySelected();">
+<body onload="callReply('${c.boardNo}', '${pageContext.request.contextPath}/resources/image/Cancel.png', '${c.boardLevel}'); callThumbup('${c.boardNo}', '${loginUser.userNo}'); categorySelectedsc('${c.boardLevel}'); conditionSelected('${condition}');">
     <c:if test="${ not empty errorMessage}">
 		<script>
 			var errorMessage = '${errorMessage}';
@@ -168,38 +167,80 @@
                     <th style="width: 135px;">작성일</th>
                     <th style="width: 120px; border-radius: 0 10px 0 0;">조회수</th>
                 </thead>
-                <c:forEach var="b" items="${list}" varStatus="order">
-                    <c:choose>
-                        <c:when test="${order.last}">
-                            <tbody id="com-list-bottom">
-                                <td style="border-radius: 0 0 0 10px;">${b.boardNo}</td>
-                                <td><a href="javascript:show(${b.boardLevel}, ${pi.currentPage}, ${b.boardNo})" class="com-link-${b.boardNo}">${b.boardTitle}</a></td>
-                                <td>${b.nickname}</td>
-                                <td>${b.writeDate}</td>
-                                <td style="border-radius: 0 0 10px 0;">${b.boardCount}</td>
-                            </tbody>
-                        </c:when>
-                        <c:otherwise>
-                            <tbody id="com-list-body">
-                                <td>${b.boardNo}</td>
-                                <td><a href="javascript:show(${b.boardLevel}, ${pi.currentPage}, ${b.boardNo})" class="com-link-${b.boardNo}">${b.boardTitle}</a></td>
-                                <td>${b.nickname}</td>
-                                <td>${b.writeDate}</td>
-                                <td>${b.boardCount}</td>
-                            </tbody>
-                        </c:otherwise>
-                    </c:choose> 
-                </c:forEach>
+                <c:choose>
+                    <c:when test="${empty keyword}">
+                        <c:forEach var="b" items="${list}" varStatus="order">
+                            <c:choose>
+                                <c:when test="${order.last}">
+                                    <tbody id="com-list-bottom">
+                                        <td style="border-radius: 0 0 0 10px;">${b.boardNo}</td>
+                                        <td><a href="javascript:show(${b.boardLevel}, ${pi.currentPage}, ${b.boardNo})" class="com-link-${b.boardNo}">${b.boardTitle}</a></td>
+                                        <td>${b.nickname}</td>
+                                        <td>${b.writeDate}</td>
+                                        <td style="border-radius: 0 0 10px 0;">${b.boardCount}</td>
+                                    </tbody>
+                                </c:when>
+                                <c:otherwise>
+                                    <tbody id="com-list-body">
+                                        <td>${b.boardNo}</td>
+                                        <td><a href="javascript:show(${b.boardLevel}, ${pi.currentPage}, ${b.boardNo})" class="com-link-${b.boardNo}">${b.boardTitle}</a></td>
+                                        <td>${b.nickname}</td>
+                                        <td>${b.writeDate}</td>
+                                        <td>${b.boardCount}</td>
+                                    </tbody>
+                                </c:otherwise>
+                            </c:choose> 
+                        </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                        <c:forEach var="b" items="${list}" varStatus="order">
+                            <c:choose>
+                                <c:when test="${order.last}">
+                                    <tbody id="com-list-bottom">
+                                        <form id="show-${b.boardNo}" action="detail.co?category=${b.boardLevel}&cpage=${pi.currentPage}&boardNo=${b.boardNo}" method="post">
+                                            <input type="hidden" name="condition" value="${condition}">
+                                            <input type="hidden" name="keyword" value="${keyword}">
+                                            <input type="hidden" name="boardLevel" value="${boardLevel}">
+                                            <input type="hidden" name="currentPage" value="${pi.currentPage}">
+                                            <td style="border-radius: 0 0 0 10px;">${b.boardNo}</td>
+                                            <td><a href="#" onclick="showsearch('${b.boardNo}')" class="com-link-${b.boardNo}">${b.boardTitle}</a></td>
+                                            <td>${b.nickname}</td>
+                                            <td>${b.writeDate}</td>
+                                            <td style="border-radius: 0 0 10px 0;">${b.boardCount}</td>
+                                        </form>
+                                    </tbody>
+                                </c:when>
+                                <c:otherwise>
+                                    <tbody id="com-list-body">
+                                        <form id="show-${b.boardNo}" action="detail.co?category=${b.boardLevel}&cpage=${pi.currentPage}&boardNo=${b.boardNo}" method="post">
+                                            <input type="hidden" name="condition" value="${condition}">
+                                            <input type="hidden" name="keyword" value="${keyword}">
+                                            <input type="hidden" name="boardLevel" value="${boardLevel}">
+                                            <input type="hidden" name="currentPage" value="${pi.currentPage}">
+                                            <td style="border-radius: 0 0 0 10px;">${b.boardNo}</td>
+                                            <td><a href="#" onclick="showsearch('${b.boardNo}')" class="com-link-${b.boardNo}">${b.boardTitle}</a></td>
+                                            <td>${b.nickname}</td>
+                                            <td>${b.writeDate}</td>
+                                            <td style="border-radius: 0 0 10px 0;">${b.boardCount}</td>
+                                        </form>
+                                    </tbody>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                    </c:otherwise>
+                </c:choose>
             </table>
             <div class="com-bottom1">
                 <div class="com-bottom-left">
-                    <select name="condition" id="com-condition">
-                        <option value="title">제목</option>
-                        <option value="writer">글쓴이</option>
-                        <option value="content">내용</option>
-                    </select>
-                    <input type="text" name="keyword" value="" placeholder="검색어 입력">
-                    <button id="com-search-button" type="submit">검색</button>
+                    <form action="searchlist.co?category=${boardLevel}&cpage=1" method="post">
+                        <select name="condition" id="com-condition">
+                            <option value="title">제목</option>
+                            <option value="writer">글쓴이</option>
+                        </select>
+                        <input type="text" name="keyword" value="${keyword}" placeholder="검색어 입력(대소문자 구분)">
+                        <input type="hidden" name="boardLevel" value="${boardLevel}">
+                        <button id="com-search-button" type="submit">검색</button>
+                    </form>
                 </div>
                 <div id="com-bottom-right">
                     <c:choose>
@@ -216,30 +257,78 @@
             </div>
             <div class="com-bottom2">
                 <div id="pagination-div">
-                    <ul class="pagination">
-                        <c:choose>
-                            <c:when test="${ pi.currentPage eq 1 }">
-                                <li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
-                            </c:when>
-                            <c:otherwise>
-                                <li class="page-item"><a class="page-link" href="list.co?category=${b.boardLevel}&cpage=${pi.currentPage - 1}">&laquo;</a></li>
-                            </c:otherwise>
-                    </c:choose>
-                
-                <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-                    <c:set var="b" value="${list[0].boardLevel}"/>
-                    <li class="page-item ${p == pi.currentPage ? 'active' : ''}"><a class="page-link" href="list.co?category=${b}&cpage=${p}">${p}</a></li>
-                </c:forEach>
-                    
-                  <c:choose>
-                        <c:when test="${ pi.currentPage eq pi.maxPage }">
-                            <li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
+                    <c:choose>
+                        <c:when test="${empty keyword}">
+                            <ul class="pagination">
+                                <c:choose>
+                                    <c:when test="${ pi.currentPage eq 1 }">
+                                        <li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li class="page-item"><a class="page-link" href="list.co?category=${boardLevel}&cpage=${pi.currentPage - 1}">&laquo;</a></li>
+                                    </c:otherwise>
+                                </c:choose>
+                        
+                                <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+                                    <c:set var="b" value="${boardLevel}"/>
+                                    <li class="page-item ${p == pi.currentPage ? 'active' : ''}"><a class="page-link" href="list.co?category=${b}&cpage=${p}">${p}</a></li>
+                                </c:forEach>
+                            
+                                <c:choose>
+                                    <c:when test="${ pi.currentPage eq pi.maxPage }">
+                                        <li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li class="page-item"><a class="page-link" href="list.co?category=${boardLevel}&cpage=${pi.currentPage + 1}">&raquo;</a></li>
+                                    </c:otherwise>
+                                </c:choose>
+                            </ul>
                         </c:when>
                         <c:otherwise>
-                            <li class="page-item"><a class="page-link" href="list.co?category=${b.boardLevel}&cpage=${pi.currentPage + 1}">&raquo;</a></li>
+                            <ul class="pagination">
+                                <c:choose>
+                                    <c:when test="${ pi.currentPage eq 1 }">
+                                        <li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <form id="prevpage-link" action="searchlist.co?category=${boardLevel}&cpage=${pi.currentPage - 1}" method="post">
+                                            <input type="hidden" name="condition" value="${condition}">
+                                            <input type="hidden" name="keyword" value="${keyword}">
+                                            <input type="hidden" name="boardLevel" value="${boardLevel}">
+                                            <input type="hidden" name="currentPage" value="${pi.currentPage - 1}">
+                                        </form>
+                                        <li class="page-item"><a class="page-link" href="#" onclick="return prevpage()">&laquo;</a></li>
+                                    </c:otherwise>
+                                </c:choose>
+                    
+                                <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+                                    <c:set var="b" value="${boardLevel}"/>
+                                    <form id="numpage-link-${p}" action="searchlist.co?category=${b}&cpage=${p}" method="post">
+                                        <input type="hidden" name="condition" value="${condition}">
+                                        <input type="hidden" name="keyword" value="${keyword}">
+                                        <input type="hidden" name="boardLevel" value="${b}">
+                                        <input type="hidden" name="currentPage" value="${p}">
+                                    </form>
+                                    <li class="page-item ${p == pi.currentPage ? 'active' : ''}"><a class="page-link" href="#" onclick="return numpage('${p}')">${p}</a></li>
+                                </c:forEach>
+                        
+                                <c:choose>
+                                    <c:when test="${ pi.currentPage eq pi.maxPage }">
+                                        <li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <form id="nextpage-link" action="searchlist.co?category=${boardLevel}&cpage=${pi.currentPage - 1}" method="post">
+                                            <input type="hidden" name="condition" value="${condition}">
+                                            <input type="hidden" name="keyword" value="${keyword}">
+                                            <input type="hidden" name="boardLevel" value="${boardLevel}">
+                                            <input type="hidden" name="currentPage" value="${pi.currentPage - 1}">
+                                        </form>
+                                        <li class="page-item"><a class="page-link" href="#" onclick="return nextpage()">&raquo;</a></li>
+                                    </c:otherwise>
+                                </c:choose>
+                            </ul>
                         </c:otherwise>
                     </c:choose>
-                     </ul>
                 </div>
             </div>
 
