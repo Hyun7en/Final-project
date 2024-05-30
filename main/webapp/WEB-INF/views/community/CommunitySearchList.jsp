@@ -26,7 +26,7 @@
     <!-- success -->
 
 </head>
-<body onload="categorySelected('${boardLevel}'); conditionSelected('${condition}');">
+<body onload="categorySelected(`${boardLevel}`); conditionSelected(`${condition}`);">
     <c:if test="${ not empty successMessage}">
 		<script>
             var successMessage = '${successMessage}';
