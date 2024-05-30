@@ -148,3 +148,11 @@ main{
     margin: 0 5px;
 }
 
+#side-list-selected1{
+    background-color: #EEEEEE;
+}
+
+#side-list-selected1 a{
+    color: #0089FF;
+}
+
