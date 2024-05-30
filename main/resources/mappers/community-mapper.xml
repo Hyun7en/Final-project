@@ -29,7 +29,6 @@
 	<resultMap type="ThumbUp" id="ThumbUpResult">
 		<result column="BOARD_NO" property="boardNo"/>
 		<result column="USER_NO" property="userNo"/>
-		
 	</resultMap>
 	
 	
@@ -46,11 +45,45 @@
 			  	TO_CHAR(WRITE_DATE, 'YYYY-MM-DD') AS "WRITE_DATE",
 			  	BOARD_COUNT,
 			  	BOARD_LEVEL
+		FROM	BOARD B
+		JOIN	MEMBER USING (USER_NO)
+		WHERE	STATUS = 'Y'
+		AND		BOARD_LEVEL = #{boardLevel}
+		ORDER	BY BOARD_NO DESC
+	</select>
+	<select id="searchListCount" resultType="_int">
+		SELECT	COUNT(*)
+		FROM	BOARD
+		JOIN	MEMBER USING (USER_NO)
+		WHERE	BOARD_LEVEL = CAST(#{boardLevel} AS INTEGER)
+		AND		STATUS = 'Y'
+		<if test="condition == 'writer'">
+		 	AND	NICKNAME
+		</if>
+		<if test="condition == 'title'">
+		 	AND	BOARD_TITLE
+		</if>
+		LIKE '%' || #{keyword} || '%'
+	</select>
+	<select id="searchList" resultMap="communityResult">
+		SELECT	BOARD_NO,
+			  	BOARD_TITLE,
+			  	NICKNAME,
+			  	TO_CHAR(WRITE_DATE, 'YYYY-MM-DD') AS "WRITE_DATE",
+			  	BOARD_COUNT,
+			  	BOARD_LEVEL
 		FROM	BOARD
 		JOIN	MEMBER USING (USER_NO)
 		WHERE	STATUS = 'Y'
-		AND		BOARD_LEVEL = ${boardLevel}
-		ORDER	BY BOARD_NO DESC  
+		<if test="condition == 'writer'">
+		 	AND	NICKNAME
+		</if>
+		<if test="condition == 'title'">
+		 	AND	BOARD_TITLE
+		</if>
+		LIKE '%' || #{keyword} || '%'
+		AND		BOARD_LEVEL = CAST(#{boardLevel} AS INTEGER)
+		ORDER BY BOARD_NO DESC
 	</select>
 	<update id="increaseCount">
 		UPDATE BOARD

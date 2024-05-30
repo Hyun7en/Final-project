@@ -3,25 +3,39 @@ function boCategory(category){
     location.href = "list.co?category=" + category + "&cpage=1";
 }
 
-function categorySelected() {
-    function getCategoryFromUrl() {
-        const params = new URLSearchParams(window.location.search);
-        return params.get('category');
-    }
+function categorySelected(boardLevel) {
     var buttons = document.querySelectorAll(".com-nav");
-    const category = getCategoryFromUrl();
-
     buttons.forEach(function(button){
-
-        if(button.value === category){
+        if(button.value === boardLevel){
             button.id = "com-nav-selected";
         }
     })
 }
 
+//검색어 조건 고정
+function conditionSelected(condition){
+    console.log(condition)
+    if(Object.keys(condition).length !== 0){
+        const opt = document.querySelector("#com-condition option[value=" + condition + "]");
+        opt.setAttribute("selected", true);
+    }
+}
+
 //게시글 열람 링크
-function show(boardLevel, cpage, boardNo){
-    location.href = "detail.co?category=" + boardLevel + "&cpage=" + cpage + "&boardNo=" + boardNo;
+function showsearch(boardNo){
+    document.querySelector(`#show-${boardNo}`).submit()
+}
+
+function prevpage(){
+    document.querySelector('#prevpage-link').submit();
+}
+
+function numpage(num){
+    document.querySelector(`#numpage-link-${num}`).submit();
+}
+
+function nextpage(){
+    document.querySelector('#nextpage-link').submit();
 }
 
 //(기능 안 하는 스크립트)
