@@ -33,8 +33,9 @@
             <div id="com-nav" >
                     <ul>
                         <li>
-                            <button class="com-nav-0" onclick="boCategory(0)" id="com-nav-selected" style="border-radius: 22.5px;">
+                            <button class="com-nav-0" onclick="boCategory(0)"  style="border-radius: 22.5px;">
                             <!-- <img src="/psvm/src/main/webapp/resources/image/pngtree-vector-question-mark-icon-png-image_1024598.jpg" alt=""> -->
+                            <!-- <div style="border-radius: 22.5px;"><img src="/psvm/src/main/webapp/resources/image/pngtree-vector-question-mark-icon-png-image_931199.jpg" alt=""></div> -->
                             자주묻는 질문</button></li>
                             
                         <li><button class="com-nav-10" onclick="boCategory(1)" value="1" style="border-radius: 22.5px;">1:1 문의</button></li>
@@ -42,7 +43,7 @@
                        
                     </ul>
             </div>
-            <script>
+            <!-- <script>
                 function boCategory(category){
                     if(category === 0){ // 카테고리 번호 0 = 일반 버튼 누름
                         location.href = "CommunityNorm.jsp"; // 일반 게시판 페이지로 이동
@@ -51,7 +52,7 @@
                         location.href = "CommunityCategory.jsp?category=" + category; // 해당 게시판 페이지로 이동
                     }
                 }
-            </script>
+            </script> -->
             <table class="com-list">
                 <thead id="com-list-header">
                     <th style="width: 60px; border-radius: 10px 0 0 0;">No</th>

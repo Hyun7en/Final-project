@@ -42,13 +42,14 @@ body{
     height: 45px;
     font-size: 20px;
     font-weight: bold;
+    color: #0089FF;
     background-color: white;
-    border: 8px solid #0089FF;
+    border: 5px solid #0089FF;
     }
-/* #com-nav button img{
-        width: 22.5px;
-        height: 22.5px;
-        border-radius: 22.5px;
+/* #com-nav button div{
+    width: 45px;
+    height: 45px;
+    border: 5px solid#0089FF;    
 } */
 #com-nav button:hover, #com-nav #com-nav-selected{
     background-color: #0089FF;
