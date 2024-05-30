@@ -52,14 +52,14 @@
                             <c:when test="${loginUser.authority == 0}">
                                 <!-- 일반 회원일 경우 로그인 후 -->
                                 <label>${loginUser.userName}님 환영합니다</label> &nbsp;&nbsp;
-                                <a href="myPage.me">마이페이지</a>
+                                <a href="myPage.me?userNo=${loginUser.userNo}">마이페이지</a>
                                 <a href="logout.me">로그아웃</a>
                             </c:when>
 
                             <c:when test="${loginUser.authority == 1}">
                                 <!-- 판매자일 경우 로그인 후  -->
                                 <label>${loginUser.userName}님 환영합니다</label> &nbsp;&nbsp;
-                                <a href="myPage.me">마이페이지</a>
+                                <a href="myPage.me?userNo=${loginUser.userNo}">마이페이지</a>
                                 <a href="info.sr">판매자 관리 페이지</a>
                                 <a href="logout.me">로그아웃</a>
                             </c:when>

@@ -24,6 +24,6 @@ public class SellerNewApplication {
 	   private String mainBusinessName;
 	   private String mainItemName;
 	   private String businessAddress;
-	   private int businessAccount;
+	   private String businessAccount;
 	   private String applicationDate;
 }

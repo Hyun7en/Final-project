@@ -1,18 +1,22 @@
 package com.psvm.myPage.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.psvm.community.vo.Community;
 import com.psvm.member.vo.Member;
+import com.psvm.member.vo.MemberAttachment;
 import com.psvm.myPage.service.MyPageServiceImpl;
 import com.psvm.myPage.vo.Inquiry;
 import com.psvm.seller.vo.SellerInfo;
@@ -25,27 +29,98 @@ public class MyPageController {
 	
 	// 내 정보 페이지로 보내는 컨트롤러
 	@RequestMapping("myPage.me")
-	public String selectMyInfo() {
+	public String selectMyInfo(HttpSession session, int userNo) {
+		MemberAttachment ma = myPageService.selectMemberAttachment(userNo);
+		
+		session.setAttribute("ma", ma);
+		
 		return "myPage/myPageInfo";
 	}
 	
 	@RequestMapping("modifyInfo.my")
-	public ModelAndView modifyInfo(HttpSession session, Member m, ModelAndView mv) {
+	public ModelAndView modifyInfo(HttpSession session, Member m, MemberAttachment ma, MultipartFile file, ModelAndView mv) {
 		
-		int result = myPageService.modifyInfo(m);
+		int result1 =0;
+		int result2 =0;
+		int userNo = m.getUserNo();
 		
-		if(result > 0) {
-			session.setAttribute("loginUser", myPageService.loginUser(m));
+		if(!file.getOriginalFilename().equals("")) {	// 전달된 첨부파일이 있을 경우
 			
-			mv.addObject("successMessage", "회원정보 수정 성공");
-			mv.setViewName("myPage/myPageInfo");
-		} else {
-			mv.addObject("errorMessage", "회원정보 수정 실패");
-			mv.setViewName("myPage/myPageInfo");
+			//기존의 첨부파일이 있다 => 기존의 파일을 삭제
+			if(ma.getOriginName() != null) {
+				new File(session.getServletContext().getRealPath(ma.getChangeName())).delete();
+				
+				String changeName = saveFile(file, session);
+				
+				ma.setOriginName(file.getOriginalFilename());
+				ma.setChangeName("resources/image/" + changeName);
+				ma.setRefMno(userNo);
+				
+				result1 = myPageService.modifyInfo(m);
+				result2 = myPageService.updateImageModifyInfo(ma);
+			} else {
+				String changeName = saveFile(file, session);
+				
+				ma.setOriginName(file.getOriginalFilename());
+				ma.setChangeName("resources/image/" + changeName);
+				ma.setRefMno(userNo);
+				
+				result1 = myPageService.modifyInfo(m);
+				result2 = myPageService.insertImageModifyInfo(ma);
+			}		
+			
+		} else {	// 전달된 첨부파일이 없을 경우
+			result1 = myPageService.modifyInfo(m);
+			result2 = 1;
 		}
 		
+		// 변경된 회원 정보 값을 세션에 다시 등록하기 위한 select문
+		Member mem = myPageService.loginUser(m);
+		// 변경된 회원 정보(프로필 이미지) 값을 세션에 다시 등록하기 위한 select문
+		MemberAttachment mematt = myPageService.selectMemberAttachment(userNo);
+			
+		if(result1 > 0 && result2 > 0) {
+			session.setAttribute("loginUser",mem);
+			session.setAttribute("ma", mematt);
+			
+			mv.addObject("successMessage", "회원정보 수정 성공");
+			mv.setViewName("redirect:myPage.me?userNo=" + userNo);
+		} else {
+			mv.addObject("errorMessage", "회원정보 수정 실패");
+			mv.setViewName("redirect:myPage.me?userNo=" + userNo);
+		}
+					
 		return mv;
+	}
+	
+	public String saveFile(MultipartFile file, HttpSession session) {
+		//파일명 수정 후 서버에 업로드하기("imgFile.jpg => 202404231004305488.jpg")
+		String originName = file.getOriginalFilename();
 		
+		//년월일시분초 
+		String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+		
+		//5자리 랜덤값
+		int ranNum = (int)(Math.random() * 90000) + 10000;
+		
+		//확장자
+		String ext = originName.substring(originName.lastIndexOf("."));
+		
+		//수정된 첨부파일명
+		String changeName = currentTime + ranNum + ext;
+		
+		//첨부파일을 저장할 폴더의 물리적 경로(session)
+		String savePath = session.getServletContext().getRealPath("/resources/image/");
+		
+		try {
+			file.transferTo(new File(savePath + changeName));
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return changeName;
 	}
 	
 //	@RequestMapping("deleteMember.my")
@@ -113,7 +188,6 @@ public class MyPageController {
 	public String sellerConversionPage(HttpSession session, int userNo) {
 		
 		String status = myPageService.sellerConversionStatus(userNo);
-		System.out.println(status);
 		
 		session.setAttribute("status", status);
 				
