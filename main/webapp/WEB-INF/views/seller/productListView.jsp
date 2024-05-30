@@ -33,8 +33,8 @@
                 <form action="search.AdminCs" method="get">
                     <input type="hidden" name="cpage" value="1">
                     <select name="condition">
-                        <option value="writer">카테고리</option>
-                        <option value="title">상품명</option>
+                        <option value="category">카테고리</option>
+                        <option value="productName">상품명</option>
                     </select>
                     <input id="search-keyword" type="text" name="keyword" value="${keyword }">
                     <button type="submit" >검색</button>

@@ -2,6 +2,7 @@ package com.psvm.seller.dao;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -34,6 +35,7 @@ public class SellerDao {
 	    
 	}
 
+	//카테고리 넣기
 	public int insertProductCategory(SqlSessionTemplate sqlSession, ArrayList<String> categories){
 		
 		int result = 1;
@@ -65,19 +67,29 @@ public class SellerDao {
 		return sqlSession.insert("sellerMapper.insertProduct", product);
 	}
 
-	public int insertProductOption(SqlSessionTemplate sqlSession, ArrayList<String> options){
+	//option 넣기
+	public int insertProductOption(SqlSessionTemplate sqlSession, HashMap<String, Object> map){
 	
 		int result = 1;
 		
-		for(String option : options) {
+		int pCount = (int) map.get("pCount");
+			
+		for(String option : (ArrayList<String>) map.get("options")) {
+			
+			HashMap<String,Object> newMap = new HashMap<>();
+			
+			newMap.put("option", option);
+			
+			newMap.put("pCount", pCount);
+			
+			System.out.println(newMap);
 			
 			if(!option.equals("")) {
-				result = result * sqlSession.insert("sellerMapper.insertProductOption", option);
-			}
+				result = result * sqlSession.insert("sellerMapper.insertProductOption", newMap);
+			}		
+		}
 		
+		return result;	
 	}
-		
-	return result;	
-}
 
 }

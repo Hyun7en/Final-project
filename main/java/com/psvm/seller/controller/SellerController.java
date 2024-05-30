@@ -6,6 +6,7 @@ import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -92,7 +93,7 @@ public class SellerController {
         if (!storeHomeImage.getOriginalFilename().isEmpty()) {
             String changeName = saveFile(storeHomeImage, session);
             sellerPage.setSpOriginName(storeHomeImage.getOriginalFilename());
-            sellerPage.setSpChangeName("resources/upFiles/" + changeName);
+            sellerPage.setSpChangeName("resources/upFiles/sellerImg/" + changeName);
         }
 
         try {
@@ -137,7 +138,7 @@ public class SellerController {
   		String changeName = currentTime + ranNum + ext;
   		
   		// 첨부파일을 저장할 폴더의 물리적 경로(session)
-  		String savePath = session.getServletContext().getRealPath("/resources/upFiles/");
+  		String savePath = session.getServletContext().getRealPath("/resources/upFiles/sellerImg/");
   		
   		try {
   			upfile.transferTo(new File(savePath + changeName));
@@ -206,8 +207,10 @@ public class SellerController {
   	}
     
     @RequestMapping("insert.pd")
-  	public String insertProduct(Product product, MultipartFile productImage, @RequestParam("optionsJson") String optionsJson,
+  	public String insertProduct(Product product, int pCount, MultipartFile productImage, @RequestParam("optionsJson") String optionsJson,
     HttpSession session, RedirectAttributes redirectAttributes) {
+    	
+    	HashMap<String, Object> map = new HashMap<>();
     	
     	
          if (!productImage.getOriginalFilename().isEmpty()) {
@@ -220,8 +223,11 @@ public class SellerController {
              Type listType = new TypeToken<ArrayList<String>>() {}.getType();
              ArrayList<String> options = gson.fromJson(optionsJson, listType);
 
-             int result = sellerService.insertProduct(product, options);
-             
+             map.put("pCount", pCount);
+         	 map.put("options", options);
+
+         	 int result = sellerService.insertProduct(product, map);
+         	 
              if (result > 0 ) { // 성공
             	 
                  redirectAttributes.addFlashAttribute("message", "등록이 완료되었습니다.");
@@ -251,16 +257,16 @@ public class SellerController {
   		List<String> changeNameList = new ArrayList<String>();
   		
   		for (MultipartFile f : fileList) {
-  			String changeName = saveFile(f, session, "/resources/image/");
+  			String changeName = saveSummernote(f, session, "/resources/upFiles/productImg/");
   			
-  			changeNameList.add("/resources/image/" + changeName);
+  			changeNameList.add("/resources/upFiles/productImg/" + changeName);
   		}
   		
   		return new Gson().toJson(changeNameList);
   	}
   	
   	//실제 넘어온 파일의 이름을 변경해서 서버에 저장하는 메소드
-  	public String saveFile(MultipartFile upfile, HttpSession session, String path) {
+  	public String saveSummernote(MultipartFile upfile, HttpSession session, String path) {
   		//파일명 수정 후 서버에 업로드하기("imgFile.jpg => 202404231004305488.jpg")
   		String originName = upfile.getOriginalFilename();
   		

@@ -126,7 +126,6 @@
 	<insert id="insertProduct">
 	INSERT INTO 
 				PRODUCT (
-				 	      p_no,
 				 	      p_category,
 				 	      p_title,
 				 	      p_price,
@@ -134,26 +133,25 @@
 				 	      p_enroll_date,
 				 	      p_star,
 				 	      p_origin_name,
-				 	      p_change_name
+				 	      p_change_name,
 				 	      p_status
 				 	     )
 		 	     VALUES (
-			 		      #{pNo},
-			 		      #{category},
+			 		      #{pCategory},
 			 		      #{pTitle},
 			 		      #{pPrice},
 			 		      #{pContent},
 			 		      default,
 			 		      default,
 			 		      #{pOriginName},
-			 		      #{pChangeName}
+			 		      #{pChangeName},
 			 		      default
 		 		 	     )	
 	</insert>
 	
 	<insert id="insertProductOption">
 		INSERT INTO 
-					PRODUCT_CATEGORY (
+					PRODUCT_OPTION (
 									  p_count,
 								 	  p_status,
 								 	  p_no,

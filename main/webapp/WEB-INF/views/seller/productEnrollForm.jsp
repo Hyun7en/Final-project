@@ -56,8 +56,6 @@
         $('#enrollForm').submit(function(event) {
             let optionsInput = $('<input>').attr('type', 'hidden').attr('name', 'optionsJson').val(JSON.stringify(options));
             $(this).append(optionsInput);
-
-            console.log("Submitting options:", JSON.stringify(options));
         });
 
         $('#productImage').change(function(event) {
@@ -84,7 +82,7 @@
 
         <section>
             <h1>스토어 관리 &gt; 상품 등록</h1>
-            <form action="insert.pd" method="post" enctype="multipart/form-data">
+            <form id="enrollForm" action="insert.pd" method="post" enctype="multipart/form-data">
                 <div id="product-management">
                     <div>
                         <div class="form-group">
@@ -97,7 +95,7 @@
                             <label  for="select-category">
                                 카테고리
                             </label>
-                            <select class="form-control" id="select-category" name="category" required>
+                            <select class="form-control" id="select-category" name="pCategory" required>
                                 
                             </select>
                         </div>
@@ -143,7 +141,7 @@
                     </label>
                 </div>
                 <div>
-                    <textarea id="summernote" name="productDescription"></textarea>
+                    <textarea id="summernote" name="pContent"></textarea>
                 </div>
                 <div class="form-actions">
                     <button type="submit">

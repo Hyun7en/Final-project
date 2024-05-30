@@ -2,6 +2,7 @@ package com.psvm.seller.service;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,10 +59,10 @@ public class SellerServiceImpl implements SellerService {
 
 	@Transactional
 	@Override
-	public int insertProduct(Product product, ArrayList<String> options) {
+	public int insertProduct(Product product, HashMap<String, Object> map) {
 		
 		int t1 = sellerDao.insertpProduct(sqlSession, product);
-		int t2 = sellerDao.insertProductOption(sqlSession, options);
+		int t2 = sellerDao.insertProductOption(sqlSession,map);
 								
 		
 		return t1*t2;
