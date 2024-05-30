@@ -21,11 +21,6 @@
 		<result column="STATUS" property="status"/>	
 	</resultMap>
 	
-
-
- 	<!-- <resultMap type="SellerPage" id="sellerResult">
-		<result column="SELLER_PAGE_NO" property="sellerPageNo"/>
-
  	<resultMap type="SellerPage" id="sellerPageResult">
  		<result column="SELLER_PAGE_NO" property="sellerPageNo"/>
 		<result column="BUSINESS_NO" property="businessNo"/>
