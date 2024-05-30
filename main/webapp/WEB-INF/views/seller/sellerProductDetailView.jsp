@@ -50,54 +50,28 @@
                                 판매가
                             </div>
                             <div class="form-control" id="price">
-                                상품명
+                                판매가
                             </div>
                         </div>
+                        
                         <div class="form-group">
                             <div class="pd-detail-title">
-                                배송방법
-                            </div>
-                            <div class="form-control" id="delivery-process">
-                                상품명
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="pd-detail-title">
-                                배송비
-                            </div>
-                            <div class="form-control" id="delivery-charge">
-                                상품명
-                            </div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="form-group">
-                            <div class="pd-detail-title">
-                                판매수량
+                                수량
                             </div>
                             <div class="form-control"id="amount">
-                                상품명
+                                수량
                             </div>
-                        </div> 
+                        </div>
+                        
+                        <div class="form-group">
+                            <label  for="pOptionNo">
+                                옵션
+                            </label>
+                            <select class="form-control" id="pOptionNo" name="pOptionNo" required>
+                                
+                            </select>
+                        </div>
 
-                        <div class="form-group">
-                            <div class="pd-detail-title">
-                                옵션
-                            </div>
-                            <div class="form-control" id="category">
-                                옵션
-                            </div>
-                        </div>
-                    
-                        <div class="form-group">
-                            <div class="pd-detail-title">
-                                상품명 입력
-                            </div>
-                            <div class="form-control"id="product-name">
-                                상품명
-                            </div>
-                        </div>
                     </div>
                 </div>
 

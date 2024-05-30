@@ -27,17 +27,6 @@ public class CommonsController {
 	public String store() {
 		return "store/store";
 	}
-	
-	
-	@GetMapping("list.pd")
-	public String productListView() {
-		return "seller/productListView";
-	}
 
-	
-	@GetMapping("manage.srh")
-	public String sellerHomeDetailView() {
-		return "seller/sellerHomeDetailView";
-	}
 	
 }

@@ -1,7 +1,5 @@
 package com.psvm.seller.vo;
 
-import java.util.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,12 +11,11 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class SellerPage {
+public class ProductOption {
+	private int pCount;
+	private String pStatus;
+	private int pNo;
+	private String pOptionName;
+	private int pOptionNo;
 	
-	private int sellerPageNo;
-	private int businessNo;
-	private String sellerExplain;
-	private Date spEnrollDate;
-	private String spOriginName;
-	private String spChangeName;
 }

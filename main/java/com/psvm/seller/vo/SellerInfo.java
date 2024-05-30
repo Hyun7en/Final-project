@@ -27,4 +27,5 @@ public class SellerInfo {
 	private String businessAddress;
 	private String businessAccount;
 	private String status;
+	
 }
