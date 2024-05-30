@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.psvm.community.vo.Community;
 import com.psvm.member.vo.Member;
+import com.psvm.member.vo.MemberAttachment;
 import com.psvm.myPage.dao.MyPageDao;
 import com.psvm.myPage.vo.Inquiry;
 import com.psvm.seller.vo.SellerInfo;
@@ -21,8 +22,20 @@ public class MyPageServiceImpl implements MyPageService {
 	@Autowired
 	private MyPageDao myPageDao;
 	
+	public MemberAttachment selectMemberAttachment(int userNo){
+		return myPageDao.selectMemberAttachment(sqlSession, userNo);
+	}
+	
 	public int modifyInfo(Member m) {
 		return myPageDao.modifyInfo(sqlSession, m);
+	}
+	
+	public int insertImageModifyInfo(MemberAttachment ma) {
+		return myPageDao.insertImageModifyInfo(sqlSession, ma);
+	}
+	
+	public int updateImageModifyInfo(MemberAttachment ma) {
+		return myPageDao.updateImageModifyInfo(sqlSession, ma);
 	}
 	
 	public Member loginUser(Member m) {

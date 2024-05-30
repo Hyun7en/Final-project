@@ -1,21 +1,33 @@
 package com.psvm.myPage.dao;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.psvm.community.vo.Community;
 import com.psvm.member.vo.Member;
+import com.psvm.member.vo.MemberAttachment;
 import com.psvm.myPage.vo.Inquiry;
 import com.psvm.seller.vo.SellerInfo;
 
 @Repository
 public class MyPageDao {
 	
+	public MemberAttachment selectMemberAttachment(SqlSessionTemplate sqlSession, int userNo){
+		return (MemberAttachment)sqlSession.selectOne("myPageMapper.selectMemberAttachment", userNo);
+	}
+	
 	public int modifyInfo(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.update("myPageMapper.modifyInfo", m);
+	}
+	
+	public int insertImageModifyInfo(SqlSessionTemplate sqlSession, MemberAttachment ma) {
+		return sqlSession.update("myPageMapper.insertImageModifyInfo", ma);
+	}
+	
+	public int updateImageModifyInfo(SqlSessionTemplate sqlSession, MemberAttachment ma) {
+		return sqlSession.update("myPageMapper.updateImageModifyInfo", ma);
 	}
 	
 	public Member loginUser(SqlSessionTemplate sqlSession, Member m) {

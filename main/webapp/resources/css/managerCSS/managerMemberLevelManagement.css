@@ -82,3 +82,11 @@ input{
     background-color: white;
     cursor: pointer;
 }
+
+#side-list-selected2{
+    background-color: #EEEEEE;
+}
+
+#side-list-selected2 a{
+    color: #0089FF;
+}

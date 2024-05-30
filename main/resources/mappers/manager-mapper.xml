@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- namespace: 해당 mapper파일의 고유한 별칭 -->
+<mapper namespace="managerMapper">
+
+	<!-- 판매자 신규신청 리스트 조회 resultMapper -->
+	<resultMap type="SellerNewApplication" id="sellerNewApplicationResult">
+		<result column="user_no" property="userNo"/>
+		<result column="user_name" property="userName"/>
+		<result column="user_id" property="userId"/>
+		<result column="business_no" property="businessNo"/>
+		<result column="business_name" property="businessName"/>
+		<result column="sub_business_name" property="subBusinessName"/>
+		<result column="open_business_date" property="openBusinessDate"/>
+		<result column="store_name" property="storeName"/>
+		<result column="crn" property="crn"/>
+		<result column="main_business_name" property="mainBusinessName"/>
+		<result column="main_item_name" property="mainItemName"/>
+		<result column="business_address" property="businessAddress"/>
+		<result column="business_account" property="businessAccount"/>
+		<result column="application_date" property="applicationDate"/>
+	</resultMap>
+	
+	
+	<!-- 판매자 신구신청 리스트 조회 -->
+	<select id="sellerNewApplicationList" resultMap="sellerNewApplicationResult">
+		SELECT user_no,
+			   user_name,
+			   user_id,
+			   business_no,
+			   business_name,
+			   sub_business_name,
+			   open_business_date,
+			   store_name,
+			   crn,
+			   main_business_name,
+		 	   main_item_name,
+			   business_address,
+			   business_account,
+			   application_date				
+		FROM seller_info
+		JOIN member USING (user_no)
+		WHERE status = 'N'
+	</select>
+	
+	<!-- 판매자 신규신청 승인 -->
+	<update id="sellerNewApplicationApprove">
+		UPDATE seller_info
+		SET status = 'Y'
+		WHERE user_no = #{userNo}
+	</update>
+
+
+
+
+
+
+
+</mapper>

@@ -29,7 +29,7 @@
                         <div id="myPage-sidebar-profile-nickName"><b>${loginUser.nickname}</b>님 환영합니다.</div>
                     </div>
                     <div id="myPage-category-area">
-                        <div class="myPage-category"><a href="myPage.me">내 정보</a></div>
+                        <div class="myPage-category"><a href="myPage.me?userNo=${loginUser.userNo}">내 정보</a></div>
                         <div class="myPage-category"><a href="interestProduct.my?userNo=${loginUser.userNo}">관심상품</a></div>
                         <div class="myPage-category"><a href="cart.my?userNo=${loginUser.userNo}">장바구니</a></div>
                         <div class="myPage-category"><a href="orderHistory.my?userNo=${loginUser.userNo}">주문내역</a></div>
@@ -75,7 +75,20 @@
                                     <c:otherwise>
                                         <c:forEach var="b" items="${list}">
                                             <tr>
-                                                <td>${b.boardLevel}</td>
+                                                <c:choose>
+                                                    <c:when test="${b.boardLevel eq 0}">
+                                                        <td>일반</td>
+                                                    </c:when>
+                                                    <c:when test="${b.boardLevel eq 1}">
+                                                        <td>꿀팁</td>
+                                                    </c:when>
+                                                    <c:when test="${b.boardLevel eq 2}">
+                                                        <td>질문</td>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <td>중고거래</td>
+                                                    </c:otherwise>
+                                                </c:choose>
                                                 <td>${b.boardTitle}</td>
                                                 <td>${b.writeDate}</td>
                                                 <td>${b.boardCount}</td>
