@@ -44,7 +44,7 @@
                 <a href="">혜택 관리</a>
             </div>
             <div>
-                <a href="">고객지원</a>
+                <a href="customerOnetoOne.ma?categoryName=customer">고객지원</a>
             </div>
             <div>
                 <a href="">설정</a>
