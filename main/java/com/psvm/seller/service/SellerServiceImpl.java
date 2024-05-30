@@ -60,10 +60,10 @@ public class SellerServiceImpl implements SellerService {
 
 	@Transactional
 	@Override
-	public int insertProduct(Product product, HashMap<String, Object> map) {
+	public int insertProduct(Product product, int pdCount, ArrayList<String> options) {
 		
 		int t1 = sellerDao.insertpProduct(sqlSession, product);
-		int t2 = sellerDao.insertProductOption(sqlSession,map);
+		int t2 = sellerDao.insertProductOption(sqlSession,pdCount, options);
 								
 		
 		return t1*t2;

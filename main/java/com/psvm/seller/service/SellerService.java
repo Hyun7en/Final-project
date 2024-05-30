@@ -28,7 +28,7 @@ public interface SellerService {
 	public SellerPage selectSellerHomeDetail(int businessNo);
 	
 	// 상품 등록
-	public int insertProduct(Product product, HashMap<String, Object> map);
+	public int insertProduct(Product product, int pdCount, ArrayList<String> options);
 	
 	public int selectProductListCount();
 	

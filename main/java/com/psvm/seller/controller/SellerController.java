@@ -74,9 +74,8 @@ public class SellerController {
 
     	int userNo = loginUser.getUserNo();
     	
-        int businessNo = sellerService.selectBusinessNo(userNo);
+        return sellerService.selectBusinessNo(userNo);
         
-        return businessNo;
     }
     
     // 판매자 홈 관련
@@ -163,9 +162,9 @@ public class SellerController {
         return gson.toJson(sellerService.selectCategories(businessNo));
     }
   	
-    //
   	@RequestMapping("detail.srh")
   	public String selectSellerHomeDetail(HttpSession session, Model model) {
+  		
   	    int businessNo = getBusinessNoFromUserNo(session);
 
   	    SellerPage sp = sellerService.selectSellerHomeDetail(businessNo);
@@ -209,26 +208,22 @@ public class SellerController {
   	}
     
     @RequestMapping("insert.pd")
-  	public String insertProduct(Product product, int pCount, MultipartFile productImage, @RequestParam("optionsJson") String optionsJson,
+  	public String insertProduct(Product product, int pdCount, MultipartFile productImage, @RequestParam("optionsJson") String optionsJson,
     HttpSession session, RedirectAttributes redirectAttributes) {
     	
-    	HashMap<String, Object> map = new HashMap<>();
     	
     	
          if (!productImage.getOriginalFilename().isEmpty()) {
              String changeName = saveFile(productImage, session);
              product.setPdOriginName(productImage.getOriginalFilename());
-             product.setPdChangeName("resources/upFiles/" + changeName);
+             product.setPdChangeName("resources/upFiles/productImg/" + changeName);
          }
 
          try {
              Type listType = new TypeToken<ArrayList<String>>() {}.getType();
              ArrayList<String> options = gson.fromJson(optionsJson, listType);
 
-             map.put("pCount", pCount);
-         	 map.put("options", options);
-
-         	 int result = sellerService.insertProduct(product, map);
+         	 int result = sellerService.insertProduct(product, pdCount, options);
          	 
              if (result > 0 ) { // 성공
             	 
@@ -309,10 +304,6 @@ public class SellerController {
 		
 		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 5);
 		ArrayList<Product> list = sellerService.ProductList(pi,businessNo);
-		
-		System.out.println(list);
-
-		log.info("list",list);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);

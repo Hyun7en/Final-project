@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>판매자 홈 수정</title>
+<title>판매자 홈 등록</title>
 
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -75,18 +76,21 @@
         <%@ include file="../commons/aside.jsp" %>
 
         <section>
-            <h1>스토어 관리 &gt; 판매자 홈 수정</h1>
-            <form id="enrollForm" action="#" method="post" enctype="multipart/form-data">
+            <h1>스토어 관리 &gt; 판매자 홈 등록</h1>
+
+            <c:if test="${not sessionScope.SellerHomeRegistered}">
+            <form id="enrollForm"  action="insert.srh" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="userNo" value="${loginUser.userNo}">
                 <div>
                     <h4>스토어 소개</h4>
-                    <input id="store-introduce" type="text" name="storeDescription" value="${sr.storeExplain}" placeholder="스토어 소개 입력" style="width: 300px; padding: 5px;">
+                    <input id="store-introduce" type="text" name="sellerExplain" placeholder="스토어 소개 입력" style="width: 300px; padding: 5px;">
                 </div>
                 <div>
                     <h4>대표 이미지</h4>
                     <input type="file" name="storeHomeImage" id="storeHomeImage">
                 </div>
                 <div class="image-container">
-                    <img src="/getImage?id=1" alt="대표 이미지">
+                    <img id="preview-image" src="getImage?id=1" alt="대표 이미지">
                 </div>
 
                 <div id="div-enroll-category">
@@ -105,6 +109,10 @@
                     <button type="reset">초기화</button>
                 </div>
             </form>
+        </c:if>
+        <c:if test="${sessionScope.SellerHomeRegistered}">
+            <p>등록이 완료되었습니다.</p>
+        </c:if>
         </section>
     </main>
 

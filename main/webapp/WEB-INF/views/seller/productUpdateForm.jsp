@@ -86,16 +86,16 @@
                 <div id="product-management">
                     <div>
                         <div class="form-group">
-                            <label for="pTitle">
+                            <label for="pdTitle">
                                 상품명
                             </label>
-                            <input class="form-control" type="text" id="pTitle" name="pTitle" placeholder="상품명 입력" required>
+                            <input class="form-control" type="text" id="pdTitle" name="pdTitle" placeholder="상품명 입력" required>
                         </div>
                         <div class="form-group">
                             <label  for="select-category">
                                 카테고리
                             </label>
-                            <select class="form-control" id="select-category" name="pCategory" required>
+                            <select class="form-control" id="select-category" name="pdCategory" required>
                                 
                             </select>
                         </div>
@@ -103,14 +103,14 @@
                             <label for="pPrice">
                                 판매가
                             </label>
-                            <input class="form-control" type="number" min="0" step="100"  id="pPrice" name="pPrice" placeholder="판매가 입력" required>
+                            <input class="form-control" type="number" min="0" step="100"  id="pdPrice" name="pdPrice" placeholder="판매가 입력" required>
                         </div>
                    
                         <div class="form-group">
                             <label for="pCount">
                                 수량
                             </label>
-                            <input class="form-control" type="number" min="0" id="pCount" name="pCount"  placeholder="판매수량 입력" required>
+                            <input class="form-control" type="number" min="0" id="pdCount" name="pdCount"  placeholder="판매수량 입력" required>
                         </div> 
 
                         <div id="div-enroll-option">

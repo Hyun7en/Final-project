@@ -70,19 +70,18 @@ public class SellerDao {
 	}
 
 	//option 넣기
-	public int insertProductOption(SqlSessionTemplate sqlSession, HashMap<String, Object> map){
+	public int insertProductOption(SqlSessionTemplate sqlSession, int pdCount, ArrayList<String> options){
 	
 		int result = 1;
 		
-		int pCount = (int) map.get("pCount");
-			
-		for(String option : (ArrayList<String>) map.get("options")) {
-			
-			HashMap<String,Object> newMap = new HashMap<>();
+		HashMap<String,Object> newMap = new HashMap<>();
+		
+		
+		for(String option : options) {
 			
 			newMap.put("option", option);
 			
-			newMap.put("pCount", pCount);
+			newMap.put("pdCount", pdCount);
 			
 			System.out.println(newMap);
 			
