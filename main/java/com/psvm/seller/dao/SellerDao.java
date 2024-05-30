@@ -98,11 +98,11 @@ public class SellerDao {
 		return sqlSession.selectOne("sellerMapper.selectProductListCount");
 	}
 
-	public ArrayList<Product> ProductList(SqlSessionTemplate sqlSession, PageInfo pi) {
+	public ArrayList<Product> ProductList(SqlSessionTemplate sqlSession, PageInfo pi, int businessNo) {
 		
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("sellerMapper.ProductList", null, rowBounds);
+		return (ArrayList)sqlSession.selectList("sellerMapper.ProductList", businessNo, rowBounds);
 	}
 }

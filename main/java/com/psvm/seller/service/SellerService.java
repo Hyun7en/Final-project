@@ -32,5 +32,5 @@ public interface SellerService {
 	
 	public int selectProductListCount();
 	
-	public ArrayList<Product> ProductList(PageInfo pi);
+	public ArrayList<Product> ProductList(PageInfo pi,int businessNo);
 }

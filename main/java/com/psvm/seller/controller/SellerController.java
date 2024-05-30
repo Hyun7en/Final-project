@@ -300,12 +300,15 @@ public class SellerController {
     
   	//상품 리스트
     @RequestMapping("list.pd")
-  	public String ProductList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
+  	public String ProductList(@RequestParam(value="cpage", defaultValue="1") int currentPage,HttpSession session, Model model) {
+    	
 		int boardCount = sellerService.selectProductListCount();
 		//logger.info("list.bo 실행");
 		
+		int businessNo = getBusinessNoFromUserNo(session);
+		
 		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 5);
-		ArrayList<Product> list = sellerService.ProductList(pi);
+		ArrayList<Product> list = sellerService.ProductList(pi,businessNo);
 		
 		System.out.println(list);
 
