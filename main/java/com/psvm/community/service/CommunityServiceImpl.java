@@ -1,6 +1,7 @@
 package com.psvm.community.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +24,22 @@ public class CommunityServiceImpl implements CommunityService{
 	
 	@Override
 	public int selectListCount(int boardLevel) {
-		int count = communityDao.selectListCount(sqlSession, boardLevel);
-		return count;
+		return communityDao.selectListCount(sqlSession, boardLevel);
 	}
 
 	@Override
 	public ArrayList<Community> selectList(PageInfo pi, int boardLevel) {
 		return communityDao.selectList(sqlSession, pi, boardLevel);
+	}
+	
+	@Override
+	public int searchListCount(HashMap<String, String> map) {
+		return communityDao.searchListCount(sqlSession, map);
+	}
+	
+	@Override
+	public ArrayList<Community> searchList(PageInfo pi, HashMap<String, String> map) {
+		return communityDao.searchList(sqlSession, pi, map);
 	}
 
 	@Override
@@ -78,8 +88,8 @@ public class CommunityServiceImpl implements CommunityService{
 	}
 	
 	@Override
-	public int thumbUpCount(int bno) {
-		return communityDao.thumbUpCount(sqlSession, bno);
+	public int thumbUpCount(int boardNo) {
+		return communityDao.thumbUpCount(sqlSession, boardNo);
 	}
 	
 	@Override

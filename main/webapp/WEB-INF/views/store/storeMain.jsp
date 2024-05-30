@@ -81,75 +81,7 @@
             
         </section>
 
-        <section id="cards-Shelf">
-            <div>
-                <div>
-                    <a href="">
-                        <figure>
-                            <img src="${pageContext.request.contextPath}/resources/image/fishTank.png">
-                        </figure>
-                        <div>수조 · 어항</div>
-                    </a>
-                </div>
-                <div>
-                    <a href="">
-                        <figure>
-                            <img src="${pageContext.request.contextPath}/resources/image/deco.png">
-                        </figure>
-                        <div>장식</div>
-                    </a>
-                </div>
-                <div>
-                    <a href="">
-                        <figure>
-                            <img src="${pageContext.request.contextPath}/resources/image/fishfeed.png">
-                        </figure>
-                        <div>사료</div>
-                    </a>
-                </div>
-                <div>
-                    <a href="">
-                        <figure>
-                            <img src="${pageContext.request.contextPath}/resources/image/clownfish-1453910_1920.jpg">
-                        </figure>
-                        <div>여과기 · 여과재</div>
-                    </a>
-                </div>
-                <div>
-                    <a href="">
-                        <figure>
-                            <img src="${pageContext.request.contextPath}/resources/image/clownfish-1453910_1920.jpg">
-                        </figure>
-                        <div>조형물</div>
-                    </a>
-                </div>
-                <div>
-                    <a href="">
-                        <figure>
-                            <img src="${pageContext.request.contextPath}/resources/image/clownfish-1453910_1920.jpg">
-                        </figure>
-                        <div>전기용품</div>
-                    </a>
-                </div>
-                <div>
-                    <a href="">
-                        <figure>
-                            <img src="${pageContext.request.contextPath}/resources/image/clownfish-1453910_1920.jpg">
-                        </figure>
-                        <div>수초</div>
-                    </a>
-                </div>
-                <div>
-                    <a href="">
-                        <figure>
-                            <img src="${pageContext.request.contextPath}/resources/image/clownfish-1453910_1920.jpg">
-                        </figure>
-                        <div>바닥재 · 기타</div>
-                    </a>
-                </div>
-            </div>
-        </section>
-
+       
         <section class="sm-procuct-section" id="recommend-product">
             <div class="sm-procuct-section-title" >
                 추천 제품

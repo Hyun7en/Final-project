@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/fishInfoCSS/fishInfoDetail.css">
 	<script src="${pageContext.request.contextPath}/resources/js/fishInfoJS/fishInfoDetail.js"></script>
    
-<body>
+<body onload="InfoInit('${pageContext.request.contextPath}'), anotherFishAjax({fishType: '${fish.fishType}', tendency: '${fish.tendency}', tasteType: '${fish.tasteType}'});">
 	<div class="wrap">
 	
 		<!-- header -->
@@ -21,16 +21,17 @@
         <main>
         <div id="main-div">
             <section id="scientific-name">
-                <p>학명 Hepsetus</p>
+                <p>${fish.scientificName}</p>
             </section>
 
+
             <section id="fish-name">
-                아프리칸 파이크
+                ${fish.fishName}
             </section>
 
             <section id="fish-img-info">
                 <div id="fish-img">
-                    <img src="${pageContext.request.contextPath}/resources/image/fish1.png" alt="">
+                    <img src="${pageContext.request.contextPath}/resources/image/${fish.url}" alt="">
                 </div>
 
                 <div id="short-div">
@@ -40,8 +41,8 @@
                                 <img src="${pageContext.request.contextPath}/resources/image/fishIcon.png" alt="" style="width: 30px; height: 19px;">
                             </div>
                             <div class="short-info-inside">
-                                <p class="short-title">서식지 및 특징</p> <br>
-                                <p>아프리카 전역에 널리 서식</p>
+                                <p class="short-title">먹이</p> <br>
+                                <p>${fish.tasteType}</p>
                             </div>
                         </div>
 
@@ -50,8 +51,8 @@
                                 <img src="${pageContext.request.contextPath}/resources/image/growIcon.png" alt="" style="width: 19px; height: 19px;">
                             </div>
                             <div class="short-info-inside">
-                                <p class="short-title">최대 성장 크기</p> <br>
-                                <p>최대 70cm</p>
+                                <p class="short-title">수명</p> <br>
+                                <p>약2년</p>
                             </div>
                         </div>
 
@@ -61,7 +62,7 @@
                             </div>
                             <div class="short-info-inside">
                                 <p class="short-title">적정 수온</p> <br>
-                                <p>25~28 &#8451;</p>
+                                <p>${fish.temperature} &#8451;</p>
                             </div>
                         </div>
 
@@ -71,15 +72,12 @@
                             </div>
                             <div class="short-info-inside">
                                 <p class="short-title">선호 수질(Ph)</p> <br>
-                                <p>6 ~ 7.5</p>
+                                <p>${fish.field} ph</p>
                             </div>
                         </div>
                     </div>
                     <section id="long-info">
-                        아프리카 전역에 널리 퍼져있는 아프리칸 파이크 입니다. 석호나 강 호수 늪 다양한 환경에서
-                        서식하며 움직임을 감지해 사냥하는 아프리카식 포식자입니다. 같은 포식하는 타이거피쉬가 업슨ㄴ 곳에서만 사냥한다고 합니다.
-                        아프리칸 파이크는 어식성 어류로 생먹이를 잘 사냥하지만 순치가 매우 쉬운 어종입니다. 매장에서 냉짱을 주로먹고 있으며 동성사료도 혼합하여 급여 가능합니다.
-                        합사는 덩치가 큰 캣피쉬들이나 플레코 및 순한 큰 어류들을 추천해드립니다.
+                        ${fish.caution}
                     </section>
                 </div>
                 
@@ -89,12 +87,13 @@
                 <div id="two-p">
                     <p>해당 물고기에 대해 자세히 알아보기</p>
                 </div>
-
+                
+                
                 <div id="two-btn">
-                    <a href="#"><div class="two-btn-div-1">서식환경 및 특징</div></a>
-                    <a href="#"><div class="two-btn-div">먹이</div></a>
-                    <a href="#"><div class="two-btn-div">조명</div></a>
-                    <a href="#"><div class="two-btn-div-4">같이 키우면 <br> 좋은 생물</div></a>
+                    <a href="javascript:void(0);" onclick="detailDraw(`${fish.environment}`, `${fish.caution}`, 'field')"><div class="two-btn-div-1">서식환경 및 특징</div></a>
+                    <a href="javascript:void(0);" onclick="detailDraw(`${fish.rationTime}`,`${fish.feedType}` ,'feed')"><div class="two-btn-div">먹이</div></a>
+                    <a href="javascript:void(0);" onclick="detailDraw(`${fish.light}`,`${fish.temperature}` ,'light')"><div class="two-btn-div">조명</div></a>
+                    <a href="javascript:void(0);" onclick="detailDraw(`${fish.growTogether}`,`${fish.lifeSpan}`,'growTogeter')"><div class="two-btn-div-4">같이 키우면 <br> 좋은 생물</div></a>
                 </div>
 
                 <div id="two-img-explain">
@@ -104,14 +103,11 @@
                     <div >
                         <div class="two-explain">
                             <p class="two-explain-title">서식환경</p> <br>
-                            <p class="two-explain-contents">아프리카 전역에 널리 서식하며 덩치는 야생에서 60~70cm 정도로 육식성이라서 먹이로
-                                는 다른 물고기를 주로 사냥한다.</p>
+                            <p class="two-explain-contents">${fish.environment}</p>
                         </div>
                         <div class="two-explain">
                             <p class="two-explain-title">특징</p> <br>
-                            <p class="two-explain-contents">길고 모양이 창처럼 생긴 이 열대어는 이마가 납작하며 몸의 측면은 평평하지 않다 입은 깊게 찢어져 있으며 턱은 부리처럼 생겼다. 각각의 턱에는 두 줄의 치아가 있으며, 위턱은
-                                위로 움직일 수 있다. 지느러미들은 비교적 작은 편이다. 꼬리지느러미는 깊게 갈라져 
-                                있으며 기름지느러미는 매우 작다. 석호나 강 호수 늪 다양한 환경에서 서식하며 움직임을 감지해 사냥하는 아프리카 포식자입니다.</p>
+                            <p class="two-explain-contents">${fish.caution}</p>
                         </div>
                     </div>
                 </div>
@@ -120,7 +116,7 @@
             <section id="go-store">
                 <div id="go-store-info">
                     <p>해당 물고기를 키우는데 필요한 것이 있으신가요?</p>
-                    <a href="#">스토어 추천 바로가기</a>
+                    <a href="storeMain.ma">스토어 추천 바로가기</a>
                 </div>
 
                 <div class="store-product">
@@ -172,41 +168,8 @@
                     <p>해당 물고기가 속한 종의 다른 물고기가 궁금하신가요?</p>
                 </div>
 
-                <div class="store-product">
-                    <a href="#">
-                        <div class="product-info">
-                            <img src="${pageContext.request.contextPath}/resources/image/fishNeon.png" alt="">
-                            <p>네온 테트라</p>
-                        </div>
-                    </a>
-
-                    <a href="#">
-                        <div class="product-info">
-                            <img src="${pageContext.request.contextPath}/resources/image/fishNeon.png" alt="">
-                            <p>네온 테트라</p>
-                        </div>
-                    </a>
-
-                    <a href="#">
-                        <div class="product-info">
-                            <img src="${pageContext.request.contextPath}/resources/image/fishNeon.png" alt="">
-                            <p>네온 테트라</p>
-                        </div>
-                    </a>
-
-                    <a href="#">
-                        <div class="product-info">
-                            <img src="${pageContext.request.contextPath}/resources/image/fishNeon.png" alt="">
-                            <p>네온 테트라</p>
-                        </div>
-                    </a>
-
-                    <a href="#">
-                        <div class="product-info">
-                            <img src="${pageContext.request.contextPath}/resources/image/fishNeon.png" alt="">
-                            <p>네온 테트라</p>
-                        </div>
-                    </a>
+                <div id="store-another-fish" >
+                    
                 </div>
                 
             </section>
@@ -219,35 +182,28 @@
                 </div>
 
                 <div id="youtube-btn">
-                    <a href="#"><div class="two-btn-div-1">물갈이 하는 방법</div></a>
-                    <a href="#"><div class="two-btn-div-1">먹이주는 방법</div></a>
-                    <a href="#"><div class="two-btn-div-5">물고기가 힘들어보일 때</div></a>
-                    <a href="#"><div class="two-btn-div-1">인테리어</div></a>
-                    <a href="#"><div class="two-btn-div-5">수온/수질 맞추는 방법</div></a>
-                    <a href="#"><div class="two-btn-div-4">물고기 키우는 꿀팁</div></a>
+                    <a href="javascript:void(0);" onclick="drawYoutube('t1');"><div class="two-btn-div-1">물갈이 하는 방법</div></a>
+                    <a href="javascript:void(0);" onclick="drawYoutube('t2');"><div class="two-btn-div-1">먹이주는 방법</div></a>
+                    <a href="javascript:void(0);" onclick="drawYoutube('t3');"><div class="two-btn-div-5">물고기가 힘들어보일 때</div></a>
+                    <a href="javascript:void(0);" onclick="drawYoutube('t4');"><div class="two-btn-div-1">인테리어</div></a>
+                    <a href="javascript:void(0);" onclick="drawYoutube('t5');"><div class="two-btn-div-5">수온/수질 맞추는 방법</div></a>
+                    <a href="javascript:void(0);" onclick="drawYoutube('t6');"><div class="two-btn-div-4">물고기 키우는 꿀팁</div></a>
 
                 </div>
 
-               
+            
                 <div class="youtube-contents">
                     <div class="vedio">
-                        <iframe width="475" height="260" src="https://www.youtube.com/embed/LtL4BLlLNko?si=7wYvDVZFE0UBE6c6" title="YouTube video player"
+                        <iframe width="475" height="260" src="https://www.youtube.com/embed/hNv-O1zmqkA?si=RjKi2DwRLNywBKc-" title="YouTube video player"
                         frameborder="16" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="border-radius: 16px;"></iframe>
                     </div>
-                    <div class="container">
-                        <ul id="result"></ul>
+                    <div class="vedio">
+                        <iframe width="475" height="260" src="https://www.youtube.com/embed/2FZf6xqlNt0?si=jAEyxceiS4_f9-J2" title="YouTube video player" 
+                        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="border-radius: 16px;"></iframe>
                     </div>
                 </div>
 
-                <div class="youtube-contents">
-                    <div class="vedio">
-                        <iframe width="475" height="260" src="https://www.youtube.com/embed/OzGbT1jBQ84?si=rewbx7a0nc8Ym9a0" title="YouTube video player" 
-                        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="border-radius: 16px;"></iframe>
-                    </div>
-                    <div class="container">
-                        <ul id="result2"></ul>
-                    </div>
-                </div>
+
             </section>
 
             <section id="quration-community">
@@ -261,12 +217,12 @@
                 </div>
 
                 <div id="goto-q-c">
-                    <a href="">
+                    <a href="gotoCuration.cu">
                         <div class="go-quration-community">
                             <p>큐레이션으로 가기</p>
                         </div>
                      </a>
-                    <a href="">
+                    <a href="list.co?category=0&cpage=1">
                         <div class="go-quration-community">
                             <p>커뮤니티로 가기</p>
                         </div>

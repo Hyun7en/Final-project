@@ -1,7 +1,3 @@
-window.onload = function(){
-    categorySelected();
-}
-
 //카테고리 링크
 function boCategory(category){
     location.href = "list.co?category=" + category + "&cpage=1";

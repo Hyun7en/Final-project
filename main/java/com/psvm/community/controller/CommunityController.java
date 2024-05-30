@@ -45,23 +45,60 @@ public class CommunityController {
 	@RequestMapping("list.co")//게시글 목록 띄우기
 	public String selectList(@RequestParam(value="cpage", defaultValue="1") int currentPage, @RequestParam(value="category", defaultValue="0") int boardLevel, Model model) {
 		int boardCount = communityService.selectListCount(boardLevel);
-		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 5);
+		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 10);
 		ArrayList<Community> list = communityService.selectList(pi, boardLevel);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
+		model.addAttribute("boardLevel", boardLevel);
 		return "community/CommunityList";
 	}
 	
-	@RequestMapping(value = "detail.co")//게시글 내용 띄우기
-	public String selectBoard(int boardNo, @RequestParam(value="cpage", defaultValue="1") int currentPage, @RequestParam(value="category", defaultValue="0") int boardLevel, Model model) {
+	@RequestMapping("searchlist.co")//게시글 목록 띄우기
+	public String searchList(@RequestParam(value="cpage", defaultValue="1") int currentPage, @RequestParam(value="category", defaultValue="0") int boardLevel, @RequestParam(value="condition", defaultValue="title") String condition, @RequestParam(value="keyword", defaultValue="") String keyword, Model model) {
 		
-		int boardCount = communityService.selectListCount(boardLevel);
-		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 5);
-		ArrayList<Community> list = communityService.selectList(pi, boardLevel);
+		HashMap<String, String>map = new HashMap<>();
+		map.put("condition", condition);
+		map.put("keyword", keyword);
+		map.put("boardLevel", Integer.toString(boardLevel));
+		
+		int boardCount = communityService.searchListCount(map);
+		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 10);
+		ArrayList<Community> list = communityService.searchList(pi, map);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("condition", condition);
+		model.addAttribute("boardLevel", boardLevel);
+		return "community/CommunitySearchList";
+	}
+	
+	@RequestMapping("detail.co")//게시글 내용 띄우기
+	public String selectBoard(int boardNo, @RequestParam(value="cpage", defaultValue="1") int currentPage, @RequestParam(value="category", defaultValue="0") int boardLevel, @RequestParam(value="condition", defaultValue="title") String condition, @RequestParam(value="keyword", defaultValue="") String keyword, Model model) {
+		
+		PageInfo pi = new PageInfo();
+		ArrayList<Community> list = new ArrayList<Community>();
+		
+		if (keyword.isEmpty()) {
+			int boardCount = communityService.selectListCount(boardLevel);
+			pi = Pagination.getPageInfo(boardCount, currentPage, 10, 10);
+			list = communityService.selectList(pi, boardLevel);
+		}else {
+			HashMap<String, String>map = new HashMap<>();
+			map.put("condition", condition);
+			map.put("keyword", keyword);
+			map.put("boardLevel", Integer.toString(boardLevel));
+			
+			int boardCount = communityService.searchListCount(map);
+			pi = Pagination.getPageInfo(boardCount, currentPage, 10, 10);
+			list = communityService.searchList(pi, map);
+		}
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("condition", condition);
+		model.addAttribute("boardLevel", boardLevel);
 		
 		int result = communityService.increaseCount(boardNo);
 		
@@ -131,14 +168,13 @@ public class CommunityController {
 	@ResponseBody
 	@RequestMapping("thumbUpCount.co")//추천 수 확인
 	public int ajaxThumbUpCount(int boardNo) {
-		
+		System.out.println(boardNo);
 		return communityService.thumbUpCount(boardNo);
 	}
 	
 	@ResponseBody
 	@RequestMapping("thumbUpCheck.co")//추천 버튼 클릭 여부 확인
 	public int ajaxthumbUpCheck(ThumbUp t) {
-		
 		return communityService.thumbUpCheck(t);
 	}
 	
@@ -146,7 +182,6 @@ public class CommunityController {
 	@RequestMapping("thumbUpClick.co")//추천하기
 	public String ajaxthumbUpClick(ThumbUp t) {
 		//성공했을 때는 success, 실패했을 때 fail
-		System.out.println(t.toString());
 		return communityService.thumbUpClick(t) > 0 ? "success" : "fail";
 	}
 	

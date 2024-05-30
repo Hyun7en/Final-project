@@ -66,6 +66,30 @@
     border-radius: 10px;
     text-align: center;
 }
+#com-detail-goodbuttonOff{
+    width: 60px;
+    height: 60px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    border: 5px solid #AFA8A8;
+    border-radius: 10px;
+    text-align: center;
+}
+#com-detail-goodbuttonClicked{
+    width: 60px;
+    height: 60px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #0089FF;
+    border: 5px solid #0089FF;
+    border-radius: 10px;
+    text-align: center;
+}
+#com-detail-goodbuttonClicked img{
+    filter: brightness(0) invert(1);
+}
+
 #com-detail-goodcount{
     text-align: center;
     font-size: 20px;
