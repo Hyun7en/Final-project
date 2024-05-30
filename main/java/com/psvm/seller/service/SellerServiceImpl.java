@@ -77,9 +77,9 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public ArrayList<Product> ProductList(PageInfo pi) {
+	public ArrayList<Product> ProductList(PageInfo pi, int businessNo) {
 		
-		return sellerDao.ProductList(sqlSession, pi);
+		return sellerDao.ProductList(sqlSession, pi,businessNo);
 	}
 
 	

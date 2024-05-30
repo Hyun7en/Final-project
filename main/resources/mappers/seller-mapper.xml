@@ -183,8 +183,11 @@
 			   P_TITLE,
 			   TO_CHAR(P_ENROLL_DATE, 'YYYY-MM-DD') AS "P_ENROLL_DATE"
 		  FROM PRODUCT
+		  JOIN product_category using(p_category)
+		  JOIN seller_page	using(seller_page_no)
 		 WHERE P_STATUS = 'Y'
-		 ORDER BY P_NO DESC  
+		   and business_no = #{businessNo}
+		 ORDER BY P_NO DESC; 
 	</select>
 
 </mapper>
