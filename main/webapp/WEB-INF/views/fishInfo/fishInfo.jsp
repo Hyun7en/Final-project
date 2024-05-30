@@ -18,8 +18,8 @@
    <!-- Latest compiled JavaScript -->
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
    
-   
-<body>
+<!-- 스크립트에서는 contextPath를 못알아먹으니 여기서 선언하고 함수의 인자로 넘긴다. -->
+<body onload="fishInfoInit('${pageContext.request.contextPath}')"> 
    <div class="wrap">
    
       <!-- header -->
@@ -40,14 +40,14 @@
                      <input type="text" id="searchArea" style=" background-color: #E0F1FF; width: 90%; border-width: 0; height: inherit; font-size:18px;" name="fishName"  placeholder="물고기 이름을 검색해주세요">
                   </form>
                </div>
-
+               
                <div class="fish-atag">
                
                     <ul class="menu align-center expanded text-center SMN_effect-45">
-                      <li><a href="">해수어</a></li>
-                      <li style="margin-left: 45px;"><a href="">담수어</a></li>
-                      <li style="margin-left: 45px;"><a href="">기수어</a></li>
-                      <li style="margin-left: 45px;"><a href="">열대어</a></li>
+                      <li><a href="javascript:void(0);" onclick="contentsFunction(1,'해수어')">해수어</a></li>
+                      <li style="margin-left: 45px;"><a href="javascript:void(0);" onclick="contentsFunction(1,'담수어')">담수어</a></li>
+                      <li style="margin-left: 45px;"><a href="javascript:void(0);" onclick="contentsFunction(1,'기수어')">기수어</a></li>
+                      <li style="margin-left: 45px;"><a href="javascript:void(0);" onclick="contentsFunction(1,'열대어')">열대어</a></li>
                     </ul>
               
                 </div>
@@ -56,17 +56,13 @@
                   <div>
                      <p>물고기 데이터 260종</p>
                   </div>
-                  <div style="width:10%; display: flex; justify-content: space-evenly;">
-                     <a href="#">인기순</a>|
-                     <a href="#">최신순</a>
-                  </div>
                </div>
 
               
                <div id="main-container">
               		<c:forEach var="b" items="${list}">
  
-              			<a href="fishDetail.fi" id="main-info-a">
+              			<a href="fishDetail.fi?fishName=${b.fishName}" id="main-info-a">
 	                     <div>
 		                     <div id="main-info-p">
 		                         <p>${b.fishName }</p>
@@ -92,7 +88,7 @@
                
 
                <!-- 페이징 처리 들어오는 곳-->
-               <div id="pagination-div">
+               <div id="p-div">
 					<ul class="pagination">
 		            	<c:choose>
 		            		<c:when test="${ pi.currentPage eq 1 }">

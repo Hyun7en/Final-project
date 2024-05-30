@@ -2,9 +2,15 @@
 // $(document).ready(function(){
 //     startFunction(1)
 // })
+let path;
+function fishInfoInit(contextPath){
+    path = contextPath;
+}
 
 function contentsFunction(cpage, cate){
-    event.preventDefault()
+    if (event) {
+        event.preventDefault();
+    }
     const searchValue = document.getElementById("searchArea").value;
     console.log(searchValue);
     console.log(cate);
@@ -12,16 +18,16 @@ function contentsFunction(cpage, cate){
     //     getList({cpage: cpage}, function(data){
     //         drawList(data)
     //     })
-    // } else if(cate!=null  && searchValue == "") {
-    //     console.log("cate 실행됨",cate);
-    //     categorySearch({cpage : cpage, cate : cate}, function(data){
-    //         drawList(data)
-    //     })
-    // }else if(searchValue != ""){
+     if(cate!=null  && searchValue == "") {
+        console.log("cate 실행됨",cate);
+        categorySearch({cpage : cpage, cate : cate}, function(data){
+            drawList(data)
+        })
+    }else if(searchValue != ""){
         getSearchFish({cpage : cpage, fishName: searchValue}, function(data){
             drawList(data)
         })
-    // }
+    }
 }
 
 //searchBar의 엔터를 감지하기 위한 함수
@@ -35,8 +41,9 @@ function enter(e){
 function getList(data, callback){
 	console.log("ajax 실행됨")
         $.ajax({
-            url: "list.pr",
+            url: "getList.fi",
             dataType:"json",
+            type:"post",
             data: data,
             success: function(data){
                 callback(data)
@@ -67,7 +74,8 @@ function getSearchFish(data, callback){
 
 function categorySearch(data, callback){
 	$.ajax({
-            url: "categorySearch.pr",
+            url: "categorySearch.fi",
+            type:"post",
             dataType:"json",
             data: data,
             success: function(data){
@@ -94,9 +102,9 @@ function categoryE(ths) {
 function drawList(data){
     let str = "";
     let Section = document.getElementById("main-container");
-    console.log(data);
+    
     for(const b of data.list){
-        const url = '${pageContext.request.contextPath}/resources/image/${b.url}'
+        const url = path + `/resources/image/${b.url}` //빽팁을 써야 스크립트에서는 변수라고 알아먹는다.
         console.log(url);
         str += `
                 <a href="fishDetail.fi" id="main-info-a">
@@ -121,22 +129,24 @@ function drawList(data){
     }
     Section.innerHTML = str;
 
-    let pagi = document.getElementsByClassName("pagination");
-                    
+    let pagi = document.getElementsByClassName("pagination")[0]; // 첫 번째 요소 선택
+    
     let pagingStr = "";
-
+    
     if (data.pi.currentPage != 1) {
-        pagingStr += `<li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="contentsFunction(\${pi.currentPage - 1});">&laquo;</a></li>`;
-    } else{
-        pagingStr +=`<li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>`;
+        pagingStr += `<li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="contentsFunction(${data.pi.currentPage - 1}, '${data.list[0].fishType}');">&laquo;</a></li>`;
+    } else {
+        pagingStr += `<li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>`;
     }
+
     for (let p = data.pi.startPage; p <= data.pi.endPage; p++) {
-            pagingStr += `<li class="page-item \${p == pi.currentPage ? 'active' : ''}"><a class="page-link" href="javascript:void(0);" onclick="contentsFunction(\${p})">\${p}</a></li>`;
+        pagingStr += `<li class="page-item ${p == data.pi.currentPage ? 'active' : ''}"><a class="page-link" href="javascript:void(0);" onclick="contentsFunction(${p}, '${data.list[0].fishType}')">${p}</a></li>`;
     }
+    
     if (data.pi.currentPage != data.pi.maxPage) {
-        pagingStr += `<li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="contentsFunction(\${pi.currentPage + 1})">&raquo;</a></li>`;
-    }else{
-        pagingStr +=`<li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>`;
+        pagingStr += `<li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="contentsFunction(${data.pi.currentPage + 1}, '${data.list[0].fishType}')">&raquo;</a></li>`;
+    } else {
+        pagingStr += `<li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>`;
     }
 
     pagi.innerHTML = pagingStr;
