@@ -7,14 +7,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>판매자 정보</title>
+<title>Aquaqu</title>
 
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+<!-- CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sellerCSS/sellerInfo.css">
-
 
 </head>
 <body>

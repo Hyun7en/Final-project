@@ -5,13 +5,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>판매자 등록 상품 상세</title>
+<title>Aquaqu</title>
 
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+<!-- CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sellerCSS/sellerProductDetailView.css">
+
+<!-- JS -->
+<script src="${pageContext.request.contextPath}/resources/js/sellerJS/showOption.js"></script>
 
 </head>
 <body>
@@ -34,7 +38,7 @@
                                 상품명
                             </div>
                             <div class="form-control" id="productName">
-                                상품명
+                                ${pd.pdTitle}
                             </div>
                         </div>
                         <div class="form-group">
@@ -42,7 +46,7 @@
                                 카테고리
                             </div>
                             <div class="form-control" id="category">
-                                카테고리
+                                ${pd.pdCategory}
                             </div>
                         </div>
                         <div class="form-group">
@@ -50,7 +54,7 @@
                                 판매가
                             </div>
                             <div class="form-control" id="price">
-                                판매가
+                                ${pd.pdPrice}원
                             </div>
                         </div>
                         
@@ -59,15 +63,15 @@
                                 수량
                             </div>
                             <div class="form-control"id="amount">
-                                수량
+
                             </div>
-                        </div>
+                        </div> 
                         
                         <div class="form-group">
-                            <label  for="pOptionNo">
+                            <label  for="pdOptionName">
                                 옵션
                             </label>
-                            <select class="form-control" id="pOptionNo" name="pOptionNo" required>
+                            <select class="form-control" id="select-option" name="pdOptionName" required>
                                 
                             </select>
                         </div>
@@ -82,7 +86,7 @@
                 </div>
 
                 <div class="image-container">
-                    <img src="../../resources/image/clownfish-1453910_1920.jpg" alt="대표 이미지">
+                    <img src="${pd.pdChangeName}" alt="대표 이미지">
                 </div>
 
                 <div class="form-group">
@@ -92,8 +96,8 @@
                 </div>
 
                 <div id="summernote">
-                    <!-- summernote 상세 -->
-
+                    <!-- summernote 내용 -->
+                    ${pd.pdContent}
                 </div>
 
                 <div class="form-actions">

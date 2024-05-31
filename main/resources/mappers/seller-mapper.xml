@@ -184,5 +184,10 @@
 		   AND BUSINESS_NO = #{businessNo}
 		 ORDER BY P_NO DESC; 
 	</select>
-
+	
+	<select id="selectProduct" resultMap="productResult">
+		SELECT *
+		  FROM PRODUCT
+		 WHERE P_STATUS = 'Y'
+	</select>
 </mapper>

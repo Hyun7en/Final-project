@@ -52,10 +52,20 @@
     section h1 {
         margin-bottom: 20px;
     }
+
     table {
-        margin-top: 50px;
+        margin: 50px 0px;
         width: 100%;
     }
+
+    table tbody #pdList {
+        cursor: pointer;
+    }
+    
+    table tbody #pdList:hover {
+        background-color: #0089FF; /* 호버 시 좀 더 어두운 파란색 */
+    }
+    
     th, td {
         border: 1px solid #ccc;
         padding: 8px;

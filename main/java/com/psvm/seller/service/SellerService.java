@@ -2,7 +2,6 @@ package com.psvm.seller.service;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.seller.vo.Product;
@@ -33,4 +32,6 @@ public interface SellerService {
 	public int selectProductListCount();
 	
 	public ArrayList<Product> ProductList(PageInfo pi,int businessNo);
+	
+	public Product selectProduct(int pno);
 }

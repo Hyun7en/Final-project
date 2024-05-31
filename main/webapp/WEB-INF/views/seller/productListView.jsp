@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>등록 상품 리스트</title>
+<title>Aquaqu</title>
 
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -51,17 +51,26 @@
                         <th>등록일</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <c:forEach var="pd" items="${list}">
-                        <tr onclick = "location.href = 'detail.pd?pno=${pd.pdNo}'">
-                            <td>${pd.pdNo}</td>
-                            <td>${pd.pdCategory}</td>
-                            <td>${pd.pdTitle}</td>
-                            <td>${pd.pdEnrollDate}</td>
-                        </tr>
-                    
-           		    </c:forEach>
-                </tbody>
+                <c:choose>
+                    <c:when test="${empty list}">
+                        <tbody>
+                            <td colspan="5" style="border-radius: 0 0 10px 10px;">등록 상품이 존재하지 않습니다.</td>
+                        </tbody>
+                    </c:when>
+                    <c:otherwise>
+                        <tbody>
+                            <c:forEach var="pd" items="${list}">
+                                <tr id="pdList" onclick = "location.href = 'detail.pd?pno=${pd.pdNo}'">
+                                    <td>${pd.pdNo}</td>
+                                    <td>${pd.pdCategory}</td>
+                                    <td>${pd.pdTitle}</td>
+                                    <td>${pd.pdEnrollDate}</td>
+                                </tr>
+                            
+                            </c:forEach>
+                        </tbody>
+                    </c:otherwise>
+                </c:choose>
             </table>
 
             <!-- 페이징 처리 들어오는 곳-->

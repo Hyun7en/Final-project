@@ -6,7 +6,6 @@ import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -104,7 +103,7 @@ public class SellerController {
             int result = sellerService.insertSellerHome(sellerPage, categories);
             
             if (result > 0 ) { // 성공
-            	session.setAttribute("SellerHomeRegistered", true);
+//            	session.setAttribute("SellerHomeRegistered", true);
                 redirectAttributes.addFlashAttribute("message", "등록이 완료되었습니다.");
                 
                 return "redirect:detail.srh";
@@ -118,8 +117,6 @@ public class SellerController {
             return "redirect:detail.srh";
         }
     }
-
-   
 
     // 실제 넘어온 파일의 이름을 변경해서 서버에 저장하는 메소드
   	public String saveFile(MultipartFile upfile, HttpSession session) {
@@ -321,15 +318,14 @@ public class SellerController {
         return gson.toJson(sellerService.selectCategories(businessNo));
     }
     
-//    @RequestMapping("detail.pd")
-//	public String selectProduct(int pno, Model model) {
-//		
-//		
-//			Product p = sellerService.selectProduct(pno);
-//			model.addAttribute("p", p);
-//			
-//			return "seller/sellerProductDetailView";
-//	}
+    @RequestMapping("detail.pd")
+	public String selectProduct(int pno, Model model) {
+		
+			Product pd = sellerService.selectProduct(pno);
+			model.addAttribute("pd", pd);
+			
+			return "seller/sellerProductDetailView";
+	}
     
     @RequestMapping("updateForm.pd")
   	public String productUpdateForm() {
