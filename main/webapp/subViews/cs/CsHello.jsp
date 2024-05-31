@@ -50,7 +50,8 @@
                 </div>
                 <div class="center">
                     <thead class="center-list"><a href=""><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소... 솔직히 디자인 하면서 장난치는 건 선넘는다고 생각해요...</b>
-                    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;디자이너야 그게 무슨 소리니</a></thead>
+                        <!-- <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;디자이너야 그게 무슨 소리니</a> -->
+                    </thead>
                 </div>
                 <div class="center">
                     <thead class="center-list"><a href=""><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;말말말</b></a></thead>

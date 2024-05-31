@@ -43,16 +43,7 @@
                        
                     </ul>
             </div>
-            <!-- <script>
-                function boCategory(category){
-                    if(category === 0){ // 카테고리 번호 0 = 일반 버튼 누름
-                        location.href = "CommunityNorm.jsp"; // 일반 게시판 페이지로 이동
-                    }else{ // 카테고리 번호 10~30 = 일반 이외의 3가지 게시판 버튼 중 하나를 누름
-                        //session에 value 값 저장
-                        location.href = "CommunityCategory.jsp?category=" + category; // 해당 게시판 페이지로 이동
-                    }
-                }
-            </script> -->
+            
             <table class="com-list">
                 <thead id="com-list-header">
                     <th style="width: 60px; border-radius: 10px 0 0 0;">No</th>
