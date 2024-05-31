@@ -15,17 +15,17 @@
 <body>
     <header>
         <div id="adminMenubar-logo">
-            <a href="home.ma"><h1>Aquaqu</h1></a>
+            <h1><a href="home.ma">Aquaqu</a></h1>
             <div id="adminMenubar-link">
                 <ul>
                     <li>
                         <a href="">스토어</a>
                     </li>
                     <li>
-                        <a href="">관리자 홈</a>
+                        <a href="main.ma">관리자 홈</a>
                     </li>
                     <li id="adminMenubar-logout">
-                        <a id="logout" href="">로그아웃</a>
+                        <a id="logout" href="logout.me">로그아웃</a>
                     </li>
                 </ul>
             </div>
