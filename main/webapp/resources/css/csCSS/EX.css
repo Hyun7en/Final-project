@@ -4,25 +4,6 @@ body{
     background-color: #E0F1FF;
     position: relative;
 }
-#head {
-    margin: 0 0 20px 0;
-    border: 10px solid #0089FF;
-    background-color: #ffffff;
-    color: #0089FF;
-    border-radius: 16px 16px 16px 16px;
-    text-align: center;     
-    /* padding: 5px #0089FF;    */
-}
-/* input {
-    margin: 0 0 10px 0;
-    border: 10px solid #0089FF;
-    background-color: #ffffff;
-    color: #0089FF;
-    border-radius: 16px 16px 16px 16px;
-    text-align: center;     
-    padding: 5px #0089FF;   
-} */
-
 #community-normal{
     min-height: 100%;
     width: 900px;
@@ -34,6 +15,36 @@ body{
     font-size: 30px;
     font-weight: bold;
     margin-bottom: 30px;
+}
+#com-nav{
+    height: 45px;
+    margin-bottom: 40px;
+    display: flex;
+    /* justify-content: space-around; */
+}
+#com-nav>ul{
+    display: flex;
+    text-align: center;
+    padding: 0;
+}
+#com-nav>ul>li{
+    width: 225px;   
+    height: 45px;
+    /* display: flex; */
+    justify-content: space-around;
+}
+#com-nav button{
+    width: 225px;   
+    height: 45px;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: white;
+    border: 1px solid #AFA8A8;
+}
+#com-nav button:hover, #com-nav #com-nav-selected{
+    background-color: #0089FF;
+    color: white;
+    border: 0px;
 }
 .com-list{
     width: 900px;
@@ -55,13 +66,21 @@ body{
     height: 30px;
     background-color: white;
 }
+#com-list-body a, #com-list-bottom a{
+    color: black;
+}
+#com-list-body a:hover, #com-list-bottom a:hover, #com-list-selected{
+    font-size: 16px;
+    font-weight: bold;
+}
+
 .com-bottom1{
     width: 900px;
     height: 40px;
-    margin-bottom: 100px;
     margin-top: 40px;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 100px;
     display: flex;
 }
 .com-bottom1>.com-bottom-left{
@@ -98,11 +117,11 @@ body{
 #com-grey-button{
     background: #AFA8A8;
 }
-/* .com-bottom2{
+
+.com-bottom2{
     width: 900px;
     height: 30px;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 15px;
     margin-bottom: 100px;
-} */
-
+}
