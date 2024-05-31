@@ -33,24 +33,14 @@
                 <form action="search.AdminCs" method="get">
                     <input type="hidden" name="cpage" value="1">
                     <select name="condition">
-                        <option value="writer">작성자</option>
-                        <option value="title">제목</option>
-                        <option  value="content">내용</option>
+                        <option value="category">카테고리</option>
+                        <option value="productName">상품명</option>
                     </select>
                     <input id="search-keyword" type="text" name="keyword" value="${keyword }">
                     <button type="submit" >검색</button>
                 </form>
 
             </div>
-
-            <c:if test="${not empty condition}">
-                <script>
-                    window.onload = function () {
-                        const opt = document.querySelector("#search-area option[value=${condition}]");
-                        opt.setAttribute("selected", true);
-                    }
-                </script>
-            </c:if>
 
             <table>
                 <thead>
@@ -62,16 +52,44 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach var="product" items="${productList}">
-                        <tr>
-                            <td>${product.id}</td>
-                            <td>${product.category}</td>
-                            <td>${product.name}</td>
-                            <td>${product.date}</td>
+                    <c:forEach var="pd" items="${list}">
+                        <tr onclick = "location.href = 'detail.pd?pno=${pd.pdNo}'">
+                            <td>${pd.pdNo}</td>
+                            <td>${pd.pdCategory}</td>
+                            <td>${pd.pdTitle}</td>
+                            <td>${pd.pdEnrollDate}</td>
                         </tr>
-                    </c:forEach>
+                    
+           		    </c:forEach>
                 </tbody>
             </table>
+
+            <!-- 페이징 처리 들어오는 곳-->
+            <div id="pagination-div">
+                <ul class="pagination">
+                    <c:choose>
+                        <c:when test="${ pi.currentPage eq 1 }">
+                            <li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="page-item"><a class="page-link" href="list.pd?cpage=${pi.currentPage - 1}">&laquo;</a></li>
+                        </c:otherwise>
+                </c:choose>
+
+            <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+                <li class="page-item ${p == pi.currentPage ? 'active' : ''}"><a class="page-link" href="list.pd?cpage=${p}">${p}</a></li>
+            </c:forEach>
+                
+            <c:choose>
+                    <c:when test="${ pi.currentPage eq pi.maxPage }">
+                        <li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="page-item"><a class="page-link" href="list.pd?cpage=${pi.currentPage + 1}">&raquo;</a></li>
+                    </c:otherwise>
+                </c:choose>
+                </ul>
+            </div>
           
         </section>
     </main>

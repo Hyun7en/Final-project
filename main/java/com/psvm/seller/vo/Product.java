@@ -15,15 +15,15 @@ import lombok.ToString;
 @ToString
 public class Product {
 	
-	private int pNo;
-	private int userNo;
-	private String pCategory;
-	private String pOption;
-	private int pFileNo;
-	private String pTitle;
-	private String pStatus;
-	private int sellPrice;
-	private String pExplane;
-	private Date pEnrollDate;
+	private int pdNo;
+	private String pdCategory;
+	private String pdTitle;
+	private int pdPrice;
+	private String pdContent;
+	private Date pdEnrollDate;
+	private int pdStar;
+	private String pdOriginName;
+	private String pdChangeName;
+	private String pdStatus;
 	
 }

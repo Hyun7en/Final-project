@@ -43,7 +43,7 @@ section div input {
 .image-container {
     width: 800px;
     height: 400px;
-    box-shadow: 2px 4px 12px #ccc;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 약간의 그림자 효과 */
 }
 
 .image-container img {

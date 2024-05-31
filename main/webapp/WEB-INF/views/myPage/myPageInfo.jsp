@@ -47,7 +47,7 @@
                         <div id="myPage-sidebar-profile-nickName"><b>${loginUser.nickname}</b>님 환영합니다.</div>
                     </div>
                     <div id="myPage-category-area"> 
-                        <div class="myPage-category"><a style="color: #0089FF;" href="myPage.me">내 정보</a></div>
+                        <div class="myPage-category"><a style="color: #0089FF;" href="myPage.me?userNo=${loginUser.userNo}">내 정보</a></div>
                         <div class="myPage-category"><a href="interestProduct.my?userNo=${loginUser.userNo}">관심상품</a></div>
                         <div class="myPage-category"><a href="cart.my?userNo=${loginUser.userNo}">장바구니</a></div>
                         <div class="myPage-category"><a href="orderHistory.my?userNo=${loginUser.userNo}">주문내역</a></div>
@@ -62,16 +62,30 @@
                         <b>내 정보</b>
                     </div>
                     
-                    <form action="modifyInfo.my" method="POST">
+                    <form action="modifyInfo.my" method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="userNo" value="${loginUser.userNo}">
                         <div id="myPageInfo-profile-area">
                             <div id="myPageInfo-profile-img">
-                                <img src="https://previews.123rf.com/images/ann24precious/ann24precious1602/ann24precious160200015/53140153-%EA%B7%80%EC%97%AC%EC%9A%B4-%EB%AC%BC%EA%B3%A0%EA%B8%B0.jpg" alt="">
+                                <c:choose>
+                                    <c:when test="${empty ma.changeName}">
+                                        <img id="profile-img" src="">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img id="profile-img" src="${ma.changeName}">
+                                    </c:otherwise>
+                                </c:choose>
+                                <c:if test="${not empty ma.originName}">
+                                    <input type="hidden" name="originName" value="${ma.originName }">
+                       			    <input type="hidden" name="changeName" value="${ma.changeName }">
+                                </c:if>
+                                
                             </div>
-                            <!-- <div id="myPageInfo-profile-edit">
-                                <label for="file">프로필 변경</label>
-                                <input type="file" name="file" id="file">
-                            </div> -->
+                            <div id="myPageInfo-profile-edit">
+                                <label id="profile-edit-btn" for="file" onclick="change_profileImage()">프로필 변경</label>
+                            </div>
+                            <div style="display: none;">
+                                <input type="file" name="file" id="file" value="12354.jpg" onchange="loadImg(this)">
+                            </div>
                         </div>
 
                         <div id="myPageInfo-no-changeInfo-area">
@@ -102,7 +116,7 @@
                                     <td>
                                         <!-- button 태그에 type="button"을 안쓰면 버튼을 눌렀을때 페이지가 새로고침이 되서 써야한다.-->
                                         <input type="text" id="nickname" name="nickname" readonly value="${loginUser.nickname}">
-                                        <button type="button" class="change-btn" id="nickname-btn" onclick="change_nickname()">변경</button>
+                                        <button type="button" class="change-btn" id="nickname-btn" onclick="change_nickname(this)">변경</button>
                                     </td>
                                 </tr>
 
@@ -110,14 +124,16 @@
                                     <th>성별</th>
                                     <td id="gender-area">
                                         <c:choose>
-                                            <c:when test="${loginUser.gender eq M}">
-                                                <input type="text" id="gender" name="gender" readonly value="남">
+                                            <c:when test="${loginUser.gender eq 'M'}">
+                                                <input type="text" id="gender-display" name="gender-display" readonly value="남">
+                                                <input type="hidden" id="gender" name="gender" value="M">
                                             </c:when>
                                             <c:otherwise>
-                                                <input type="text" id="gender" name="gender" readonly value="여">
+                                                <input type="text" id="gender-display" name="gender-display" readonly value="여">
+                                                <input type="hidden" id="gender" name="gender" value="F">
                                             </c:otherwise>
                                         </c:choose>
-                                        <button type="button" class="change-btn" id="gender-btn" onclick="change_gender()">변경</button>
+                                        <button type="button" class="change-btn" id="gender-change-btn" onclick="change_gender()">변경</button>
                                     </td>
                                 </tr>
 
@@ -161,6 +177,11 @@
 
      <script>
 
+        function change_profileImage(){
+            document.getElementById("modify-btn").disabled = false;
+            document.getElementById("modify-btn").style.backgroundColor = "#000";
+        }
+
         function change_nickname() {
             document.getElementById("nickname").readOnly = false;
             document.getElementById("nickname").style.backgroundColor = "white";
@@ -197,31 +218,42 @@
         // }
 
         function change_gender() {
-
-            document.getElementById("gender").style.display = "hidden";
+            document.getElementById("gender-display").style.display = "none";
+            document.getElementById("gender-change-btn").style.display = "none";
             document.getElementById("gender").disabled = true;
+
+            document.querySelector("#gender-area").innerHTML = "";
 
             let radios = ('<input type="radio" class="gender" id="gender1" name="gender" checked value="M"> 남'
                          + '<input type="radio" class="gender" id="gender2" name="gender" value="F"> 여'
-                        + '<button type="button" class="change-btn" id="gender-btn" onclick="confirm_gender()">변경</button>');
+                         + '<button type="button" class="change-btn" id="gender-confirm-btn" onclick="confirm_gender()">확정</button>');
             document.querySelector("#gender-area").innerHTML = radios;
 
-            document.getElementById("gender-btn").innerText = "확정";
-            document.getElementById("gender-btn").style.backgroundColor = "#96E6FF";
-            document.getElementById("gender-btn").setAttribute("onclick", "confirm_gender()");
+            document.getElementById("gender-confirm-btn").style.backgroundColor = "#96E6FF";
 	    }
 
         function confirm_gender() {
             document.getElementById("modify-btn").disabled = false;
             document.getElementById("modify-btn").style.backgroundColor = "#000";
-            $("input[type='radio']").attr("onclick", "return false;");
-            // document.getElementById("gender").readOnly = true;
-            // document.getElementById("gender").style.backgroundColor = "#96E6FF";
-            document.getElementById("gender-btn").disabled = true;
-            document.getElementById("gender-btn").innerText = "확정됨";
-            document.getElementById("gender-btn").style.backgroundColor = "#96E6FF";
-            document.getElementById("gender-btn").style.color = "#000";
 
+            const selectedGender = document.querySelector('input[name="gender"]:checked').value;
+            document.querySelector("#gender-area").innerHTML = "";
+
+            if(selectedGender === 'M'){
+                let text = ('<input type="text" id="gender-display" name="gender-display" value="남">'
+                         + '<input type="hidden" id="gender" name="gender" value="M">'
+                         + '<button type="button" class="change-btn" id="gender-confirmed-btn">확정됨</button>');
+                document.querySelector("#gender-area").innerHTML = text;
+            } else if(selectedGender === 'F'){
+                let text = ('<input type="text" id="gender-display" name="gender-display" value="여">'
+                         + '<input type="hidden" id="gender" name="gender" value="F">'
+                         + '<button type="button" class="change-btn" id="gender-confirmed-btn">확정됨</button>');
+                document.querySelector("#gender-area").innerHTML = text;
+            }
+
+            document.getElementById("gender-display").readOnly= true;
+            document.getElementById("gender-display").style.backgroundColor = "#96E6FF";
+            document.getElementById("gender-confirmed-btn").style.backgroundColor = "#96E6FF";
         }
 
         function change_phone() {
@@ -276,6 +308,27 @@
             document.getElementById("address-btn").disabled = true;
             document.getElementById("address-btn").innerText = "확정됨";
             document.getElementById("address-btn").style.color = "#000";
+        }
+
+        function loadImg(imgInputFile){
+            console.log(imgInputFile.files.length)
+            if(imgInputFile.files.length == 1){
+                //파일을 읽어들일 FileReader객체생성
+                const reader = new FileReader();
+
+                //파일을 읽어들이는 메소드
+                //해당파일을 읽어들이는 순간 해당 파일만의 고유한 url부여
+                reader.readAsDataURL(imgInputFile.files[0]);
+
+                //파일 읽어들이기 완료했을 때 실행할 함수 정의
+                reader.onload = function(ev){
+                    
+                    document.getElementById("profile-img").src = ev.target.result;
+                    console.log(ev.target.result)
+                }
+            } else{
+                document.getElementById("profile-img").src = null;
+            }
         }
 
 

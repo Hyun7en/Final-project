@@ -1,6 +1,4 @@
-package com.psvm.seller.vo;
-
-import java.util.Date;
+package com.psvm.member.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,20 +6,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @ToString
-public class ProductAttachment {
-	
-	private int productFileNo;
-	private int sellerPageNo;
-	private int refPno;
-	private Date uploadDate;
+public class MemberAttachment {
+	private int memberFileNo;
+	private int refMno;
+	private String uploadDate;
 	private int fileLevel;
 	private String originName;
 	private String changeName;
-	
-
 }

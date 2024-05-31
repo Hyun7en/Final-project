@@ -18,7 +18,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mainCSS/main.css">
 	<script src="${pageContext.request.contextPath}/resources/js/mainJS/main.js"></script>
-
+    <script src="https://unpkg.com/scrollreveal"></script>
 
 </head>
 <body>

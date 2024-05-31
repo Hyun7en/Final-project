@@ -49,7 +49,7 @@
                         <div id="myPage-sidebar-profile-nickName"><b>${loginUser.nickname}</b>님 환영합니다.</div>
                     </div>
                     <div id="myPage-category-area">
-                        <div class="myPage-category"><a href="myPage.me">내 정보</a></div>
+                        <div class="myPage-category"><a href="myPage.me?userNo=${loginUser.userNo}">내 정보</a></div>
                         <div class="myPage-category"><a href="interestProduct.my?userNo=${loginUser.userNo}">관심상품</a></div>
                         <div class="myPage-category"><a href="cart.my?userNo=${loginUser.userNo}"> 장바구니</a></div>
                         <div class="myPage-category"><a href="orderHistory.my?userNo=${loginUser.userNo}">주문내역</a></div>
@@ -60,7 +60,16 @@
                 </div>
                 <div id="mypageSellerConversion-info-area">
                     <c:choose>
-                        <c:when test="${status eq 'N'}">
+                        <c:when test="${authority eq 1}">
+                            <div id="myPage-category-select-title">
+                                <h3>판매자 전환 신청 현황</h3>
+                            </div>
+                            <div align="center">
+                                <p>승인됨</p>
+                            </div>
+                        </c:when>
+
+                        <c:when test="${authority eq 0 and status eq 'Y'}">
                             <div id="myPage-category-select-title">
                                 <h3>판매자 전환 신청 현황</h3>
                             </div>
@@ -68,14 +77,7 @@
                                 <p>승인 대기중</p>
                             </div>
                         </c:when>
-                        <c:when test="${status eq 'Y'}">
-                            <div id="myPage-category-select-title">
-                                <h3>판매자 전환 신청 현황</h3>
-                            </div>
-                            <div align="center">
-                                <p>승인 완료</p>
-                            </div>
-                        </c:when>
+
                         <c:otherwise>
                             <div id="myPage-category-select-title">
                                 <h3>판매자 전환 신청</h3>
@@ -83,7 +85,6 @@
         
                             <form action="sellerConversion.my" method="POST">
                                 <div id="mypageSellerConversion-input-area">
-        
                                     <div id="mypageSellerConversion-input">
                                         <input type="hidden" name="userNo" value="${loginUser.userNo}">
         
@@ -141,14 +142,12 @@
                                             </div>
                                         </div>
                                     </div>
-    
                                 </div>
-        
+
                                 <div id="btn-area">
                                     <button type="reset">초기화</button>
                                     <button type="submit">신청하기</button>
-                                </div>
-        
+                                </div>                             
                             </form>
                         </c:otherwise>
                     </c:choose>

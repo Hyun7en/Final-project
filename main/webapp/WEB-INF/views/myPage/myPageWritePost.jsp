@@ -29,7 +29,7 @@
                         <div id="myPage-sidebar-profile-nickName"><b>${loginUser.nickname}</b>님 환영합니다.</div>
                     </div>
                     <div id="myPage-category-area">
-                        <div class="myPage-category"><a href="myPage.me">내 정보</a></div>
+                        <div class="myPage-category"><a href="myPage.me?userNo=${loginUser.userNo}">내 정보</a></div>
                         <div class="myPage-category"><a href="interestProduct.my?userNo=${loginUser.userNo}">관심상품</a></div>
                         <div class="myPage-category"><a href="cart.my?userNo=${loginUser.userNo}">장바구니</a></div>
                         <div class="myPage-category"><a href="orderHistory.my?userNo=${loginUser.userNo}">주문내역</a></div>
@@ -74,8 +74,24 @@
                                     </c:when>
                                     <c:otherwise>
                                         <c:forEach var="b" items="${list}">
-                                            <tr>
-                                                <td>${b.boardLevel}</td>
+                                            <!-- 호연님한테 cpage는 뺼수 있냐 물어보기(호연님 게시글 페이징이랑 내 마이페이지 작성한글 페이징이랑 다름. 
+                                            예를 들어 호연님은 카태고리 일반, 꿀팁, 질문, 거래별로 페이징 처리 해놨는데 나는 작성한글 내가 쓴글이 전부
+                                            있기떄문에 페이지 수가 다를수밖에 없음)-->
+                                            <tr onclick="location.href = 'detail.co?category=${b.boardLevel}&boardNo=${b.boardNo}'">
+                                                <c:choose>
+                                                    <c:when test="${b.boardLevel eq 0}">
+                                                        <td>일반</td>
+                                                    </c:when>
+                                                    <c:when test="${b.boardLevel eq 1}">
+                                                        <td>꿀팁</td>
+                                                    </c:when>
+                                                    <c:when test="${b.boardLevel eq 2}">
+                                                        <td>질문</td>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <td>중고거래</td>
+                                                    </c:otherwise>
+                                                </c:choose>
                                                 <td>${b.boardTitle}</td>
                                                 <td>${b.writeDate}</td>
                                                 <td>${b.boardCount}</td>
