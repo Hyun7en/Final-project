@@ -50,6 +50,7 @@ public class MyPageController {
 			if(ma.getOriginName() != null) {
 				new File(session.getServletContext().getRealPath(ma.getChangeName())).delete();
 				
+				// 파일명 변경하는 메소드로 보내고 값 받아오기
 				String changeName = saveFile(file, session);
 				
 				ma.setOriginName(file.getOriginalFilename());
@@ -59,6 +60,8 @@ public class MyPageController {
 				result1 = myPageService.modifyInfo(m);
 				result2 = myPageService.updateImageModifyInfo(ma);
 			} else {
+				
+				// 파일명 변경하는 메소드로 보내고 값 받아오기
 				String changeName = saveFile(file, session);
 				
 				ma.setOriginName(file.getOriginalFilename());
@@ -187,8 +190,10 @@ public class MyPageController {
 	@RequestMapping("sellerConversionPage.my")
 	public String sellerConversionPage(HttpSession session, int userNo) {
 		
-		String status = myPageService.sellerConversionStatus(userNo);
+		int authority = myPageService.selectSellerConversionAuthority(userNo);
+		String status = myPageService.selectSellerConversionStatus(userNo);
 		
+		session.setAttribute("authority", authority);
 		session.setAttribute("status", status);
 				
 		return "myPage/myPageSellerConversion";
@@ -197,7 +202,7 @@ public class MyPageController {
 	
 	@RequestMapping("sellerConversion.my")
 	public ModelAndView sellerConversion(HttpSession session, SellerInfo s, ModelAndView mv) {
-		int result = myPageService.sellerInfoList(s);
+		int result = myPageService.sellerInfoInsert(s);
 		
 		if(result > 0) {
 			mv.addObject("successMessage", "판매자 신청 성공");

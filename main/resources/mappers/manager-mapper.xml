@@ -25,7 +25,7 @@
 	</resultMap>
 	
 	
-	<!-- 판매자 신구신청 리스트 조회 -->
+	<!-- 판매자 신규신청 리스트 조회 -->
 	<select id="sellerNewApplicationList" resultMap="sellerNewApplicationResult">
 		SELECT user_no,
 			   user_name,
@@ -41,15 +41,16 @@
 			   business_address,
 			   business_account,
 			   application_date				
-		FROM seller_info
-		JOIN member USING (user_no)
-		WHERE status = 'N'
+		FROM member m
+		JOIN seller_info s USING (user_no)
+		WHERE m.authority = 0
+		AND s.status = 'Y'
 	</select>
 	
 	<!-- 판매자 신규신청 승인 -->
 	<update id="sellerNewApplicationApprove">
-		UPDATE seller_info
-		SET status = 'Y'
+		UPDATE member
+		SET authority = 1
 		WHERE user_no = #{userNo}
 	</update>
 
