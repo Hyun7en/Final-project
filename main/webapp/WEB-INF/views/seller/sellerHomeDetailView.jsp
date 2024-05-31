@@ -43,7 +43,7 @@
                     <h4>대표 이미지</h4>                    
                     
                     <div class="image-container">
-                        <img src="${sp.spChangeName}" alt="테스트 이미지">
+                        <img src="${sp.spChangeName}">
                     </div>
 
                     <div>

@@ -86,7 +86,7 @@
                 </div>
 
                 <div class="image-container">
-                    <img src="${pd.pdChangeName}" alt="대표 이미지">
+                    <img src="${pd.pdChangeName}">
                 </div>
 
                 <div class="form-group">

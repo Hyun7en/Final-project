@@ -44,7 +44,7 @@
                     <input type="file" name="storeHomeImage" id="storeHomeImage">
                 </div>
                 <div class="image-container">
-                    <img id="preview-image" src="getImage?id=1" alt="대표 이미지">
+                    <img id="preview-image" src="getImage?id=1" alt="스토어 홈 이미지">
                 </div>
 
                 <div id="div-enroll-category">

@@ -54,27 +54,29 @@
     }
 
     table {
-        margin: 50px 0px;
+        margin: 50px 0;
         width: 100%;
     }
-
-    table tbody #pdList {
-        cursor: pointer;
-    }
-    
-    table tbody #pdList:hover {
-        background-color: #0089FF; /* 호버 시 좀 더 어두운 파란색 */
-    }
-    
+   
     th, td {
         border: 1px solid #ccc;
         padding: 8px;
         text-align: center;
     }
     th {
-        background-color: #f0f0f0;
+        background-color: #0089FF;
+        color: white;
     }
-   
+    
+    table tbody #pdList {
+        cursor: pointer;
+    }
+    
+    table tbody #pdList:hover {
+        background-color: #00eeff;
+        color: white;
+    }
+
     .pagination {
         display: flex;
         list-style: none;
@@ -94,12 +96,12 @@
     }
     
     .pagination > li.active > a {
-        background-color: #42A2F4; /* 활성화된 버튼의 배경색 */
+        background-color: #0089FF; /* 활성화된 버튼의 배경색 */
         color: white;             /* 활성화된 버튼의 글자색 */
         border-radius: 5px;       /* 테두리 둥글게 */
     }
     
     .pagination > li > a:hover:not(.active) {
-        background-color: #ddd;  /* 활성화되지 않은 버튼에 마우스를 올렸을 때 배경색 */
+        background-color: #005bb5;  /* 활성화되지 않은 버튼에 마우스를 올렸을 때 배경색 */
         border-radius: 5px;      /* 테두리 둥글게 */
     }

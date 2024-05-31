@@ -29,14 +29,13 @@
 
     section button {
         padding: 10px;
-        background-color: white;
-        border: 1px solid #ccc;
+        background-color: #0089FF;
+        color: white;
         border-radius: 5px;
         cursor: pointer;
-        font-weight: bolder;
     }
 
     section button:hover {
-        background-color: #f0f0f0;
+        background-color: #005bb5;
     }
 

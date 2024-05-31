@@ -113,7 +113,8 @@
     .image-container {
         width: 800px;
         height: 400px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 약간의 그림자 효과 */
+        padding: 10px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 
     }
     
@@ -123,16 +124,15 @@
     }
 
     .form-actions button {
-        padding: 10px 20px;
-        border: 1px solid #ccc;
-        background-color: white;
+        padding: 10px;
+        background-color: #0089FF;
+        color: white;
         cursor: pointer;
         border-radius: 5px;
-        font-weight: bolder;
     }
 
     .form-actions button:hover {
-        background-color: #f0f0f0;
+        background-color: #005bb5;
     }
 
     #summernote {
