@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.seller.vo.Product;
 import com.psvm.seller.vo.ProductCategory;
+import com.psvm.seller.vo.ProductOption;
 import com.psvm.seller.vo.SellerInfo;
 import com.psvm.seller.vo.SellerPage;
 
@@ -80,5 +81,10 @@ public class SellerDao {
 	public Product selectProduct(SqlSessionTemplate sqlSession, int pno) {
 		
 		return sqlSession.selectOne("sellerMapper.selectProduct", pno);
+	}
+	
+	public ArrayList<ProductOption> selectOptions(SqlSessionTemplate sqlSession,int pno) {
+		
+		return (ArrayList)sqlSession.selectList("sellerMapper.selectOptions", pno);
 	}
 }

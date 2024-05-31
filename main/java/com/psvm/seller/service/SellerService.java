@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.seller.vo.Product;
 import com.psvm.seller.vo.ProductCategory;
+import com.psvm.seller.vo.ProductOption;
 import com.psvm.seller.vo.SellerInfo;
 import com.psvm.seller.vo.SellerPage;
 
@@ -34,4 +35,6 @@ public interface SellerService {
 	public ArrayList<Product> ProductList(PageInfo pi,int businessNo);
 	
 	public Product selectProduct(int pno);
+	
+	public ArrayList<ProductOption> selectOptions(int pno);
 }

@@ -311,11 +311,10 @@ public class SellerController {
     // 옵션 불러오는 ajax
     @RequestMapping(value = "options.ax", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public String ajaxGetOptions(HttpSession session) {
+    public String ajaxGetOptions(int pno, HttpSession session) {
     	
-    	
-    	int businessNo = getBusinessNoFromUserNo(session);
-        return gson.toJson(sellerService.selectCategories(businessNo));
+        return gson.toJson(sellerService.selectOptions(pno));
+        
     }
     
     @RequestMapping("detail.pd")

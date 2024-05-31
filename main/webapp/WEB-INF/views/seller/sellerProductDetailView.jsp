@@ -62,8 +62,8 @@
                             <div class="pd-detail-title">
                                 수량
                             </div>
-                            <div class="form-control"id="amount">
-
+                            <div class="form-control" id="amount">
+                                
                             </div>
                         </div> 
                         

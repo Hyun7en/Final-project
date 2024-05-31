@@ -13,6 +13,7 @@ import com.psvm.commons.vo.PageInfo;
 import com.psvm.seller.dao.SellerDao;
 import com.psvm.seller.vo.Product;
 import com.psvm.seller.vo.ProductCategory;
+import com.psvm.seller.vo.ProductOption;
 import com.psvm.seller.vo.SellerInfo;
 import com.psvm.seller.vo.SellerPage;
 
@@ -117,6 +118,12 @@ public class SellerServiceImpl implements SellerService {
 	public Product selectProduct(int pno) {
 		
 		return sellerDao.selectProduct(sqlSession, pno);
+	}
+
+	@Override
+	public ArrayList<ProductOption> selectOptions(int pno) {
+		
+		return sellerDao.selectOptions(sqlSession, pno);
 	}
 
 	

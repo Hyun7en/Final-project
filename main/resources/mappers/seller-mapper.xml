@@ -190,4 +190,11 @@
 		  FROM PRODUCT
 		 WHERE P_STATUS = 'Y'
 	</select>
+	
+	<select id="selectOptions" resultMap="productOptionResult">
+		SELECT P_COUNT,
+			   P_OPTION_NAME	
+		  FROM PRODUCT_OPTION
+		WHERE P_NO = #{pno}
+	</select>
 </mapper>
