@@ -1,3 +1,5 @@
+// 카테고리 가져오기
+
 $(document).ready(function() {
         // 페이지 로드 시 카테고리 목록을 가져오고, 그리기
         selectCategories(function(categories){
@@ -16,7 +18,7 @@ $(document).ready(function() {
             // 카테고리 목록의 각 항목에 대해 option 요소를 생성하여 추가
             categories.forEach(function(category) {
                 if (category) {
-                    $selectCategory.append($('<option>').text(category.pCategory).val(category.pCategory)); // 값을 카테고리 이름으로 사용
+                    $selectCategory.append($('<option>').text(category.pdCategory).val(category.pdCategory)); // 값을 카테고리 이름으로 사용
                 } else {
                     console.log('Invalid category data', category);
                 }

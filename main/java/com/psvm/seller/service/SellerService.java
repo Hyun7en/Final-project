@@ -2,11 +2,11 @@ package com.psvm.seller.service;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.seller.vo.Product;
 import com.psvm.seller.vo.ProductCategory;
+import com.psvm.seller.vo.ProductOption;
 import com.psvm.seller.vo.SellerInfo;
 import com.psvm.seller.vo.SellerPage;
 
@@ -28,9 +28,13 @@ public interface SellerService {
 	public SellerPage selectSellerHomeDetail(int businessNo);
 	
 	// 상품 등록
-	public int insertProduct(Product product, HashMap<String, Object> map);
+	public int insertProduct(Product product, int pdCount, ArrayList<String> options);
 	
 	public int selectProductListCount();
 	
 	public ArrayList<Product> ProductList(PageInfo pi,int businessNo);
+	
+	public Product selectProduct(int pno);
+	
+	public ArrayList<ProductOption> selectOptions(int pno);
 }

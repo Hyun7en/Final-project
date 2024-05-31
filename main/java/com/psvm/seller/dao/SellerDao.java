@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
-import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.seller.vo.Product;
 import com.psvm.seller.vo.ProductCategory;
+import com.psvm.seller.vo.ProductOption;
 import com.psvm.seller.vo.SellerInfo;
 import com.psvm.seller.vo.SellerPage;
 
@@ -19,7 +19,6 @@ import com.psvm.seller.vo.SellerPage;
 public class SellerDao {
 	
 	public SellerInfo selectSeller(SqlSessionTemplate sqlSession, int userNo){
-		
 		
 		return sqlSession.selectOne("sellerMapper.selectSeller", userNo);
 		
@@ -33,24 +32,15 @@ public class SellerDao {
 	
 	public int insertSellerPage(SqlSessionTemplate sqlSession, SellerPage sellerPage){
 		
-	    	return sqlSession.insert("sellerMapper.insertSellerPage", sellerPage);
+	    return sqlSession.insert("sellerMapper.insertSellerPage", sellerPage);
 	    
 	}
 
 	//카테고리 넣기
-	public int insertProductCategory(SqlSessionTemplate sqlSession, ArrayList<String> categories){
+	public int insertProductCategory(SqlSessionTemplate sqlSession, String category){
 		
-		int result = 1;
+		return sqlSession.insert("sellerMapper.insertProductCategory", category);
 		
-		for(String category : categories) {
-			
-			if(!category.equals("")) {
-				result = result * sqlSession.insert("sellerMapper.insertProductCategory", category);
-			}
-			
-		}
-			
-		return result;	
 	}
 
 	public ArrayList<ProductCategory> selectCategories(SqlSessionTemplate sqlSession, int businessNo) {
@@ -70,28 +60,10 @@ public class SellerDao {
 	}
 
 	//option 넣기
-	public int insertProductOption(SqlSessionTemplate sqlSession, HashMap<String, Object> map){
+	public int insertProductOption(SqlSessionTemplate sqlSession, HashMap<String,Object> newMap){
 	
-		int result = 1;
-		
-		int pCount = (int) map.get("pCount");
+		return sqlSession.insert("sellerMapper.insertProductOption", newMap);
 			
-		for(String option : (ArrayList<String>) map.get("options")) {
-			
-			HashMap<String,Object> newMap = new HashMap<>();
-			
-			newMap.put("option", option);
-			
-			newMap.put("pCount", pCount);
-			
-			System.out.println(newMap);
-			
-			if(!option.equals("")) {
-				result = result * sqlSession.insert("sellerMapper.insertProductOption", newMap);
-			}		
-		}
-		
-		return result;	
 	}
 
 	public int selectProductListCount(SqlSessionTemplate sqlSession) {
@@ -104,5 +76,15 @@ public class SellerDao {
 		
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("sellerMapper.ProductList", businessNo, rowBounds);
+	}
+	
+	public Product selectProduct(SqlSessionTemplate sqlSession, int pno) {
+		
+		return sqlSession.selectOne("sellerMapper.selectProduct", pno);
+	}
+	
+	public ArrayList<ProductOption> selectOptions(SqlSessionTemplate sqlSession,int pno) {
+		
+		return (ArrayList)sqlSession.selectList("sellerMapper.selectOptions", pno);
 	}
 }

@@ -5,16 +5,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>판매자 홈 관리 상세</title>
+<title>Aquaqu</title>
 
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+<!-- CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sellerCSS/sellerHomeDetailView.css">
 
 <!-- JS -->
-<script src="${pageContext.request.contextPath}/resources/js/sellerJS/category.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/sellerJS/showCategory.js"></script>
+
 </head>
 <body>
 <div class="wrap">
@@ -41,12 +43,12 @@
                     <h4>대표 이미지</h4>                    
                     
                     <div class="image-container">
-                        <img src="${sp.spChangeName}" alt="테스트 이미지">
+                        <img src="${sp.spChangeName}">
                     </div>
 
                     <div>
                         <h4>카테고리</h4>
-                        <select id="select-category" name="category" required>
+                        <select id="select-category" name="pdCategory" required>
                             
                         </select>
                     </div>
