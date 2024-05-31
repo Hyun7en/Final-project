@@ -62,12 +62,17 @@ public class MyPageServiceImpl implements MyPageService {
 		return myPageDao.inquiryList(sqlSession, userNo);
 	}
 	
-	public String sellerConversionStatus(int userNo) {
-		return myPageDao.sellerConversionStatus(sqlSession, userNo);
+	public int selectSellerConversionAuthority(int userNo) {
+		return myPageDao.selectSellerConversionAuthority(sqlSession, userNo);
 	}
 	
-	public int sellerInfoList(SellerInfo s){
-		return myPageDao.sellerInfoList(sqlSession, s);
+	public String selectSellerConversionStatus(int userNo) {
+		return myPageDao.selectSellerConversionStatus(sqlSession, userNo);
+	}
+	
+	public int sellerInfoInsert(SellerInfo s){
+		
+		return myPageDao.sellerInfoInsert(sqlSession, s);
 	}
 	
 }

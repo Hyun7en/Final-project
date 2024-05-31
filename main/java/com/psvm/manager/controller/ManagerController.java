@@ -55,9 +55,12 @@ public class ManagerController {
 	@RequestMapping("sellerNewApplicationApprove.ma")
 	public String sellerNewApplicationApprove(int userNo) {
 		int result = managerService.sellerNewApplicationApprove(userNo);
-		System.out.println(userNo);
-		System.out.println(result);
-		return "redirect:sellerNewApplication.ma?categoryName=seller";
+		
+		if(result > 0) {
+			return "redirect:sellerNewApplication.ma?categoryName=seller";
+		} else {
+			return "redirect:sellerNewApplication.ma?categoryName=seller";
+		}
 	}
 	
 	

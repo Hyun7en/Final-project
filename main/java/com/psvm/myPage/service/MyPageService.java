@@ -36,8 +36,10 @@ public interface MyPageService {
 	
 	ArrayList<Inquiry> inquiryList(int userNo);
 	
-	String sellerConversionStatus(int userNo);
+	int selectSellerConversionAuthority(int userNo);
 	
-	int sellerInfoList(SellerInfo s);
+	String selectSellerConversionStatus(int userNo);
+	
+	int sellerInfoInsert(SellerInfo s);
 	
 }
