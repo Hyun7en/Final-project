@@ -1,5 +1,5 @@
 package com.psvm.cs.service;
 
-public interface CsService {
+public class CsServiceImpl {
 
 }

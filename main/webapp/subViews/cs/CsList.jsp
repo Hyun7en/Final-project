@@ -35,7 +35,7 @@
                         <li>
                             <button class="com-nav-0" onclick="boCategory(0)"  style="border-radius: 22.5px;">
                             <!-- <img src="/psvm/src/main/webapp/resources/image/pngtree-vector-question-mark-icon-png-image_1024598.jpg" alt=""> -->
-                            <!-- <div style="border-radius: 22.5px;"><img src="/psvm/src/main/webapp/resources/image/pngtree-vector-question-mark-icon-png-image_931199.jpg" alt=""></div> -->
+                            <!-- <div style="border-radius: 22.5px;"><img src="/psvm/src/main/webapp/resources/image/Group.png" alt=""></div> -->
                             자주묻는 질문</button></li>
                             
                         <li><button class="com-nav-10" onclick="boCategory(1)" value="1" style="border-radius: 22.5px;">1:1 문의</button></li>
