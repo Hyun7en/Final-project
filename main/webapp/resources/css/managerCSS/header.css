@@ -6,12 +6,16 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    
 }
 
 #adminMenubar-logo h1{
     margin: 0 15px;
     line-height: 50px;
     font-size: 25px;
+}
+#adminMenubar-logo h1 a{
+    text-decoration: none;
     color: #0089FF;
 }
 
