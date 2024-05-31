@@ -45,16 +45,27 @@ body{
     color: #0089FF;
     background-color: white;
     border: 5px solid #0089FF;
-    }
-/* #com-nav button img{
+    text-align: center;
+    display: flex;
+}
+#com-nav button div{/* 아이콘 넣은 버튼의 문구 위치 조절 */
+    width: 170px;
+    height: 35px;
+    line-height: 35px; /* height랑 수치를 똑같게 */
+    padding-right: 30px; /* 좌우 위치 조절 */
+}
+#com-nav button img{ /* 아이콘 크기 위치 조절(right, top으로 위치 조절)*/
     width: 45px;
     height: 45px;
-    border: 5px solid#0089FF;    
-} */
+    position: relative;
+    right: 5px;
+    top: -5px;
+}
+
+
 #com-nav button:hover, #com-nav #com-nav-selected{
     background-color: #0089FF;
     color: white;
-    border: 20px;
 }
 
 .com-list{

@@ -1,5 +1,5 @@
 package com.psvm.cs.dao;
 
-public class CsDao {
+public class csDao {
 
 }
