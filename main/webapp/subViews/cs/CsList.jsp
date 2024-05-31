@@ -34,13 +34,18 @@
                     <ul>
                         <li>
                             <button class="com-nav-0" onclick="boCategory(0)"  style="border-radius: 22.5px;">
-                            <!-- <img src="/psvm/src/main/webapp/resources/image/pngtree-vector-question-mark-icon-png-image_1024598.jpg" alt=""> -->
-                            <!-- <div style="border-radius: 22.5px;"><img src="/psvm/src/main/webapp/resources/image/pngtree-vector-question-mark-icon-png-image_931199.jpg" alt=""></div> -->
-                            자주묻는 질문</button></li>
+                            <img src="${pageContext.request.contextPath}/resources/image/iconQnA.png" style="width: 45px; height: 45px; position: relative; right: 100px; top: -5px;" alt="물음표 아이콘">
+                                <div style="width: 150px;">
+                                자주묻는 질문
+                                </div>
+                            
+                            </button>
+                        </li>
                             
                         <li><button class="com-nav-10" onclick="boCategory(1)" value="1" style="border-radius: 22.5px;">1:1 문의</button></li>
+                        <!-- icon_onetoone.png 사용 -->
                         <li><button class="com-nav-20" onclick="boCategory(2)" value="2"style="border-radius: 22.5px;">신고센터</button></li>
-                       
+                       <!-- icon_report.png 사용 -->
                     </ul>
             </div>
             
