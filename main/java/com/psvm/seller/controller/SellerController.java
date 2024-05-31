@@ -6,7 +6,6 @@ import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -74,9 +73,8 @@ public class SellerController {
 
     	int userNo = loginUser.getUserNo();
     	
-        int businessNo = sellerService.selectBusinessNo(userNo);
+        return sellerService.selectBusinessNo(userNo);
         
-        return businessNo;
     }
     
     // 판매자 홈 관련
@@ -105,7 +103,7 @@ public class SellerController {
             int result = sellerService.insertSellerHome(sellerPage, categories);
             
             if (result > 0 ) { // 성공
-            	session.setAttribute("SellerHomeRegistered", true);
+//            	session.setAttribute("SellerHomeRegistered", true);
                 redirectAttributes.addFlashAttribute("message", "등록이 완료되었습니다.");
                 
                 return "redirect:detail.srh";
@@ -119,8 +117,6 @@ public class SellerController {
             return "redirect:detail.srh";
         }
     }
-
-   
 
     // 실제 넘어온 파일의 이름을 변경해서 서버에 저장하는 메소드
   	public String saveFile(MultipartFile upfile, HttpSession session) {
@@ -163,9 +159,9 @@ public class SellerController {
         return gson.toJson(sellerService.selectCategories(businessNo));
     }
   	
-    //
   	@RequestMapping("detail.srh")
   	public String selectSellerHomeDetail(HttpSession session, Model model) {
+  		
   	    int businessNo = getBusinessNoFromUserNo(session);
 
   	    SellerPage sp = sellerService.selectSellerHomeDetail(businessNo);
@@ -209,26 +205,22 @@ public class SellerController {
   	}
     
     @RequestMapping("insert.pd")
-  	public String insertProduct(Product product, int pCount, MultipartFile productImage, @RequestParam("optionsJson") String optionsJson,
+  	public String insertProduct(Product product, int pdCount, MultipartFile productImage, @RequestParam("optionsJson") String optionsJson,
     HttpSession session, RedirectAttributes redirectAttributes) {
     	
-    	HashMap<String, Object> map = new HashMap<>();
     	
     	
          if (!productImage.getOriginalFilename().isEmpty()) {
              String changeName = saveFile(productImage, session);
              product.setPdOriginName(productImage.getOriginalFilename());
-             product.setPdChangeName("resources/upFiles/" + changeName);
+             product.setPdChangeName("resources/upFiles/productImg/" + changeName);
          }
 
          try {
              Type listType = new TypeToken<ArrayList<String>>() {}.getType();
              ArrayList<String> options = gson.fromJson(optionsJson, listType);
 
-             map.put("pCount", pCount);
-         	 map.put("options", options);
-
-         	 int result = sellerService.insertProduct(product, map);
+         	 int result = sellerService.insertProduct(product, pdCount, options);
          	 
              if (result > 0 ) { // 성공
             	 
@@ -310,10 +302,6 @@ public class SellerController {
 		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 5);
 		ArrayList<Product> list = sellerService.ProductList(pi,businessNo);
 		
-		System.out.println(list);
-
-		log.info("list",list);
-		
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 		
@@ -323,22 +311,20 @@ public class SellerController {
     // 옵션 불러오는 ajax
     @RequestMapping(value = "options.ax", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public String ajaxGetOptions(HttpSession session) {
+    public String ajaxGetOptions(int pno, HttpSession session) {
     	
-    	
-    	int businessNo = getBusinessNoFromUserNo(session);
-        return gson.toJson(sellerService.selectCategories(businessNo));
+        return gson.toJson(sellerService.selectOptions(pno));
+        
     }
     
-//    @RequestMapping("detail.pd")
-//	public String selectProduct(int pno, Model model) {
-//		
-//		
-//			Product p = sellerService.selectProduct(pno);
-//			model.addAttribute("p", p);
-//			
-//			return "seller/sellerProductDetailView";
-//	}
+    @RequestMapping("detail.pd")
+	public String selectProduct(int pno, Model model) {
+		
+			Product pd = sellerService.selectProduct(pno);
+			model.addAttribute("pd", pd);
+			
+			return "seller/sellerProductDetailView";
+	}
     
     @RequestMapping("updateForm.pd")
   	public String productUpdateForm() {

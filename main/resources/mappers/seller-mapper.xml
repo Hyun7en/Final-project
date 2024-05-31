@@ -31,7 +31,7 @@
 	</resultMap>
 
 	<resultMap type="ProductCategory" id="productCategoryResult">
-		<result column="P_CATEGORY" property="pCategory"/>
+		<result column="P_CATEGORY" property="pdCategory"/>
 		<result column="SELLER_PAGE_NO" property="sellerPageNo"/>
 	</resultMap>
 	
@@ -49,11 +49,11 @@
 	</resultMap> 
 	
 	<resultMap type="ProductOption" id="productOptionResult">
-		<result column="P_COUNT" property="pCount"/>
-		<result column="P_STATUS" property="pContent"/>	
-		<result column="P_NO" property="pNo"/>
-		<result column="P_OPTION_NAME" property="pOptionName"/>
-		<result column="P_OPTION_NO" property="pOptionNo"/>
+		<result column="P_COUNT" property="pdCount"/>
+		<result column="P_STATUS" property="pdContent"/>	
+		<result column="P_NO" property="pdNo"/>
+		<result column="P_OPTION_NAME" property="pdOptionName"/>
+		<result column="P_OPTION_NO" property="pdOptionNo"/>
 	</resultMap>  
 	
 	
@@ -137,14 +137,14 @@
 				 	      p_status
 				 	     )
 		 	     VALUES (
-			 		      #{pCategory},
-			 		      #{pTitle},
-			 		      #{pPrice},
-			 		      #{pContent},
+			 		      #{pdCategory},
+			 		      #{pdTitle},
+			 		      #{pdPrice},
+			 		      #{pdContent},
 			 		      default,
 			 		      default,
-			 		      #{pOriginName},
-			 		      #{pChangeName},
+			 		      #{pdOriginName},
+			 		      #{pdChangeName},
 			 		      default
 		 		 	     )	
 	</insert>
@@ -158,7 +158,7 @@
 								 	  p_option_name
 								 	  )
 						 	  VALUES (
-							 		  #{pCount},
+							 		  #{pdCount},
 							 		  default,
 							 		  CURRVAL('product_p_no_seq'::regclass),
 							 		 #{option}
@@ -176,13 +176,25 @@
 		SELECT P_NO,
 			   P_CATEGORY,
 			   P_TITLE,
-			   TO_CHAR(P_ENROLL_DATE, 'YYYY-MM-DD') AS "P_ENROLL_DATE"
+			   TO_CHAR(P_ENROLL_DATE , 'YYYY-MM-DD') AS "P_ENROLL_DATE"
 		  FROM PRODUCT
-		  JOIN product_category using(p_category)
-		  JOIN seller_page	using(seller_page_no)
+		  JOIN PRODUCT_CATEGORY USING(P_CATEGORY)
+		  JOIN SELLER_PAGE USING(SELLER_PAGE_NO)
 		 WHERE P_STATUS = 'Y'
-		   and business_no = #{businessNo}
+		   AND BUSINESS_NO = #{businessNo}
 		 ORDER BY P_NO DESC; 
 	</select>
-
+	
+	<select id="selectProduct" resultMap="productResult">
+		SELECT *
+		  FROM PRODUCT
+		 WHERE P_STATUS = 'Y'
+	</select>
+	
+	<select id="selectOptions" resultMap="productOptionResult">
+		SELECT P_COUNT,
+			   P_OPTION_NAME	
+		  FROM PRODUCT_OPTION
+		WHERE P_NO = #{pno}
+	</select>
 </mapper>

@@ -13,10 +13,9 @@ body{
         font-size: 40px;
         font-weight: bold;
         color: #0089FF;
-        margin-top: 70px;
-        margin-bottom: 50px;
+        margin-top: 25px;
+        margin-bottom: 25px;
         text-align: center;
-        margin-bottom: 50px;
     }
     
     #signup-input{
@@ -26,8 +25,8 @@ body{
     }
     .signup-essential{
         width: 400px;
-        height: 475px;
-        margin-bottom: 50px;
+        height: 550px;
+        margin-bottom: 25px;
     }
     .signup-additional{
         width: 400px;
@@ -52,7 +51,28 @@ body{
         font-size: 15px;
         padding-left: 10px;
         outline: 0;
+        background-color: white;
     }
+    #callDaumService{
+        width: 400px;
+        height: 50px;
+        border-top: none;
+        font-size: 15px;
+        display: flex;
+        flex-direction: row;
+        background-color: white;
+    }
+    #callDaumService input{
+        flex-shrink: 0;
+        height: 50px;
+        padding: 0;
+        padding-left: 10px;
+        line-height: 50px;
+        outline: 0;
+        border: 2px solid #0089FF;
+        border-top: none;
+    }
+
     #signup-id{
         width: 400px;
         height: 50px;

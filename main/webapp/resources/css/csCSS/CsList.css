@@ -1,17 +1,74 @@
-@charset "UTF-8";
-
 body{
     background-color: #E0F1FF;
     position: relative;
 }
-input {
-    border: 5px solid #0089FF;
+
+
+
+#community-normal{
+    min-height: 100%;
+    width: 900px;
+    /* height: 1500px; */
+    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 60px;
+}
+
+#community-normal #com-head{
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+#com-nav{
+    height: 45px;
+    margin-bottom: 40px;    
+    /* justify-content: space-around; */
+}
+#com-nav>ul{
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    padding: 10px;
+}
+#com-nav>ul>li{
+    width: 225px;   
+    height: 45px;
+    list-style:none;
+}
+#com-nav button{
+    justify-content: space-around;
+    width: 225px;   
+    height: 45px;
+    font-size: 20px;
+    font-weight: bold;
     color: #0089FF;
-    border-radius: 16px 16px 16px 16px;
-    text-align: center;        
-} 
+    background-color: white;
+    border: 5px solid #0089FF;
+    text-align: center;
+    display: flex;
+}
+#com-nav button div{/* 아이콘 넣은 버튼의 문구 위치 조절 */
+    width: 170px;
+    height: 35px;
+    line-height: 35px; /* height랑 수치를 똑같게 */
+    padding-right: 30px; /* 좌우 위치 조절 */
+}
+#com-nav button img{ /* 아이콘 크기 위치 조절(right, top으로 위치 조절)*/
+    width: 45px;
+    height: 45px;
+    position: relative;
+    right: 5px;
+    top: -5px;
+}
+
+
+#com-nav button:hover, #com-nav #com-nav-selected{
+    background-color: #0089FF;
+    color: white;
+}
+
 .com-list{
-    
     width: 900px;
     font-size: 15px;
     text-align: center;
@@ -27,18 +84,32 @@ input {
     background-color: white;
     border-bottom: 1px solid #AFA8A8;
 }
+#com-list-bottom td{
+    height: 30px;
+    background-color: white;
+}
+#com-list-body a, #com-list-bottom a{
+    color: black;
+}
+#com-list-body a:hover, #com-list-bottom a:hover, #com-list-selected{
+    font-size: 16px;
+    font-weight: bold;
+}
+
 .com-bottom1{
     width: 900px;
     height: 40px;
     margin-top: 40px;
     margin-left: auto;
     margin-right: auto;
-    display: flex;
+    display: flex; 
+    margin-bottom: 100px;   
 }
-.com-bottom1>.com-bottom-left{
+/* .com-bottom1>.com-bottom-left{
     width: 750px;
     margin-top: 5px;
-}
+    margin-bottom: 100px;
+} */
 .com-bottom1 select, .com-bottom1 input, .com-bottom1 button{
     border-radius: 5px;
     height: 30px;
@@ -69,18 +140,11 @@ input {
 #com-grey-button{
     background: #AFA8A8;
 }
-.com-bottom1{
-    width: 900px;
-    height: 40px;
-    margin-top: 40px;
-    margin-left: auto;
-    margin-right: auto;
-    display: flex;
-}
+
 .com-bottom2{
-    /* width: 900px; */
-    height: 30px;
+    width: 900px;
+    /* height: 30px; */
     text-align: center;
-    margin-top: 20px;
+    margin-top: 15px;
     margin-bottom: 100px;
 }

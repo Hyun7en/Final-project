@@ -13,6 +13,7 @@ import com.psvm.commons.vo.PageInfo;
 import com.psvm.seller.dao.SellerDao;
 import com.psvm.seller.vo.Product;
 import com.psvm.seller.vo.ProductCategory;
+import com.psvm.seller.vo.ProductOption;
 import com.psvm.seller.vo.SellerInfo;
 import com.psvm.seller.vo.SellerPage;
 
@@ -34,43 +35,74 @@ public class SellerServiceImpl implements SellerService {
 	
 	@Override
 	public int selectBusinessNo(int userNo) {
+		
 		return sellerDao.selectBusinessNo(sqlSession, userNo);
 	}
 	
+	//카테고리 넣기
 	@Transactional
 	@Override
 	public int insertSellerHome(SellerPage sellerPage, ArrayList<String> categories) {
 		
 		int t1 = sellerDao.insertSellerPage(sqlSession, sellerPage);
-		int t2 = sellerDao.insertProductCategory(sqlSession, categories);
-								
+		
+		int t2 = 1;
+		
+		for(String category : categories) {
+			
+			if(!category.equals("")) {
+				
+				t2 = t2 * sellerDao.insertProductCategory(sqlSession, category);
+				
+			}
+			
+		}	
 		
 		return t1*t2;
+		
 	}
 
 	@Override
 	public ArrayList<ProductCategory> selectCategories(int businessNo) {
+		
 		return sellerDao.selectCategories(sqlSession, businessNo);
 	}
 	
 	@Override
 	public SellerPage selectSellerHomeDetail(int businessNo) {
+		
 		return sellerDao.selectSellerHomeDetail(sqlSession, businessNo);
 	}
 
+	//옵션 넣기
 	@Transactional
 	@Override
-	public int insertProduct(Product product, HashMap<String, Object> map) {
+	public int insertProduct(Product product, int pdCount, ArrayList<String> options) {
 		
 		int t1 = sellerDao.insertpProduct(sqlSession, product);
-		int t2 = sellerDao.insertProductOption(sqlSession,map);
-								
+		
+		int t2 = 1;
+		
+		HashMap<String,Object> newMap = new HashMap<>();
+		
+		
+		for(String option : options) {
+			
+			newMap.put("option", option);
+			
+			newMap.put("pdCount", pdCount);
+			
+			if(!option.equals("")) {
+				t2 = t2 * sellerDao.insertProductOption(sqlSession, newMap);
+			}		
+		}						
 		
 		return t1*t2;
 	}
 
 	@Override
 	public int selectProductListCount() {
+		
 		int count = sellerDao.selectProductListCount(sqlSession);
 		
 		return count;
@@ -80,6 +112,18 @@ public class SellerServiceImpl implements SellerService {
 	public ArrayList<Product> ProductList(PageInfo pi, int businessNo) {
 		
 		return sellerDao.ProductList(sqlSession, pi,businessNo);
+	}
+
+	@Override
+	public Product selectProduct(int pno) {
+		
+		return sellerDao.selectProduct(sqlSession, pno);
+	}
+
+	@Override
+	public ArrayList<ProductOption> selectOptions(int pno) {
+		
+		return sellerDao.selectOptions(sqlSession, pno);
 	}
 
 	

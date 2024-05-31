@@ -130,3 +130,11 @@ main{
     cursor: pointer;
     margin: 0 5px;
 }
+
+#side-list-selected2{
+    background-color: #EEEEEE;
+}
+
+#side-list-selected2 a{
+    color: #0089FF;
+}
