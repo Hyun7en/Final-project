@@ -1,7 +1,7 @@
 
     $(document).ready(function() {
       $('#summernote').summernote({
-          placeholder: "게시글을 작성해주세요.",
+          placeholder: "상품설명을 작성해주세요.",
           minHeight: 500,
           width: 900,
           toolbar: [
