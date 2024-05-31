@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>내 정보</title>
 	
+    <!-- alert 메세지 창 -->
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -16,8 +17,11 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- css -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/myPageCSS/myPageInfo.css">
+    <!-- javaScript -->
+    <script src="${pageContext.request.contextPath}/resources/js/myPageJS/myPageInfo.js"></script>
 
 <body>
     <c:if test="${ not empty successMessage}">
@@ -163,175 +167,38 @@
                             <div id="myPageInfo-modify-delete-button-area">
                                 <button type="submit" id="modify-btn" disabled style="background-color: #eee;">정보수정</button>
                                 <!-- 초기화 버튼을 만들지 말지 -->
-                                <button onclick="location.href='deleteMember.my'">회원탙퇴</button>
+                                <button type="button" onclick="delete_member_modal()">회원탙퇴</button>
                             </div>
-                            
                         </div>
                     </form>
+
+                    <div id="delete-member-modal">
+                        <div id="delete-member-modal-content">
+                            <h3>회원 탈퇴 확인</h3>
+                            <form id="form-area" action="deleteMember.my?userNo=${loginUser.userNo}">
+                                <div id="password-check-area">
+                                    <div>
+                                        <span id="" >현재 비밀번호</span>
+                                        <div>
+                                            <input type="text" id="input-password" name="input-password">
+                                            <button type="button" onclick="password_check()">확인</button>
+                                        </div>
+                                    </div>
+                                    <span id="warning-text">* 회원 탈퇴 시, 복구가 불가능합니다.</span>
+                                </div>
+                                <div id="modal-btn-area">
+                                    <button type="button" id="delete-btn" onclick="delete_member()" readonly style="color: #d0d0d0;">탈퇴하기</button>
+                                    <button type="button" id="close-modal" onclick="close_modal()">닫기</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-        </main>          
+        </main>
         <!-- footer -->
         <%@ include file="../commons/footer.jsp" %> 
      </div>
-
-     <script>
-
-        function change_profileImage(){
-            document.getElementById("modify-btn").disabled = false;
-            document.getElementById("modify-btn").style.backgroundColor = "#000";
-        }
-
-        function change_nickname() {
-            document.getElementById("nickname").readOnly = false;
-            document.getElementById("nickname").style.backgroundColor = "white";
-            document.getElementById("nickname-btn").innerText = "확정";
-            document.getElementById("nickname-btn").style.backgroundColor = "#96E6FF";
-            document.getElementById("nickname-btn").setAttribute("onclick", "confirm_nickname()");
-	    }
-
-        function confirm_nickname() {
-            document.getElementById("modify-btn").disabled = false;
-            document.getElementById("modify-btn").style.backgroundColor = "#000";
-            document.getElementById("nickname").readOnly = true;
-            document.getElementById("nickname").style.backgroundColor = "#96E6FF";
-            document.getElementById("nickname-btn").disabled = true;
-            document.getElementById("nickname-btn").innerText = "확정됨";
-            document.getElementById("nickname-btn").style.backgroundColor = "#96E6FF";
-            document.getElementById("nickname-btn").style.color = "#000";
-        }
-
-        // function change_intro() {
-        //     document.getElementById("intro").disabled = false;
-        //     document.getElementById("intro-btn").innerText = "확정";
-        //     document.getElementById("intro-btn").setAttribute("onclick", "confirm_intro()");
-	    // }
-
-        // function confirm_intro() {
-        //     document.getElementById("modify-btn").disabled = false;
-        //     document.getElementById("modify-btn").style.backgroundColor = "#000";
-        //     document.getElementById("intro").disabled = true;
-        //     document.getElementById("intro").style.backgroundColor = "#9AE2AA";
-        //     document.getElementById("intro-btn").disabled = true;
-        //     document.getElementById("intro-btn").innerText = "확정됨";
-        //     document.getElementById("intro-btn").style.color = "#bbb";
-        // }
-
-        function change_gender() {
-            document.getElementById("gender-display").style.display = "none";
-            document.getElementById("gender-change-btn").style.display = "none";
-            document.getElementById("gender").disabled = true;
-
-            document.querySelector("#gender-area").innerHTML = "";
-
-            let radios = ('<input type="radio" class="gender" id="gender1" name="gender" checked value="M"> 남'
-                         + '<input type="radio" class="gender" id="gender2" name="gender" value="F"> 여'
-                         + '<button type="button" class="change-btn" id="gender-confirm-btn" onclick="confirm_gender()">확정</button>');
-            document.querySelector("#gender-area").innerHTML = radios;
-
-            document.getElementById("gender-confirm-btn").style.backgroundColor = "#96E6FF";
-	    }
-
-        function confirm_gender() {
-            document.getElementById("modify-btn").disabled = false;
-            document.getElementById("modify-btn").style.backgroundColor = "#000";
-
-            const selectedGender = document.querySelector('input[name="gender"]:checked').value;
-            document.querySelector("#gender-area").innerHTML = "";
-
-            if(selectedGender === 'M'){
-                let text = ('<input type="text" id="gender-display" name="gender-display" value="남">'
-                         + '<input type="hidden" id="gender" name="gender" value="M">'
-                         + '<button type="button" class="change-btn" id="gender-confirmed-btn">확정됨</button>');
-                document.querySelector("#gender-area").innerHTML = text;
-            } else if(selectedGender === 'F'){
-                let text = ('<input type="text" id="gender-display" name="gender-display" value="여">'
-                         + '<input type="hidden" id="gender" name="gender" value="F">'
-                         + '<button type="button" class="change-btn" id="gender-confirmed-btn">확정됨</button>');
-                document.querySelector("#gender-area").innerHTML = text;
-            }
-
-            document.getElementById("gender-display").readOnly= true;
-            document.getElementById("gender-display").style.backgroundColor = "#96E6FF";
-            document.getElementById("gender-confirmed-btn").style.backgroundColor = "#96E6FF";
-        }
-
-        function change_phone() {
-            document.getElementById("phone").readOnly = false;
-            document.getElementById("phone").style.backgroundColor = "white";
-            document.getElementById("phone-btn").innerText = "확정";
-            document.getElementById("phone-btn").style.backgroundColor = "#96E6FF";
-            document.getElementById("phone-btn").setAttribute("onclick", "confirm_phone()");
-	    }
-
-        function confirm_phone() {
-            document.getElementById("modify-btn").disabled = false;
-            document.getElementById("modify-btn").style.backgroundColor = "#000";
-            document.getElementById("phone").readOnly = true;
-            document.getElementById("phone").style.backgroundColor = "#96E6FF";
-            document.getElementById("phone-btn").disabled = true;
-            document.getElementById("phone-btn").innerText = "확정됨";
-            document.getElementById("phone-btn").style.color = "#000";
-        }
-
-        function change_email() {
-            document.getElementById("email").readOnly = false;
-            document.getElementById("email").style.backgroundColor = "white";
-            document.getElementById("email-btn").innerText = "확정";
-            document.getElementById("email-btn").style.backgroundColor = "#96E6FF";
-            document.getElementById("email-btn").setAttribute("onclick", "confirm_email()");
-	    }
-
-        function confirm_email() {
-            document.getElementById("modify-btn").disabled = false;
-            document.getElementById("modify-btn").style.backgroundColor = "#000";
-            document.getElementById("email").readOnly = true;
-            document.getElementById("email").style.backgroundColor = "#96E6FF";
-            document.getElementById("email-btn").disabled = true;
-            document.getElementById("email-btn").innerText = "확정됨";
-            document.getElementById("email-btn").style.color = "#000";
-        }
-
-        function change_address() {
-            document.getElementById("address").readOnly = false;
-            document.getElementById("address").style.backgroundColor = "white";
-            document.getElementById("address-btn").innerText = "확정";
-            document.getElementById("address-btn").style.backgroundColor = "#96E6FF";
-            document.getElementById("address-btn").setAttribute("onclick", "confirm_address()");
-	    }
-
-        function confirm_address() {
-            document.getElementById("modify-btn").disabled = false;
-            document.getElementById("modify-btn").style.backgroundColor = "#000";
-            document.getElementById("address").readOnly = true;
-            document.getElementById("address").style.backgroundColor = "#96E6FF";
-            document.getElementById("address-btn").disabled = true;
-            document.getElementById("address-btn").innerText = "확정됨";
-            document.getElementById("address-btn").style.color = "#000";
-        }
-
-        function loadImg(imgInputFile){
-            console.log(imgInputFile.files.length)
-            if(imgInputFile.files.length == 1){
-                //파일을 읽어들일 FileReader객체생성
-                const reader = new FileReader();
-
-                //파일을 읽어들이는 메소드
-                //해당파일을 읽어들이는 순간 해당 파일만의 고유한 url부여
-                reader.readAsDataURL(imgInputFile.files[0]);
-
-                //파일 읽어들이기 완료했을 때 실행할 함수 정의
-                reader.onload = function(ev){
-                    
-                    document.getElementById("profile-img").src = ev.target.result;
-                    console.log(ev.target.result)
-                }
-            } else{
-                document.getElementById("profile-img").src = null;
-            }
-        }
-
-
-     </script>
 </body>
 </html>

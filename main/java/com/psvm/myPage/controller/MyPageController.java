@@ -19,6 +19,7 @@ import com.psvm.member.vo.Member;
 import com.psvm.member.vo.MemberAttachment;
 import com.psvm.myPage.service.MyPageServiceImpl;
 import com.psvm.myPage.vo.Inquiry;
+import com.psvm.myPage.vo.PasswordCheck;
 import com.psvm.seller.vo.SellerInfo;
 
 @Controller
@@ -140,6 +141,16 @@ public class MyPageController {
 //		}
 //		
 //	}
+	
+	// 회원탈퇴시 입력한 비밀번호가 맞는지 체크하기 위한 select
+	@RequestMapping("passwordCheck.my")
+	public String passwordCheck(PasswordCheck pc , HttpSession session) {
+		
+		PasswordCheck passwordCheck =  myPageService.passwordCheck(pc);
+		
+		return "";
+	}
+	
 	
 	@RequestMapping("interestProduct.my")
 	public String interestProduct() {

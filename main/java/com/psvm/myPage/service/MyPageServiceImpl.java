@@ -11,6 +11,7 @@ import com.psvm.member.vo.Member;
 import com.psvm.member.vo.MemberAttachment;
 import com.psvm.myPage.dao.MyPageDao;
 import com.psvm.myPage.vo.Inquiry;
+import com.psvm.myPage.vo.PasswordCheck;
 import com.psvm.seller.vo.SellerInfo;
 
 @Service
@@ -45,6 +46,11 @@ public class MyPageServiceImpl implements MyPageService {
 //	public int deleteMember(int userNo) {
 //		return myPageDao.deleteMember(sqlSession, userNo);
 //	}
+	
+	public PasswordCheck passwordCheck(PasswordCheck pc) {
+		return myPageDao.passwordCheck(sqlSession, pc);
+	}
+	
 	
 //	public ArrayList<InterestProduct> selectInterestProduct(int userNo){
 //		return myPageDao.selectInterestProduct(sqlSession, userNo);

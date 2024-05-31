@@ -239,6 +239,62 @@ input{
     background-color: #eeeeee;
 }
 
-input::placeholder{
-    color: black;
+#delete-member-modal{
+    padding-top: 300px;
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
 }
+
+#delete-member-modal-content{
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    height: 30%;
+    background-color: white;
+    margin-left: 500px;
+}
+
+#delete-member-modal-content h3{
+    margin: 10px 0 10px 20px;
+}
+
+#delete-member-modal-content form{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0 0 0 20px;
+}
+
+#delete-member-modal-content form button{
+    width: 60px;
+    height: 40px;
+    border: 1px solid black;
+    background-color: white;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+#delete-member-modal-content form input{
+    width: 90%;
+}
+
+#warning-text{
+    margin-left: 10px;
+    color: red;
+}
+
+#modal-btn-area{
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 5px 5px 0;
+}
+

@@ -1,12 +1,12 @@
 package com.psvm.myPage.service;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import com.psvm.community.vo.Community;
 import com.psvm.member.vo.Member;
 import com.psvm.member.vo.MemberAttachment;
 import com.psvm.myPage.vo.Inquiry;
+import com.psvm.myPage.vo.PasswordCheck;
 import com.psvm.seller.vo.SellerInfo;
 
 public interface MyPageService {
@@ -27,6 +27,8 @@ public interface MyPageService {
 	Member loginUser(Member m);
 	
 //	int deleteMember(int userNo);
+	
+	PasswordCheck passwordCheck(PasswordCheck pc);
 	
 //	ArrayList<InterestProduct> selectInterestProduct(int userNo);
 
