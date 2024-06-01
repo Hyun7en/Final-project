@@ -8,16 +8,20 @@
     <title>Header</title>
 
     <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<!-- Popper JS -->
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<!-- Latest compiled JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/memberJS/signUp.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/memberCSS/signup.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/memberJS/signUp.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/memberCSS/signup.css">
 
 </head>
 <body>
@@ -29,10 +33,10 @@
                 <input type="text" id="signup-id" name="userId" placeholder="아이디" style="border-top: 2px solid #0089FF; border-bottom: 2px solid #0089FF;" maxlength="20">
                 <div id="checkResult" style="color: #0089FF; height: 25px;">5자 이상 입력해야 합니다.</div>
                 <input type="password" id="signup-pwd" name="userPwd" placeholder="비밀번호">
-                <input type="text" id="signup-email" name="email" placeholder="이메일" maxlength="">
+                <input type="text" id="signup-email" name="email" placeholder="이메일" title="'@naver.com', '@gmail.com', '@hanmail.net', '@daum.net', '@nate.com', '@hotmail.com', '@icloud.com', '@outlook.com'">
                 <input type="text" id="signup-name" name="userName" placeholder="이름" maxlength="21">
                 <input type="text" id="signup-nickname" name="nickname" placeholder="닉네임" maxlength="18">
-                <input type="text" id="signup-birthday" name="birthday" placeholder="생년월일 8자리" maxlength="8">
+                <input type="text" id="signup-birthday" name="birthday" placeholder="생년월일 8자리" maxlength="8" title="YYYYMMDD">
                 <select name="gender" id="signup-gender">
                     <option value="M">성별 : 남성</option>
                     <option value="F">성별 : 여성</option>

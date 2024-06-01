@@ -108,31 +108,31 @@ function signUpSubmit(){ //회원가입 신청 시 누락된 필수 항목 체�
     const birthday = document.querySelector('#signup-birthday').value;
     const address = document.querySelector('#signup-address').value;
     const phone = document.querySelector('#signup-phone').value;
-    const signUp = document.querySelector('#signup-input');
+    // const signUp = document.querySelector('#signup-input');
     if(userPwd == ""){ //비밀번호 누락
-        console.log("비밀번호 오류")
+        callErrorMsg("비밀번호 오류", "비밀번호를 입력해주세요.")
         return false;
     } else if(email.length == "" || isValidEmail(email) == false){ //이메일 누락 또는 정규식 탈락
-        console.log("이메일 오류")
+        callErrorMsg("이메일 오류", "이메일 형식은 아래의 8가지만 허용됩니다.<br>'@naver.com', '@gmail.com', '@hanmail.net', '@daum.net', '@nate.com', '@hotmail.com', '@icloud.com', '@outlook.com'")
         return false;
     } else if(userName.length == ""){ //이름 누락
-        console.log("이름 오류")
+        callErrorMsg("이름 오류", "이름을 입력해주세요")
         return false;
     } else if(nickname.length == ""){ //닉네임 누락
-        console.log("닉네임 오류")
+        callErrorMsg("닉네임 오류", "닉네임을 입력해주세요")
         return false;
     } else if(birthday.length == "" || isValidBirthdate(birthday) == false){ //생년월일 누락 또는 정규식 탈락
-        console.log("생년월일 오류")
+        callErrorMsg("생년월일 오류", "생년월일은 YYYYMMDD의 형식만 허용됩니다.")
         return false;
     } else if(address.length == ""){ //주소 누락
-        console.log("주소 오류")
+        callErrorMsg("주소 오류", "주소를 입력해주세요.")
         return false;
     } else if(phone.length == "" || isValidPhoneNumber(phone) == false){ // 전화번호 누락 또는 정규식 탈락
-        console.log("전화번호 오류")
+        callErrorMsg("전화번호 오류", "전화번호는 한국의 일반전화, 또는 휴대전화의 번호만 허용됩니다.")
         return false;
     } else{
         console.log("전부 통과")
-        signUp.submit();
+        
     }
 }
 
@@ -174,10 +174,22 @@ function isValidBirthdate(birthdate) {
 //전화번호 정규식('-' 없이 한국에서 쓰이는 전화번호 한정)
 function isValidPhoneNumber(phoneNumber) {
     // 정규 표현식 생성: 한국의 일반 전화와 휴대 전화 형식 검사
-    const phoneNumberPattern = /^(0(2|[3-6][1-5]|[7-9][1-9]))\d{7,8}$/;
+    const phoneNumberPattern = /^(01[016789])\d{7,8}$|^(0(2|[3-6][1-5]|[7-9][1-9]))\d{7,8}$/;
 
     // 정규 표현식을 사용하여 전화번호 형식 검사
     const result = phoneNumberPattern.test(phoneNumber);
     console.log(result);
     return result;
+}
+
+//오류 메시지
+function callErrorMsg(errTitle, errMsg){
+    var errorMessage = errMsg;
+    if (errorMessage) {
+        Swal.fire({
+            icon: 'error',
+            title: errTitle,
+            html: errorMessage
+        });
+    }
 }
