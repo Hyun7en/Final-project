@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.psvm.manager.service.ManagerServiceImpl;
 import com.psvm.manager.vo.SellerNewApplication;
+import com.psvm.member.vo.Member;
 
 @Controller
 public class ManagerController {
@@ -22,9 +23,18 @@ public class ManagerController {
 		return "manager/managerMain";
 	}
 	
+	//관리자를 제외한 모든 회원 조회 메서드
 	@RequestMapping("memberList.ma")
-	public String memberInfoListView(HttpSession session, String categoryName) {
+	public String memberListView(HttpSession session, String categoryName) {
 		
+		//관리자를 제외한 모든 회원 조회
+		ArrayList<Member> memberList = managerService.memberList();
+		
+		// 관리자를 제외한 모든 회원 수 조회
+		int memberListCount = managerService.memberListCount();
+
+		session.setAttribute("memberList", memberList);
+		session.setAttribute("memberListCount", memberListCount);
 		session.setAttribute("categoryName", categoryName);
 		return "manager/managerMemberInfoManagement";
 	}
@@ -46,7 +56,10 @@ public class ManagerController {
 	
 	@RequestMapping("sellerNewApplication.ma")
 	public String sellerNewApplicationList(HttpSession session, String categoryName) {
+		
+		// 판매자 신청한 일반회원 리스트 조회
 		ArrayList<SellerNewApplication> list = managerService.sellerNewApplicationList();
+		
 		session.setAttribute("list", list);
 		session.setAttribute("categoryName", categoryName);
 		return "manager/managerSellerNewApplication";
@@ -54,6 +67,8 @@ public class ManagerController {
 	
 	@RequestMapping("sellerNewApplicationApprove.ma")
 	public String sellerNewApplicationApprove(int userNo) {
+		
+		// 회원의 판매자 신청 승인
 		int result = managerService.sellerNewApplicationApprove(userNo);
 		
 		if(result > 0) {

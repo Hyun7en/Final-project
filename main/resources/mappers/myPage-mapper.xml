@@ -34,10 +34,12 @@
 		<result column="USER_LV" property="userLv"/>
 		<result column="JOIN_DATE" property="joinDate"/>
 		<result column="MEMBER_FILE_NO" property="memberFileNo"/>
+		<result column="USER_INTRO" property="userIntro"/>
 	</resultMap>
 	
 	<!-- 작성한 게시글 resultMapper -->
 	<resultMap type="Community" id="writePostResult">
+		<result column="board_no" property="boardNo"/>
 		<result column="board_level" property="boardLevel"/>
 		<result column="board_title" property="boardTitle"/>
 		<result column="write_date" property="writeDate"/>
@@ -67,6 +69,7 @@
 	<update id="modifyInfo">
 		UPDATE member
 		SET nickname = #{nickname},
+			user_intro = #{userIntro},
 			gender = #{gender},
 			phone = #{phone},
 			email = #{email},
@@ -125,7 +128,8 @@
 				ACTIVATED,
 				USER_LV,
 				JOIN_DATE,
-				MEMBER_FILE_NO
+				MEMBER_FILE_NO,
+				USER_INTRO
 		FROM	MEMBER
 		WHERE	USER_NO = #{userNo}
 		AND		ACTIVATED = 'Y'
@@ -143,7 +147,8 @@
 
 	<!-- 작성한 게시글 리스트 조회 -->
 	<select id="writePostList" resultMap="writePostResult">
-		SELECT board_level,
+		SELECT board_no,
+			   board_level,
 			   board_title,
 			   write_date,
 			   board_count

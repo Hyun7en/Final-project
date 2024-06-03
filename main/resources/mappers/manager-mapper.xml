@@ -24,6 +24,65 @@
 		<result column="application_date" property="applicationDate"/>
 	</resultMap>
 	
+	<resultMap type="Member" id="memberListResult">
+		<result column="USER_NO" property="userNo"/>
+		<result column="USER_ID" property="userId"/>
+		<result column="USER_PWD" property="userPwd"/>
+		<result column="EMAIL" property="email"/>
+		<result column="USER_NAME" property="userName"/>
+		<result column="NICKNAME" property="nickname"/>
+		<result column="BIRTHDAY" property="birthday"/>
+		<result column="GENDER" property="gender"/>
+		<result column="ADDRESS" property="address"/>
+		<result column="PHONE" property="phone"/>
+		<result column="LIKE_FISH" property="likeFish"/>
+		<result column="TAIL_FISH" property="tailFish"/>
+		<result column="AUTHORITY" property="authority"/>
+		<result column="ACTIVATED" property="activated"/>
+		<result column="USER_LV" property="userLv"/>
+		<result column="JOIN_DATE" property="joinDate"/>
+		<result column="MEMBER_FILE_NO" property="memberFileNo"/>
+		<result column="USER_INTRO" property="userIntro"/>
+	</resultMap>
+	
+	<!-- 관리자를 제외한 모든 회원 조회 -->
+	<select id="memberList" resultMap="memberListResult">
+		SELECT 	USER_NO,
+				USER_ID,
+				USER_PWD,
+				EMAIL,
+				USER_NAME,
+				NICKNAME,
+				BIRTHDAY,
+				GENDER,
+				ADDRESS,
+				PHONE,
+				LIKE_FISH,
+				TAIL_FISH,
+				AUTHORITY,
+				ACTIVATED,
+				USER_LV,
+				JOIN_DATE,
+				MEMBER_FILE_NO,
+				USER_INTRO
+		FROM	MEMBER
+		WHERE	ACTIVATED = 'Y'
+		AND		AUTHORITY &lt; 2
+	</select>
+	
+	
+	<!-- 관리자를 제외한 모든 회원 수 조회 -->
+	<select id="memberListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM member
+		WHERE activated = 'Y'
+		AND authority &lt; 2
+	</select>
+	
+	
+	
+	
+	
 	
 	<!-- 판매자 신규신청 리스트 조회 -->
 	<select id="sellerNewApplicationList" resultMap="sellerNewApplicationResult">

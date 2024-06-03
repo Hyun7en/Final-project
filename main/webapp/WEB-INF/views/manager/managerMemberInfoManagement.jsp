@@ -53,7 +53,7 @@
                 </form>
                 
                 <div id="search-result-list-area">
-                    <div id="total-member"><b>총 회원 수 : 1</b></div> <!-- 총 회원 수 가져오기 -->
+                    <div id="total-member"><b>총 회원 수 : ${memberListCount}</b></div> <!-- 총 회원 수 가져오기 -->
                     <div id="search-result-list">
                         <table>
                             <!-- 테이블의 head와 body를 쉽게 구분하려고 thead사용함 -->
@@ -69,17 +69,19 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>홍길동</td>
-                                    <td>qwqw11</td>
-                                    <td>qwqw11@gmail.com</td>
-                                    <td>010-1111-1111</td>
-                                    <td>2024-05-13</td>
-                                    <td>
-                                        <button>정보수정</button>
-                                    </td>
-                                </tr>
+                                <c:forEach var="m" items="${memberList}">
+                                    <tr>
+                                        <td></td>
+                                        <td>${m.userName}</td>
+                                        <td>${m.userId}</td>
+                                        <td>${m.email}</td>
+                                        <td>${m.phone}</td>
+                                        <td>${m.joinDate}</td>
+                                        <td>
+                                            <button onclick="">정보수정</button>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
                             </tbody>
                         </table>
                     </div>

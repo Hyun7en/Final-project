@@ -49,13 +49,23 @@
                                     <th width="25%">작성일</th>
                                 </thead>
                                 <tbody>
-                                    <c:forEach var="i" items="${list}">
-                                        <tr>
-                                            <td width="15%">${i.inquiryNo}</td>
-                                            <td width="60%">${i.inquiryTitle}</td>
-                                            <td width="25%">${i.inquiryDate}</td>
-                                        </tr>
-                                    </c:forEach>
+                                    <c:choose>
+                                        <c:when test="${empty myInquiryList}">
+                                            <tr>
+                                                <td colspan="4" style="text-align: center;"><p>작성한 문의사항이 없습니다.</p></td>
+                                            </tr>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <c:forEach var="i" items="${myInquiryList}">
+                                                <tr>
+                                                    <td width="15%">${i.inquiryNo}</td>
+                                                    <td width="60%">${i.inquiryTitle}</td>
+                                                    <td width="25%">${i.inquiryDate}</td>
+                                                </tr>
+                                            </c:forEach>
+                                        </c:otherwise>
+                                    </c:choose>
+ 
                                 </tbody>
                             </table>
                         </div>

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.psvm.manager.dao.ManagerDao;
 import com.psvm.manager.vo.SellerNewApplication;
+import com.psvm.member.vo.Member;
 
 @Service
 public class ManagerServiceImpl implements ManagerService{
@@ -17,6 +18,18 @@ public class ManagerServiceImpl implements ManagerService{
 	
 	@Autowired
 	private ManagerDao managerDao;
+	
+	
+	// 관리자를 제외한 모든 회원 조회
+	public ArrayList<Member> memberList(){
+		return managerDao.memberList(sqlSession);
+	}
+	
+	// 관리자를 제외한 모든 회원 수 조회
+	public int memberListCount() {
+		return managerDao.memberListCount(sqlSession);
+	}
+	
 	
 	
 	
