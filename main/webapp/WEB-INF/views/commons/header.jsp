@@ -40,8 +40,7 @@
                         <script>
                             function getRecentURL(){
                                 const recentLink = document.querySelector('#recentLink');
-                                recentLink.value = (window.location.pathname + window.location.search).substring(6);
-                                console.log(recentLink.value);
+                                recentLink.value = (window.location.href);
                                 recentLink.form.submit();
                             }
                         </script>
