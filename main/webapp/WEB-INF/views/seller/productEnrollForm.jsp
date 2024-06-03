@@ -25,35 +25,37 @@
 <script>
     //옵션 추가
 
-$(document).ready(function() {
+    $(document).ready(function() {
         let options = [];
 
         $('#add-optionBtn').click(function() {
-            let option = $('#enroll-option').val().trim();
-            if (option) {
+            let optionName = $('#enroll-option').val().trim();
+            let quantity = parseInt($('#enroll-quantity').val().trim(), 10);
+            
+            if (optionName && quantity >= 0) {
+                let option = { name: optionName, quantity: quantity };
+                
                 // 배열에 옵션이 이미 존재하는지 검사
-                if (options.includes(option)) {
+                if (options.some(opt => opt.name === optionName)) {
                     alert('이미 추가된 옵션입니다.');
                 } else {
                     options.push(option);
-                    $('#optionList').append('<div data-option="' + option + '"><li>' + option + '</li><button class="removeBtn">x</button></div>');
-                    $('#enroll-option').val('');  // 입력 필드 초기화
+                    $('#optionList').append(`<li data-option="${optionName}">${option.optionName} - ${quantity}<button class="removeBtn">x</button></li>`);
+                    $('#enroll-option').val('');
+                    $('#enroll-quantity').val('');  // 입력 필드 초기화
                     console.log(options);
                 }
             } else {
-                alert('옵션을 입력하세요.');
+                alert('옵션과 수량을 모두 입력하세요.');
             }
         });
 
         $(document).on('click', '.removeBtn', function() {
-            let optionDiv = $(this).parent();
-            let option = optionDiv.data('option');
-            let index = options.indexOf(option);
-            if (index > -1) {
-                options.splice(index, 1);
-                optionDiv.remove();
-                console.log(options);
-            }
+            let optionLi = $(this).closest('li');
+            let optionName = optionLi.data('option');
+            options = options.filter(opt => opt.name !== optionName);
+            optionLi.remove();
+            console.log(options);
         });
 
         $('#enrollForm').submit(function(event) {
@@ -108,19 +110,12 @@ $(document).ready(function() {
                             </label>
                             <input class="form-control" type="number" min="0" step="100"  id="pdPrice" name="pdPrice" placeholder="판매가 입력" required>
                         </div>
-                   
-                        <div class="form-group">
-                            <label for="pCount">
-                                수량
-                            </label>
-                            <input class="form-control" type="number" min="0" id="pdCount" name="pdCount"  placeholder="판매수량 입력" required>
-                        </div> 
 
                         <div id="div-enroll-option">
                             <div>
                                 <h4>옵션 등록</h4>
                                 <input id="enroll-option" type="text" placeholder="옵션 입력">
-                                <input id="enroll-quantity" type="number" min="0" placeholder="옵션 수량">
+                                <input id="enroll-quantity" type="number" min="0" id="pdCount" name="pdCount" placeholder="수량" required>
                                 <button type="button" id="add-optionBtn">추가</button>
                             </div>
                             <div>

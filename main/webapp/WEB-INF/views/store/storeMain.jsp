@@ -95,7 +95,6 @@
                 <c:forEach var="b" items="${list}">
 
                     <div class="carousel-item">
-                        <a href="">
                             <div class="product-descript">
                                 <p id="product-descript-store-name">
                                     가게명
@@ -117,7 +116,6 @@
                             <div class="carousel-dimg">
                                 <img src="../../resources/image/clownfish-1453910_1920.jpg" >
                             </div>
-                        </a>
                     </div>
 
                 </c:forEach>
@@ -134,8 +132,7 @@
 
                 <c:forEach var="b" items="${list}">
 
-                    <div class="carousel-item">
-                        <a href="">
+                    <div class="carousel-item" onclick="location.href=''">
                             <div class="product-descript">
                                 <p id="product-descript-store-name">
                                     가게명
@@ -157,7 +154,6 @@
                             <div class="carousel-dimg">
                                 <img src="../../resources/image/clownfish-1453910_1920.jpg" >
                             </div>
-                        </a>
                     </div>
 
                 </c:forEach>
@@ -177,7 +173,6 @@
                 <c:forEach var="b" items="${list}">
 
                     <div class="carousel-item">
-                        <a href="">
                             <div class="product-descript">
                                 <p id="product-descript-store-name">
                                     가게명
@@ -199,7 +194,6 @@
                             <div class="carousel-dimg">
                                 <img src="../../resources/image/clownfish-1453910_1920.jpg" >
                             </div>
-                        </a>
                     </div>
 
                 </c:forEach>
@@ -219,7 +213,6 @@
                 <c:forEach var="b" items="${list}">
 
                     <div class="carousel-item">
-                        <a href="">
                             <div class="product-descript">
                                 <p id="product-descript-store-name">
                                     가게명
@@ -241,7 +234,6 @@
                             <div class="carousel-dimg">
                                 <img src="../../resources/image/clownfish-1453910_1920.jpg" >
                             </div>
-                        </a>
                     </div>
 
                 </c:forEach>
