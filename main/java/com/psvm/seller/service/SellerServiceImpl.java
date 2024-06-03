@@ -77,22 +77,23 @@ public class SellerServiceImpl implements SellerService {
 	//옵션 넣기
 	@Transactional
 	@Override
-	public int insertProduct(Product product, int pdCount, ArrayList<String> options) {
+	public int insertProduct(Product product, ArrayList<ProductOption> options) {
 		
 		int t1 = sellerDao.insertpProduct(sqlSession, product);
 		
 		int t2 = 1;
 		
-		HashMap<String,Object> newMap = new HashMap<>();
+		System.out.println(options);
 		
+		for(ProductOption option : options) {
 		
-		for(String option : options) {
+			HashMap<String,Object> newMap = new HashMap<>();
 			
-			newMap.put("option", option);
+			newMap.put("optionName", option.getOptionName());
 			
-			newMap.put("pdCount", pdCount);
+			newMap.put("pdCount", option.getPdCount());
 			
-			if(!option.equals("")) {
+			if(!option.getOptionName().equals("")) {
 				t2 = t2 * sellerDao.insertProductOption(sqlSession, newMap);
 			}		
 		}						

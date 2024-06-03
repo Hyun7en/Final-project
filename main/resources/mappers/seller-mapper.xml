@@ -52,7 +52,7 @@
 		<result column="P_COUNT" property="pdCount"/>
 		<result column="P_STATUS" property="pdContent"/>	
 		<result column="P_NO" property="pdNo"/>
-		<result column="P_OPTION_NAME" property="pdOptionName"/>
+		<result column="P_OPTION_NAME" property="optionName"/>
 		<result column="P_OPTION_NO" property="pdOptionNo"/>
 	</resultMap>  
 	
@@ -161,7 +161,7 @@
 							 		  #{pdCount},
 							 		  default,
 							 		  CURRVAL('product_p_no_seq'::regclass),
-							 		 #{option}
+							 		 #{optionName}
 						 		 	  )	
 	</insert>
 	
