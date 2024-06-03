@@ -52,7 +52,7 @@
 		<result column="P_COUNT" property="pdCount"/>
 		<result column="P_STATUS" property="pdContent"/>	
 		<result column="P_NO" property="pdNo"/>
-		<result column="P_OPTION_NAME" property="pdOptionName"/>
+		<result column="P_OPTION_NAME" property="optionName"/>
 		<result column="P_OPTION_NO" property="pdOptionNo"/>
 	</resultMap>  
 	
@@ -161,7 +161,7 @@
 							 		  #{pdCount},
 							 		  default,
 							 		  CURRVAL('product_p_no_seq'::regclass),
-							 		 #{option}
+							 		 #{optionName}
 						 		 	  )	
 	</insert>
 	
@@ -189,6 +189,7 @@
 		SELECT *
 		  FROM PRODUCT
 		 WHERE P_STATUS = 'Y'
+		   AND P_NO = #{pno}
 	</select>
 	
 	<select id="selectOptions" resultMap="productOptionResult">
@@ -196,5 +197,17 @@
 			   P_OPTION_NAME	
 		  FROM PRODUCT_OPTION
 		WHERE P_NO = #{pno}
+	</select>
+	
+	<select id="selectRecentList" resultMap="productResult">
+		SELECT *
+		  FROM(SELECT STORE_NAME,P_TITLE,P_PRICE
+			     FROM PRODUCT
+			     JOIN PRODUCT_CATEGORY USING(P_CATEGORY)
+			     JOIN SELLER_PAGE USING(SELLER_PAGE_NO)
+			     JOIN SELLER_INFO USING(BUSINESS_NO)
+			    WHERE P_STATUS = 'Y'
+			    ORDER BY P_ENROLL_DATE DESC)
+		 LIMIT 5
 	</select>
 </mapper>

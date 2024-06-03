@@ -109,13 +109,14 @@
             </table>
             <div class="com-bottom1">
                 <div class="com-bottom-left">
-                    <form action="searchlist.co?category=${boardLevel}&cpage=1" method="post">
+                    <form action="searchlist.co" method="get">
+                        <input type="hidden" name="category" value="${boardLevel}">
+                        <input type="hidden" name="cpage" value="1">
                         <select name="condition" id="com-condition">
                             <option value="title">제목</option>
                             <option value="writer">글쓴이</option>
                         </select>
                         <input type="text" name="keyword" value="${keyword}" placeholder="검색어 입력(대소문자 구분)">
-                        <input type="hidden" name="boardLevel" value="${boardLevel}">
                         <button id="com-search-button" type="submit">검색</button>
                     </form>
                 </div>

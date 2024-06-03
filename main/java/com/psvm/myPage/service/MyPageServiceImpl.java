@@ -42,9 +42,11 @@ public class MyPageServiceImpl implements MyPageService {
 		return myPageDao.loginUser(sqlSession, m);
 	}
 	
-//	public int deleteMember(int userNo) {
-//		return myPageDao.deleteMember(sqlSession, userNo);
-//	}
+	public int deleteMember(int userNo) {
+		return myPageDao.deleteMember(sqlSession, userNo);
+	}
+	
+
 	
 //	public ArrayList<InterestProduct> selectInterestProduct(int userNo){
 //		return myPageDao.selectInterestProduct(sqlSession, userNo);

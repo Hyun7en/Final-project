@@ -1,46 +1,59 @@
-//옵션 추가
+       //옵션 추가
 
-$(document).ready(function() {
+       $(document).ready(function() {
         let options = [];
-
-        $('#add-optionBtn').click(function() {
-            let option = $('#enroll-option').val().trim();
-            if (option) {
-                // 배열에 옵션이 이미 존재하는지 검사
-                if (options.includes(option)) {
+    
+        // 엔터 키 이벤트를 처리하는 함수
+        function addOption() {
+            let optionName = $('#enroll-option').val().trim();
+            let pdCount = parseInt($('#enroll-pdCount').val().trim(), 10);
+    
+            if (optionName && pdCount >= 0) {
+                let option = { optionName: optionName, pdCount: pdCount };
+                
+                if (options.some(opt => opt.name === optionName)) {
                     alert('이미 추가된 옵션입니다.');
                 } else {
                     options.push(option);
-                    $('#optionList').append('<div data-option="' + option + '"><li>' + option + '</li><button class="removeBtn">x</button></div>');
-                    $('#enroll-option').val('');  // 입력 필드 초기화
+                    $('#optionList').append('<div data-option="' + optionName + '"><li>' + optionName + ' - ' + pdCount + '</li><button class="removeBtn">x</button></div>');
+                    $('#enroll-option').val('');
+                    $('#enroll-pdCount').val(''); // 입력 필드 초기화
                     console.log(options);
                 }
             } else {
-                alert('옵션을 입력하세요.');
+                alert('옵션과 수량을 모두 입력하세요.');
+            }
+        }
+    
+        // 클릭 이벤트에 addOption 함수를 연결
+        $('#add-optionBtn').click(addOption);
+    
+        // 입력 필드에서 엔터 키 입력 처리
+        $('#enroll-option, #enroll-pdCount').keypress(function(event) {
+            if (event.which == 13) {  // 엔터 키의 키 코드는 13
+                event.preventDefault();  // 폼 제출을 방지
+                addOption();  // 옵션 추가 함수 실행
             }
         });
-
+    
         $(document).on('click', '.removeBtn', function() {
             let optionDiv = $(this).parent();
-            let option = optionDiv.data('option');
-            let index = options.indexOf(option);
-            if (index > -1) {
-                options.splice(index, 1);
-                optionDiv.remove();
-                console.log(options);
-            }
+            let optionName = optionDiv.data('option');
+            options = options.filter(opt => opt.name !== optionName);
+            optionDiv.remove();
+            console.log(options);
         });
-
+    
         $('#enrollForm').submit(function(event) {
             let optionsInput = $('<input>').attr('type', 'hidden').attr('name', 'optionsJson').val(JSON.stringify(options));
             $(this).append(optionsInput);
         });
-
+    
         $('#productImage').change(function(event) {
             let reader = new FileReader();
             reader.onload = function(e) {
                 $('#preview-image').attr('src', e.target.result);
-            }
+            };
             reader.readAsDataURL(event.target.files[0]);
         });
     });

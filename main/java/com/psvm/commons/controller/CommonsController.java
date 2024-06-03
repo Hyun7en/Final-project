@@ -23,10 +23,4 @@ public class CommonsController {
 		return "community/community";
 	}
 	
-	@GetMapping("store.ma")
-	public String store() {
-		return "store/store";
-	}
-
-	
 }
