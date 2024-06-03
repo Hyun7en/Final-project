@@ -18,7 +18,7 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sellerCSS/sellerHome.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/storeCSS/stroreSellersHome.css">
 
 </head>
 <body>
