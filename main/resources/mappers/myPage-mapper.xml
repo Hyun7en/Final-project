@@ -131,7 +131,12 @@
 		AND		ACTIVATED = 'Y'
 	</select>
 
-
+	<!-- 회원 탈퇴  -->
+	<update id="deleteMember">
+	UPDATE member
+	SET activated = 'N'
+	WHERE user_no = #{userNo}
+	</update>
 
 
 

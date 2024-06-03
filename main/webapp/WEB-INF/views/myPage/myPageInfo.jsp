@@ -175,22 +175,25 @@
                     <div id="delete-member-modal">
                         <div id="delete-member-modal-content">
                             <h3>회원 탈퇴 확인</h3>
-                            <form id="form-area" action="deleteMember.my?userNo=${loginUser.userNo}">
-                                <div id="password-check-area">
+
+                            <div id="password-check-area">
+                                <div>
+                                    <span id="" >현재 비밀번호</span>
                                     <div>
-                                        <span id="" >현재 비밀번호</span>
-                                        <div>
-                                            <input type="text" id="input-password" name="input-password">
-                                            <button type="button" onclick="password_check()">확인</button>
-                                        </div>
+                                        <input type="text" id="inputPwd" name="inputPwd" value="">
+                                        <input type="hidden" id="loginUserPwd" name="loginUserPwd" value="${loginUser.userPwd}">
+                                        <button type="button" onclick="password_check()">확인</button>
                                     </div>
-                                    <span id="warning-text">* 회원 탈퇴 시, 복구가 불가능합니다.</span>
                                 </div>
-                                <div id="modal-btn-area">
-                                    <button type="button" id="delete-btn" onclick="delete_member()" readonly style="color: #d0d0d0;">탈퇴하기</button>
-                                    <button type="button" id="close-modal" onclick="close_modal()">닫기</button>
-                                </div>
-                            </form>
+                                <span id="warning-text">* 회원 탈퇴 시, 복구가 불가능합니다.</span>
+                            </div>
+   
+                            <div id="modal-btn-area">
+                                <!-- <form id="form-area" action="deleteMember.my?userNo=${loginUser.userNo}"></form> -->
+                                    <button type="button" id="delete-btn" onclick="delete_member('${loginUser.userNo}')" readonly style="color: #d0d0d0;">탈퇴하기</button>
+                                <!-- </form> -->
+                                <button type="button" id="close-modal" onclick="close_modal()">닫기</button>
+                            </div>
                         </div>
                     </div>
 

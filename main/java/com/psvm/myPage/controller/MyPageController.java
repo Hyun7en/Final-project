@@ -9,17 +9,20 @@ import java.util.Date;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.psvm.community.vo.Community;
 import com.psvm.member.vo.Member;
 import com.psvm.member.vo.MemberAttachment;
 import com.psvm.myPage.service.MyPageServiceImpl;
 import com.psvm.myPage.vo.Inquiry;
-import com.psvm.myPage.vo.PasswordCheck;
 import com.psvm.seller.vo.SellerInfo;
 
 @Controller
@@ -28,7 +31,11 @@ public class MyPageController {
 	@Autowired
 	private MyPageServiceImpl myPageService;
 	
-	// 내 정보 페이지로 보내는 컨트롤러
+	@Autowired
+	BCryptPasswordEncoder bcryptPasswordEncoder;
+	
+	
+	// 내 정보 페이지로 보내기
 	@RequestMapping("myPage.me")
 	public String selectMyInfo(HttpSession session, int userNo) {
 		MemberAttachment ma = myPageService.selectMemberAttachment(userNo);
@@ -38,6 +45,7 @@ public class MyPageController {
 		return "myPage/myPageInfo";
 	}
 	
+	// 내정보 페이지에 있는 내정보 수정
 	@RequestMapping("modifyInfo.my")
 	public ModelAndView modifyInfo(HttpSession session, Member m, MemberAttachment ma, MultipartFile file, ModelAndView mv) {
 		
@@ -45,7 +53,8 @@ public class MyPageController {
 		int result2 =0;
 		int userNo = m.getUserNo();
 		
-		if(!file.getOriginalFilename().equals("")) {	// 전달된 첨부파일이 있을 경우
+		// 전달된 첨부파일이 있을 경우
+		if(!file.getOriginalFilename().equals("")) {	
 			
 			//기존의 첨부파일이 있다 => 기존의 파일을 삭제
 			if(ma.getOriginName() != null) {
@@ -97,6 +106,7 @@ public class MyPageController {
 		return mv;
 	}
 	
+	// 프로필 이미지 변경할 때 
 	public String saveFile(MultipartFile file, HttpSession session) {
 		//파일명 수정 후 서버에 업로드하기("imgFile.jpg => 202404231004305488.jpg")
 		String originName = file.getOriginalFilename();
@@ -127,28 +137,31 @@ public class MyPageController {
 		return changeName;
 	}
 	
-//	@RequestMapping("deleteMember.my")
-//	public String deleteMember(int userNo, Model model) {
-//		
-//		int result = myPageService.deleteMember(userNo);
-//		
-//		if(result > 0) {
-//			model.addAttribute("alertMsg", "회원탈퇴 성공");
-//			return "myPage/myPageInfo";
-//		} else {
-//			model.addAttribute("errorMsg", "회원탈퇴 실패");
-//			return "common/errorPage";
-//		}
-//		
-//	}
+	// 회원 탈퇴
+	@RequestMapping("deleteMember.my")
+	public ModelAndView deleteMember(int userNo, Model model, HttpSession session, ModelAndView mv) {
+		
+		int result = myPageService.deleteMember(userNo);
+
+		if(result > 0) {
+			session.removeAttribute("loginUser");
+			mv.addObject("successMessage", "회원탈퇴 성공");
+			mv.setViewName("redirect:/");
+		} else {
+			mv.addObject("successMessage", "회원탈퇴 실패");
+			mv.setViewName("myPage/myPageInfo");
+		}
+		return mv;
+	}
 	
-	// 회원탈퇴시 입력한 비밀번호가 맞는지 체크하기 위한 select
-	@RequestMapping("passwordCheck.my")
-	public String passwordCheck(PasswordCheck pc , HttpSession session) {
+	// 회원탈퇴시 탈퇴한건지 확인하기 위한 비밀번호 확인이 맞는지 체크(ajax)
+	@ResponseBody
+	@RequestMapping(value="passwordCheck.my", produces="application/json; charset-UTF-8")
+	public String passwordCheck(String inputPwd, HttpSession session) {
 		
-		PasswordCheck passwordCheck =  myPageService.passwordCheck(pc);
-		
-		return "";
+		String loginUserPwd = ((Member)session.getAttribute("loginUser")).getUserPwd();
+		boolean isPasswordCheck = bcryptPasswordEncoder.matches(inputPwd, loginUserPwd);
+		return new Gson().toJson(isPasswordCheck);		
 	}
 	
 	

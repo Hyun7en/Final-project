@@ -158,29 +158,50 @@ function delete_member_modal(){
 }
 
 function password_check(){
-    const inputPassword = document.getElementById("input-password");
-    location.href="passwordCheck.my?userNo=${loginUser.userNo}&inputPassword=" + inputPassword;
+    const inputPwd = document.getElementById("inputPwd").value;
+    const loginUserPwd = document.getElementById("loginUserPwd").value;
+    console.log(inputPwd);
+    console.log(loginUserPwd);
+    $.ajax({
+        url: 'passwordCheck.my',
+        type: 'POST',
+        data: {
+            inputPwd : inputPwd,
+            loginUserPwd : loginUserPwd
+        },
+        success: function(res){
+            console.log(res);
+            if(res === true){
+                document.getElementById("delete-btn").readOnly = false;
+                document.getElementById("delete-btn").style.color = "black";
+        
+                document.getElementById("warning-text").style.color = "green";
+                document.getElementById("warning-text").innerText = "비밀번호가 일치합니다.";
+            } else{
+                document.getElementById("warning-text").style.color = "red";
+                document.getElementById("warning-text").innerText = "비밀번호가 일치하지 않습니다.";
+            }
+        }
+    });
+    
+    // const passwordCheck = "${passwordCheck}"
+    // console.log(inputPassword);
+    // console.log(passwordCheck)
+    // location.href="passwordCheck.my?userNo=${loginUser.userNo}&inputPassword=" + inputPassword;
 
-    if(inputPassword === "${selectPassword}"){
-        document.getElementById("delete-btn").readOnly = false;
-        document.getElementById("delete-btn").style.color = "black";
 
-        document.getElementById("warning-text").style.color = "green";
-        document.getElementById("warning-text").innerText = "비밀번호가 일치합니다.";
-    } else{
-        document.getElementById("warning-text").innerText = "비밀번호가 일치하지 않습니다.";
-    }
 
 
 }
 
-function delete_member(){
+function delete_member(userNo){
     document.getElementById("delete-member-modal").style.display = "none";
-    location.href="deleteMember.my?userNo=${loginUser.userNo}";
+    location.href="deleteMember.my?userNo=" + userNo;
 }
 
 function close_modal(){
-    document.getElementById("input-password").value = "";
+    document.getElementById("inputPwd").value = "";
     document.getElementById("delete-member-modal").style.display = "none";
+    document.getElementById("warning-text").innerText = "* 회원 탈퇴 시, 복구가 불가능합니다.";
 }
 

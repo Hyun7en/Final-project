@@ -9,7 +9,6 @@ import com.psvm.community.vo.Community;
 import com.psvm.member.vo.Member;
 import com.psvm.member.vo.MemberAttachment;
 import com.psvm.myPage.vo.Inquiry;
-import com.psvm.myPage.vo.PasswordCheck;
 import com.psvm.seller.vo.SellerInfo;
 
 @Repository
@@ -35,14 +34,9 @@ public class MyPageDao {
 		return (Member)sqlSession.selectOne("myPageMapper.loginUser", m);
 	}
 	
-//	public int deleteMember(int userNo) {
-//		
-//	}
-	
-	public PasswordCheck passwordCheck(SqlSessionTemplate sqlSession, PasswordCheck pc) {
-		return (PasswordCheck)sqlSession.selectOne("myPageMapper.passwordCheck", pc);
+	public int deleteMember(SqlSessionTemplate sqlSession, int userNo) {
+		return sqlSession.update("myPageMapper.deleteMember", userNo);
 	}
-	
 	
 	
 	
