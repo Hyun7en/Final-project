@@ -36,7 +36,7 @@
 
         <section>
             <h1>스토어 관리 &gt; 상품 등록</h1>
-            <form id="enrollForm" action="update.pd" method="post" enctype="multipart/form-data">
+            <form id="enrollForm" action="insert.pd" method="post" enctype="multipart/form-data">
                 <div id="product-management">
                     <div>
                         <div class="form-group">
@@ -59,18 +59,12 @@
                             </label>
                             <input class="form-control" type="number" min="0" step="100"  id="pdPrice" name="pdPrice" placeholder="판매가 입력" required>
                         </div>
-                   
-                        <div class="form-group">
-                            <label for="pCount">
-                                수량
-                            </label>
-                            <input class="form-control" type="number" min="0" id="pdCount" name="pdCount"  placeholder="판매수량 입력" required>
-                        </div> 
 
                         <div id="div-enroll-option">
                             <div>
                                 <h4>옵션 등록</h4>
                                 <input id="enroll-option" type="text" placeholder="옵션 입력">
+                                <input id="enroll-pdCount" type="number" min="0" placeholder="수량">
                                 <button type="button" id="add-optionBtn">추가</button>
                             </div>
                             <div>
@@ -95,7 +89,7 @@
                     </label>
                 </div>
                 <div>
-                    <textarea id="summernote" name="pContent"></textarea>
+                    <textarea id="summernote" name="pdContent"></textarea>
                 </div>
                 <div class="form-actions">
                     <button type="submit">

@@ -20,59 +20,8 @@
 
 <!-- JS -->
 <script src="${pageContext.request.contextPath}/resources/js/sellerJS/showCategory.js"></script>
-<!-- <script src="${pageContext.request.contextPath}/resources/js/sellerJS/addOption.js"></script> -->
+<script src="${pageContext.request.contextPath}/resources/js/sellerJS/addOption.js"></script>
 
-<script>
-    //옵션 추가
-
-    $(document).ready(function() {
-        let options = [];
-
-        $('#add-optionBtn').click(function() {
-            let optionName = $('#enroll-option').val().trim();
-            let quantity = parseInt($('#enroll-quantity').val().trim(), 10);
-            
-            if (optionName && quantity >= 0) {
-                let option = { name: optionName, quantity: quantity };
-                
-                // 배열에 옵션이 이미 존재하는지 검사
-                if (options.some(opt => opt.name === optionName)) {
-                    alert('이미 추가된 옵션입니다.');
-                } else {
-                    options.push(option);
-                    $('#optionList').append(`<li data-option="${optionName}">${option.optionName} - ${quantity}<button class="removeBtn">x</button></li>`);
-                    $('#enroll-option').val('');
-                    $('#enroll-quantity').val('');  // 입력 필드 초기화
-                    console.log(options);
-                }
-            } else {
-                alert('옵션과 수량을 모두 입력하세요.');
-            }
-        });
-
-        $(document).on('click', '.removeBtn', function() {
-            let optionLi = $(this).closest('li');
-            let optionName = optionLi.data('option');
-            options = options.filter(opt => opt.name !== optionName);
-            optionLi.remove();
-            console.log(options);
-        });
-
-        $('#enrollForm').submit(function(event) {
-            let optionsInput = $('<input>').attr('type', 'hidden').attr('name', 'optionsJson').val(JSON.stringify(options));
-            $(this).append(optionsInput);
-        });
-
-        $('#productImage').change(function(event) {
-            let reader = new FileReader();
-            reader.onload = function(e) {
-                $('#preview-image').attr('src', e.target.result);
-            }
-            reader.readAsDataURL(event.target.files[0]);
-        });
-    });
-
-</script>
 </head>
 <body>
 <div class="wrap">
@@ -115,7 +64,7 @@
                             <div>
                                 <h4>옵션 등록</h4>
                                 <input id="enroll-option" type="text" placeholder="옵션 입력">
-                                <input id="enroll-quantity" type="number" min="0" id="pdCount" name="pdCount" placeholder="수량" required>
+                                <input id="enroll-pdCount" type="number" min="0" placeholder="수량">
                                 <button type="button" id="add-optionBtn">추가</button>
                             </div>
                             <div>
