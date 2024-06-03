@@ -29,6 +29,7 @@ import com.psvm.commons.vo.PageInfo;
 import com.psvm.member.vo.Member;
 import com.psvm.seller.service.SellerService;
 import com.psvm.seller.vo.Product;
+import com.psvm.seller.vo.ProductOption;
 import com.psvm.seller.vo.SellerInfo;
 import com.psvm.seller.vo.SellerPage;
 
@@ -45,7 +46,7 @@ public class SellerController {
     
     
 
-//    판매자 정보 출력
+    // 판매자 정보 출력
     @RequestMapping("info.sr")
     public String selectSeller(HttpSession session, Model model) {
     	
@@ -103,7 +104,7 @@ public class SellerController {
             int result = sellerService.insertSellerHome(sellerPage, categories);
             
             if (result > 0 ) { // 성공
-//            	session.setAttribute("SellerHomeRegistered", true);
+                session.setAttribute("SellerHomeRegistered", true);
                 redirectAttributes.addFlashAttribute("message", "등록이 완료되었습니다.");
                 
                 return "redirect:detail.srh";
@@ -205,10 +206,12 @@ public class SellerController {
   	}
     
     @RequestMapping("insert.pd")
-  	public String insertProduct(Product product, int pdCount, MultipartFile productImage, @RequestParam("optionsJson") String optionsJson,
+  	public String insertProduct(Product product, MultipartFile productImage, @RequestParam("optionsJson") String optionsJson,
     HttpSession session, RedirectAttributes redirectAttributes) {
     	
-    	
+    	System.out.println("Product: " + product);
+    	System.out.println("Product Image Original Filename: " + (productImage != null ? productImage.getOriginalFilename() : "null"));
+    	System.out.println("Options JSON: " + optionsJson);
     	
          if (!productImage.getOriginalFilename().isEmpty()) {
              String changeName = saveFile(productImage, session);
@@ -217,10 +220,10 @@ public class SellerController {
          }
 
          try {
-             Type listType = new TypeToken<ArrayList<String>>() {}.getType();
-             ArrayList<String> options = gson.fromJson(optionsJson, listType);
+             Type listType = new TypeToken<ArrayList<ProductOption>>() {}.getType();
+             ArrayList<ProductOption> options = gson.fromJson(optionsJson, listType);
 
-         	 int result = sellerService.insertProduct(product, pdCount, options);
+         	 int result = sellerService.insertProduct(product, options);
          	 
              if (result > 0 ) { // 성공
             	 
@@ -233,7 +236,7 @@ public class SellerController {
                  return "redirect:list.pd"; // 등록 페이지로 리다이렉트
                  
              }
-         } catch (JsonSyntaxException e) {
+         } catch (Exception  e) {
              return "redirect:list.pd";
          }
      }
@@ -321,6 +324,7 @@ public class SellerController {
 	public String selectProduct(int pno, Model model) {
 		
 			Product pd = sellerService.selectProduct(pno);
+			
 			model.addAttribute("pd", pd);
 			
 			return "seller/sellerProductDetailView";
@@ -328,13 +332,41 @@ public class SellerController {
     
     @RequestMapping("updateForm.pd")
   	public String productUpdateForm() {
+    	
   		return "seller/productUpdateForm";
   	}
     
     @RequestMapping("update.pd")
   	public String updateProduct() {
+    	
   		return "";
   	}
+    
+    //storeMain
+    
+    //상품 리스트
+    @RequestMapping("list.spd")
+  	public String selectRecentList(HttpSession session, Model model) {
+		
+		ArrayList<Product> list = sellerService.selectRecentList();
+		
+		model.addAttribute("list", list);
+		
+		return "store/storeMain";
+	}
+    
+    // 판매 상품 detail
+    @RequestMapping("detail.spd")
+    public String selectSalesProduct(int pno, Model model) {
+    	
+    	Product spd = sellerService.selectSalesProduct(pno);
+    	
+    	model.addAttribute("spd",spd);
+    	
+    	return "seller/productDetailView";
+    }
+    
+    
     
    
    

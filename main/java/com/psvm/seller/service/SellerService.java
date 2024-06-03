@@ -28,7 +28,7 @@ public interface SellerService {
 	public SellerPage selectSellerHomeDetail(int businessNo);
 	
 	// 상품 등록
-	public int insertProduct(Product product, int pdCount, ArrayList<String> options);
+	public int insertProduct(Product product, ArrayList<ProductOption> options);
 	
 	public int selectProductListCount();
 	
@@ -37,4 +37,10 @@ public interface SellerService {
 	public Product selectProduct(int pno);
 	
 	public ArrayList<ProductOption> selectOptions(int pno);
+	
+	public ArrayList<Product> selectRecentList();
+	
+	public Product selectSalesProduct(int pno);
+	
+	
 }

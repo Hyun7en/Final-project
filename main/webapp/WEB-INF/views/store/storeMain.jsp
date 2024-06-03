@@ -95,7 +95,6 @@
                 <c:forEach var="b" items="${list}">
 
                     <div class="carousel-item">
-                        <a href="">
                             <div class="product-descript">
                                 <p id="product-descript-store-name">
                                     가게명
@@ -117,7 +116,6 @@
                             <div class="carousel-dimg">
                                 <img src="../../resources/image/clownfish-1453910_1920.jpg" >
                             </div>
-                        </a>
                     </div>
 
                 </c:forEach>
@@ -134,8 +132,7 @@
 
                 <c:forEach var="b" items="${list}">
 
-                    <div class="carousel-item">
-                        <a href="">
+                    <div class="carousel-item" onclick="location.href='detail.spd?pno=${pd.pdNo}'">
                             <div class="product-descript">
                                 <p id="product-descript-store-name">
                                     가게명
@@ -157,7 +154,6 @@
                             <div class="carousel-dimg">
                                 <img src="../../resources/image/clownfish-1453910_1920.jpg" >
                             </div>
-                        </a>
                     </div>
 
                 </c:forEach>
@@ -177,7 +173,6 @@
                 <c:forEach var="b" items="${list}">
 
                     <div class="carousel-item">
-                        <a href="">
                             <div class="product-descript">
                                 <p id="product-descript-store-name">
                                     가게명
@@ -199,7 +194,6 @@
                             <div class="carousel-dimg">
                                 <img src="../../resources/image/clownfish-1453910_1920.jpg" >
                             </div>
-                        </a>
                     </div>
 
                 </c:forEach>
@@ -216,19 +210,20 @@
 
             <div class="carousel">
 
-                <c:forEach var="b" items="${list}">
+                <c:forEach var="spd" items="${list}">
 
-                    <div class="carousel-item">
-                        <a href="">
+                    <div class="carousel-item" onclick="location.href='detail.spd?pno=${spd.pdNo}'">
                             <div class="product-descript">
-                                <p id="product-descript-store-name">
-                                    가게명
-                                </p>
+                                <a href="storeMain.ma">
+                                    <p id="product-descript-store-name">
+                                        ${spd.storeName}
+                                    </p>
+                                </a>
                                 <p id="product-descript-product-name">
-                                    제품명
+                                    ${spd.pdTitle}
                                 </p>
                                 <p id="product-descript-product-price">
-                                    가격
+                                    ${spd.pdPrice}
                                 </p>
                                 <p id="product-descript-rating-review">
                                     <img style="width: 13px;" src="../../resources/image/star.png">
@@ -241,7 +236,6 @@
                             <div class="carousel-dimg">
                                 <img src="../../resources/image/clownfish-1453910_1920.jpg" >
                             </div>
-                        </a>
                     </div>
 
                 </c:forEach>

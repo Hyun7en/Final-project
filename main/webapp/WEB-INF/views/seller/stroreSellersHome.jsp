@@ -18,7 +18,7 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sellerCSS/sellerHome.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/storeCSS/stroreSellersHome.css">
 
 </head>
 <body>
@@ -29,30 +29,23 @@
                 <button id="seller-blue-button"><img src="${pageContext.request.contextPath}/resources/image/mdi_bell-outline.png" alt="">알림받기</button>
                 <p>워터 박스</p>
             </div>
-            <div id="seller-home-nav">
-                <a href="" style="margin-left: auto;">BEST</a>
-                <a href="">전체상품</a>
-                <a href="">특가판매</a>
-                <a href="">주문제작</a>
-                <a href="">어항</a>
-                <a href="">어항용품</a>
-                <a href="">수족관용품</a>
-                <a href="" style="margin-right: auto;">기타</a>
+            <div id="seller-home-catchphrase"><p>-안성맞춤의 공간-</p></div>
+            <div id="seller-home-nav"> <!--c:forEach로 카테고리 작성-->
+                <a href="" class="category-0" style="margin-left: auto;">전체상품</a>
+                <a href="" class="category-1">어항</a>
+                <a href="" class="category-2">어항받침대</a>
+                <a href="" class="category-3">어항뚜껑</a>
+                <a href="" class="category-4" style="margin-right: auto;">기타</a>
             </div>
-            <div id="seller-home-banner">
-                <img src="${pageContext.request.contextPath}\resources\image\seller_banner.png" alt="">
-            </div>
+            <div id="seller-home-banner" style="background-image: url(${pageContext.request.contextPath}/resources/image/fishTank.png); background-size: 1120px;"></div>
             <div id="seller-home-list">
                 <p>전체상품</p>
                 <div id="seller-home-listnav">
-                    <a href="">인기도순</a>|
-                    <a href="" style="color: #0089FF; font-weight: bold;">최신등록순</a>|
-                    <a href="">낮은 가격순</a>|
-                    <a href="">높은 가격순</a>|
-                    <a href="">할인율순</a>|
-                    <a href="">누적 판매순</a>|
-                    <a href="">리뷰 많은순</a>|
-                    <a href="">평점 높은순</a>
+                    <a href="" class="order-0" style="border-left: 0;">인기도순</a>
+                    <a href="" class="order-1" id="seller-home-selected" style="color: #0089FF; font-weight: bold;">최신등록순</a>
+                    <a href="" class="order-2">낮은 가격순</a>
+                    <a href="" class="order-3">높은 가격순</a>
+                    <a href="" class="order-4" style="border-right: 0;">리뷰 많은순</a>
                 </div>
                 <div id="seller-home-products">
                     <div id="seller-home-goods">
