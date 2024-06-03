@@ -24,6 +24,7 @@
  		<typeAlias type="com.psvm.seller.vo.ProductCategory" alias="ProductCategory"/>
  		<typeAlias type="com.psvm.seller.vo.Product" alias="Product"/>
  		<typeAlias type="com.psvm.seller.vo.ProductOption" alias="ProductOption"/>
+ 		<typeAlias type="com.psvm.store.vo.StoreInfo" alias="StoreInfo"/>
  		<typeAlias type="com.psvm.fishInfo.vo.Fish" alias="Fish"/>
  		<typeAlias type="com.psvm.myPage.vo.Inquiry" alias="Inquiry"/>
  		<typeAlias type="com.psvm.manager.vo.SellerNewApplication" alias="SellerNewApplication"/>
@@ -43,6 +44,7 @@
  		<mapper resource="/mappers/seller-mapper.xml"/>
  		<mapper resource="/mappers/fish-mapper.xml"/>
  		<mapper resource="/mappers/manager-mapper.xml"/>
+ 		<mapper resource="/mappers/store-mapper.xml"/>
  	</mappers>
 
  	
