@@ -1,0 +1,19 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- namespace: 해당 mapper파일의 고유한 별칭 -->
+<mapper namespace="curationMapper">
+	<resultMap type="Curation" id="curationResult">
+	
+		<result column="big_q" property="bigQ"/>
+		<result column="small_q" property="smallQ"/>
+		
+	</resultMap>
+	
+	<select id="getQuestionList" resultMap="curationResult">
+		SELECT *
+		FROM public.detail_quration
+	</select>
+
+</mapper>
