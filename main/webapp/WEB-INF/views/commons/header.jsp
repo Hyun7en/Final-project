@@ -86,8 +86,9 @@
                 <a href="fishInfo.ma">물고기 정보</a>
                 <a href="quration.ma">물고기 큐레이터</a>
                 <a href="list.co?category=0&cpage=1">커뮤니티</a>
+                <a href="storeMain.ma">스토어</a>
+                <a href="list.cs">고객센터</a>
                 <a href="list.spd">스토어</a>
-                <a href="${pageContext.request.contextPath}/subViews/cs/CsList.jsp">고객센터</a>
             </nav>
         </header>
 </body>
