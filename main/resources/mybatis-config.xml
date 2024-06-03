@@ -46,11 +46,8 @@
  		<mapper resource="/mappers/seller-mapper.xml"/>
  		<mapper resource="/mappers/fish-mapper.xml"/>
  		<mapper resource="/mappers/manager-mapper.xml"/>
-<<<<<<< HEAD
  		<mapper resource="/mappers/store-mapper.xml"/>
-=======
  		<mapper resource="/mappers/cs-mapper.xml"/>
->>>>>>> 600157821e46d904decbb8513597a9a90d75d69a
  	</mappers>
 
  	
