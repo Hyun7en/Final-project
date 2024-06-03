@@ -37,4 +37,10 @@ public interface SellerService {
 	public Product selectProduct(int pno);
 	
 	public ArrayList<ProductOption> selectOptions(int pno);
+	
+	public ArrayList<Product> selectRecentList();
+	
+	public Product selectSalesProduct(int pno);
+	
+	
 }
