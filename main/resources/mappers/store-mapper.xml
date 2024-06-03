@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="storeMapper">
+	<resultMap type="StoreInfo" id="StoreInfoResult">
+		<result column="SELLER_PAGE_NO" property="sellerPageNo"/>
+		<result column="BUSINESS_NO" property="businessNo"/>
+		<result column="SELLER_EXPLAIN" property="sellerExplain"/>
+		<result column="SP_CHANGE_NAME" property="spChangeName"/>
+		<result column="P_CATEGORY" property="pCategory"/>
+		<result column="STORE_NAME" property="storeName"/>
+		<result column="P_NO" property="pNo"/>
+		<result column="P_TITLE" property="pTitle"/>
+		<result column="SELL_PRICE" property="sellPrice"/>
+		<result column="P_ENROLLDATE" property="pEnrollDate"/>
+		<result column="P_STAR" property="pStar"/>
+		<result column="P_CHANGE_NAME" property="pChangeName"/>
+		<result column="P_STATUS" property="pStatus"/>
+		<result column="USER_NO" property="userNo"/>
+	</resultMap>
+	<select id="selectSellersStore" resultMap="StoreInfoResult">
+		SELECT	SELLER_PAGE_NO,
+				BUSINESS_NO,
+				SELLER_EXPLAIN,
+				SP_CHANGE_NAME,
+				STORE_NAME
+		FROM	SELLER_PAGE
+		JOIN	SELLER_INFO USING(BUSINESS_NO)
+		WHERE	SELLER_PAGE_NO = #{sellerPageNo}
+	</select>
+	<select id="getCategory" resultMap="StoreInfoResult">
+		SELECT	P_CATEGORY
+		FROM	PRODUCT_CATEGORY
+		WHERE	SELLER_PAGE_NO = #{sellerPageNo}
+	</select>
+</mapper>

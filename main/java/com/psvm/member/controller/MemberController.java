@@ -30,7 +30,6 @@ public class MemberController {
 	public String loginFormMember(@RequestParam("recentLink") String recentLink, Model model) {
 		if (recentLink != "") {
 			model.addAttribute("recentLink", recentLink);
-			System.out.println(recentLink);
 		}
 		return "member/login";
 	}
@@ -38,8 +37,7 @@ public class MemberController {
 	@RequestMapping("login.me") //로그인
 	public ModelAndView loginMember(Member m, @RequestParam(name="recentLink", defaultValue="/") String recentLink, ModelAndView mv, HttpSession session, String saveId, HttpServletResponse response) {
 	    
-	    Member loginUser = memberService.loginMember(m);	
-	    System.out.println(loginUser);
+	    Member loginUser = memberService.loginMember(m);
 	    
 	    if (loginUser == null) { // 아이디가 없는 경우
 	        mv.addObject("errorMessage", "일치하는 아이디를 찾을 수 없습니다.");
@@ -101,42 +99,5 @@ public class MemberController {
 		
 		return mv;
 	}
-	
-	@RequestMapping("update.me") //회원정보 수정
-	public String updateMember(Member m, HttpSession session, Model model) {
-		
-		int result =  memberService.updateMember(m);
-		
-		return "redirect:/";
-		
-//		if (result > 0){
-//			session.setAttribute("loginUser", memberService.loginMember(m));
-//			return "redirect:"; //회원정보 수정 후 이동할 페이지 주소 입력
-//		}else {
-//			
-//		}
-	}
-	
-	@RequestMapping("delete.me") //회원 탈퇴
-	public String deleteMember(Member m, HttpSession session) {
-		
-		String encPwd = ((Member)session.getAttribute("loginUser")).getUserPwd();
-		
-		return "redirect:/";
-		
-//		if (bcryptPasswordEncoder.matches(m.getUserPwd(), encPwd)) {//암호 일치
-//			int result = memberService.deleteMember(m.getUserId());
-//			
-//			if(result > 0) { //탈퇴 성공
-//				session.removeAttribute("loginUser");
-//				return "redirect";
-//			} else {
-//				
-//			}
-//		} else { //암호 불일치
-//			
-//		}
-	}
-	
 	
 }
