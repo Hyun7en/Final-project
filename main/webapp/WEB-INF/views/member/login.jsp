@@ -37,7 +37,6 @@
 		</script>
 		<c:remove var="errorMessage" scope="session"/>
 	</c:if>
-	
     <div id="wrap">
         <div id="login-logo">Aquaqu</div>
         <form action="login.me" id="login-input" method="POST">
