@@ -89,7 +89,6 @@
                 <a href="storeMain.ma">스토어</a>
                 <a href="list.cs">고객센터</a>
                 <a href="list.spd">스토어</a>
-                <a href="${pageContext.request.contextPath}/subViews/cs/CsList.jsp">고객센터</a>
             </nav>
         </header>
 </body>
