@@ -342,6 +342,13 @@ public class SellerController {
   		return "";
   	}
     
+    @RequestMapping("delete.pd")
+    public String deleteProduct() {
+    	
+    	
+    	return "redirect:list.pd";
+    }
+    
     //storeMain
     
     //상품 리스트
