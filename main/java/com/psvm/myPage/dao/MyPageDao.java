@@ -34,10 +34,9 @@ public class MyPageDao {
 		return (Member)sqlSession.selectOne("myPageMapper.loginUser", m);
 	}
 	
-	
-	
-	
-	
+	public int deleteMember(SqlSessionTemplate sqlSession, int userNo) {
+		return sqlSession.update("myPageMapper.deleteMember", userNo);
+	}
 	
 	
 	
