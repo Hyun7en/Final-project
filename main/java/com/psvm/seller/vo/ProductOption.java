@@ -15,7 +15,7 @@ public class ProductOption {
 	private int pdCount;
 	private String pdStatus;
 	private int pdNo;
-	private String pdOptionName;
+	private String optionName;
 	private int pdOptionNo;
 	
 }
