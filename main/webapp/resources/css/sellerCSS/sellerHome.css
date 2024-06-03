@@ -11,12 +11,22 @@ body{
 }
 #seller-home-top{
     width: 1200px;
-    height: 100px;
+    height: 70px;
     display: flex;
-    padding: 30px 0 30px 0;
+    padding: 30px 0 0px 0;
     margin-left: auto;
     margin-right: auto;
 }
+#seller-home-catchphrase{
+    height: 30px;
+    line-height: 30px;
+}
+#seller-home-catchphrase p{
+    text-align: center;
+    font-size: 15px; color: black;
+    margin-bottom: 0;
+}
+
 #seller-blue-button{
     border: 0;
     width: 150px;
@@ -60,6 +70,8 @@ body{
     width: 100%;
     height: 400px;
     background-color: black;
+    background-repeat: no-repeat;
+    background-position: center;
     text-align: center;
     margin-bottom: 50px;
 }
@@ -81,17 +93,21 @@ body{
     margin-bottom: 20px
 }
 #seller-home-listnav{
-    width: 800px;
-    height: 40px;
-    font-size: 18px;
+    width: 500px;
+    height: 30px;
+    font-size: 16px;
     display: flex;
     text-align: center;
+    line-height: 30px;
     margin-left: auto;
-    margin-right: auto;
+    margin-right: 0;
+    margin-bottom: 20px;
 }
 #seller-home-listnav a{
     width: 100px;
     height: 30px;
+    border-left: 1px solid black;
+    border-right: 1px solid  black;
     color: black;
 }
 
