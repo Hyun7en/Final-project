@@ -18,7 +18,7 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
     
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/csCSS/csList.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/csCSS/CsList.css">
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/csJs/CsList.js"></script>
 
