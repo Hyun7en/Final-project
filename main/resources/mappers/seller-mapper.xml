@@ -198,4 +198,16 @@
 		  FROM PRODUCT_OPTION
 		WHERE P_NO = #{pno}
 	</select>
+	
+	<select id="selectRecentList" resultMap="productResult">
+		SELECT *
+		  FROM(SELECT STORE_NAME,P_TITLE,P_PRICE
+			     FROM PRODUCT
+			     JOIN PRODUCT_CATEGORY USING(P_CATEGORY)
+			     JOIN SELLER_PAGE USING(SELLER_PAGE_NO)
+			     JOIN SELLER_INFO USING(BUSINESS_NO)
+			    WHERE P_STATUS = 'Y'
+			    ORDER BY P_ENROLL_DATE DESC)
+		 LIMIT 5
+	</select>
 </mapper>
