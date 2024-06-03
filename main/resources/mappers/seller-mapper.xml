@@ -189,6 +189,7 @@
 		SELECT *
 		  FROM PRODUCT
 		 WHERE P_STATUS = 'Y'
+		   AND P_NO = #{pno}
 	</select>
 	
 	<select id="selectOptions" resultMap="productOptionResult">
