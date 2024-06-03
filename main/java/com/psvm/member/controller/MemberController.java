@@ -30,6 +30,7 @@ public class MemberController {
 	public String loginFormMember(@RequestParam("recentLink") String recentLink, Model model) {
 		if (recentLink != "") {
 			model.addAttribute("recentLink", recentLink);
+			System.out.println(recentLink);
 		}
 		return "member/login";
 	}
