@@ -29,7 +29,7 @@
                 <button id="seller-blue-button"><img src="${pageContext.request.contextPath}/resources/image/mdi_bell-outline.png" alt="">알림받기</button>
                 <p>워터 박스</p>
             </div>
-            <div id="seller-home-nav">
+            <div id="seller-home-nav"> <!-- 전체상품, 어항, 어항받침대, 어항뚜껑, 기타 -->
                 <a href="" style="margin-left: auto;">BEST</a>
                 <a href="">전체상품</a>
                 <a href="">특가판매</a>
@@ -44,7 +44,7 @@
             </div>
             <div id="seller-home-list">
                 <p>전체상품</p>
-                <div id="seller-home-listnav">
+                <div id="seller-home-listnav"> <!--인기도, 최신등록, 가격순, 리뷰-->
                     <a href="">인기도순</a>|
                     <a href="" style="color: #0089FF; font-weight: bold;">최신등록순</a>|
                     <a href="">낮은 가격순</a>|
