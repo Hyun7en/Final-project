@@ -28,6 +28,7 @@
  		<typeAlias type="com.psvm.myPage.vo.Inquiry" alias="Inquiry"/>
  		<typeAlias type="com.psvm.manager.vo.SellerNewApplication" alias="SellerNewApplication"/>
  		<typeAlias type="com.psvm.cs.vo.Cs" alias="Cs"/>
+ 		
  	</typeAliases>
  	
  	<!-- 
