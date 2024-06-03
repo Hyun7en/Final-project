@@ -87,4 +87,9 @@ public class SellerDao {
 		
 		return (ArrayList)sqlSession.selectList("sellerMapper.selectOptions", pno);
 	}
+	
+	public ArrayList<Product> selectRecentList(SqlSessionTemplate sqlSession) {
+		
+		return (ArrayList)sqlSession.selectList("sellerMapper.selectRecentList");
+	}
 }

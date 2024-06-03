@@ -127,5 +127,17 @@ public class SellerServiceImpl implements SellerService {
 		return sellerDao.selectOptions(sqlSession, pno);
 	}
 
+	@Override
+	public ArrayList<Product> selectRecentList() {
+		
+		return sellerDao.selectRecentList(sqlSession);
+	}
+
+	@Override
+	public Product selectSalesProduct(int pno) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 }

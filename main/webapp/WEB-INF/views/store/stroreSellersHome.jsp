@@ -7,18 +7,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Header</title>
 
-    <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<!-- Popper JS -->
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<!-- Latest compiled JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- alertify -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sellerCSS/sellerHome.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/storeCSS/stroreSellersHome.css">
 
 </head>
 <body>
@@ -27,17 +29,17 @@
         <main id="seller-home">
             <div id="seller-home-top">
                 <button id="seller-blue-button"><img src="${pageContext.request.contextPath}/resources/image/mdi_bell-outline.png" alt="">알림받기</button>
-                <p>워터 박스</p>
+                <p>${si.storeName}</p>
             </div>
-            <div id="seller-home-catchphrase"><p>-안성맞춤의 공간-</p></div>
+            <div id="seller-home-catchphrase"><p>${si.sellerExplain}</p></div>
             <div id="seller-home-nav"> <!--c:forEach로 카테고리 작성-->
-                <a href="" class="category-0" style="margin-left: auto;">전체상품</a>
-                <a href="" class="category-1">어항</a>
+                <a href="sellersStore.st?sellerPageNo=${si.sellerPageNo}" class="category-0" style="margin-left: auto;">전체상품</a>
+                <a href="sellersStore.st?sellerPageNo=${si.sellerPageNo}" class="category-1">어항</a>
                 <a href="" class="category-2">어항받침대</a>
                 <a href="" class="category-3">어항뚜껑</a>
                 <a href="" class="category-4" style="margin-right: auto;">기타</a>
             </div>
-            <div id="seller-home-banner" style="background-image: url(${pageContext.request.contextPath}/resources/image/fishTank.png); background-size: 1120px;"></div>
+            <div id="seller-home-banner" style="background-image: url(${si.spChangeName}); background-size: 1120px;"></div>
             <div id="seller-home-list">
                 <p>전체상품</p>
                 <div id="seller-home-listnav">

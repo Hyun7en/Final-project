@@ -104,6 +104,9 @@
                     <a href="">
                         수정 하기
                     </a>
+                    <button>
+                        삭제하기
+                    </button>
                 </div>
             
         </section>

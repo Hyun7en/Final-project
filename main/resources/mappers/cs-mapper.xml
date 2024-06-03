@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- namespace: 해당 mapper파일의 고유한 별칭 -->
+<mapper namespace="csMapper">
+	<!-- 내 정보로 이동할 때 이미지 파일 가지고있는지 확인하기 위한 resultMapper -->
+	<resultMap type="Cs" id="selectCs">
+		<result column="board_no" property="boardNo"/>
+		<result column="nickname" property="nickname"/>
+		<result column="user_no" property="userNo"/>
+		<result column="board_level" property="boardLevel"/>
+		<result column="write_date" property="writeDate"/>
+		<result column="board_title" property="boardTitle"/>
+		<result column="board_contect" property="boardContents"/>
+		<result column="board_count" property="boardCount"/>
+		<result column="status" property="status"/>
+	</resultMap>
+	
+
+	
+
+
+</mapper>

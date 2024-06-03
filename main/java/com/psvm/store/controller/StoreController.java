@@ -3,16 +3,20 @@ package com.psvm.store.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.psvm.seller.vo.Product;
 import com.psvm.store.service.StoreServiceImpl;
+import com.psvm.store.vo.StoreInfo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,44 +24,26 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class StoreController {
 	
-//	@Autowired
-//	private StoreService storeService; 
-
+	@Autowired
+	private StoreServiceImpl storeService;
 	
-	@RequestMapping("storeMain.ma")
-	public String selectList() {
+	@RequestMapping("sellersStore.st")//판매자 상점 페이지
+	public String sellersStore(HttpSession session, int sellerPageNo) {
+		StoreInfo si = storeService.selectSellersStore(sellerPageNo); //판매자 홈페이지 기본 정보 가져오기
 		
-		return "store/storeMain";
+		ArrayList<StoreInfo> siList = storeService.getCategory(sellerPageNo); //카테고리 가져오기
+		System.out.println(siList);
+		
+		session.setAttribute("si", si);
+		session.setAttribute("siList", siList);
+		//사업자 정보 → 상호명
+		//판매상품카테고리 → 전체
+		//판매자 홈페이지 → 홈 소개, 이미지 파일(배너)
+		//페이지네이션
+		//상품 → 상품번호, 판매카테고리, 상품명, 판매가액, 별점, 이미지 파일, 판매중
+		//판매자 알람 → 알람
+		//관심상품 → 상품 별 관심 등록
+		return "store/stroreSellersHome";
 	}
 	
-	//실제 넘어온 파일의 이름을 변경해서 서버에 저장하는 메소드
-		public String saveFile(MultipartFile upfile, HttpSession session) {
-			//파일명 수정 후 서버에 업로드하기("imgFile.jpg => 202404231004305488.jpg")
-			String originName = upfile.getOriginalFilename();
-			
-			//년월일시분초 
-			String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-			
-			//5자리 랜덤값
-			int ranNum = (int)(Math.random() * 90000) + 10000;
-			
-			//확장자
-			String ext = originName.substring(originName.lastIndexOf("."));
-			
-			//수정된 첨부파일명
-			String changeName = currentTime + ranNum + ext;
-			
-			//첨부파일을 저장할 폴더의 물리적 경로(session)
-			String savePath = session.getServletContext().getRealPath("/resources/uploadFiles/");
-			
-			try {
-				upfile.transferTo(new File(savePath + changeName));
-			} catch (IllegalStateException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-			return changeName;
-		}
 }
