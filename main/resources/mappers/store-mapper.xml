@@ -9,16 +9,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="BUSINESS_NO" property="businessNo"/>
 		<result column="SELLER_EXPLAIN" property="sellerExplain"/>
 		<result column="SP_CHANGE_NAME" property="spChangeName"/>
-		<result column="P_CATEGORY" property="pCategory"/>
+		<result column="P_CATEGORY" property="prCategory"/>
 		<result column="STORE_NAME" property="storeName"/>
-		<result column="P_NO" property="pNo"/>
-		<result column="P_TITLE" property="pTitle"/>
-		<result column="SELL_PRICE" property="sellPrice"/>
-		<result column="P_ENROLLDATE" property="pEnrollDate"/>
-		<result column="P_STAR" property="pStar"/>
-		<result column="P_CHANGE_NAME" property="pChangeName"/>
-		<result column="P_STATUS" property="pStatus"/>
+		<result column="P_NO" property="prNo"/>
+		<result column="P_TITLE" property="prTitle"/>
+		<result column="P_PRICE" property="prPrice"/>
+		<result column="P_ENROLLDATE" property="prEnrollDate"/>
+		<result column="P_STAR" property="prStar"/>
+		<result column="P_CHANGE_NAME" property="prChangeName"/>
+		<result column="P_STATUS" property="prStatus"/>
 		<result column="USER_NO" property="userNo"/>
+		<result column="REVIEW_COUNT" property="reviewCount"/>
 	</resultMap>
 	<select id="selectSellersStore" resultMap="StoreInfoResult">
 		SELECT	SELLER_PAGE_NO,
@@ -34,5 +35,79 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT	P_CATEGORY
 		FROM	PRODUCT_CATEGORY
 		WHERE	SELLER_PAGE_NO = #{sellerPageNo}
+	</select>
+	<select id="selectProductCount" resultType="_int">
+		SELECT	COUNT(*)
+		FROM	PRODUCT
+		JOIN	PRODUCT_CATEGORY USING(P_CATEGORY)
+		WHERE	SELLER_PAGE_NO = CAST(#{sellerPageNo} AS INTEGER)
+		AND		P_STATUS = 'Y'
+	</select>
+	<select id="selectProductList" resultMap="StoreInfoResult">
+		SELECT	P_NO,
+				P_TITLE,
+				P_CATEGORY,
+				P_PRICE,
+				P_STAR,
+				P_CHANGE_NAME,
+				COALESCE(REVIEW_COUNT, 0) AS REVIEW_COUNT
+		FROM	PRODUCT
+		JOIN	PRODUCT_CATEGORY USING(P_CATEGORY)
+		LEFT JOIN	(SELECT P_NO, COUNT(REPLY_NO) AS REVIEW_COUNT FROM REVIEW GROUP BY P_NO) REVIEW_COUNT_TABLE USING(P_NO)
+		WHERE	SELLER_PAGE_NO = CAST(#{sellerPageNo} AS INTEGER)
+		AND		P_STATUS = 'Y'
+		<if test="order == 0">
+		ORDER BY P_STAR DESC
+		</if>
+		<if test="order == 1">
+		ORDER BY P_NO DESC
+		</if>
+		<if test="order == 2">
+		ORDER BY P_PRICE ASC
+		</if>
+		<if test="order == 3">
+		ORDER BY P_PRICE DESC
+		</if>
+		<if test="order == 4">
+		ORDER BY REVIEW_COUNT DESC
+		</if>
+	</select>
+	<select id="selectCategoryCount" resultType="_int">
+		SELECT	COUNT(*)
+		FROM	PRODUCT
+		JOIN	PRODUCT_CATEGORY USING(P_CATEGORY)
+		WHERE	SELLER_PAGE_NO = CAST(#{sellerPageNo} AS INTEGER)
+		AND		P_CATEGORY = #{prCategory}
+		AND		P_STATUS = 'Y'
+	</select>
+	<select id="selectProductCategory" resultMap="StoreInfoResult">
+		SELECT	P_NO,
+				P_TITLE,
+				P_CATEGORY,
+				P_PRICE,
+				P_STAR,
+				P_CHANGE_NAME,
+				COALESCE(REVIEW_COUNT, 0) AS REVIEW_COUNT
+		FROM	PRODUCT
+		JOIN	PRODUCT_CATEGORY USING(P_CATEGORY)
+		LEFT JOIN	(SELECT P_NO, COUNT(REPLY_NO) AS REVIEW_COUNT FROM REVIEW GROUP BY P_NO) REVIEW_COUNT_TABLE USING(P_NO)
+		WHERE	SELLER_PAGE_NO = CAST(#{sellerPageNo} AS INTEGER)
+		AND		P_CATEGORY = #{prCategory}
+		AND		P_STATUS = 'Y'
+		<if test="order == 0">
+		ORDER BY P_STAR DESC
+		</if>
+		<if test="order == 1">
+		ORDER BY P_NO DESC
+		</if>
+		<if test="order == 2">
+		ORDER BY P_PRICE ASC
+		</if>
+		<if test="order == 3">
+		ORDER BY P_PRICE DESC
+		</if>
+		<if test="order == 4">
+		ORDER BY REVIEW_COUNT DESC
+		</if>
 	</select>
 </mapper>
