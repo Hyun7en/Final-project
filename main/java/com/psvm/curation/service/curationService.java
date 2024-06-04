@@ -1,5 +1,9 @@
 package com.psvm.curation.service;
 
-public class curationService {
+import java.util.ArrayList;
 
+import com.psvm.curation.vo.Curation;
+
+public interface CurationService {
+	public ArrayList<Curation> getQuestionList();
 }

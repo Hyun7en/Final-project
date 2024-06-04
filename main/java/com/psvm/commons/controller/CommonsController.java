@@ -15,7 +15,7 @@ public class CommonsController {
 	
 	@GetMapping("quration.ma")
 	public String quration() {
-		return "main/main";
+		return "curation/curation";
 	}
 	
 	@GetMapping("community.ma")

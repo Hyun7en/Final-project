@@ -1,0 +1,106 @@
+main{
+    width: 1903px;
+    height: 1000px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #E0F1FF;
+}
+
+#cu-explain{
+    width: 1000px;
+    height: 130px;
+    font-size: 54px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#cu-img{
+    width: 600px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+}
+
+#cu-img img{
+    width: 400px;
+    height: 400px;
+    
+}
+
+#cu-sub-explain{
+    width: 600px;
+    height: 30px;
+    font: 20px;
+    font-weight: 600;
+    margin-top: 20px;
+    margin-bottom: 3px;
+}
+
+#cu-btn{
+    width: 600px;
+    height: 150px;
+    
+}
+
+#cu-btn button{
+    width: 600px;
+    height: 125px;
+    background-color: #0089FF;
+    border-radius: 16px;
+    color: white;
+    font-size: 48px;
+}
+
+
+/* ajax후 다시 그려지는 곳 css */
+
+#cu-explain-change{
+    width: 1000px;
+    height: 130px;
+    font-size: 54px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#cu-img-change{
+    width: 600px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+}
+
+#cu-img-change img{
+    width: 400px;
+    height: 400px;
+}
+
+#cu-sub-explain-change{
+    width: 600px;
+    height: 30px;
+    font: 20px;
+    font-weight: 600;
+    margin-top: 20px;
+    margin-bottom: 3px;
+    display: flex;
+}
+
+#cu-btn-change{
+    width: 600px;
+    height: 150px;
+}
+
+#cu-btn-change button{
+    width: 600px;
+    height: 125px;
+    background-color: #0089FF;
+    border-radius: 16px;
+    color: white;
+    font-size: 48px;
+}
+
+#cu-question-div{
+    display: flex;
+    margin-bottom: 53px;
+}
