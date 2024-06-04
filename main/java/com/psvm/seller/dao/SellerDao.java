@@ -33,9 +33,9 @@ public class SellerDao {
 	}
 	
 	// 판매자 홈 등록 
-	public int insertSellerPage(SqlSessionTemplate sqlSession, SellerPage sellerPage){
+	public int insertSellerHome(SqlSessionTemplate sqlSession, SellerPage sellerPage){
 		
-	    return sqlSession.insert("sellerMapper.insertSellerPage", sellerPage);
+	    return sqlSession.insert("sellerMapper.insertSellerHome", sellerPage);
 	    
 	}
 
@@ -59,7 +59,18 @@ public class SellerDao {
 	}
 	
 	//판매자 홈 수정
-	
+	public int updateSellerHome(SqlSessionTemplate sqlSession, SellerPage sellerPage){
+		
+	    return sqlSession.insert("sellerMapper.updateSellerHome", sellerPage);
+	    
+	}
+
+	//수정한 카테고리 넣기
+	public int updateProductCategory(SqlSessionTemplate sqlSession, String category){
+		
+		return sqlSession.insert("sellerMapper.updateProductCategory", category);
+		
+	}
 	
 	// 상품 등록
 	public int insertpProduct(SqlSessionTemplate sqlSession, Product product) {

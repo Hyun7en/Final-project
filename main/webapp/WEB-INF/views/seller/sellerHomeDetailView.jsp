@@ -68,28 +68,6 @@
     <!-- footer -->
     <%@ include file="../commons/footer.jsp" %>
 
-    <form action="" method="POST" id="postForm">
-        <input type="hidden" name="pno" value="${b.boardNo}">
-    </form>
-
-    <script>
-        function postFormSubmit(type){
-            const formEl = document.querySelector("#postForm");
-            switch(type){
-                case "edit" : {
-                    //formEl.action = "updateForm.bo";
-                    $(formEl).attr("action", "updateForm.bo");
-                }break;
-                case "delete":{
-                    //formEl.action = "delete.bo";
-                    $(formEl).attr("action", "delete.bo")
-                }break;
-            }
-            
-            $(formEl).submit();
-        }
-    </script>
-
     <c:if test="${not empty message}">
         <script>
             alert('${message}');

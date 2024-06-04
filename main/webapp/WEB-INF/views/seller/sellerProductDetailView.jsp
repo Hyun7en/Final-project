@@ -101,7 +101,7 @@
                 </div>
 
                 <div class="form-actions">
-                    <a href="">
+                    <a href="updateForm.pd">
                         수정
                     </a>
                     <button>

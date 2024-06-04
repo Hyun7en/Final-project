@@ -47,7 +47,7 @@ public class SellerServiceImpl implements SellerService {
 	@Override
 	public int insertSellerHome(SellerPage sellerPage, ArrayList<String> categories) {
 		
-		int t1 = sellerDao.insertSellerPage(sqlSession, sellerPage);
+		int t1 = sellerDao.insertSellerHome(sqlSession, sellerPage);
 		
 		int t2 = 1;
 		
@@ -82,8 +82,22 @@ public class SellerServiceImpl implements SellerService {
 	//판매자 홈 수정
 	@Override
 	public int updateSellerHome(SellerPage sellerPage, ArrayList<String> categories) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		int t1 = sellerDao.updateSellerHome(sqlSession, sellerPage);
+		
+		int t2 = 1;
+		
+		for(String category : categories) {
+			
+			if(!category.equals("")) {
+				
+				t2 = t2 * sellerDao.updateProductCategory(sqlSession, category);
+				
+			}
+			
+		}	
+		
+		return t1*t2;
 	}
 	
 	// 상품 등록

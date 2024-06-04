@@ -77,6 +77,7 @@ public class SellerController {
      */
     // 로그인 한 판매자의 사업자 번호 가져오는 메서드
     public int getBusinessNoFromUserNo(HttpSession session) {
+
     	
     	// 세션에서 loginUser 객체 가져오기
     	Member loginUser = (Member)session.getAttribute("loginUser");
@@ -107,7 +108,7 @@ public class SellerController {
             sellerPage.setSpChangeName("resources/upFiles/productImg/" + changeName);
         }
 
-        try {
+     
             Type listType = new TypeToken<ArrayList<String>>() {}.getType();
             ArrayList<String> categories = gson.fromJson(categoriesJson, listType);
 
@@ -124,9 +125,7 @@ public class SellerController {
                 return "redirect:detail.srh"; // 등록 페이지로 리다이렉트
                 
             }
-        } catch (JsonSyntaxException e) {
-            return "redirect:detail.srh";
-        }
+      
     }
 
     // 실제 넘어온 파일의 이름을 변경해서 서버에 저장하는 메소드
@@ -205,49 +204,45 @@ public class SellerController {
   		return "seller/sellerHomeUpdateForm";
   	}
     
-    // 판매자 홈 수정
+ // 판매자 홈 수정
     @RequestMapping("update.srh")
-  	public String updateSellerHome(SellerPage sellerPage, MultipartFile storeHomeImage, @RequestParam("categoriesJson") String categoriesJson,
-            HttpSession session, RedirectAttributes redirectAttributes) {
-    	
-    	//새로운 첨부파일이 넘어온 경우
-		if(!storeHomeImage.getOriginalFilename().equals("")) {
-			//기존의 첨부파일이 있다 => 기존의 파일을 삭제
-			if(sellerPage.getSpOriginName() != null) {
-				new File(session.getServletContext().getRealPath(sellerPage.getSpChangeName())).delete();
-			}
-			
-			//새로 넘어온 첨부파일을 서버에 업로드 시키기
-			String changeName = saveFile(storeHomeImage, session);
-			
-			sellerPage.setSpOriginName(storeHomeImage.getOriginalFilename());
-			sellerPage.setSpChangeName("/resources/upFiles/productImg/" + changeName);
-		}
-    	
-		int businessNo = getBusinessNoFromUserNo(session);
+    public String updateSellerHome(SellerPage sellerPage, MultipartFile storeHomeImage, @RequestParam("categoriesJson") String categoriesJson,
+        HttpSession session, RedirectAttributes redirectAttributes) {
+        
+        // 새로운 첨부파일이 넘어온 경우
+        if (!storeHomeImage.getOriginalFilename().equals("")) {
+            // 기존의 첨부파일이 있다면 기존의 파일을 삭제
+            if (sellerPage.getSpOriginName() != null) {
+                new File(session.getServletContext().getRealPath(sellerPage.getSpChangeName())).delete();
+            }
+            
+            // 새로 넘어온 첨부파일을 서버에 업로드
+            String changeName = saveFile(storeHomeImage, session);
+            
+            sellerPage.setSpOriginName(storeHomeImage.getOriginalFilename());
+            sellerPage.setSpChangeName("/resources/upFiles/productImg/" + changeName);
+        }
+        
+        int businessNo = getBusinessNoFromUserNo(session);
         sellerPage.setBusinessNo(businessNo);
 
-        try {
+       
             Type listType = new TypeToken<ArrayList<String>>() {}.getType();
             ArrayList<String> categories = gson.fromJson(categoriesJson, listType);
 
             int result = sellerService.updateSellerHome(sellerPage, categories);
             
-            if (result > 0 ) { // 성공
+            if (result > 0) { // 성공
                 session.setAttribute("SellerHomeRegistered", true);
                 redirectAttributes.addFlashAttribute("message", "등록이 완료되었습니다.");
-                
                 return "redirect:detail.srh";
-                
-            }else { // 실패
-            	redirectAttributes.addFlashAttribute("message", "이미 홈 등록이 완료되었습니다.");
-                return "redirect:detail.srh"; // 등록 페이지로 리다이렉트
-                
+            } else { // 실패
+                redirectAttributes.addFlashAttribute("error", "판매자 홈을 업데이트하는 데 실패했습니다.");
+                return "redirect:detail.srh"; // 실패 시 등록 페이지로 리다이렉트
             }
-        } catch (JsonSyntaxException e) {
-            return "redirect:detail.srh";
-        }
-  	}
+      
+    }
+
    
     // 판매자 상품
     @RequestMapping("enrollForm.pd")
@@ -270,7 +265,7 @@ public class SellerController {
              product.setPdChangeName("resources/upFiles/productImg/" + changeName);
          }
 
-         try {
+      
              Type listType = new TypeToken<ArrayList<ProductOption>>() {}.getType();
              ArrayList<ProductOption> options = gson.fromJson(optionsJson, listType);
 
@@ -287,9 +282,7 @@ public class SellerController {
                  return "redirect:list.pd"; // 등록 페이지로 리다이렉트
                  
              }
-         } catch (Exception  e) {
-             return "redirect:list.pd";
-         }
+    
      }
     
     /*
@@ -385,7 +378,11 @@ public class SellerController {
     
     // 상품 정보 수정 페이지
     @RequestMapping("updateForm.pd")
-  	public String productUpdateForm() {
+  	public String productUpdateForm(int pno, Model model) {
+    	
+    	Product pd = sellerService.selectProduct(pno);
+		
+		model.addAttribute("pd", pd);
     	
   		return "seller/productUpdateForm";
   	}
@@ -409,7 +406,7 @@ public class SellerController {
 			product.setPdChangeName("/resources/upFiles/productImg/" + changeName);
 		}
     			
-		try {
+	
             Type listType = new TypeToken<ArrayList<ProductOption>>() {}.getType();
             ArrayList<ProductOption> options = gson.fromJson(optionsJson, listType);
 
@@ -426,9 +423,7 @@ public class SellerController {
                 return "redirect:list.pd"; // 등록 페이지로 리다이렉트
                 
             }
-        } catch (Exception  e) {
-            return "redirect:list.pd";
-        }		
+     	
     			
   	}
     
