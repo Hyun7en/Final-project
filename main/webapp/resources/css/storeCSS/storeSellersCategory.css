@@ -1,0 +1,219 @@
+@charset "UTF-8";
+body{
+    background-color: #E0F1FF;
+    position: relative;
+}
+#seller-home{
+    min-height: 100%;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+#seller-home-top{
+    width: 1200px;
+    height: 70px;
+    display: flex;
+    padding: 30px 0 0px 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+#seller-home-catchphrase{
+    height: 30px;
+    line-height: 30px;
+}
+#seller-home-catchphrase p{
+    text-align: center;
+    font-size: 15px; color: black;
+    margin-bottom: 0;
+}
+
+#seller-blue-button, #seller-grey-button {
+    border: 0;
+    width: 110px;
+    height: 40px;
+    color: white;
+    margin-right: 0px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 0 10px 10px 0;
+    padding-right: 35px;
+}
+#seller-blue-button, #seller-blue-img{
+    background: #0089FF;
+}
+#seller-grey-button, #seller-grey-img{
+    background: #AFA8A8;
+}
+#seller-blue-img, #seller-grey-img{
+    width: 40px;
+    height: 40px;
+    margin-left: 0;
+    border-radius: 10px 0 0 10px;
+    text-align: center;
+    padding-top: 5px;
+}
+#seller-home-top>div>img{
+    width: 30px;
+    height: 30px;
+}
+#seller-home-top p{
+    width: 900px;
+    height: 40px;
+    font-size: 30px;
+    font-weight: bold;
+    color: #0089FF;
+    text-align: center;
+    margin-bottom: 0;
+}
+#seller-home-nav{
+    width: 100%;
+    height: 80px;
+    display: flex;
+    font-size: 20px;
+    text-align: center;
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+}
+#seller-home-nav a{
+    width: 150px;
+    height: 30px;
+    text-align: center;
+    color: black;
+    margin: 25px 0 25px 0;
+}
+#seller-home-banner{
+    width: 100%;
+    height: 400px;
+    background-color: black;
+    background-repeat: no-repeat;
+    background-position: center;
+    text-align: center;
+    margin-bottom: 50px;
+}
+#seller-home-banner img{
+    width: 1000px;
+    height: 400px;
+}
+#seller-home-list{
+    width: 1120px;
+    margin: 0 auto 0;
+}
+#seller-home-list p{
+    width: 100%;
+    height: 40px;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px
+}
+#seller-home-listnav{
+    width: 500px;
+    height: 30px;
+    font-size: 16px;
+    display: flex;
+    text-align: center;
+    line-height: 30px;
+    margin-left: auto;
+    margin-right: 0;
+    margin-bottom: 20px;
+}
+#seller-home-listnav button{
+    width: 100px;
+    height: 30px;
+    border-left: 1px solid black;
+    border-right: 1px solid  black;
+    background: none;
+    font-size: 15px;
+}
+
+#list-order-selected{
+    color: #0089FF;
+    font-weight: bold;
+}
+
+#seller-home-products{
+    width: 1120px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 330px;
+    column-gap: 40px;
+    row-gap: 95px;
+}
+
+#seller-home-goods{
+    width: 250px;
+    height: 330px;
+    flex-direction: row;
+}
+#seller-home-goodsimg{
+    width: 250px;
+    height: 250px;
+    margin-bottom: 10px;
+}
+#seller-home-goodsinfo{
+    width: 250px;
+    height: 70px;
+    display: flex;
+}
+#seller-home-goodsinfo a{
+    font-size: 15px;
+    color: black;
+}
+#seller-home-goodsinfo p{
+    font-size: 15px;
+    text-align: left;
+    width: 210px;
+    height: 20px;
+    margin: 0;
+}
+#seller-home-goodsinfo b{
+    width: 220px;
+    display: block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+#bookmarkgrey, #bookmarkblue{
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: none;
+}
+#seller-home-pagenum{
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    justify-content: center;
+}
+
+.pagination > li {
+    margin-right: 10px;
+}
+
+.pagination > li > a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+.pagination > li.active > a {
+    background-color: #42A2F4; /* 활성화된 버튼의 배경색 */
+    color: white;             /* 활성화된 버튼의 글자색 */
+    border-radius: 5px;       /* 테두리 둥글게 */
+}
+
+.pagination > li > a:hover:not(.active) {
+    background-color: #ddd;  /* 활성화되지 않은 버튼에 마우스를 올렸을 때 배경색 */
+    border-radius: 5px;      /* 테두리 둥글게 */
+}
+
+.swal2-icon .swal2-icon-content {
+    font-size: 60px !important;
+}

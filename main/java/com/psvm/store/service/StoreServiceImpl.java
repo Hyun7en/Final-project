@@ -1,11 +1,13 @@
 package com.psvm.store.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.psvm.commons.vo.PageInfo;
 import com.psvm.store.dao.StoreDao;
 import com.psvm.store.vo.StoreInfo;
 
@@ -26,5 +28,25 @@ public class StoreServiceImpl implements StoreService {
 	@Override
 	public ArrayList<StoreInfo> getCategory(int sellerPageNo){
 		return storeDao.getCategory(sqlSession, sellerPageNo);
+	}
+	
+	@Override
+	public int selectProductCount(HashMap<String, String> map) {
+		return storeDao.selectProductCount(sqlSession, map);
+	}
+	
+	@Override
+	public ArrayList<StoreInfo> selectProductList(PageInfo pi, HashMap<String, String> map){
+		return storeDao.selectProductList(sqlSession, pi, map);
+	}
+	
+	@Override
+	public int selectCategoryCount(HashMap<String, String> map) {
+		return storeDao.selectCategoryCount(sqlSession, map);
+	}
+	
+	@Override
+	public ArrayList<StoreInfo> selectProductCategory(PageInfo pi, HashMap<String, String> map){
+		return storeDao.selectProductCategory(sqlSession, pi, map);
 	}
 }
