@@ -18,18 +18,21 @@ import com.psvm.seller.vo.SellerPage;
 @Repository
 public class SellerDao {
 	
+	// 판매자 정보 불러오기
 	public SellerInfo selectSeller(SqlSessionTemplate sqlSession, int userNo){
 		
 		return sqlSession.selectOne("sellerMapper.selectSeller", userNo);
 		
 	}
 	
+	// 사업자 번호 가져오기
 	public int selectBusinessNo(SqlSessionTemplate sqlSession, int userNo){
 		
 		return sqlSession.selectOne("sellerMapper.selectBusinessNo", userNo);
 		
 	}
 	
+	// 판매자 홈 등록 
 	public int insertSellerPage(SqlSessionTemplate sqlSession, SellerPage sellerPage){
 		
 	    return sqlSession.insert("sellerMapper.insertSellerPage", sellerPage);
@@ -43,53 +46,69 @@ public class SellerDao {
 		
 	}
 
+	// 판매 홈 카테고리 불러오기
 	public ArrayList<ProductCategory> selectCategories(SqlSessionTemplate sqlSession, int businessNo) {
 		
 		return (ArrayList)sqlSession.selectList("sellerMapper.selectCategories", businessNo);
 	} 
 	
+	// 판매자 홈 불러오기
 	public SellerPage selectSellerHomeDetail(SqlSessionTemplate sqlSession, int businessNo) {
 		
 		return sqlSession.selectOne("sellerMapper.selectSellerHomeDetail", businessNo);
 	}
 	
+	//판매자 홈 수정
 	
+	
+	// 상품 등록
 	public int insertpProduct(SqlSessionTemplate sqlSession, Product product) {
 		
 		return sqlSession.insert("sellerMapper.insertProduct", product);
 	}
 
-	//option 넣기
+	// 옵션 등록
 	public int insertProductOption(SqlSessionTemplate sqlSession, HashMap<String,Object> newMap){
 	
 		return sqlSession.insert("sellerMapper.insertProductOption", newMap);
 			
 	}
 
+	// 상품 리스트 페이징
 	public int selectProductListCount(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("sellerMapper.selectProductListCount");
 	}
 
-	public ArrayList<Product> ProductList(SqlSessionTemplate sqlSession, PageInfo pi, int businessNo) {
+	// 상품 리스트 불러오기
+	public ArrayList<Product> selectProductList(SqlSessionTemplate sqlSession, PageInfo pi, int businessNo) {
 		
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("sellerMapper.ProductList", businessNo, rowBounds);
+		return (ArrayList)sqlSession.selectList("sellerMapper.selectProductList", businessNo, rowBounds);
 	}
 	
-	public Product selectProduct(SqlSessionTemplate sqlSession, int pno) {
-		
-		return sqlSession.selectOne("sellerMapper.selectProduct", pno);
-	}
-	
+	// 상품 옵션 불러오기
 	public ArrayList<ProductOption> selectOptions(SqlSessionTemplate sqlSession,int pno) {
 		
 		return (ArrayList)sqlSession.selectList("sellerMapper.selectOptions", pno);
 	}
 	
+	// 상품 불러오기
+	public Product selectProduct(SqlSessionTemplate sqlSession, int pno) {
+		
+		return sqlSession.selectOne("sellerMapper.selectProduct", pno);
+	}
+	
+	// 상품 정보 수정
+	
+	// 최신 상품 불러오기
 	public ArrayList<Product> selectRecentList(SqlSessionTemplate sqlSession) {
 		
 		return (ArrayList)sqlSession.selectList("sellerMapper.selectRecentList");
 	}
+	
+	// 판매 상품 상세 정보
+	
+	
 }

@@ -172,7 +172,7 @@
 		 WHERE P_STATUS = 'Y'
 	</select>
 	
-	<select id="ProductList" resultMap="productResult">
+	<select id="selectProductList" resultMap="productResult">
 		SELECT P_NO,
 			   P_CATEGORY,
 			   P_TITLE,

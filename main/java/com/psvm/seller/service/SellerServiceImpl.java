@@ -27,19 +27,22 @@ public class SellerServiceImpl implements SellerService {
 	@Autowired
 	private SellerDao sellerDao;
 
+	// 판매자 정보 불러오기
 	@Override
 	public SellerInfo selectSeller(int userNo) {
 		
 		return sellerDao.selectSeller(sqlSession, userNo);
 	}
 	
+	// 사업자 번호 가져오기
 	@Override
 	public int selectBusinessNo(int userNo) {
 		
 		return sellerDao.selectBusinessNo(sqlSession, userNo);
 	}
 	
-	//카테고리 넣기
+	// 판매자 홈 등록 
+	// 카테고리 등록
 	@Transactional
 	@Override
 	public int insertSellerHome(SellerPage sellerPage, ArrayList<String> categories) {
@@ -61,20 +64,30 @@ public class SellerServiceImpl implements SellerService {
 		return t1*t2;
 		
 	}
-
+	
+	// 판매 홈 카테고리 불러오기
 	@Override
 	public ArrayList<ProductCategory> selectCategories(int businessNo) {
 		
 		return sellerDao.selectCategories(sqlSession, businessNo);
 	}
 	
+	// 판매자 홈 불러오기
 	@Override
 	public SellerPage selectSellerHomeDetail(int businessNo) {
 		
 		return sellerDao.selectSellerHomeDetail(sqlSession, businessNo);
 	}
-
-	//옵션 넣기
+	
+	//판매자 홈 수정
+	@Override
+	public int updateSellerHome(SellerPage sellerPage, ArrayList<String> categories) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	// 상품 등록
+	// 옵션 등록
 	@Transactional
 	@Override
 	public int insertProduct(Product product, ArrayList<ProductOption> options) {
@@ -101,6 +114,7 @@ public class SellerServiceImpl implements SellerService {
 		return t1*t2;
 	}
 
+	// 상품 리스트 페이징
 	@Override
 	public int selectProductListCount() {
 		
@@ -109,30 +123,42 @@ public class SellerServiceImpl implements SellerService {
 		return count;
 	}
 
+	// 상품 리스트 불러오기
 	@Override
-	public ArrayList<Product> ProductList(PageInfo pi, int businessNo) {
+	public ArrayList<Product> selectProductList(PageInfo pi, int businessNo) {
 		
-		return sellerDao.ProductList(sqlSession, pi,businessNo);
+		return sellerDao.selectProductList(sqlSession, pi,businessNo);
 	}
 
-	@Override
-	public Product selectProduct(int pno) {
-		
-		return sellerDao.selectProduct(sqlSession, pno);
-	}
-
+	// 상품 옵션 불러오기
 	@Override
 	public ArrayList<ProductOption> selectOptions(int pno) {
 		
 		return sellerDao.selectOptions(sqlSession, pno);
 	}
+	
+	// 상품 불러오기
+	@Override
+	public Product selectProduct(int pno) {
+		
+		return sellerDao.selectProduct(sqlSession, pno);
+	}
+	
+	// 상품 정보 수정
+	@Override
+	public int updateProduct(Product product, ArrayList<ProductOption> options) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
+	// 최신 상품 불러오기
 	@Override
 	public ArrayList<Product> selectRecentList() {
 		
 		return sellerDao.selectRecentList(sqlSession);
 	}
 
+	// 판매 상품 상세 정보
 	@Override
 	public Product selectSalesProduct(int pno) {
 		// TODO Auto-generated method stub

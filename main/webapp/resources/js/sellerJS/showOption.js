@@ -35,6 +35,7 @@ $(document).ready(function() {
         $.ajax({
             url: "options.ax", // 서버 URL
             method: "GET",
+            data: { pdNo: pdNo },
             success: function(res) {
                 callback(res);
             },

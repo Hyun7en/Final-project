@@ -60,7 +60,7 @@
                 </div>                
                 
                 <div class="form-actions">
-                    <button type="submit">등록하기</button>
+                    <button type="submit">등록</button>
                     <button type="reset">초기화</button>
                 </div>
             </form>
