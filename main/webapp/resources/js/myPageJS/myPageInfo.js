@@ -164,8 +164,7 @@ function delete_member_modal(){
 function password_check(){
     const inputPwd = document.getElementById("inputPwd").value;
     const loginUserPwd = document.getElementById("loginUserPwd").value;
-    console.log(inputPwd);
-    console.log(loginUserPwd);
+
     $.ajax({
         url: 'passwordCheck.my',
         type: 'POST',

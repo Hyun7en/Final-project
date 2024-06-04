@@ -83,8 +83,8 @@
                                         <td>${sna.crn}</td>
                                         <td>${sna.applicationDate}</td>
                                         <td>
-                                            <a href="sellerNewApplicationApprove.ma?userNo=${sna.userNo}">승인</a>
-                                            <!-- <button type="button" class="modal-btn" onclick="approveApplication()">승인</button> -->
+                                            <!-- <a href="sellerNewApplicationApprove.ma?userNo=${sna.userNo}">승인</a> -->
+                                            <button type="button" class="application-approve-btn" onclick="approveApplication()">승인</button>
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -92,11 +92,23 @@
                         </table>
                     </div>
 
-                    <!-- <c:forEach var="sna" items="${list}">
-                        <div class="modal">
-                            <div class=".modal-popup">
+                    <c:forEach var="sna" items="${list}">
+                        <div class="seller-info-modal">
+                            <div class="seller-info-modal-content">
                                 <h3>판매자 신규신청 상세</h3>
                                 <table>
+                                    <tr>
+                                        <th>회원 번호</th>
+                                        <td class="userNo">${sna.userNo}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>이름</th>
+                                        <td>${sna.userName}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>아이디</th>
+                                        <td>${sna.userId}</td>
+                                    </tr>
                                     <tr>
                                         <th>사업자등록번호</th>
                                         <td>${sna.businessNo}</td>
@@ -138,11 +150,15 @@
                                         <td>${sna.businessAccount}</td>
                                     </tr>
                                 </table>
-                                <button type="button" class="approve-btn">승인</button>
-                                <button type="button" class="close-btn">닫기</button>
+
+                                <div class="approve-btn-area">
+                                    <button type="button" class="approve-btn">승인</button>
+                                    <button type="button" class="close-btn">닫기</button>
+                                </div>
+                                
                             </div>
                         </div>
-                    </c:forEach> -->
+                    </c:forEach>
 
                     <form action="">
                         <div id="select-btn-area">
@@ -166,53 +182,29 @@
      
      <script>
 
-        function approveApplication(){
-            location.href='sellerNewApplicationApprove.ma?userNo=${sna.userNo}'
-        }
+        $(document).ready(function(){
 
-        const modal = document.querySelector('.modal');
-        const modalOpen = document.querySelector(".modal-btn");
-        const moadlApprove = document.querySelector('.approve-btn');
-        const modalClose = document.querySelector('.close-btn');
+                // 판매자 신규신청을 승인하기 위해 버튼 눌렀을 때
+                $(".application-approve-btn").click(function(){
+                    var index = $(this).closest("tr").index(); // 클릭된 버튼이 있는 행의 인덱스 가져오기
+                    var modal = $(".seller-info-modal").eq(index); // 해당 인덱스의 모달 찾기
+                    modal.css("display", "flex"); // 모달 표시
 
-        // modalOpen.forEach((button, index) => {
-        //     button.addEventListener('click', function () {
-        //         // 선택한 모달 열기
-        //         modals[index].style.display = 'block';
-        //     });
-        // });
+                    // 승인하기 버튼 눌렀을 때
+                    $(".approve-btn").click(function(){
+                        var userNo = modal.find(".userNo").text(); // 해당 모달안의 class이름이 userNo인 태그안의 값 가져옴
+                        console.log(userNo);
+                        location.href="sellerNewApplicationApprove.ma?userNo=" + userNo;
+                    })
 
-        // moadlApprove.forEach((button, index) => {
-        //     button.addEventListener('click', function () {
-        //         // 승인 처리 및 모달 닫기
-        //         modals[index].style.display = 'none';
-        //     });
-        // });
+                    // 닫기 버튼 눌렀을 때
+                    $(".close-btn").click(function(){
+                        // modal.find(".change-input").val(""); // class이름이 change-input인 태그의 value값을 "" 으로 바꿈
+                        modal.css("display", "none"); // 모달 숨김
+                    })
+                });
+            });
 
-        // modalClose.forEach((button, index) => {
-        //     button.addEventListener('click', function () {
-        //         // 모달 닫기
-        //         modals[index].style.display = 'none';
-        //     });
-        // });
-
-        // //열기 버튼을 눌렀을 때 모달팝업이 열림
-        // modalOpen.addEventListener('click',function(){
-        //     //display 속성을 block로 변경
-        //     modal.style.display = 'block';
-        // });
-
-        // //승인 버튼을 눌렀을 때 값이 컨트롤러로 넘어가서 status 'N'으로 바뀌고 팝업 닫힘
-        // moadlApprove.addEventListener('click',function(){
-        //     //display 속성을 none으로 변경
-        //     modal.style.display = 'none';
-        // });
-
-        // //닫기 버튼을 눌렀을 때 모달팝업이 닫힘
-        // modalClose.addEventListener('click',function(){
-        // //display 속성을 none으로 변경
-        //     modal.style.display = 'none';
-        // });
      </script>
 </body>
 </html>

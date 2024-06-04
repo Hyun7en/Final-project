@@ -198,7 +198,8 @@
                                 <button type="button" id="close-modal" onclick="close_modal()">닫기</button>
                             </div>
                         </div>
-                    </div>
+                    </div>  
+
                 </div>
             </div>
         </main>

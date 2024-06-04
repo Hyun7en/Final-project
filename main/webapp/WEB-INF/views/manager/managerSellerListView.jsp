@@ -55,7 +55,7 @@
                 </form>
 
                 <div id="search-result-list-area">
-                    <div id="total-seller"><b>총 판매자 수 : 1</b></div> <!-- 총 상점 수 가져오기-->
+                    <div id="total-seller"><b>총 판매자 수 : 1</b></div> <!-- 총 판매자 수 가져오기-->
                     <div id="search-result-list">
                         <table>
                             <thead>
@@ -69,18 +69,27 @@
                                 <th>상세정보</th>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>홍길동</td>
-                                    <td>qwqw11</td>
-                                    <td>그린피쉬</td>
-                                    <td>qwqw11@gmail.com</td>
-                                    <td>010-1111-1111</td>
-                                    <td>2024-05-13</td>
-                                    <td>
-                                        <button>상세정보</button>
-                                    </td>
-                                </tr>
+                                <c:choose>
+                                    <c:when test="${empty sellerList}">
+                                        <td align="center">판매자가 없습니다.</td>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:forEach var="sl" items="${sellerList}">
+                                            <tr>
+                                                <td></td>
+                                                <td>${sl.userName}</td>
+                                                <td>${sl.userId}</td>
+                                                <td>${sl.storeName}</td>
+                                                <td>${sl.businessNo}</td>
+                                                <td>${sl.crn}</td>
+                                                <td>${sl.applicationDate}</td>
+                                                <td>
+                                                    <button onclick="">상세정보</button>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                    </c:otherwise>
+                                </c:choose>
                             </tbody>
                         </table>
                     </div>

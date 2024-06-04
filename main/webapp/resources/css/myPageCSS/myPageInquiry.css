@@ -102,14 +102,11 @@ main{
 
 #myPageInquiry-list table thead{
     height: 70px;
-    border-bottom: 1px solid #afa8a8;
-
 }
 
 #myPageInquiry-list table tbody tr{
     height: 70px;
-    border-bottom: 1px solid #afa8a8;
-
+    border-top: 1px solid #afa8a8;
 }
 
 #btnList-area{

@@ -6,8 +6,8 @@
 <!-- namespace: 해당 mapper파일의 고유한 별칭 -->
 <mapper namespace="managerMapper">
 
-	<!-- 판매자 신규신청 리스트 조회 resultMapper -->
-	<resultMap type="SellerNewApplication" id="sellerNewApplicationResult">
+	<!-- 판매자 정보 resultMapper -->
+	<resultMap type="Seller" id="sellerListResult">
 		<result column="user_no" property="userNo"/>
 		<result column="user_name" property="userName"/>
 		<result column="user_id" property="userId"/>
@@ -24,6 +24,7 @@
 		<result column="application_date" property="applicationDate"/>
 	</resultMap>
 	
+	<!-- 회원 정보 resultMapper -->
 	<resultMap type="Member" id="memberListResult">
 		<result column="USER_NO" property="userNo"/>
 		<result column="USER_ID" property="userId"/>
@@ -44,6 +45,14 @@
 		<result column="MEMBER_FILE_NO" property="memberFileNo"/>
 		<result column="USER_INTRO" property="userIntro"/>
 	</resultMap>
+	
+	<!-- 관리자를 제외한 모든 회원 수 조회 -->
+	<select id="memberListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM member
+		WHERE activated = 'Y'
+		AND authority &lt; 2
+	</select>
 	
 	<!-- 관리자를 제외한 모든 회원 조회 -->
 	<select id="memberList" resultMap="memberListResult">
@@ -70,22 +79,49 @@
 		AND		AUTHORITY &lt; 2
 	</select>
 	
+	<!-- 관리자가 회원 강제 탈퇴 -->
+	<update id="deleteMember">
+		UPDATE member
+		SET activated = 'N' 
+		WHERE user_no = #{userNo}
+	</update>
 	
-	<!-- 관리자를 제외한 모든 회원 수 조회 -->
-	<select id="memberListCount" resultType="_int">
+	
+	
+	
+	
+	<!-- 판매자 수 조회 -->
+	<select id="sellerListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM member
 		WHERE activated = 'Y'
-		AND authority &lt; 2
+		AND authority = 1
 	</select>
 	
-	
-	
-	
-	
+	<!-- 판매자 조회 -->
+	<select id="sellerList" resultMap="sellerListResult">
+		SELECT user_no,
+			   user_name,
+			   user_id,
+			   business_no,
+			   business_name,
+			   sub_business_name,
+			   open_business_date,
+			   store_name,
+			   crn,
+			   main_business_name,
+		 	   main_item_name,
+			   business_address,
+			   business_account,
+			   application_date				
+		FROM member m
+		JOIN seller_info s USING (user_no)
+		WHERE m.authority = 1
+		AND s.status = 'Y'
+	</select>
 	
 	<!-- 판매자 신규신청 리스트 조회 -->
-	<select id="sellerNewApplicationList" resultMap="sellerNewApplicationResult">
+	<select id="sellerNewApplicationList" resultMap="sellerListResult">
 		SELECT user_no,
 			   user_name,
 			   user_id,
