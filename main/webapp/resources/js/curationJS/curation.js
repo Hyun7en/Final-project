@@ -1,13 +1,12 @@
 let path;
-let count =0 ;
 function fishInfoInit(contextPath){
     path = contextPath;
 }
 
 
-function startCuration(){
-    getQuestionList(function(data){
-        getListDetail(data, function(listData){
+function startCuration(count){
+    getQuestionList(count, function(count, data){
+        getListDetail(count, data, function(count, listData){
             drawCuration(count, listData);
         });
     });
@@ -15,13 +14,13 @@ function startCuration(){
     
 }
 
-function getQuestionList(callback){
+function getQuestionList(count, callback){
     $.ajax({
         url: "getQuestionList.cu",
         type:"post",
         success: function(data){
             console.log(data);
-            callback(data);
+            callback(count, data);
            
         },
         error: function(){
@@ -30,8 +29,8 @@ function getQuestionList(callback){
     })
 }
 
-function getListDetail(data,callback){
-    
+function getListDetail(count, data, callback){
+
     let Qtitle1 = "", Qtitle2 = "", Qtitle3 = "", Qtitle4 = "";
     let Q1 = "", Q2 = "", Q3 = "", Q4 = "";
 
@@ -39,42 +38,44 @@ function getListDetail(data,callback){
             if(data[a].bigQ == "키우고싶은 종류가 있나요 ?"){
                 Qtitle1 = data[a].bigQ;
                 Q1 += `
-                        <p class="smallQ" onclick="drawCuration(count + 1, listData);"> ${data[a].smallQ} </p>    
+                        <p class="smallQ" onclick="startCuration(1);"> ${data[a].smallQ} </p>    
                     `;
             } else if(data[a].bigQ == "성체가 됐을 때 어느정도 크기였으면 좋겠나요?"){
                 Qtitle2 = data[a].bigQ;
                 Q2 += `
-                        <p class="smallQ" onclick="drawCuration(count + 1, listData);"> ${data[a].smallQ} </p>    
+                        <p class="smallQ" onclick="startCuration(2);"> ${data[a].smallQ} </p>    
                     `;
             } else if(data[a].bigQ == "집에 있는 시간이 어느정도 되나요 ?"){
                 Qtitle3 = data[a].bigQ;
                 Q3 += `
-                         <p class="smallQ" onclick="drawCuration(count + 1, listData);"> ${data[a].smallQ} </p>    
+                         <p class="smallQ" onclick="startCuration(3);"> ${data[a].smallQ} </p>    
                     `;
             } else {
                 Qtitle4 = data[a].bigQ;
                 Q4 += `
-                         <p class="smallQ" onclick="drawCuration(count + 1, listData);"> ${data[a].smallQ} </p>    
+                         <p class="smallQ" onclick="startCuration(4);"> ${data[a].smallQ} </p>    
                     `;
             }
         }
 
         
-        callback([
-            [Qtitle1, Q1],
-            [Qtitle2, Q2],
-            [Qtitle3, Q3],
-            [Qtitle4, Q4]
-        ]);
+        callback(count, 
+            [
+                [Qtitle1, Q1],
+                [Qtitle2, Q2],
+                [Qtitle3, Q3],
+                [Qtitle4, Q4]
+            ]
+        );
+       
 }
 
 
 function drawCuration(count, listData){
+
     const url = path + `/resources/image/whale.png`
     let str = "";
     let Section = document.getElementById("main-div");
-    console.log(count)
-    console.log(listData[count])
     if(count==4){
         resultAjax();
     }
@@ -94,7 +95,11 @@ function drawCuration(count, listData){
         `;
 
     Section.innerHTML = str;
+    
 }
+
+
+
 
 function resultAjax(){
     const url = path + `/resources/image/whale.png`
@@ -107,3 +112,16 @@ function resultAjax(){
 
     Section.innerHTML = str;
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+    const clickedTexts = []; // 클릭된 텍스트를 저장할 배열
+
+    document.getElementById("main-div").addEventListener("click", function(event) {
+        if (event.target.classList.contains("smallQ")) {
+            const clickedText = event.target.textContent;
+            console.log(clickedText);
+            clickedTexts.push(clickedText); // 배열에 클릭된 텍스트 추가
+            console.log(clickedTexts); // 배열 출력
+        }
+    });
+});

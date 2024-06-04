@@ -30,7 +30,7 @@
                 <p>자신에게 맞는 물고기를 찾아보세요!</p>
             </div>
             <div id="cu-btn">
-                <button onclick="startCuration();">시작하기</button>
+                <button onclick="startCuration(0);">시작하기</button>
             </div>
 		    
         </main>
