@@ -1,5 +1,5 @@
 function boCategory(category){
-    location.href = "list.co?category=" + category + "&cpage=1";
+    location.href = "list.cs?category=" + category + "&cpage=1";
 }
 
 function categorySelected() {
@@ -18,8 +18,8 @@ function categorySelected() {
     })
 }
 
-//게시글 열람 링크
+
 function show(boardLevel, cpage, boardNo){
-    location.href = "detail.co?category=" + boardLevel + "&cpage=" + cpage + "&boardNo=" + boardNo;
+    location.href = "detail.cs?category=" + boardLevel + "&cpage=" + cpage + "&boardNo=" + boardNo;
 }
 
