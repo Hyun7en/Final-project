@@ -83,6 +83,7 @@ main{
     font-weight: 600;
     margin-top: 20px;
     margin-bottom: 3px;
+    display: flex;
 }
 
 #cu-btn-change{
