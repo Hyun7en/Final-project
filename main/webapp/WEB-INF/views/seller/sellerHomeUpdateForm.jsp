@@ -35,7 +35,7 @@
 
             <c:if test="${not sessionScope.SellerHomeRegistered}">
             <form id="enrollForm"  action="update.srh" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="userNo" value="${loginUser.userNo}">
+                <input type="hidden" name="boardNo" value="${b.boardNo }">
                 <div>
                     <h4>스토어 소개</h4>
                     <input id="store-introduce" type="text" name="sellerExplain" placeholder="스토어 소개 입력" style="width: 300px; padding: 5px;">

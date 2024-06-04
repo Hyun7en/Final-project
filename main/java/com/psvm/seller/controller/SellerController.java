@@ -38,14 +38,17 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 public class SellerController {
-    
+
     @Autowired
     private SellerService sellerService;
     
     private final Gson gson = new Gson();
     
     
-
+	/*
+	 * seller
+	 */
+    
     // 판매자 정보 불러오기
     @RequestMapping("info.sr")
     public String selectSeller(HttpSession session, Model model) {
@@ -66,9 +69,15 @@ public class SellerController {
         return "seller/sellerInfo";
     }
     
-    
+    /**
+     * 로그인한 판매자의 사업자 번호를 가져오는 메서드 입니다.
+     * 
+     * @param session session 가져옴
+     * @return 로그인한 판매자의 사업자 번호
+     */
     // 로그인 한 판매자의 사업자 번호 가져오는 메서드
     public int getBusinessNoFromUserNo(HttpSession session) {
+    	
     	// 세션에서 loginUser 객체 가져오기
     	Member loginUser = (Member)session.getAttribute("loginUser");
 
@@ -431,7 +440,9 @@ public class SellerController {
     	return "redirect:list.pd";
     }
     
-    //storeMain
+    /*
+     * storeMain
+     */
     
     // 최신 상품 리스트
     @RequestMapping("list.spd")
