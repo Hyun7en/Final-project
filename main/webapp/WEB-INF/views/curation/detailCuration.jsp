@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/curationCSS/detailCuration.css">
 	<script src="${pageContext.request.contextPath}/resources/js/curationJS/detailCuration.js"></script>
-   
+</head>
 <body>
 	<div class="wrap">
 	
@@ -19,7 +19,9 @@
         <%@ include file="../commons/header.jsp" %>
         
         <main>
-            결과창
+            <div class="splash-container">
+                <img class="splash-text" src="${pageContext.request.contextPath}/resources/image/goopy.png" alt="">
+            </div>
 		    
         </main>
             

@@ -23,7 +23,7 @@
         <%@ include file="../commons/header.jsp" %>
         
         <main id="main-div">
-            <div id="cu-explain">
+            <div class="cu-explain">
                 <p>어울리는 물고기를 추천해드려요 !</p>
             </div>
             <div id="cu-img">
@@ -33,7 +33,7 @@
                 <p>자신에게 맞는 물고기를 찾아보세요!</p>
             </div>
             <div id="cu-btn">
-                <button onclick="startCuration(0);">시작하기</button>
+                <button class="startBtn" onclick="startCuration(0);">시작하기</button>
             </div>
 		    
         </main>

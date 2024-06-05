@@ -8,10 +8,10 @@ main{
     background-color: #E0F1FF;
 }
 
-#cu-explain{
+.cu-explain{
     width: 1000px;
     height: 130px;
-    font-size: 54px;
+    font-size: 44px;
     font-weight: bold;
     text-align: center;
 }
@@ -57,11 +57,7 @@ main{
 /* ajax후 다시 그려지는 곳 css */
 
 #cu-explain-change{
-    width: 1000px;
-    height: 130px;
-    font-size: 44px;
-    font-weight: bold;
-    text-align: center;
+
 }
 
 #cu-img-change{
