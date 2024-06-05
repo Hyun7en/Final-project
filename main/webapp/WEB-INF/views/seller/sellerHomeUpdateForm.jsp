@@ -20,97 +20,99 @@
 <script>
     
     $(document).ready(function() {
-    let categories = []; // 카테고리 배열 초기화
+        let categories = []; // 현재 카테고리 배열
+        let originalCategories = []; // 원래 카테고리 배열
 
-    // 페이지 로드 시 카테고리 목록을 가져오고, 그리기
-    selectCategories(function(categoriesFromServer){
-        // 서버에서 가져온 카테고리 그리기
-        drawCategories(categoriesFromServer);
-    });
-
-    // 카테고리 목록을 서버로부터 가져오는 함수
-    function selectCategories(callback) {
-        $.ajax({
-            url: "categories.ax", // 서버 URL
-            method: "GET",
-            success: function(res) {
-                callback(res);
-            },
-            error: function() {
-                console.log("categories.ax 통신 실패");
-            }
+        // 페이지 로드 시 카테고리 목록을 가져오고, 그리기
+        selectCategories(function(categoriesFromServer){
+            categories = categoriesFromServer;
+            originalCategories = [...categoriesFromServer]; // 깊은 복사
+            drawCategories(categories);
         });
-    }
 
-    // 카테고리를 화면에 그리는 함수
-    function drawCategories(categoriesToDraw) {
-        let $categoryList = $('#categoryList');
-        $categoryList.empty(); // 기존의 카테고리 초기화
-
-        if (!categoriesToDraw || categoriesToDraw.length === 0) {
-            console.log('No categories received or categories array is empty');
-            return;
+        // 카테고리 목록을 서버로부터 가져오는 함수
+        function selectCategories(callback) {
+            $.ajax({
+                url: "categories.ax", // 서버 URL
+                method: "GET",
+                success: function(res) {
+                    callback(res);
+                },
+                error: function() {
+                    console.log("categories.ax 통신 실패");
+                }
+            });
         }
 
-        // 카테고리 목록의 각 항목에 대해 li 요소를 생성하여 추가
-        categoriesToDraw.forEach(function(category) {
-            if (category && category.pdCategory) {
-                $categoryList.append($('<div data-category="' + category.pdCategory + '">').append($('<li>').text(category.pdCategory)).append('<button class="removeBtn">x</button>'));
+        // 카테고리를 화면에 그리는 함수
+        function drawCategories(categoriesToDraw) {
+            let $categoryList = $('#categoryList');
+            $categoryList.empty(); // 기존의 카테고리 초기화
+
+            if (!categoriesToDraw || categoriesToDraw.length === 0) {
+                console.log('No categories received or categories array is empty');
+                return;
+            }
+
+            categoriesToDraw.forEach(function(category) {
+                if (category && category.pdCategory) {
+                    $categoryList.append($('<div data-category="' + category.pdCategory + '">').append($('<li>').text(category.pdCategory)).append('<button class="removeBtn">x</button>'));
+                } else {
+                    console.log('Invalid category data', category);
+                }
+            });
+        }
+
+        // 카테고리 추가 이벤트
+        $('#add-categoryBtn').click(function() {
+            let category = $('#enroll-category').val().trim();
+            if (category) {
+                if (categories.some(cat => cat.pdCategory === category)) {
+                    alert('이미 추가된 카테고리입니다.');
+                } else {
+                    categories.push({ pdCategory: category }); // 배열에 추가
+                    $('#categoryList').append($('<div data-category="' + category + '">').append($('<li>').text(category)).append('<button class="removeBtn">x</button>'));
+                    $('#enroll-category').val(''); // 입력 필드 초기화
+                    console.log(categories);
+                }
             } else {
-                console.log('Invalid category data', category);
+                alert('카테고리를 입력하세요.');
             }
         });
-    }
 
-    // 카테고리 추가 이벤트
-    $('#add-categoryBtn').click(function() {
-        let category = $('#enroll-category').val().trim();
-        if (category) {
-            // 중복 카테고리 확인
-            if (categories.includes(category)) {
-                alert('이미 추가된 카테고리입니다.');
-            } else {
-                categories.push(category); // 배열에 추가
-                // 화면에 추가된 카테고리 그리기
-                $('#categoryList').append($('<div data-category="' + category + '">').append($('<li>').text(category)).append('<button class="removeBtn">x</button>'));
-                $('#enroll-category').val(''); // 입력 필드 초기화
-                console.log(categories);
-            }
-        } else {
-            alert('카테고리를 입력하세요.');
-        }
-    });
-
-    // 카테고리 제거 이벤트
-    $(document).on('click', '.removeBtn', function() {
-        let categoryDiv = $(this).parent();
-        let category = categoryDiv.data('category');
-        let index = categories.indexOf(category);
-        if (index > -1) {
-            categories.splice(index, 1); // 배열에서 제거
+        // 카테고리 제거 이벤트
+        $(document).on('click', '.removeBtn', function() {
+            let categoryDiv = $(this).parent();
+            let category = categoryDiv.data('category');
+            categories = categories.filter(cat => cat.pdCategory !== category);
             categoryDiv.remove(); // 화면에서 제거
             console.log(categories);
-        }
+        });
+
+        // 폼 제출 시 추가된 카테고리와 삭제된 카테고리를 JSON 형식으로 변환하여 폼에 추가
+        $('#enrollForm').submit(function(event) {
+            let addedCategories = categories.filter(cat => !originalCategories.some(origCat => origCat.pdCategory === cat.pdCategory));
+            let deletedCategories = originalCategories.filter(origCat => !categories.some(cat => cat.pdCategory === origCat.pdCategory));
+            
+            let categoriesData = {
+                addedCategories: addedCategories,
+                deletedCategories: deletedCategories
+            };
+
+            let categoriesInput = $('<input>').attr('type', 'hidden').attr('name', 'categoriesJson').val(JSON.stringify(categoriesData));
+            $(this).append(categoriesInput);
+            console.log("Submitting categories:", JSON.stringify(categoriesData));
+        });
+
+        // 스토어 홈 이미지 변경 시 미리보기 기능
+        $('#storeHomeImage').change(function(event) {
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                $('#preview-image').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        });
     });
-
-    // 폼 제출 시 카테고리 데이터를 JSON 형식으로 변환하여 폼에 추가
-    $('#enrollForm').submit(function(event) {
-        let categoriesInput = $('<input>').attr('type', 'hidden').attr('name', 'categoriesJson').val(JSON.stringify(categories));
-        $(this).append(categoriesInput);
-        console.log("Submitting categories:", JSON.stringify(categories));
-    });
-
-    // 스토어 홈 이미지 변경 시 미리보기 기능
-    $('#storeHomeImage').change(function(event) {
-        let reader = new FileReader();
-        reader.onload = function(e) {
-            $('#preview-image').attr('src', e.target.result);
-        }
-        reader.readAsDataURL(event.target.files[0]);
-    });
-});
-
-
 </script>
 </head>
 <body>

@@ -255,8 +255,8 @@ public class SellerController {
   	public String insertProduct(Product product, MultipartFile productImage, @RequestParam("optionsJson") String optionsJson,
     HttpSession session, RedirectAttributes redirectAttributes) {
     	
-    	System.out.println("Product: " + product);
-    	System.out.println("Product Image Original Filename: " + (productImage != null ? productImage.getOriginalFilename() : "null"));
+    	
+    	System.out.println("Product: " + product.getCaNo());
     	System.out.println("Options JSON: " + optionsJson);
     	
          if (!productImage.getOriginalFilename().isEmpty()) {
