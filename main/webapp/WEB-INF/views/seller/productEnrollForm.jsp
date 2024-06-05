@@ -49,7 +49,7 @@
                             <label  for="select-category">
                                 카테고리
                             </label>
-                            <select class="form-control" id="select-category" name="pdCategory" required>
+                            <select class="form-control" id="select-category" name="caNo" required>
                                 
                             </select>
                         </div>

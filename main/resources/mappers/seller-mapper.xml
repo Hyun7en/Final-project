@@ -31,13 +31,14 @@
 	</resultMap>
 
 	<resultMap type="ProductCategory" id="productCategoryResult">
+		<result column="C_NO" property="caNo"/>
 		<result column="P_CATEGORY" property="pdCategory"/>
 		<result column="SELLER_PAGE_NO" property="sellerPageNo"/>
 	</resultMap>
 	
 	<resultMap type="Product" id="productResult">
 		<result column="P_NO" property="pdNo"/>
-		<result column="P_CATEGORY" property="pdCategory"/>
+		<result column="C_NO" property="caNo"/>
 		<result column="P_TITLE" property="pdTitle"/>
 		<result column="P_PRICE" property="pdPrice"/>
 		<result column="P_CONTENT" property="pdContent"/>
@@ -103,7 +104,8 @@
 	</insert>
 
 	<select id="selectCategories" resultMap="productCategoryResult">
-		SELECT P_CATEGORY
+		SELECT P_CATEGORY,
+			   C_NO	
 		  FROM PRODUCT_CATEGORY
 		  JOIN SELLER_PAGE USING (SELLER_PAGE_NO)
 		WHERE BUSINESS_NO = #{businessNo}
@@ -140,7 +142,7 @@
 	<insert id="insertProduct">
 	INSERT INTO 
 				PRODUCT (
-				 	      p_category,
+				 	      c_no,
 				 	      p_title,
 				 	      p_price,
 				 	      p_content,
@@ -151,7 +153,7 @@
 				 	      p_status
 				 	     )
 		 	     VALUES (
-			 		      #{pdCategory},
+			 		      #{caNo},
 			 		      #{pdTitle},
 			 		      #{pdPrice},
 			 		      #{pdContent},
@@ -188,11 +190,11 @@
 	
 	<select id="selectProductList" resultMap="productResult">
 		SELECT P_NO,
-			   P_CATEGORY,
+			   C_NO,
 			   P_TITLE,
 			   TO_CHAR(P_ENROLL_DATE , 'YYYY-MM-DD') AS "P_ENROLL_DATE"
 		  FROM PRODUCT
-		  JOIN PRODUCT_CATEGORY USING(P_CATEGORY)
+		  JOIN PRODUCT_CATEGORY USING(C_NO)
 		  JOIN SELLER_PAGE USING(SELLER_PAGE_NO)
 		 WHERE P_STATUS = 'Y'
 		   AND BUSINESS_NO = #{businessNo}
@@ -202,6 +204,7 @@
 	<select id="selectProduct" resultMap="productResult">
 		SELECT *
 		  FROM PRODUCT
+		  JOJIN P_CATEGORY USING(C_NO)
 		 WHERE P_STATUS = 'Y'
 		   AND P_NO = #{pno}
 	</select>
@@ -217,7 +220,7 @@
 		SELECT *
 		  FROM(SELECT STORE_NAME,P_TITLE,P_PRICE
 			     FROM PRODUCT
-			     JOIN PRODUCT_CATEGORY USING(P_CATEGORY)
+			     JOIN PRODUCT_CATEGORY USING(C_NO)
 			     JOIN SELLER_PAGE USING(SELLER_PAGE_NO)
 			     JOIN SELLER_INFO USING(BUSINESS_NO)
 			    WHERE P_STATUS = 'Y'
