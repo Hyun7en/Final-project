@@ -116,4 +116,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE	USER_NO = #{userNo}
 		AND		SELLER_PAGE_NO = #{sellerPageNo}
 	</select>
+	<insert id="ajaxAlarmOn">
+		INSERT INTO USER_ALARM(
+				USER_NO,
+				SELLER_PAGE_NO,
+				ALARM
+		)VALUES(
+				#{userNo},
+				#{sellerPageNo},
+				1)
+	</insert>
+	<delete id="ajaxAlarmOff">
+		DELETE FROM USER_ALARM
+		WHERE	USER_NO = #{userNo}
+		AND		SELLER_PAGE_NO = #{sellerPageNo}
+	</delete>
 </mapper>

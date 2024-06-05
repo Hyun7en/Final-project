@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/storeCSS/storeSellersHome.css">
 
 </head>
-<body onload="orderSelected(); checkAlarm(`${loginUser.userNo}`, `${si.sellerPageNo}`)">
+<body onload="orderSelected(); contextPath(`${pageContext.request.contextPath}`); checkAlarm(`${loginUser.userNo}`, `${si.sellerPageNo}`);">
     <c:if test="${ not empty successMessage}">
 		<script>
             var successMessage = '${successMessage}';
@@ -39,19 +39,6 @@
 		</script>
 		<c:remove var="successMessage" scope="session"/>
 	</c:if>
-    <c:if test="${ not empty infoMessage}">
-		<script>
-            var infoMessage = '${infoMessage}';
-            if (infoMessage) {
-                Swal.fire({
-                    icon: 'info',
-                    title: 'Notice',
-                    html: infoMessage
-                });
-            }
-		</script>
-		<c:remove var="infoMessage" scope="session"/>
-	</c:if>
     <div id="wrap">
         <%@ include file="../commons/header.jsp" %>
         <main id="seller-home">
@@ -60,12 +47,12 @@
                     <c:when test="${empty loginUser}">
                         <!-- 로그인 전 -->
                         <div id="seller-grey-img"><img src="${pageContext.request.contextPath}/resources/image/mdi_bell-outline.png" alt=""></div>
-                        <button id="seller-grey-button" disabled>알림받기</button>
+                        <button id="seller-grey-button" disabled>알림수신</button>
                     </c:when>
                     <c:otherwise>
                         <!-- 로그인 후 -->
                         <div class="alarmDiv" id="seller-blue-img" onclick="getAlarmOn(`${loginUser.userNo}`,`${si.sellerPageNo}`)"><img src="${pageContext.request.contextPath}/resources/image/mdi_bell-outline.png" alt=""></div>
-                        <button class="alarmButton" id="seller-blue-button" onclick="getAlarmOn(`${loginUser.userNo}`,`${si.sellerPageNo}`)">알림받기</button>
+                        <button class="alarmButton" id="seller-blue-button" onclick="getAlarmOn(`${loginUser.userNo}`,`${si.sellerPageNo}`)">알림수신</button>
                     </c:otherwise>
                 </c:choose>
                 <p>${si.storeName}</p>
