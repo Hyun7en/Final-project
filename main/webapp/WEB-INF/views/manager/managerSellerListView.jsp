@@ -25,25 +25,25 @@
                 <div id="manager-sidebar-category-select-title"><h3>판매자 전체목록</h3></div>
 
                 <div id="search-title"><b>검색</b></div>
-                <form id="search-form" action="">
+                <form id="search-form" action="sellerSearch.ma" method="get">
                     <div id="search-condition-area">
                         <table>
                             <tr>
                                 <th>검색어</th>
                                 <td>
-                                    <select name="" id="">
-                                        <option value="">아이디</option>
-                                        <option value="">회원명</option>
+                                    <select name="condition" id="select-option">
+                                        <option value="user_id">아이디</option>
+                                        <option value="user_name">회원명</option>
                                     </select>
-                                    <input id="search-bar" type="text">
+                                    <input id="search-bar" name="search" type="text">
                                 </td>
                             </tr>
                             <tr>
                                 <th>등록일시</th>
                                 <td>
-                                    <input class="date-search-bar" type="date">
+                                    <input class="date-search-bar" name="startDate" type="date">
                                     -
-                                    <input class="date-search-bar" type="date">
+                                    <input class="date-search-bar" name="endDate" type="date">
                                 </td>
                             </tr>
                         </table>
@@ -55,7 +55,7 @@
                 </form>
 
                 <div id="search-result-list-area">
-                    <div id="total-seller"><b>총 판매자 수 : 1</b></div> <!-- 총 판매자 수 가져오기-->
+                    <div id="total-seller"><b>총 판매자 수 : ${sellerListCount}</b></div> <!-- 총 판매자 수 가져오기-->
                     <div id="search-result-list">
                         <table>
                             <thead>
@@ -94,12 +94,31 @@
                         </table>
                     </div>
 
-                    <div id="pageList-area">
-                        <div class="pageList" align="center">
-                            <a id="a1">&lt;</a>
-                            <a id="a2">1</a>
-                            <a id="a3">&gt;</a>
-                        </div> 
+                    <!-- 페이징 처리 -->
+                    <div id="pagination-div">
+                        <ul class="pagination">
+                            <c:choose>
+                                <c:when test="${ pi.currentPage eq 1 }">
+                                    <li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="page-item"><a class="page-link" href="sellerList.ma?cpage=${pi.currentPage - 1}&categoryName=seller">&laquo;</a></li>
+                                </c:otherwise>
+                        </c:choose>
+                    
+                    <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+                        <li class="page-item ${p == pi.currentPage ? 'active' : ''}"><a class="page-link" href="sellerList.ma?cpage=${p}&categoryName=seller">${p}</a></li>
+                    </c:forEach>
+                        
+                      <c:choose>
+                            <c:when test="${ pi.currentPage eq pi.maxPage }">
+                                <li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="page-item"><a class="page-link" href="sellerList.ma?cpage=${pi.currentPage + 1}&categoryName=seller">&raquo;</a></li>
+                            </c:otherwise>
+                        </c:choose>
+                         </ul>
                     </div>
 
                 </div>

@@ -28,10 +28,8 @@
  		<typeAlias type="com.psvm.fishInfo.vo.Fish" alias="Fish"/>
  		<typeAlias type="com.psvm.myPage.vo.Inquiry" alias="Inquiry"/>
  		<typeAlias type="com.psvm.manager.vo.Seller" alias="Seller"/>
- 		<typeAlias type="com.psvm.manager.vo.SellerNewApplication" alias="SellerNewApplication"/>
  		<typeAlias type="com.psvm.curation.vo.Curation" alias="Curation"/>
  		<typeAlias type="com.psvm.cs.vo.Cs" alias="Cs"/>
- 		
  	</typeAliases>
  	
  	<!-- 
@@ -48,10 +46,7 @@
  		<mapper resource="/mappers/seller-mapper.xml"/>
  		<mapper resource="/mappers/fish-mapper.xml"/>
  		<mapper resource="/mappers/manager-mapper.xml"/>
-<<<<<<< HEAD
-=======
  		<mapper resource="/mappers/curation-mapper.xml"/>
->>>>>>> a999c0d4f6f4164bb153ae3eefaa8fa7c209ff1b
  		<mapper resource="/mappers/store-mapper.xml"/>
  		<mapper resource="/mappers/cs-mapper.xml"/>
  	</mappers>

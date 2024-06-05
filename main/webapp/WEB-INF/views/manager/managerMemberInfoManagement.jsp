@@ -161,13 +161,33 @@
                         </div>
                     </c:forEach>
                     
-                    <div id="pageList-area">
-                        <div class="pageList" align="center">
-                            <a id="a1">&lt;</a>
-                            <a id="a2">1</a>
-                            <a id="a3">&gt;</a>
-                        </div> 
+                    <!-- 페이징 처리 -->
+                    <div id="pagination-div">
+                        <ul class="pagination">
+                            <c:choose>
+                                <c:when test="${ pi.currentPage eq 1 }">
+                                    <li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="page-item"><a class="page-link" href="memberList.ma?cpage=${pi.currentPage - 1}&categoryName=member">&laquo;</a></li>
+                                </c:otherwise>
+                        </c:choose>
+                    
+                    <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+                        <li class="page-item ${p == pi.currentPage ? 'active' : ''}"><a class="page-link" href="memberList.ma?cpage=${p}&categoryName=member">${p}</a></li>
+                    </c:forEach>
+                        
+                    <c:choose>
+                            <c:when test="${ pi.currentPage eq pi.maxPage }">
+                                <li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="page-item"><a class="page-link" href="memberList.ma?cpage=${pi.currentPage + 1}&categoryName=member">&raquo;</a></li>
+                            </c:otherwise>
+                        </c:choose>
+                        </ul>
                     </div>
+
                 </div>
             </div>
         </main>

@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.psvm.commons.vo.PageInfo;
 import com.psvm.community.vo.Community;
 import com.psvm.member.vo.Member;
 import com.psvm.member.vo.MemberAttachment;
@@ -52,12 +53,16 @@ public class MyPageServiceImpl implements MyPageService {
 //		return myPageDao.selectInterestProduct(sqlSession, userNo);
 //	}
 	
-	public ArrayList<Community> wirtePostList(int userNo){
-		return myPageDao.writePostList(sqlSession, userNo);
+	public int writePostListCount(int userNo) {
+		return myPageDao.writePostListCount(sqlSession, userNo);
 	}
 	
-	public ArrayList<Integer> wirtePostListCount(int userNo) {
-		return myPageDao.writePostListCount(sqlSession, userNo);
+	public ArrayList<Community> wirtePostList(int userNo, PageInfo pi){
+		return myPageDao.writePostList(sqlSession, userNo, pi);
+	}
+	
+	public ArrayList<Integer> wirtePostTypeListCount(int userNo) {
+		return myPageDao.wirtePostTypeListCount(sqlSession, userNo);
 	}
 	
 	public ArrayList<Inquiry> inquiryList(int userNo){

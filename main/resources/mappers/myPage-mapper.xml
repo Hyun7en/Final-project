@@ -143,9 +143,15 @@
 	</update>
 
 
+	<!-- 회원이 작성한 게시글 수 조회 -->
+	<select id="writePostListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM board
+		WHERE status = 'Y'
+		AND user_no = #{userNo}
+	</select>
 
-
-	<!-- 작성한 게시글 리스트 조회 -->
+	<!-- 회원이 작성한 게시글 조회 -->
 	<select id="writePostList" resultMap="writePostResult">
 		SELECT board_no,
 			   board_level,
@@ -159,7 +165,7 @@
 	</select>
 	
 	<!-- 작성한 게시글 종류별 갯수 조회 -->
-	<select id="writePostListCount" resultType="_int">
+	<select id="wirtePostTypeListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM board
 		WHERE status = 'Y'

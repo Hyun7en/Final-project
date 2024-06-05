@@ -129,13 +129,34 @@
                                 </c:choose>
                             </tbody>
                         </table>
-                        <div id="btnList-area">
-                            <div class="btnList" align="center">
-                                <button id="btn1">&lt;</button>
-                                <button id="btn2">1</button>
-                                <button id="btn3">&gt;</button>
-                            </div> 
+
+                          <!-- 페이징 처리 -->
+                        <div id="pagination-div">
+                            <ul class="pagination">
+                                <c:choose>
+                                    <c:when test="${ pi.currentPage eq 1 }">
+                                        <li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li class="page-item"><a class="page-link" href="writePost.my?cpage=${pi.currentPage - 1}&userNo=${loginUser.userNo}">&laquo;</a></li>
+                                    </c:otherwise>
+                            </c:choose>
+                        
+                            <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+                                <li class="page-item ${p == pi.currentPage ? 'active' : ''}"><a class="page-link" href="writePost.my?cpage=${p}&userNo=${loginUser.userNo}">${p}</a></li>
+                            </c:forEach>
+                            
+                            <c:choose>
+                                <c:when test="${ pi.currentPage eq pi.maxPage }">
+                                    <li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="page-item"><a class="page-link" href="writePost.my?cpage=${pi.currentPage + 1}&userNo=${loginUser.userNo}">&raquo;</a></li>
+                                </c:otherwise>
+                            </c:choose>
+                            </ul>
                         </div>
+
                     </div>
                 </div>
             </div>

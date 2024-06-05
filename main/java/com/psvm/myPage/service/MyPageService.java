@@ -2,6 +2,7 @@ package com.psvm.myPage.service;
 
 import java.util.ArrayList;
 
+import com.psvm.commons.vo.PageInfo;
 import com.psvm.community.vo.Community;
 import com.psvm.member.vo.Member;
 import com.psvm.member.vo.MemberAttachment;
@@ -29,10 +30,15 @@ public interface MyPageService {
 	int deleteMember(int userNo);
 	
 //	ArrayList<InterestProduct> selectInterestProduct(int userNo);
-
-	ArrayList<Community> wirtePostList(int userNo);
 	
-	ArrayList<Integer> wirtePostListCount(int userNo);
+	// 회원이 작성한 게시글 수 조회
+	int writePostListCount(int userNo);
+
+	// 회원이 작성한 게시글 조회
+	ArrayList<Community> wirtePostList(int userNo, PageInfo pi);
+	
+	// 회원이 작성한 게시글 타입별 수 조회
+	ArrayList<Integer> wirtePostTypeListCount(int userNo);
 	
 	ArrayList<Inquiry> inquiryList(int userNo);
 	

@@ -18,7 +18,6 @@
 	</resultMap>
 	
 	<resultMap type="Fish" id="fishDetailInfoResult">
-	
 		<result column="fish_no" property="fishNo"/>
 		<result column="fish_type" property="fishType"/>
 		<result column="taste_type" property="tasteType"/>

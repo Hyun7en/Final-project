@@ -116,11 +116,62 @@
 			   application_date				
 		FROM member m
 		JOIN seller_info s USING (user_no)
-		WHERE m.authority = 1
+		WHERE m.activated = 'Y'
+		AND m.authority = 1
+	</select>
+	
+	<!-- 검색된 판매자 수 조회 -->
+	<select id="sellerSearchCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM member
+		WHERE activated = 'Y'
+		AND authority = 1
+		AND (
+			(#{condition} = 'userId' AND user_id LIKE %#{searchKeyword}%)
+			OR
+			(#{condition} = 'userName' AND user_name LIKE %#{searchKeyword}%)
+		)
+	</select>
+	
+	<!-- 검색된 판매자 조회 -->
+	<select id="sellerSearchList" resultMap="sellerListResult">
+		SELECT user_no,
+			   user_name,
+			   user_id,
+			   business_no,
+			   business_name,
+			   sub_business_name,
+			   open_business_date,
+			   store_name,
+			   crn,
+			   main_business_name,
+		 	   main_item_name,
+			   business_address,
+			   business_account,
+			   application_date		
+		FROM member m
+		JOIN seller_info s USING (user_no)
+		WHERE activated = 'Y'
+		AND authority = 1
+		AND (
+			(#{condition} = 'userId' AND user_id LIKE %#{searchKeyword}%)
+			OR
+			(#{condition} = 'userName' AND user_name LIKE %#{searchKeyword}%)
+		)	
+		AND application_date BETWEEN #{startDate} AND #{endDATE}
+		<!-- 안되면 #{startDate}와 #{endDate} 타입을 String에서 Date로 바꿔야 될수도 -->
+	</select>
+	
+	<!-- 판매자 신규 신청한 회원 수 조회 -->
+	<select id="sellerNewApplicationCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM member m
+		JOIN seller_info s USING (user_no)
+		WHERE m.authority = 0
 		AND s.status = 'Y'
 	</select>
 	
-	<!-- 판매자 신규신청 리스트 조회 -->
+	<!-- 판매자 신규 신청한 회원 조회 -->
 	<select id="sellerNewApplicationList" resultMap="sellerListResult">
 		SELECT user_no,
 			   user_name,

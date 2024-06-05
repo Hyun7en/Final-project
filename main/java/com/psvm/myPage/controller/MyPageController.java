@@ -13,11 +13,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.psvm.commons.template.Pagination;
+import com.psvm.commons.vo.PageInfo;
 import com.psvm.community.vo.Community;
 import com.psvm.member.vo.Member;
 import com.psvm.member.vo.MemberAttachment;
@@ -182,7 +185,6 @@ public class MyPageController {
 //		model.addAttribute("interestProduct", InterestProduct);
 
 		return "myPage/myPageInterest";
-
 	}
 
 	@RequestMapping("orderHistory.my")
@@ -192,15 +194,23 @@ public class MyPageController {
 	}
 
 	@RequestMapping("writePost.my")
-	public String wirtePostList(HttpSession session, int userNo) {
+	public String wirtePostList(@RequestParam(value="cpage", defaultValue="1") int currentPage, HttpSession session, int userNo) {
+		
+		// 회원이 작성한 게시글 수 조회
+		int myBoardListCount = myPageService.writePostListCount(userNo);
+		
+		// 페이징 처리
+		PageInfo pi = Pagination.getPageInfo(myBoardListCount, currentPage, 10, 10);
 		
 		// 회원이 작성한 게시글 리스트 조회
-		ArrayList<Community> myBoardList = myPageService.wirtePostList(userNo);
+		ArrayList<Community> myBoardList = myPageService.wirtePostList(userNo, pi);
+		
 		//회원이 작성한 타입별 게시글 수 조회(일반, 꿀팁, 질문, 중고거래)
-		ArrayList<Integer> myBoardListCount = myPageService.wirtePostListCount(userNo);
-
+		ArrayList<Integer> myBoardTypeListCount = myPageService.wirtePostTypeListCount(userNo);
+		
+		session.setAttribute("pi", pi);
 		session.setAttribute("myBoardList", myBoardList);
-		session.setAttribute("myBoardListCount", myBoardListCount);
+		session.setAttribute("myBoardListCount", myBoardTypeListCount);
 
 		return "myPage/myPageWritePost";
 	}

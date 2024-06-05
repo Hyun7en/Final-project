@@ -2,9 +2,11 @@ package com.psvm.myPage.dao;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.psvm.commons.vo.PageInfo;
 import com.psvm.community.vo.Community;
 import com.psvm.member.vo.Member;
 import com.psvm.member.vo.MemberAttachment;
@@ -40,13 +42,22 @@ public class MyPageDao {
 	
 	
 	
-	
-	public ArrayList<Community> writePostList(SqlSessionTemplate sqlSession, int userNo){
-		return (ArrayList)sqlSession.selectList("myPageMapper.writePostList", userNo);
+	// 회원이 작성한 게시글 수 조회
+	public int writePostListCount(SqlSessionTemplate sqlSession, int userNo) {
+		return sqlSession.selectOne("myPageMapper.writePostListCount", userNo);
 	}
 	
-	public ArrayList<Integer> writePostListCount(SqlSessionTemplate sqlSession, int userNo) {
-		return (ArrayList)sqlSession.selectList("myPageMapper.writePostListCount", userNo);
+	// 회원이 작성한 게시글 조회
+	public ArrayList<Community> writePostList(SqlSessionTemplate sqlSession, int userNo, PageInfo pi){
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("myPageMapper.writePostList", userNo, rowBounds);
+	}
+	
+	// 회원이 작성한 게시글 타입별 수 조회
+	public ArrayList<Integer> wirtePostTypeListCount(SqlSessionTemplate sqlSession, int userNo) {
+		return (ArrayList)sqlSession.selectList("myPageMapper.wirtePostTypeListCount", userNo);
 	}
 	
 	public ArrayList<Inquiry> inquiryList(SqlSessionTemplate sqlSession, int userNo){
