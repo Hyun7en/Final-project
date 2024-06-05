@@ -29,6 +29,7 @@ import com.psvm.commons.vo.PageInfo;
 import com.psvm.member.vo.Member;
 import com.psvm.seller.service.SellerService;
 import com.psvm.seller.vo.Product;
+import com.psvm.seller.vo.ProductCategory;
 import com.psvm.seller.vo.ProductOption;
 import com.psvm.seller.vo.SellerInfo;
 import com.psvm.seller.vo.SellerPage;
@@ -204,11 +205,13 @@ public class SellerController {
   		return "seller/sellerHomeUpdateForm";
   	}
     
- // 판매자 홈 수정
+    // 판매자 홈 수정
     @RequestMapping("update.srh")
     public String updateSellerHome(SellerPage sellerPage, MultipartFile storeHomeImage, @RequestParam("categoriesJson") String categoriesJson,
         HttpSession session, RedirectAttributes redirectAttributes) {
         
+    	log.info("categoriesJson",categoriesJson);
+    	
         // 새로운 첨부파일이 넘어온 경우
         if (!storeHomeImage.getOriginalFilename().equals("")) {
             // 기존의 첨부파일이 있다면 기존의 파일을 삭제
@@ -225,10 +228,9 @@ public class SellerController {
         
         int businessNo = getBusinessNoFromUserNo(session);
         sellerPage.setBusinessNo(businessNo);
-
        
-            Type listType = new TypeToken<ArrayList<String>>() {}.getType();
-            ArrayList<String> categories = gson.fromJson(categoriesJson, listType);
+            Type listType = new TypeToken<ProductCategory>() {}.getType();
+            ProductCategory categories = gson.fromJson(categoriesJson, listType);
 
             int result = sellerService.updateSellerHome(sellerPage, categories);
             

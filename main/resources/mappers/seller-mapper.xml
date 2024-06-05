@@ -126,7 +126,7 @@
 		   SET SELLER_EXPLAIN = #{sellerExplain},
 		   	   SP_ENROLL_DATE = default,
 		   	   SP_ORIGIN_NAME = #{spOriginName},
-		   	   SO_CHANGE_NAME = #{spChangeName}
+		   	   SP_CHANGE_NAME = #{spChangeName}
 		 WHERE BUSINESS_NO = #{businessNo}   				
 	</update>
 	

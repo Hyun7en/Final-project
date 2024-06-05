@@ -80,11 +80,21 @@ public class SellerServiceImpl implements SellerService {
 	}
 	
 	//판매자 홈 수정
+	@Transactional
 	@Override
-	public int updateSellerHome(SellerPage sellerPage, ArrayList<String> categories) {
+	public int updateSellerHome(SellerPage sellerPage, ProductCategory categories) {
 		
 		int t1 = sellerDao.updateSellerHome(sqlSession, sellerPage);
 		
+		// 삭제할 카테고리 처리
+        for (ProductCategory category : categories.getDeletedCategories()) {
+        	sellerDao.deleteCategory(category.getPdCategory());
+        }
+
+        // 추가할 카테고리 처리
+        for (ProductCategory category : categories.getAddedCategories()) {
+        	sellerDao.insertCategory(category.getPdCategory());
+        }
 		int t2 = 1;
 		
 		for(String category : categories) {
@@ -97,7 +107,7 @@ public class SellerServiceImpl implements SellerService {
 			
 		}	
 		
-		return t1*t2;
+		return 0;
 	}
 	
 	// 상품 등록
