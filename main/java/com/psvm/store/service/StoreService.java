@@ -19,4 +19,5 @@ public interface StoreService {
 	
 	ArrayList<StoreInfo> selectProductCategory(PageInfo pi, HashMap<String, String> map);
 	
+	int ajaxAlarmCheck(StoreInfo checker);
 }
