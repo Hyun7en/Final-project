@@ -47,12 +47,12 @@
                     <c:when test="${empty loginUser}">
                         <!-- 로그인 전 -->
                         <div id="seller-grey-img"><img src="${pageContext.request.contextPath}/resources/image/mdi_bell-outline.png" alt=""></div>
-                        <button id="seller-grey-button" disabled>알림수신</button>
+                        <button id="seller-grey-button" disabled>알람설정</button>
                     </c:when>
                     <c:otherwise>
                         <!-- 로그인 후 -->
                         <div class="alarmDiv" id="seller-blue-img" onclick="getAlarmOn(`${loginUser.userNo}`,`${si.sellerPageNo}`)"><img src="${pageContext.request.contextPath}/resources/image/mdi_bell-outline.png" alt=""></div>
-                        <button class="alarmButton" id="seller-blue-button" onclick="getAlarmOn(`${loginUser.userNo}`,`${si.sellerPageNo}`)">알림수신</button>
+                        <button class="alarmButton" id="seller-blue-button" onclick="getAlarmOn(`${loginUser.userNo}`,`${si.sellerPageNo}`)">알람설정</button>
                     </c:otherwise>
                 </c:choose>
                 <p>${si.storeName}</p>

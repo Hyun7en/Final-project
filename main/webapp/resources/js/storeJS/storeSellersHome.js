@@ -44,6 +44,7 @@ function checkAlarm(userNo, sellerPageNo){
                     alarmDiv.setAttribute("onclick", `getAlarmOff(${userNo}, ${sellerPageNo})`)
                     alarmButton.id = "seller-confirmed-button";
                     alarmButton.setAttribute("onclick", `getAlarmOff(${userNo}, ${sellerPageNo})`);
+                    alarmButton.innerHTML = "알람해제"
                     document.querySelector('.alarmDiv>img').src = url;
                 } else{
                     console.log("알람 OFF");

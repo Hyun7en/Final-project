@@ -203,7 +203,7 @@
 		WHERE	BOARD_NO = #{boardNo}
 		AND		USER_NO = #{userNo}
 	</select>
-	<insert id="thumbUpClick">
+	<insert id="thumbUpOn">
 		INSERT INTO BOARD_THUMBUP(
 				USER_NO,
 				BOARD_NO,
@@ -215,4 +215,9 @@
 				1
 		)
 	</insert>
+	<delete id="thumbUpOff">
+		DELETE FROM BOARD_THUMBUP
+		WHERE	USER_NO = #{userNo}
+		AND		BOARD_NO = #{boardNo}
+	</delete>
 </mapper>
