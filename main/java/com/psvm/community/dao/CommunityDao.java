@@ -80,8 +80,12 @@ public class CommunityDao {
 		return sqlSession.selectOne("communityMapper.thumbUpCheck", t);
 	}
 	
-	public int thumbUpClick(SqlSessionTemplate sqlSession, ThumbUp t) {
-		return sqlSession.insert("communityMapper.thumbUpClick", t);
+	public int thumbUpOn(SqlSessionTemplate sqlSession, ThumbUp t) {
+		return sqlSession.insert("communityMapper.thumbUpOn", t);
+	}
+	
+	public int thumbUpOff(SqlSessionTemplate sqlSession, ThumbUp t) {
+		return sqlSession.insert("communityMapper.thumbUpOff", t);
 	}
 }
 

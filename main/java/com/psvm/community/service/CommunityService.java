@@ -56,5 +56,8 @@ public interface CommunityService {
 	int thumbUpCheck(ThumbUp t);
 	
 	//추천 누름
-	int thumbUpClick(ThumbUp t);
+	int thumbUpOn(ThumbUp t);
+	
+	//추천 취소
+	int thumbUpOff(ThumbUp t);
 }
