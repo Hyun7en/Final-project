@@ -56,7 +56,8 @@
         <%@ include file="../commons/header.jsp" %>
         <main id="seller-home">
             <div id="seller-home-top">
-                <c:when test="${empty loginUser}">
+                <c:choose>
+                    <c:when test="${empty loginUser}">
                         <!-- 로그인 전 -->
                         <div id="seller-grey-img"><img src="${pageContext.request.contextPath}/resources/image/mdi_bell-outline.png" alt=""></div>
                         <button id="seller-grey-button" disabled>알림받기</button>
