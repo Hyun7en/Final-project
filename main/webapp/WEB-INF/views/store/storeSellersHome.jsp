@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/storeCSS/storeSellersHome.css">
 
 </head>
-<body onload="orderSelected()">
+<body onload="orderSelected(); checkAlarm(`${loginUser.userNo}`, `${si.sellerPageNo}`)">
     <c:if test="${ not empty successMessage}">
 		<script>
             var successMessage = '${successMessage}';
@@ -56,15 +56,16 @@
         <%@ include file="../commons/header.jsp" %>
         <main id="seller-home">
             <div id="seller-home-top">
-                <c:when test="${empty loginUser}">
+                <c:choose>
+                    <c:when test="${empty loginUser}">
                         <!-- 로그인 전 -->
                         <div id="seller-grey-img"><img src="${pageContext.request.contextPath}/resources/image/mdi_bell-outline.png" alt=""></div>
                         <button id="seller-grey-button" disabled>알림받기</button>
                     </c:when>
                     <c:otherwise>
                         <!-- 로그인 후 -->
-                        <div id="seller-blue-img"><img src="${pageContext.request.contextPath}/resources/image/mdi_bell-outline.png" alt=""></div>
-                        <button id="seller-blue-button" onclick="getAlarmOn(`${loginUser.userNo}`,`${siList.sellerPageNo}`)">알림받기</button>
+                        <div class="alarmDiv" id="seller-blue-img" onclick="getAlarmOn(`${loginUser.userNo}`,`${si.sellerPageNo}`)"><img src="${pageContext.request.contextPath}/resources/image/mdi_bell-outline.png" alt=""></div>
+                        <button class="alarmButton" id="seller-blue-button" onclick="getAlarmOn(`${loginUser.userNo}`,`${si.sellerPageNo}`)">알림받기</button>
                     </c:otherwise>
                 </c:choose>
                 <p>${si.storeName}</p>

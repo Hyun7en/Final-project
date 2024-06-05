@@ -101,11 +101,11 @@
                 </div>
 
                 <div class="form-actions">
-                    <a href="">
-                        수정 하기
+                    <a href="updateForm.pd">
+                        수정
                     </a>
                     <button>
-                        삭제하기
+                        삭제
                     </button>
                 </div>
             

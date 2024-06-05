@@ -49,7 +49,7 @@
                             <label  for="select-category">
                                 카테고리
                             </label>
-                            <select class="form-control" id="select-category" name="pdCategory" required>
+                            <select class="form-control" id="select-category" name="caNo" required>
                                 
                             </select>
                         </div>
@@ -81,7 +81,7 @@
                     <input type="file" id="productImage" name="productImage" required>
                 </div>
                 <div class="image-container">
-                    <img id="preview-image" src="getImage?id=1" alt="대표 이미지">
+                    <img id="preview-image" src="getImage?id=1" alt="상품 이미지">
                 </div>
                 <div class="form-group">
                     <label for="summernote">
