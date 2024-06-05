@@ -27,7 +27,6 @@ public class StoreDao {
 	public ArrayList<StoreInfo> selectProductList(SqlSessionTemplate sqlSession, PageInfo pi, HashMap<String, String> map) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		System.out.println(map.get("order"));
 		return (ArrayList)sqlSession.selectList("storeMapper.selectProductList", map, rowBounds);
 	}
 	
@@ -38,7 +37,10 @@ public class StoreDao {
 	public ArrayList<StoreInfo> selectProductCategory(SqlSessionTemplate sqlSession, PageInfo pi, HashMap<String, String> map) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		System.out.println(map.get("order"));
 		return (ArrayList)sqlSession.selectList("storeMapper.selectProductCategory", map);
+	}
+	
+	public int ajaxAlarmCheck(SqlSessionTemplate sqlSession, StoreInfo checker) {
+		return sqlSession.selectOne("storeMapper.ajaxAlarmCheck", checker);
 	}
 }
