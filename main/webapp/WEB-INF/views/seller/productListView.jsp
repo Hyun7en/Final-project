@@ -62,7 +62,7 @@
                             <c:forEach var="pd" items="${list}">
                                 <tr id="pdList" onclick = "location.href = 'detail.pd?pno=${pd.pdNo}'">
                                     <td>${pd.pdNo}</td>
-                                    <td>${pd.caNo}</td>
+                                    <td>${pd.pdCategory}</td>
                                     <td>${pd.pdTitle}</td>
                                     <td>${pd.pdEnrollDate}</td>
                                 </tr>
