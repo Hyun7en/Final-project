@@ -55,7 +55,7 @@ public class CommunityController {
 	}
 	
 	@RequestMapping("searchlist.co")//게시글 목록 띄우기
-	public String searchList(@RequestParam(value="cpage", defaultValue="1") int currentPage, @RequestParam(value="category", defaultValue="1") int boardLevel, @RequestParam(value="condition", defaultValue="title") String condition, @RequestParam(value="keyword", defaultValue="") String keyword, Model model) {
+	public String searchList(@RequestParam(value="cpage", defaultValue="1") int currentPage, @RequestParam(value="category", defaultValue="0") int boardLevel, @RequestParam(value="condition", defaultValue="title") String condition, @RequestParam(value="keyword", defaultValue="") String keyword, Model model) {
 		
 		HashMap<String, String>map = new HashMap<>();
 		map.put("condition", condition);
