@@ -22,7 +22,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.psvm.commons.template.Pagination;
 import com.psvm.commons.vo.PageInfo;
@@ -110,8 +109,8 @@ public class SellerController {
         }
 
      
-            Type listType = new TypeToken<ArrayList<String>>() {}.getType();
-            ArrayList<String> categories = gson.fromJson(categoriesJson, listType);
+            Type listType = new TypeToken<List<String>>() {}.getType();
+            List<String> categories = gson.fromJson(categoriesJson, listType);
 
             int result = sellerService.insertSellerHome(sellerPage, categories);
             
@@ -268,8 +267,8 @@ public class SellerController {
          }
 
       
-             Type listType = new TypeToken<ArrayList<ProductOption>>() {}.getType();
-             ArrayList<ProductOption> options = gson.fromJson(optionsJson, listType);
+             Type listType = new TypeToken<List<ProductOption>>() {}.getType();
+             List<ProductOption> options = gson.fromJson(optionsJson, listType);
 
          	 int result = sellerService.insertProduct(product, options);
          	 
@@ -349,7 +348,7 @@ public class SellerController {
 		int businessNo = getBusinessNoFromUserNo(session);
 		
 		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 5);
-		ArrayList<Product> list = sellerService.selectProductList(pi,businessNo);
+		List<Product> list = sellerService.selectProductList(pi,businessNo);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
@@ -409,8 +408,8 @@ public class SellerController {
 		}
     			
 	
-            Type listType = new TypeToken<ArrayList<ProductOption>>() {}.getType();
-            ArrayList<ProductOption> options = gson.fromJson(optionsJson, listType);
+            Type listType = new TypeToken<List<ProductOption>>() {}.getType();
+            List<ProductOption> options = gson.fromJson(optionsJson, listType);
 
         	 int result = sellerService.updateProduct(product, options);
         	 
@@ -445,7 +444,7 @@ public class SellerController {
     @RequestMapping("list.spd")
   	public String selectRecentList(HttpSession session, Model model) {
 		
-		ArrayList<Product> list = sellerService.selectRecentList();
+		List<Product> list = sellerService.selectRecentList();
 		
 		model.addAttribute("list", list);
 		

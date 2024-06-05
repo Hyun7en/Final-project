@@ -3,6 +3,7 @@ package com.psvm.seller.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,7 @@ public class SellerServiceImpl implements SellerService {
 	// 카테고리 등록
 	@Transactional
 	@Override
-	public int insertSellerHome(SellerPage sellerPage, ArrayList<String> categories) {
+	public int insertSellerHome(SellerPage sellerPage, List<String> categories) {
 		
 		int t1 = sellerDao.insertSellerHome(sqlSession, sellerPage);
 		
@@ -114,7 +115,7 @@ public class SellerServiceImpl implements SellerService {
 	// 옵션 등록
 	@Transactional
 	@Override
-	public int insertProduct(Product product, ArrayList<ProductOption> options) {
+	public int insertProduct(Product product, List<ProductOption> options) {
 		
 		int t1 = sellerDao.insertpProduct(sqlSession, product);
 		
@@ -149,14 +150,14 @@ public class SellerServiceImpl implements SellerService {
 
 	// 상품 리스트 불러오기
 	@Override
-	public ArrayList<Product> selectProductList(PageInfo pi, int businessNo) {
+	public List<Product> selectProductList(PageInfo pi, int businessNo) {
 		
 		return sellerDao.selectProductList(sqlSession, pi,businessNo);
 	}
 
 	// 상품 옵션 불러오기
 	@Override
-	public ArrayList<ProductOption> selectOptions(int pno) {
+	public List<ProductOption> selectOptions(int pno) {
 		
 		return sellerDao.selectOptions(sqlSession, pno);
 	}
@@ -170,14 +171,14 @@ public class SellerServiceImpl implements SellerService {
 	
 	// 상품 정보 수정
 	@Override
-	public int updateProduct(Product product, ArrayList<ProductOption> options) {
+	public int updateProduct(Product product, List<ProductOption> options) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	// 최신 상품 불러오기
 	@Override
-	public ArrayList<Product> selectRecentList() {
+	public List<Product> selectRecentList() {
 		
 		return sellerDao.selectRecentList(sqlSession);
 	}

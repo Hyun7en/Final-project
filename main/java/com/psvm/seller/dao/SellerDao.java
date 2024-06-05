@@ -1,8 +1,8 @@
 package com.psvm.seller.dao;
 
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -47,9 +47,9 @@ public class SellerDao {
 	}
 
 	// 판매 홈 카테고리 불러오기
-	public ArrayList<ProductCategory> selectCategories(SqlSessionTemplate sqlSession, int businessNo) {
+	public List<ProductCategory> selectCategories(SqlSessionTemplate sqlSession, int businessNo) {
 		
-		return (ArrayList)sqlSession.selectList("sellerMapper.selectCategories", businessNo);
+		return (List)sqlSession.selectList("sellerMapper.selectCategories", businessNo);
 	} 
 	
 	// 판매자 홈 불러오기
@@ -91,18 +91,18 @@ public class SellerDao {
 	}
 
 	// 상품 리스트 불러오기
-	public ArrayList<Product> selectProductList(SqlSessionTemplate sqlSession, PageInfo pi, int businessNo) {
+	public List<Product> selectProductList(SqlSessionTemplate sqlSession, PageInfo pi, int businessNo) {
 		
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("sellerMapper.selectProductList", businessNo, rowBounds);
+		return (List)sqlSession.selectList("sellerMapper.selectProductList", businessNo, rowBounds);
 	}
 	
 	// 상품 옵션 불러오기
-	public ArrayList<ProductOption> selectOptions(SqlSessionTemplate sqlSession,int pno) {
+	public List<ProductOption> selectOptions(SqlSessionTemplate sqlSession,int pno) {
 		
-		return (ArrayList)sqlSession.selectList("sellerMapper.selectOptions", pno);
+		return (List)sqlSession.selectList("sellerMapper.selectOptions", pno);
 	}
 	
 	// 상품 불러오기
@@ -114,9 +114,9 @@ public class SellerDao {
 	// 상품 정보 수정
 	
 	// 최신 상품 불러오기
-	public ArrayList<Product> selectRecentList(SqlSessionTemplate sqlSession) {
+	public List<Product> selectRecentList(SqlSessionTemplate sqlSession) {
 		
-		return (ArrayList)sqlSession.selectList("sellerMapper.selectRecentList");
+		return (List)sqlSession.selectList("sellerMapper.selectRecentList");
 	}
 	
 	// 판매 상품 상세 정보
