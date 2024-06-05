@@ -55,7 +55,7 @@ public class CommunityController {
 	}
 	
 	@RequestMapping("searchlist.co")//게시글 목록 띄우기
-	public String searchList(@RequestParam(value="cpage", defaultValue="1") int currentPage, @RequestParam(value="category", defaultValue="1") int boardLevel, @RequestParam(value="condition", defaultValue="title") String condition, @RequestParam(value="keyword", defaultValue="") String keyword, Model model) {
+	public String searchList(@RequestParam(value="cpage", defaultValue="1") int currentPage, @RequestParam(value="category", defaultValue="0") int boardLevel, @RequestParam(value="condition", defaultValue="title") String condition, @RequestParam(value="keyword", defaultValue="") String keyword, Model model) {
 		
 		HashMap<String, String>map = new HashMap<>();
 		map.put("condition", condition);
@@ -179,10 +179,17 @@ public class CommunityController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("thumbUpClick.co")//추천하기
-	public String ajaxthumbUpClick(ThumbUp t) {
+	@RequestMapping("thumbUpOn.co")//추천하기
+	public String ajaxthumbUpOn(ThumbUp t) {
 		//성공했을 때는 success, 실패했을 때 fail
-		return communityService.thumbUpClick(t) > 0 ? "success" : "fail";
+		return communityService.thumbUpOn(t) > 0 ? "success" : "fail";
+	}
+	
+	@ResponseBody
+	@RequestMapping("thumbUpOff.co")//추천 취소
+	public String ajaxthumbUpOff(ThumbUp t) {
+		//성공했을 때는 success, 실패했을 때 fail
+		return communityService.thumbUpOff(t) > 0 ? "success" : "fail";
 	}
 	
 	@RequestMapping("enrollForm.co")//게시글 작성 화면

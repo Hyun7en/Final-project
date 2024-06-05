@@ -49,4 +49,19 @@ public class StoreServiceImpl implements StoreService {
 	public ArrayList<StoreInfo> selectProductCategory(PageInfo pi, HashMap<String, String> map){
 		return storeDao.selectProductCategory(sqlSession, pi, map);
 	}
+	
+	@Override
+	public int ajaxAlarmCheck(StoreInfo checker) {
+		return storeDao.ajaxAlarmCheck(sqlSession, checker);
+	}
+	
+	@Override
+	public int ajaxAlarmOn(StoreInfo checker) {
+		return storeDao.ajaxAlarmOn(sqlSession, checker);
+	}
+	
+	@Override
+	public int ajaxAlarmOff(StoreInfo checker) {
+		return storeDao.ajaxAlarmOff(sqlSession, checker);
+	}
 }

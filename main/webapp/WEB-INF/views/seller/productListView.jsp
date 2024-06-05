@@ -66,7 +66,7 @@
                                     <td>${pd.pdTitle}</td>
                                     <td>${pd.pdEnrollDate}</td>
                                 </tr>
-                            
+            
                             </c:forEach>
                         </tbody>
                     </c:otherwise>

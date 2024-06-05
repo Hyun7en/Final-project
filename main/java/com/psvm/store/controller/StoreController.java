@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.psvm.commons.template.Pagination;
@@ -44,7 +45,6 @@ public class StoreController {
 		PageInfo pi = Pagination.getPageInfo(productCount, currentPage, 12, 10);
 		ArrayList<StoreInfo> prList = storeService.selectProductList(pi, map);
 		
-		System.out.println(prList);
 		model.addAttribute("si", si);
 		model.addAttribute("siList", siList);
 		model.addAttribute("prList", prList);
@@ -75,7 +75,6 @@ public class StoreController {
 		PageInfo pi = Pagination.getPageInfo(productCount, currentPage, 12, 10);
 		ArrayList<StoreInfo> prList = storeService.selectProductCategory(pi, map);
 		
-		System.out.println(prList);
 		model.addAttribute("si", si);
 		model.addAttribute("siList", siList);
 		model.addAttribute("prList", prList);
@@ -84,5 +83,23 @@ public class StoreController {
 		model.addAttribute("prCategory", prCategory);
 
 		return "store/storeSellersCategory";
+	}
+	
+	@ResponseBody
+	@RequestMapping("alarmCheck.st") //알람 체크
+	public int ajaxAlarmCheck(StoreInfo checker) {
+		return storeService.ajaxAlarmCheck(checker);
+	}
+	
+	@ResponseBody
+	@RequestMapping("alarmOn.st") //알람 설정
+	public String ajaxAlarmOn(StoreInfo checker) {
+		return storeService.ajaxAlarmOn(checker) > 0 ? "success" : "fail";
+	}
+	
+	@ResponseBody
+	@RequestMapping("alarmOff.st") //알람해제
+	public String ajaxAlarmOff(StoreInfo checker) {
+		return storeService.ajaxAlarmOff(checker) > 0 ? "success" : "fail";
 	}
 }

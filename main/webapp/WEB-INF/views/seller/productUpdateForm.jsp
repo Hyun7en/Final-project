@@ -81,7 +81,7 @@
                     <input type="file" id="productImage" name="productImage" required>
                 </div>
                 <div class="image-container">
-                    <img id="preview-image" src="getImage?id=1" alt="대표 이미지">
+                    <img id="preview-image" src="getImage?id=1" alt="상품 이미지">
                 </div>
                 <div class="form-group">
                     <label for="summernote">
@@ -93,7 +93,7 @@
                 </div>
                 <div class="form-actions">
                     <button type="submit">
-                        검수 요청
+                        수정 요청
                     </button>
                     <button type="reset">
                         초기화

@@ -98,7 +98,12 @@ public class CommunityServiceImpl implements CommunityService{
 	}
 	
 	@Override
-	public int thumbUpClick(ThumbUp t) {
-		return communityDao.thumbUpClick(sqlSession, t);
+	public int thumbUpOn(ThumbUp t) {
+		return communityDao.thumbUpOn(sqlSession, t);
+	}
+	
+	@Override
+	public int thumbUpOff(ThumbUp t) {
+		return communityDao.thumbUpOff(sqlSession, t);
 	}
 }
