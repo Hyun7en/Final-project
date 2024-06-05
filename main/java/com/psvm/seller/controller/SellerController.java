@@ -38,15 +38,18 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 public class SellerController {
-    
+
     @Autowired
     private SellerService sellerService;
     
     private final Gson gson = new Gson();
     
     
-
-    // 판매자 정보 출력
+	/*
+	 * seller
+	 */
+    
+    // 판매자 정보 불러오기
     @RequestMapping("info.sr")
     public String selectSeller(HttpSession session, Model model) {
     	
@@ -66,9 +69,16 @@ public class SellerController {
         return "seller/sellerInfo";
     }
     
-    
-    // 로그인 한 user의 businessNo가져오는 메서드
+    /**
+     * 로그인한 판매자의 사업자 번호를 가져오는 메서드 입니다.
+     * 
+     * @param session session 가져옴
+     * @return 로그인한 판매자의 사업자 번호
+     */
+    // 로그인 한 판매자의 사업자 번호 가져오는 메서드
     public int getBusinessNoFromUserNo(HttpSession session) {
+
+    	
     	// 세션에서 loginUser 객체 가져오기
     	Member loginUser = (Member)session.getAttribute("loginUser");
 
@@ -78,12 +88,13 @@ public class SellerController {
         
     }
     
-    // 판매자 홈 관련
+    // 판매자 홈
     @RequestMapping("enrollForm.srh")
 	public String sellerHomeEnrollForm() {
 		return "seller/sellerHomeEnrollForm";
 	}
     
+    // 판매자 홈 등록
     @RequestMapping("insert.srh")
     public String insertSellerHome(SellerPage sellerPage, MultipartFile storeHomeImage, @RequestParam("categoriesJson") String categoriesJson,
                                    HttpSession session, RedirectAttributes redirectAttributes) {
@@ -94,10 +105,10 @@ public class SellerController {
         if (!storeHomeImage.getOriginalFilename().isEmpty()) {
             String changeName = saveFile(storeHomeImage, session);
             sellerPage.setSpOriginName(storeHomeImage.getOriginalFilename());
-            sellerPage.setSpChangeName("resources/upFiles/sellerImg/" + changeName);
+            sellerPage.setSpChangeName("resources/upFiles/productImg/" + changeName);
         }
 
-        try {
+     
             Type listType = new TypeToken<ArrayList<String>>() {}.getType();
             ArrayList<String> categories = gson.fromJson(categoriesJson, listType);
 
@@ -114,9 +125,7 @@ public class SellerController {
                 return "redirect:detail.srh"; // 등록 페이지로 리다이렉트
                 
             }
-        } catch (JsonSyntaxException e) {
-            return "redirect:detail.srh";
-        }
+      
     }
 
     // 실제 넘어온 파일의 이름을 변경해서 서버에 저장하는 메소드
@@ -137,7 +146,7 @@ public class SellerController {
   		String changeName = currentTime + ranNum + ext;
   		
   		// 첨부파일을 저장할 폴더의 물리적 경로(session)
-  		String savePath = session.getServletContext().getRealPath("/resources/upFiles/sellerImg/");
+  		String savePath = session.getServletContext().getRealPath("/resources/upFiles/productImg/");
   		
   		try {
   			upfile.transferTo(new File(savePath + changeName));
@@ -160,6 +169,7 @@ public class SellerController {
         return gson.toJson(sellerService.selectCategories(businessNo));
     }
   	
+    // 판매자 홈 불러오기
   	@RequestMapping("detail.srh")
   	public String selectSellerHomeDetail(HttpSession session, Model model) {
   		
@@ -177,6 +187,7 @@ public class SellerController {
   	    return "seller/sellerHomeDetailView";
   	}
     
+  	// 판매자 홈 수정 페이지
     @RequestMapping("updateForm.srh")
   	public String sellerHomeUpdateForm(HttpSession session, Model model) {
     	int businessNo = getBusinessNoFromUserNo(session);
@@ -193,18 +204,53 @@ public class SellerController {
   		return "seller/sellerHomeUpdateForm";
   	}
     
+ // 판매자 홈 수정
     @RequestMapping("update.srh")
-  	public String sellerHomeUpdate() {
-    	
-  		return "redirect:detail.srh";
-  	}
+    public String updateSellerHome(SellerPage sellerPage, MultipartFile storeHomeImage, @RequestParam("categoriesJson") String categoriesJson,
+        HttpSession session, RedirectAttributes redirectAttributes) {
+        
+        // 새로운 첨부파일이 넘어온 경우
+        if (!storeHomeImage.getOriginalFilename().equals("")) {
+            // 기존의 첨부파일이 있다면 기존의 파일을 삭제
+            if (sellerPage.getSpOriginName() != null) {
+                new File(session.getServletContext().getRealPath(sellerPage.getSpChangeName())).delete();
+            }
+            
+            // 새로 넘어온 첨부파일을 서버에 업로드
+            String changeName = saveFile(storeHomeImage, session);
+            
+            sellerPage.setSpOriginName(storeHomeImage.getOriginalFilename());
+            sellerPage.setSpChangeName("/resources/upFiles/productImg/" + changeName);
+        }
+        
+        int businessNo = getBusinessNoFromUserNo(session);
+        sellerPage.setBusinessNo(businessNo);
+
+       
+            Type listType = new TypeToken<ArrayList<String>>() {}.getType();
+            ArrayList<String> categories = gson.fromJson(categoriesJson, listType);
+
+            int result = sellerService.updateSellerHome(sellerPage, categories);
+            
+            if (result > 0) { // 성공
+                session.setAttribute("SellerHomeRegistered", true);
+                redirectAttributes.addFlashAttribute("message", "등록이 완료되었습니다.");
+                return "redirect:detail.srh";
+            } else { // 실패
+                redirectAttributes.addFlashAttribute("error", "판매자 홈을 업데이트하는 데 실패했습니다.");
+                return "redirect:detail.srh"; // 실패 시 등록 페이지로 리다이렉트
+            }
+      
+    }
+
    
-    // 판매자 제품 관련
+    // 판매자 상품
     @RequestMapping("enrollForm.pd")
   	public String productEnrollForm() {
   		return "seller/productEnrollForm";
   	}
     
+    // 판매자 상품 등록
     @RequestMapping("insert.pd")
   	public String insertProduct(Product product, MultipartFile productImage, @RequestParam("optionsJson") String optionsJson,
     HttpSession session, RedirectAttributes redirectAttributes) {
@@ -219,7 +265,7 @@ public class SellerController {
              product.setPdChangeName("resources/upFiles/productImg/" + changeName);
          }
 
-         try {
+      
              Type listType = new TypeToken<ArrayList<ProductOption>>() {}.getType();
              ArrayList<ProductOption> options = gson.fromJson(optionsJson, listType);
 
@@ -236,9 +282,7 @@ public class SellerController {
                  return "redirect:list.pd"; // 등록 페이지로 리다이렉트
                  
              }
-         } catch (Exception  e) {
-             return "redirect:list.pd";
-         }
+    
      }
     
     /*
@@ -295,7 +339,7 @@ public class SellerController {
     
   	//상품 리스트
     @RequestMapping("list.pd")
-  	public String ProductList(@RequestParam(value="cpage", defaultValue="1") int currentPage,HttpSession session, Model model) {
+  	public String selectProductList(@RequestParam(value="cpage", defaultValue="1") int currentPage,HttpSession session, Model model) {
     	
 		int boardCount = sellerService.selectProductListCount();
 		//logger.info("list.bo 실행");
@@ -303,7 +347,7 @@ public class SellerController {
 		int businessNo = getBusinessNoFromUserNo(session);
 		
 		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 5);
-		ArrayList<Product> list = sellerService.ProductList(pi,businessNo);
+		ArrayList<Product> list = sellerService.selectProductList(pi,businessNo);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
@@ -316,10 +360,12 @@ public class SellerController {
     @ResponseBody
     public String ajaxGetOptions(int pno, HttpSession session) {
     	
+    	log.info("pno", pno);
         return gson.toJson(sellerService.selectOptions(pno));
         
     }
     
+    // 상품 불러오기
     @RequestMapping("detail.pd")
 	public String selectProduct(int pno, Model model) {
 		
@@ -330,18 +376,58 @@ public class SellerController {
 			return "seller/sellerProductDetailView";
 	}
     
+    // 상품 정보 수정 페이지
     @RequestMapping("updateForm.pd")
-  	public String productUpdateForm() {
+  	public String productUpdateForm(int pno, Model model) {
+    	
+    	Product pd = sellerService.selectProduct(pno);
+		
+		model.addAttribute("pd", pd);
     	
   		return "seller/productUpdateForm";
   	}
     
+    //상품 정보 수정
     @RequestMapping("update.pd")
-  	public String updateProduct() {
+  	public String updateProduct(Product product, MultipartFile productImage, @RequestParam("optionsJson") String optionsJson,
+  		    HttpSession session, RedirectAttributes redirectAttributes) {
     	
-  		return "";
+    	//새로운 첨부파일이 넘어온 경우
+		if(!productImage.getOriginalFilename().equals("")) {
+			//기존의 첨부파일이 있다 => 기존의 파일을 삭제
+			if(product.getPdOriginName() != null) {
+				new File(session.getServletContext().getRealPath(product.getPdChangeName())).delete();
+			}
+			
+			//새로 넘어온 첨부파일을 서버에 업로드 시키기
+			String changeName = saveFile(productImage, session);
+			
+			product.setPdOriginName(productImage.getOriginalFilename());
+			product.setPdChangeName("/resources/upFiles/productImg/" + changeName);
+		}
+    			
+	
+            Type listType = new TypeToken<ArrayList<ProductOption>>() {}.getType();
+            ArrayList<ProductOption> options = gson.fromJson(optionsJson, listType);
+
+        	 int result = sellerService.updateProduct(product, options);
+        	 
+            if (result > 0 ) { // 성공
+           	 
+                redirectAttributes.addFlashAttribute("message", "등록이 완료되었습니다.");
+                
+                return "redirect:list.pd";
+                
+            }else { // 실패
+            	redirectAttributes.addFlashAttribute("message", "등록 실패하셨습니다.");
+                return "redirect:list.pd"; // 등록 페이지로 리다이렉트
+                
+            }
+     	
+    			
   	}
     
+    //상품 삭제
     @RequestMapping("delete.pd")
     public String deleteProduct() {
     	
@@ -349,9 +435,11 @@ public class SellerController {
     	return "redirect:list.pd";
     }
     
-    //storeMain
+    /*
+     * storeMain
+     */
     
-    //상품 리스트
+    // 최신 상품 리스트
     @RequestMapping("list.spd")
   	public String selectRecentList(HttpSession session, Model model) {
 		
@@ -362,7 +450,7 @@ public class SellerController {
 		return "store/storeMain";
 	}
     
-    // 판매 상품 detail
+    // 판매 상품 상세 정보
     @RequestMapping("detail.spd")
     public String selectSalesProduct(int pno, Model model) {
     	

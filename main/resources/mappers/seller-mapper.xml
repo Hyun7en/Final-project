@@ -70,7 +70,7 @@
 		WHERE USER_NO = #{userNo}
 	</select>
 	
-	<insert id="insertSellerPage">
+	<insert id="insertSellerHome">
 		INSERT INTO
 					SELLER_PAGE (
 								 business_no,
@@ -110,12 +110,26 @@
 	</select>
 	
 	<select id="selectSellerHomeDetail" resultMap="sellerPageResult">
-		SELECT SELLER_EXPLAIN,
+		SELECT SELLER_PAGE_NO,
+			   SELLER_EXPLAIN,
 			   SP_ORIGIN_NAME,
 			   SP_CHANGE_NAME
 		  FROM SELLER_PAGE
 		 WHERE BUSINESS_NO = #{businessNo}
 	</select>
+	
+	<update id="updateSellerHome">
+		UPDATE SELLER_PAGE
+		   SET SELLER_EXPLAIN = #{sellerExplain},
+		   	   SP_ENROLL_DATE = default,
+		   	   SP_ORIGIN_NAME = #{spOriginName},
+		   	   SO_CHANGE_NAME = #{spChangeName}
+		 WHERE BUSINESS_NO = #{businessNo}   				
+	</update>
+	
+<!-- 	<update id="updateProductCategory">
+		
+	</update> -->
 	
 	<select id="countByBusinessNo" resultType="int">
         SELECT COUNT(*)
@@ -172,7 +186,7 @@
 		 WHERE P_STATUS = 'Y'
 	</select>
 	
-	<select id="ProductList" resultMap="productResult">
+	<select id="selectProductList" resultMap="productResult">
 		SELECT P_NO,
 			   P_CATEGORY,
 			   P_TITLE,
