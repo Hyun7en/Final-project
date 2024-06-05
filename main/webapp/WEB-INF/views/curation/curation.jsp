@@ -12,7 +12,10 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/curationCSS/curation.css">
 	<script src="${pageContext.request.contextPath}/resources/js/curationJS/curation.js"></script>
-   
+
+    <!-- 애니메이션 cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+</head>
 <body onload="fishInfoInit('${pageContext.request.contextPath}')">
 	<div class="wrap">
 	

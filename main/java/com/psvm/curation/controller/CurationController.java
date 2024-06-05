@@ -25,7 +25,7 @@ public class CurationController {
 		return "curation/curation" ; 
 	}
 	
-	@RequestMapping(value="go-curation")
+	@RequestMapping(value="detailCuration.cu")
 	public String goCuration(){
 		return "curation/detailCuration";
 	}

@@ -18,22 +18,8 @@
 		<!-- header -->
         <%@ include file="../commons/header.jsp" %>
         
-        <main id="main-div">
-            <div id="cu-explain">
-                <p>어울리는 물고기를 추천해드려요 !</p>
-            </div>
-            <div id="cu-img">
-                <img src="${pageContext.request.contextPath}/resources/image/whale.png" alt="">
-            </div>
-            <div id="cu-curation">
-                
-            </div>
-            <div id="cu-sub-explain">
-                <p>자신에게 맞는 물고기를 찾아보세요!</p>
-            </div>
-            <div id="cu-btn">
-                <button>제출</button>
-            </div>
+        <main>
+            결과창
 		    
         </main>
             

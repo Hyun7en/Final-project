@@ -59,7 +59,7 @@ main{
 #cu-explain-change{
     width: 1000px;
     height: 130px;
-    font-size: 54px;
+    font-size: 44px;
     font-weight: bold;
     text-align: center;
 }
@@ -78,12 +78,21 @@ main{
 
 #cu-sub-explain-change{
     width: 600px;
-    height: 30px;
+    height: 380px;
     font: 20px;
     font-weight: 600;
     margin-top: 20px;
     margin-bottom: 3px;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-right: 300px;
+}
+
+#cu-sub-explain-change p{
+    color: white;
+    font-size: 20px;
 }
 
 #cu-btn-change{
@@ -103,4 +112,12 @@ main{
 #cu-question-div{
     display: flex;
     margin-bottom: 53px;
+}
+
+.p-div{
+    background-color: #0089FF;
+    border-radius: 15px;
+    margin-bottom: 3px;
+    padding: 10px;
+    
 }
