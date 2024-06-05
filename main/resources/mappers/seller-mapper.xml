@@ -39,6 +39,7 @@
 	<resultMap type="Product" id="productResult">
 		<result column="P_NO" property="pdNo"/>
 		<result column="C_NO" property="caNo"/>
+		<result column="P_CATEGORY" property="pdCategory"/>
 		<result column="P_TITLE" property="pdTitle"/>
 		<result column="P_PRICE" property="pdPrice"/>
 		<result column="P_CONTENT" property="pdContent"/>
@@ -191,6 +192,7 @@
 	<select id="selectProductList" resultMap="productResult">
 		SELECT P_NO,
 			   C_NO,
+			   P_CATEGORY,
 			   P_TITLE,
 			   TO_CHAR(P_ENROLL_DATE , 'YYYY-MM-DD') AS "P_ENROLL_DATE"
 		  FROM PRODUCT
@@ -204,7 +206,7 @@
 	<select id="selectProduct" resultMap="productResult">
 		SELECT *
 		  FROM PRODUCT
-		  JOJIN P_CATEGORY USING(C_NO)
+		  JOIN PRODUCT_CATEGORY USING(C_NO)
 		 WHERE P_STATUS = 'Y'
 		   AND P_NO = #{pno}
 	</select>
