@@ -103,7 +103,7 @@
                             </button>
                         </c:when>
                         <c:otherwise>
-                            <button class="goodbutton" type="button" id="com-detail-goodbutton" onclick="thumbUpClick('${loginUser.userNo}', '${c.boardNo}');" value="1">
+                            <button class="goodbutton" type="button" id="com-detail-goodbutton" onclick="thumbUpOn('${loginUser.userNo}', '${c.boardNo}');" value="1">
                                 <img src="${pageContext.request.contextPath}/resources/image/good.png" alt="추천 버튼" style="width: 30px; height: 30px;">
                             </button>
                         </c:otherwise>

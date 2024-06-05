@@ -45,7 +45,8 @@ body{
     background: #AFA8A8;
 }
 #seller-confirmed-button{
-    border: 2px solid #0089FF;
+    border: 3px solid #0089FF;
+    border-left: 0;
     width: 110px;
     height: 40px;
     color: #0089FF;
@@ -53,17 +54,19 @@ body{
     font-size: 18px;
     font-weight: bold;
     border-radius: 0 10px 10px 0;
-    padding-right: 35px;
+    padding-right: 32px;
     background-color: white;
 }
 #seller-confirmed-img{
-    border: 2px solid #0089FF;
+    border: 3px solid #0089FF;
+    border-right: 0;
     width: 40px;
     height: 40px;
     margin-left: 0;
     border-radius: 10px 0 0 10px;
     text-align: center;
-    padding-top: 5px;
+    padding-top: 2px;
+    background-color: white;
 }
 
 #seller-blue-img, #seller-grey-img{

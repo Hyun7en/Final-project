@@ -218,7 +218,7 @@ function checkThumbUp(ThumbUp, userNo, goodbutton){
                 if (result > 0){
                     console.log(goodbutton);
                     goodbutton.id = "com-detail-goodbuttonClicked";
-                    goodbutton.removeAttribute('onclick');
+                    goodbutton.setAttribute('onclick', `thumbUpOff(${userNo}, ${ThumbUp.boardNo})`);
                 }
             },
             error: function(item){
@@ -230,11 +230,11 @@ function checkThumbUp(ThumbUp, userNo, goodbutton){
 }
 
 //추천 버튼 클릭
-function thumbUpClick(userNo, boardNo){
+function thumbUpOn(userNo, boardNo){
     const goodbutton = document.querySelector('.goodbutton');
     goodbutton.id = "com-detail-goodbuttonClicked";
-    goodbutton.removeAttribute('onclick');
-    ajaxthumbUpClick({
+    goodbutton.setAttribute('onclick', `thumbUpOff(${userNo}, ${boardNo})`);
+    ajaxthumbUpOn({
         userNo : userNo,
         boardNo : boardNo
     }, function(res){
@@ -245,9 +245,9 @@ function thumbUpClick(userNo, boardNo){
     }
 )}
 
-function ajaxthumbUpClick(data, callback){
+function ajaxthumbUpOn(data, callback){
     $.ajax({
-        url: 'thumbUpClick.co',
+        url: 'thumbUpOn.co',
         data : data,
         success: function(res){
             console.log("추천 입력 성공")
@@ -256,6 +256,36 @@ function ajaxthumbUpClick(data, callback){
         error: function(item){
             console.log(item);
             console.log("추천 입력 실패");
+        }
+    })
+}
+
+function thumbUpOff(userNo, boardNo){
+    const goodbutton = document.querySelector('.goodbutton');
+    goodbutton.id = "com-detail-goodbutton";
+    goodbutton.setAttribute('onclick', `thumbUpOn(${userNo}, ${boardNo})`);
+    ajaxthumbUpOff({
+        userNo : userNo,
+        boardNo : boardNo
+    }, function(res){
+        console.log(boardNo);
+        getThumbUpCount({boardNo : boardNo}, function(count){
+            setThumbUpCount(count)
+        })
+    }
+)}
+
+function ajaxthumbUpOff(data, callback){
+    $.ajax({
+        url: 'thumbUpOff.co',
+        data : data,
+        success: function(res){
+            console.log("추천 취소 성공")
+            callback(res)
+        },
+        error: function(item){
+            console.log(item);
+            console.log("추천 취소 실패");
         }
     })
 }

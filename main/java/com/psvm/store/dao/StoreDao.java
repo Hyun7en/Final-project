@@ -43,4 +43,12 @@ public class StoreDao {
 	public int ajaxAlarmCheck(SqlSessionTemplate sqlSession, StoreInfo checker) {
 		return sqlSession.selectOne("storeMapper.ajaxAlarmCheck", checker);
 	}
+	
+	public int ajaxAlarmOn(SqlSessionTemplate sqlSession, StoreInfo checker) {
+		return sqlSession.insert("storeMapper.ajaxAlarmOn", checker);
+	}
+	
+	public int ajaxAlarmOff(SqlSessionTemplate sqlSession, StoreInfo checker) {
+		return sqlSession.delete("storeMapper.ajaxAlarmOff", checker);
+	}
 }
