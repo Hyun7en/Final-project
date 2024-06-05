@@ -62,7 +62,7 @@ public class SellerDao {
 	public int updateSellerHome(SqlSessionTemplate sqlSession, SellerPage sellerPage){
 		
 	    return sqlSession.insert("sellerMapper.updateSellerHome", sellerPage);
-	    
+	   
 	}
 
 	//수정한 카테고리 넣기
