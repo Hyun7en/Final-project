@@ -28,15 +28,15 @@ public class StoreInfo {
 	private int businessNo; //사업자 번호
 	private String sellerExplain; //홈 소개
 	private String spChangeName; //변경파일명(배너 이미지)
-	private String pCategory; // 판매카테고리
+	private String prCategory; // 판매카테고리
 	private String storeName; //상호명
-	private int pNo; //상품번호
-	private String pTitle; //상품명
-	private int sellPrice; //판매가액
-	private Date pEnrollDate; //등록일자
-	private int pStar; //별점
-	private String pChangeName; //변경파일명(상품 이미지)
-	private String pStatus; //판매중
+	private int prNo; //상품번호
+	private String prTitle; //상품명
+	private int prPrice; //판매가액
+	private Date prEnrollDate; //등록일자
+	private int prStar; //별점
+	private String prChangeName; //변경파일명(상품 이미지)
+	private String prStatus; //판매중
 	private int userNo; //회원고유번호
-	
+	private int reviewCount; //리뷰 갯수
 }

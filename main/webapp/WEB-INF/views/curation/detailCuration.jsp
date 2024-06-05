@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -10,10 +9,10 @@
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/curationCSS/curation.css">
-	<script src="${pageContext.request.contextPath}/resources/js/curationJS/curation.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/curationCSS/detailCuration.css">
+	<script src="${pageContext.request.contextPath}/resources/js/curationJS/detailCuration.js"></script>
    
-<body onload="fishInfoInit('${pageContext.request.contextPath}')">
+<body>
 	<div class="wrap">
 	
 		<!-- header -->
@@ -26,15 +25,18 @@
             <div id="cu-img">
                 <img src="${pageContext.request.contextPath}/resources/image/whale.png" alt="">
             </div>
+            <div id="cu-curation">
+                
+            </div>
             <div id="cu-sub-explain">
                 <p>자신에게 맞는 물고기를 찾아보세요!</p>
             </div>
             <div id="cu-btn">
-                <button onclick="startCuration();">시작하기</button>
+                <button>제출</button>
             </div>
 		    
         </main>
-                
+            
         <!-- footer -->
         <%@ include file="../commons/footer.jsp" %>
         

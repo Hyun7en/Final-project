@@ -29,7 +29,6 @@ public class FishInfoController {
 	@RequestMapping(value="fishDetail.fi", produces="application/json; charset=UTF-8")
 	public String fishDetail(@RequestParam(value="fishName") String fishName, Model model) {
 		
-		System.out.println(fishName);
 		Fish fish = fishService.fishDetail(fishName);		
 		
 		
@@ -67,7 +66,6 @@ public class FishInfoController {
 	    map.put("tasteType", tasteType);
 	    
 	    ArrayList<Fish> list = fishService.anotherFishAjax(map);
-	    System.out.println(list);
 
 	    return new Gson().toJson(list);
 	}
@@ -104,7 +102,7 @@ public class FishInfoController {
 		
 		ArrayList<Fish> list = fishService.ajaxCategorySearch(pi ,cate);
 		
-		System.out.println(list);
+	
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("pi", pi);
