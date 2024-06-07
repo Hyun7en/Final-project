@@ -2,12 +2,14 @@
 
     
     section {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
+        display: block;
         padding: 40px 200px;
         height: calc(100vh - 40px);
         overflow-y: scroll;
+    }
+  
+    #product-detail{
+        display: block;
     }
 
     /* 스크롤바 없애기 */
@@ -24,33 +26,17 @@
     section h1 {
         margin-bottom: 20px;
     }
-
-    section div{
-        margin-bottom: 20px;
-    }
+   
     section .form-group {
-        margin-bottom: 15px;
+        margin-top: 30px;
         display: flex;
         align-items: center;
-    }
-
-    section .form-group .pd-detail-title {
-        width: 150px;
-        font-weight: bold;
     }
 
     section .form-group div{
         flex: 1;
         padding: 5px;
         font-size: 16px;
-    }
-
-    #product-management{
-        display: flex;
-    }
-
-    #product-management div{
-        margin-right: 30px;
     }
     
     .image-container {

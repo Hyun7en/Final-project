@@ -93,7 +93,7 @@ public class SellerController {
 	public String sellerHomeEnrollForm() {
 		return "seller/sellerHomeEnrollForm";
 	}
-    
+   
     // 판매자 홈 등록
     @RequestMapping("insert.srh")
     public String insertSellerHome(SellerPage sellerPage, MultipartFile storeHomeImage, @RequestParam("categoriesJson") String categoriesJson,
@@ -359,13 +359,12 @@ public class SellerController {
     // 옵션 불러오는 ajax
     @RequestMapping(value = "options.ax", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public String ajaxGetOptions(int pno, HttpSession session) {
-    	
-    	log.info("pno", pno);
-        return gson.toJson(sellerService.selectOptions(pno));
-        
+    public String ajaxGetOptions(@RequestParam("pno") int pno) {
+        log.info("pno: {}", pno);
+        List<ProductOption> options = sellerService.selectOptions(pno);
+        return new Gson().toJson(options);
     }
-    
+   
     // 상품 불러오기
     @RequestMapping("detail.pd")
 	public String selectProduct(int pno, Model model) {

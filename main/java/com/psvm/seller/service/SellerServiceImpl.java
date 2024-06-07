@@ -1,7 +1,6 @@
 package com.psvm.seller.service;
 
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -68,7 +67,7 @@ public class SellerServiceImpl implements SellerService {
 	
 	// 판매 홈 카테고리 불러오기
 	@Override
-	public ArrayList<ProductCategory> selectCategories(int businessNo) {
+	public List<ProductCategory> selectCategories(int businessNo) {
 		
 		return sellerDao.selectCategories(sqlSession, businessNo);
 	}
