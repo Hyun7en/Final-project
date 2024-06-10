@@ -3,15 +3,25 @@
         path = contextPath;
     }
 
-
+// 중복 호출 방지용 플래그 변수
+let isRequestInProgress = false;
     function startCuration(count){
+        // 요청이 진행 중인 경우 함수 실행 중단
+        if (isRequestInProgress) {
+            return;
+        }
+    
+        // 요청 진행 중으로 설정
+        isRequestInProgress = true;
+    
         getQuestionList(count, function(count, data){
             getListDetail(count, data, function(count, listData){
                 drawCuration(count, listData);
+    
+                // 요청이 완료되면 플래그를 false로 재설정
+                isRequestInProgress = false;
             });
         });
-
-        
     }
 
     function getQuestionList(count, callback){
@@ -77,11 +87,6 @@
         let str = "";
         let Section = document.getElementById("main-div");
 
-        if(count==4){
-            result();
-            return;
-        }
-
         str+= `
                 <div class="cu-explain">
                     <p>${listData[count][0]}</p>
@@ -103,8 +108,9 @@
 
 
 
-    function result(){
-        location.href="detailCuration.cu";
+    function result(clickedTexts){
+        const queryString = clickedTexts.join(','); // 쉼표로 구분된 문자열로 변환
+        location.href = "detailCuration.cu?clickedTexts=" + encodeURIComponent(queryString);
     }
 
     // 클릭 이벤트 리스너를 전역 변수로 선언
@@ -116,8 +122,7 @@
         clickListener = function(event) {
             if (event.target.classList.contains("smallQ")) {
                 const clickedText = event.target.textContent;
-                console.log(clickedText);
-                clickedTexts.push(clickedText); // 배열에 클릭된 텍스트 추가
+                clickedTexts.push(clickedText.trim()); // 배열에 클릭된 텍스트 추가, 자꾸 양쪽에 공백 들어가서 제거
                 console.log(clickedTexts); // 배열 출력
 
                 
@@ -132,7 +137,7 @@
                 if (currentCount >= 4) {
                     // 클릭 이벤트 리스너 제거
                     document.getElementById("main-div").removeEventListener("click", clickListener);
-                    result();
+                    result(clickedTexts);
                 } else {
                     startCuration(currentCount);
                 }

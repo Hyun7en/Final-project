@@ -30,4 +30,6 @@ public class Fish {
 	public String environment;
 	public String lifeSpan;
 	public String feedType;
+	public String difficulty;
+	public String growthLength;
 }
