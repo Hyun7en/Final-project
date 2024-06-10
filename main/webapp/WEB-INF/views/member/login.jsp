@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.security.SecureRandom" %>
+<%@ page import="java.math.BigInteger" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +22,9 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/memberCSS/login.css">
     <script src="${pageContext.request.contextPath}/resources/js/memberJS/login.js"></script>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
-    
+
+    <!-- naver login -->
+    <script src="${pageContext.request.contextPath}/resources/js/memberJS/NaverLogin.js"></script>
    
 </head>
 <body>
@@ -53,7 +58,7 @@
         <div id="login-easy">
             <p>간편 로그인/회원가입</p>
             <button><img src="${pageContext.request.contextPath}/resources/image/kakao_login_large.png" alt="카카오 로그인" ></button>
-            <button><img src="${pageContext.request.contextPath}/resources/image/btnG_roundicon.png" alt="네이버 로그인"></button>
+            <button id="naverLoginLink" onclick="NaverLogin()"><img src="${pageContext.request.contextPath}/resources/image/btnG_roundicon.png" alt="네이버 로그인"></button>
         </div>
     </div>
 </body>
