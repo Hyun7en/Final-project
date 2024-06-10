@@ -66,10 +66,16 @@
 		   AND STATUS = 'Y'
 	</select>
 	
-	<select id="selectBusinessNo" resultType="_int">
+	<select id="getBusinessNo" resultType="_int">
 		SELECT BUSINESS_NO
 		FROM SELLER_INFO
 		WHERE USER_NO = #{userNo}
+	</select>
+	
+	<select id="getSellerPageNo" resultType="_int">
+	 	SELECT seller_page_no
+          FROM SELLER_PAGE
+         WHERE BUSINESS_NO = #{businessNo}
 	</select>
 	
 	<insert id="insertSellerHome">
@@ -124,15 +130,28 @@
 	<update id="updateSellerHome">
 		UPDATE SELLER_PAGE
 		   SET SELLER_EXPLAIN = #{sellerExplain},
-		   	   SP_ENROLL_DATE = default,
+		   	   SP_ENROLL_DATE = CURRENT_TIMESTAMP,
 		   	   SP_ORIGIN_NAME = #{spOriginName},
 		   	   SP_CHANGE_NAME = #{spChangeName}
-		 WHERE BUSINESS_NO = #{businessNo}   				
+		 WHERE BUSINESS_NO = #{businessNo}   			
 	</update>
 	
-<!-- 	<update id="updateProductCategory">
-		
-	</update> -->
+ 	<delete id="deleteProductCategory">
+		DELETE FROM PRODUCT_CATEGORY
+		 WHERE C_NO = #{caNo} 
+	</delete>
+	
+	<insert id="insertNewProductCategory">
+		INSERT INTO 
+					PRODUCT_CATEGORY (
+								 	  p_category,
+								 	  seller_page_no
+								 	  )
+						 	  VALUES (
+							 		  #{pdCategory}, 
+							 		  #{sellerPageNo}
+						 		 	  )	
+	</insert> 
 	
 	<select id="countByBusinessNo" resultType="int">
         SELECT COUNT(*)

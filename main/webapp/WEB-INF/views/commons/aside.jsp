@@ -48,11 +48,10 @@
                 </ul>
             </li>
             <li>
-                <div>고객 문의 <img src="${pageContext.request.contextPath}/resources/image/triangle.png"></div>
+                <div>고객 관리 <img src="${pageContext.request.contextPath}/resources/image/triangle.png"></div>
                 <ul class="sub-menu">
-                    <li><a href="#">추후 기재</a></li>
-                    <li><a href="#">추후 기재</a></li>
-                    <li><a href="#">추후 기재</a></li>
+                    <li><a href="#">고객 문의</a></li>
+                    <li><a href="#">고객 리뷰</a></li>
                 </ul>
             </li>
             <li>

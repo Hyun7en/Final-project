@@ -26,10 +26,14 @@ public class SellerDao {
 	}
 	
 	// 사업자 번호 가져오기
-	public int selectBusinessNo(SqlSessionTemplate sqlSession, int userNo){
+	public int getBusinessNo(SqlSessionTemplate sqlSession, int userNo){
 		
-		return sqlSession.selectOne("sellerMapper.selectBusinessNo", userNo);
+		return sqlSession.selectOne("sellerMapper.getBusinessNo", userNo);
 		
+	}
+	
+	public int getSellerPageNo(SqlSessionTemplate sqlSession, int businessNo) {
+		return sqlSession.selectOne("sellerMapper.getSellerPageNo", businessNo);
 	}
 	
 	// 판매자 홈 등록 
@@ -61,15 +65,25 @@ public class SellerDao {
 	//판매자 홈 수정
 	public int updateSellerHome(SqlSessionTemplate sqlSession, SellerPage sellerPage){
 		
-	    return sqlSession.insert("sellerMapper.updateSellerHome", sellerPage);
+	    return sqlSession.update("sellerMapper.updateSellerHome", sellerPage);
 	   
 	}
-
-	//수정한 카테고리 넣기
-	public int updateProductCategory(SqlSessionTemplate sqlSession, String category){
+	
+	public int getSellerPageNo(SqlSessionTemplate sqlSession) {
 		
-		return sqlSession.insert("sellerMapper.updateProductCategory", category);
+		return sqlSession.selectOne("sellerMapper.getSellerPageNo");
+	}
+	
+	// 추가할 카테고리 처리
+	public int insertNewProductCategory(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
 		
+		return sqlSession.insert("sellerMapper.insertNewProductCategory", map);
+	}
+	
+	// 삭제할 카테고리 처리
+	public int deleteProductCategory(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		
+		return sqlSession.delete("sellerMapper.deleteProductCategory", map);
 	}
 	
 	// 상품 등록
@@ -102,7 +116,6 @@ public class SellerDao {
 	// 상품 옵션 불러오기
 	public List<ProductOption> selectOptions(SqlSessionTemplate sqlSession,int pno) {
 		
-		System.out.println((List)sqlSession.selectList("sellerMapper.selectOptions", pno));
 		return (List)sqlSession.selectList("sellerMapper.selectOptions", pno);
 	}
 	

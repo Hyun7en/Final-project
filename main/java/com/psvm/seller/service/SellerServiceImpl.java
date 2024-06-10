@@ -36,9 +36,16 @@ public class SellerServiceImpl implements SellerService {
 	
 	// 사업자 번호 가져오기
 	@Override
-	public int selectBusinessNo(int userNo) {
+	public int getBusinessNo(int userNo) {
 		
-		return sellerDao.selectBusinessNo(sqlSession, userNo);
+		return sellerDao.getBusinessNo(sqlSession, userNo);
+	}
+	
+	//판매자 홈페이지 번호 가져오기
+	@Override
+	public int getSellerPageNo(int businessNo) {
+		
+		return sellerDao.getSellerPageNo(sqlSession, businessNo);
 	}
 	
 	// 판매자 홈 등록 
@@ -82,32 +89,41 @@ public class SellerServiceImpl implements SellerService {
 	//판매자 홈 수정
 	@Transactional
 	@Override
-	public int updateSellerHome(SellerPage sellerPage, ProductCategory categories) {
+	public int updateSellerHome(SellerPage sellerPage, List<ProductCategory> addCategories, List<ProductCategory> deleteCategories) {
 		
 		int t1 = sellerDao.updateSellerHome(sqlSession, sellerPage);
 		
-		// 삭제할 카테고리 처리
-        for (ProductCategory category : categories.getDeletedCategories()) {
-        	sellerDao.deleteCategory(category.getPdCategory());
+		int t2 = 1;
+		int t3 = 1;
+		
+		
+		// 추가할 카테고리 처리
+        for (ProductCategory category : addCategories) {
+        	
+        	HashMap<String, Object> map = new HashMap<>();
+        	
+        	map.put("pdCategory", category.getPdCategory());
+        	
+        	if(!category.getPdCategory().equals("")) {
+        		t2 = t2 * sellerDao.deleteProductCategory(sqlSession,map);
+        	}
+        	
         }
 
-        // 추가할 카테고리 처리
-        for (ProductCategory category : categories.getAddedCategories()) {
-        	sellerDao.insertCategory(category.getPdCategory());
+        // 삭제할 카테고리 처리
+        for (ProductCategory category : deleteCategories) {
+        	
+        	HashMap<String, Object> map = new HashMap<>();
+        	
+        	map.put("caNo", category.getCaNo());
+        	
+        	if(!category.getPdCategory().equals("")) {
+        		t3 = t3 * sellerDao.deleteProductCategory(sqlSession,map);
+        	}
         }
-		int t2 = 1;
+
 		
-		for(String category : categories) {
-			
-			if(!category.equals("")) {
-				
-				t2 = t2 * sellerDao.updateProductCategory(sqlSession, category);
-				
-			}
-			
-		}	
-		
-		return 0;
+		return t1 * t2 * t3;
 	}
 	
 	// 상품 등록
@@ -119,8 +135,6 @@ public class SellerServiceImpl implements SellerService {
 		int t1 = sellerDao.insertpProduct(sqlSession, product);
 		
 		int t2 = 1;
-		
-		System.out.println(options);
 		
 		for(ProductOption option : options) {
 		
@@ -188,6 +202,5 @@ public class SellerServiceImpl implements SellerService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 	
 }

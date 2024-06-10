@@ -26,6 +26,7 @@ import com.google.gson.reflect.TypeToken;
 import com.psvm.commons.template.Pagination;
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.member.vo.Member;
+import com.psvm.seller.dto.ProductCategoryDTO;
 import com.psvm.seller.service.SellerService;
 import com.psvm.seller.vo.Product;
 import com.psvm.seller.vo.ProductCategory;
@@ -76,16 +77,21 @@ public class SellerController {
      * @return 로그인한 판매자의 사업자 번호
      */
     // 로그인 한 판매자의 사업자 번호 가져오는 메서드
-    public int getBusinessNoFromUserNo(HttpSession session) {
-
+    public int getBusinessNo(HttpSession session) {
     	
     	// 세션에서 loginUser 객체 가져오기
     	Member loginUser = (Member)session.getAttribute("loginUser");
 
     	int userNo = loginUser.getUserNo();
     	
-        return sellerService.selectBusinessNo(userNo);
+        return sellerService.getBusinessNo(userNo);
         
+    }
+    
+    public int getSellerPageNo(HttpSession session) {
+    	int businessNo = getBusinessNo(session);
+    	
+    	return sellerService.getSellerPageNo(businessNo);
     }
     
     // 판매자 홈
@@ -99,7 +105,7 @@ public class SellerController {
     public String insertSellerHome(SellerPage sellerPage, MultipartFile storeHomeImage, @RequestParam("categoriesJson") String categoriesJson,
                                    HttpSession session, RedirectAttributes redirectAttributes) {
 
-        int businessNo = getBusinessNoFromUserNo(session);
+        int businessNo = getBusinessNo(session);
         sellerPage.setBusinessNo(businessNo);
 
         if (!storeHomeImage.getOriginalFilename().isEmpty()) {
@@ -164,7 +170,7 @@ public class SellerController {
     @ResponseBody
     public String ajaxGetCategories(HttpSession session) {
     	
-    	int businessNo = getBusinessNoFromUserNo(session);
+    	int businessNo = getBusinessNo(session);
     	
         return gson.toJson(sellerService.selectCategories(businessNo));
     }
@@ -173,7 +179,7 @@ public class SellerController {
   	@RequestMapping("detail.srh")
   	public String selectSellerHomeDetail(HttpSession session, Model model) {
   		
-  	    int businessNo = getBusinessNoFromUserNo(session);
+  	    int businessNo = getBusinessNo(session);
 
   	    SellerPage sp = sellerService.selectSellerHomeDetail(businessNo);
 
@@ -190,7 +196,7 @@ public class SellerController {
   	// 판매자 홈 수정 페이지
     @RequestMapping("updateForm.srh")
   	public String sellerHomeUpdateForm(HttpSession session, Model model) {
-    	int businessNo = getBusinessNoFromUserNo(session);
+    	int businessNo = getBusinessNo(session);
 
   	    SellerPage sp = sellerService.selectSellerHomeDetail(businessNo);
 
@@ -209,7 +215,8 @@ public class SellerController {
     public String updateSellerHome(SellerPage sellerPage, MultipartFile storeHomeImage, @RequestParam("categoriesJson") String categoriesJson,
         HttpSession session, RedirectAttributes redirectAttributes) {
         
-    	log.info("categoriesJson",categoriesJson);
+        log.info("sellerPage: " + sellerPage);
+        log.info("categoriesJson: " + categoriesJson);
     	
         // 새로운 첨부파일이 넘어온 경우
         if (!storeHomeImage.getOriginalFilename().equals("")) {
@@ -222,28 +229,38 @@ public class SellerController {
             String changeName = saveFile(storeHomeImage, session);
             
             sellerPage.setSpOriginName(storeHomeImage.getOriginalFilename());
-            sellerPage.setSpChangeName("/resources/upFiles/productImg/" + changeName);
+            sellerPage.setSpChangeName("resources/upFiles/productImg/" + changeName);
         }
         
-        int businessNo = getBusinessNoFromUserNo(session);
+        int businessNo = getBusinessNo(session);
         sellerPage.setBusinessNo(businessNo);
        
-            Type listType = new TypeToken<ProductCategory>() {}.getType();
-            ProductCategory categories = gson.fromJson(categoriesJson, listType);
+        int sellerPageNo = getSellerPageNo(session);
+        sellerPage.setSellerPageNo(sellerPageNo);
+        
+        System.out.println(businessNo);
+        System.out.println(sellerPageNo);
+        
+        ProductCategoryDTO categories = null;
+        
+        Type listType = new TypeToken<ProductCategoryDTO>() {}.getType();
+        categories = gson.fromJson(categoriesJson, listType);
+        
+        List<ProductCategory> addCategories = categories.getAddCategories();
+        List<ProductCategory> deleteCategories = categories.getDeleteCategories();
 
-            int result = sellerService.updateSellerHome(sellerPage, categories);
+        int result = sellerService.updateSellerHome(sellerPage, addCategories, deleteCategories);
             
-            if (result > 0) { // 성공
-                session.setAttribute("SellerHomeRegistered", true);
-                redirectAttributes.addFlashAttribute("message", "등록이 완료되었습니다.");
-                return "redirect:detail.srh";
-            } else { // 실패
-                redirectAttributes.addFlashAttribute("error", "판매자 홈을 업데이트하는 데 실패했습니다.");
-                return "redirect:detail.srh"; // 실패 시 등록 페이지로 리다이렉트
-            }
+        if (result > 0) { // 성공
+            session.setAttribute("SellerHomeRegistered", true);
+            redirectAttributes.addFlashAttribute("message", "등록이 완료되었습니다.");
+            return "redirect:detail.srh";
+        } else { // 실패
+            redirectAttributes.addFlashAttribute("error", "판매자 홈을 업데이트하는 데 실패했습니다.");
+            return "redirect:detail.srh"; // 실패 시 등록 페이지로 리다이렉트
+        }
       
     }
-
    
     // 판매자 상품
     @RequestMapping("enrollForm.pd")
@@ -345,7 +362,7 @@ public class SellerController {
 		int boardCount = sellerService.selectProductListCount();
 		//logger.info("list.bo 실행");
 		
-		int businessNo = getBusinessNoFromUserNo(session);
+		int businessNo = getBusinessNo(session);
 		
 		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 5);
 		List<Product> list = sellerService.selectProductList(pi,businessNo);
@@ -360,8 +377,8 @@ public class SellerController {
     @RequestMapping(value = "options.ax", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
     @ResponseBody
     public String ajaxGetOptions(@RequestParam("pno") int pno) {
-        log.info("pno: {}", pno);
-        List<ProductOption> options = sellerService.selectOptions(pno);
+
+    	List<ProductOption> options = sellerService.selectOptions(pno);
         return new Gson().toJson(options);
     }
    

@@ -16,19 +16,22 @@ public interface SellerService {
 	public SellerInfo selectSeller(int userNo);
 	
 	// 사업자 번호 가져오기
-	public int selectBusinessNo(int userNo);
+	public int getBusinessNo(int userNo);
+	
+	// 판매 홈페이지 번호 가져오기
+	public int getSellerPageNo(int businessNo);
 	
 	// 판매자 홈 등록
 	public int insertSellerHome(SellerPage sellerPage, List<String> categories);
 	
-	// 판매 홈 카테고리 등록
+	// 판매 홈 카테고리 불러오기
 	public List<ProductCategory> selectCategories(int businessNo);
 
 	// 판매자 홈 불러오기
 	public SellerPage selectSellerHomeDetail(int businessNo);
 	
 	// 판매자 홈 수정
-	public int updateSellerHome(SellerPage sellerPage, ProductCategory categories);
+	public int updateSellerHome(SellerPage sellerPage, List<ProductCategory> addCategories, List<ProductCategory> deleteCategories);
 	
 	// 상품 등록
 	public int insertProduct(Product product, List<ProductOption> options);

@@ -12,6 +12,9 @@
         display: block;
     }
 
+    #product-detail div h4{
+        margin-right: 10px;
+    }
     /* 스크롤바 없애기 */
     body {
         -ms-overflow-style: none;
@@ -33,6 +36,14 @@
         align-items: center;
     }
 
+    section .form-g {
+        margin-top: 30px;
+        align-items: center;
+    }
+    section .form-g h4{
+        margin-bottom: 10px;
+    }
+
     section .form-group div{
         flex: 1;
         padding: 5px;
@@ -49,6 +60,10 @@
     .image-container img {
         width: 100%;
         height: 100%;
+    }
+
+    .form-actions{
+        margin-top: 20px;
     }
 
     .form-actions a, button {
