@@ -31,7 +31,7 @@ public interface SellerService {
 	public SellerPage selectSellerHomeDetail(int businessNo);
 	
 	// 판매자 홈 수정
-	public int updateSellerHome(SellerPage sellerPage, List<ProductCategory> addCategories, List<ProductCategory> deleteCategories);
+	public int updateSellerHome(SellerPage sellerPage, List<ProductCategory> addCategories, List<ProductCategory> deleteCategories,int sellerPageNo);
 	
 	// 상품 등록
 	public int insertProduct(Product product, List<ProductOption> options);

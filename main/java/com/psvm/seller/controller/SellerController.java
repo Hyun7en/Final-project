@@ -236,7 +236,6 @@ public class SellerController {
         sellerPage.setBusinessNo(businessNo);
        
         int sellerPageNo = getSellerPageNo(session);
-        sellerPage.setSellerPageNo(sellerPageNo);
         
         System.out.println(businessNo);
         System.out.println(sellerPageNo);
@@ -249,7 +248,7 @@ public class SellerController {
         List<ProductCategory> addCategories = categories.getAddCategories();
         List<ProductCategory> deleteCategories = categories.getDeleteCategories();
 
-        int result = sellerService.updateSellerHome(sellerPage, addCategories, deleteCategories);
+        int result = sellerService.updateSellerHome(sellerPage, addCategories, deleteCategories, sellerPageNo);
             
         if (result > 0) { // 성공
             session.setAttribute("SellerHomeRegistered", true);

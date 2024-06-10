@@ -59,6 +59,14 @@ $(document).ready(function() {
         }
     });
 
+    // Enter 키를 눌렀을 때 카테고리 추가 이벤트
+    $('#enroll-category').keypress(function(event) {
+        if (event.which == 13) { // Enter 키 코드가 13입니다.
+            event.preventDefault(); // 폼 제출을 막습니다.
+            $('#add-categoryBtn').click(); // 카테고리 추가 버튼 클릭 이벤트 호출
+        }
+    });
+
     // 카테고리 제거 이벤트
     $(document).on('click', '.removeBtn', function() {
         let categoryDiv = $(this).parent();
@@ -70,12 +78,12 @@ $(document).ready(function() {
 
     // 폼 제출 시 추가된 카테고리와 삭제된 카테고리를 JSON 형식으로 변환하여 폼에 추가
     $('#enrollForm').submit(function(event) {
-        let addedCategories = categories.filter(cat => !originalCategories.some(origCat => origCat.pdCategory === cat.pdCategory));
-        let deletedCategories = originalCategories.filter(origCat => !categories.some(cat => cat.pdCategory === origCat.pdCategory));
+        let addCategories = categories.filter(cat => !originalCategories.some(origCat => origCat.pdCategory === cat.pdCategory));
+        let deleteCategories = originalCategories.filter(origCat => !categories.some(cat => cat.pdCategory === origCat.pdCategory));
         
         let categoriesData = {
-            addedCategories: addedCategories,
-            deletedCategories: deletedCategories
+            addCategories: addCategories,
+            deleteCategories: deleteCategories
         };
 
         let categoriesInput = $('<input>').attr('type', 'hidden').attr('name', 'categoriesJson').val(JSON.stringify(categoriesData));

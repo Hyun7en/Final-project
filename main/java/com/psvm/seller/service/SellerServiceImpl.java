@@ -89,7 +89,7 @@ public class SellerServiceImpl implements SellerService {
 	//판매자 홈 수정
 	@Transactional
 	@Override
-	public int updateSellerHome(SellerPage sellerPage, List<ProductCategory> addCategories, List<ProductCategory> deleteCategories) {
+	public int updateSellerHome(SellerPage sellerPage, List<ProductCategory> addCategories, List<ProductCategory> deleteCategories,int sellerPageNo) {
 		
 		int t1 = sellerDao.updateSellerHome(sqlSession, sellerPage);
 		
@@ -100,12 +100,15 @@ public class SellerServiceImpl implements SellerService {
 		// 추가할 카테고리 처리
         for (ProductCategory category : addCategories) {
         	
+        	category.setSellerPageNo(sellerPageNo);
+        	
         	HashMap<String, Object> map = new HashMap<>();
         	
         	map.put("pdCategory", category.getPdCategory());
+        	map.put("sellerPageNo", sellerPageNo);
         	
         	if(!category.getPdCategory().equals("")) {
-        		t2 = t2 * sellerDao.deleteProductCategory(sqlSession,map);
+        		t2 = t2 * sellerDao.insertNewProductCategory(sqlSession,map);
         	}
         	
         }

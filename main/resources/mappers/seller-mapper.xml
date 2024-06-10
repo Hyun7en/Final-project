@@ -136,11 +136,6 @@
 		 WHERE BUSINESS_NO = #{businessNo}   			
 	</update>
 	
- 	<delete id="deleteProductCategory">
-		DELETE FROM PRODUCT_CATEGORY
-		 WHERE C_NO = #{caNo} 
-	</delete>
-	
 	<insert id="insertNewProductCategory">
 		INSERT INTO 
 					PRODUCT_CATEGORY (
@@ -152,6 +147,11 @@
 							 		  #{sellerPageNo}
 						 		 	  )	
 	</insert> 
+	
+ 	<delete id="deleteProductCategory">
+		DELETE FROM PRODUCT_CATEGORY
+		 WHERE C_NO = #{caNo} 
+	</delete>
 	
 	<select id="countByBusinessNo" resultType="int">
         SELECT COUNT(*)
