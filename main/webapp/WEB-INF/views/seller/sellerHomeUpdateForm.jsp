@@ -19,7 +19,7 @@
 <!-- <script src="${pageContext.request.contextPath}/resources/js/sellerJS/sellerHomeUpdate.js"></script> -->
 
 <script>
-        $(document).ready(function() {
+     $(document).ready(function() {
     let categories = []; // 현재 카테고리 배열
     let originalCategories = []; // 원래 카테고리 배열
 
