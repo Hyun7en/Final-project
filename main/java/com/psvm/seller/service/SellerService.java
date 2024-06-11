@@ -4,6 +4,7 @@ package com.psvm.seller.service;
 import java.util.List;
 
 import com.psvm.commons.vo.PageInfo;
+import com.psvm.seller.dto.StoreMainDTO;
 import com.psvm.seller.vo.Product;
 import com.psvm.seller.vo.ProductCategory;
 import com.psvm.seller.vo.ProductOption;
@@ -51,8 +52,11 @@ public interface SellerService {
 	// 상품 정보 수정
 	public int updateProduct(Product product, List<ProductOption> options);
 	
+	// 인기 상품 불러오기
+	public List<StoreMainDTO> selectPopularList();
+	
 	// 최신 상품 불러오기
-	public List<Product> selectRecentList();
+	public List<StoreMainDTO> selectRecentList();
 	
 	// 판매 상품 상세 정보
 	public Product selectSalesProduct(int pno);

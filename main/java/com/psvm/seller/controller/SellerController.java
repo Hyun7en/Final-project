@@ -6,6 +6,7 @@ import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -25,8 +26,10 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.psvm.commons.template.Pagination;
 import com.psvm.commons.vo.PageInfo;
+import com.psvm.community.vo.Community;
 import com.psvm.member.vo.Member;
 import com.psvm.seller.dto.ProductCategoryDTO;
+import com.psvm.seller.dto.StoreMainDTO;
 import com.psvm.seller.service.SellerService;
 import com.psvm.seller.vo.Product;
 import com.psvm.seller.vo.ProductCategory;
@@ -372,6 +375,26 @@ public class SellerController {
 		return "seller/productListView";
 	}
     
+    //상품 카테고리 검색
+//    @RequestMapping("search.pd")//게시글 목록 띄우기
+//	public String searchProduct(@RequestParam(value="cpage", defaultValue="1") int currentPage, @RequestParam(value="condition", defaultValue="category") String condition, @RequestParam(value="keyword", defaultValue="") String keyword, Model model) {
+//		
+//		HashMap<String, String>map = new HashMap<>();
+//		map.put("condition", condition);
+//		map.put("keyword", keyword);
+//		
+//		int boardCount = sellerService.searchListCount(map);
+//		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 10);
+//		ArrayList<Product> list = sellerService.searchList(pi, map);
+//		
+//		model.addAttribute("list", list);
+//		model.addAttribute("pi", pi);
+//		model.addAttribute("keyword", keyword);
+//		model.addAttribute("condition", condition);
+//		
+//		return "seller/productListView";
+//	}
+    
     // 옵션 불러오는 ajax
     @RequestMapping(value = "options.ax", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
     @ResponseBody
@@ -459,9 +482,12 @@ public class SellerController {
     @RequestMapping("list.spd")
   	public String selectRecentList(HttpSession session, Model model) {
 		
-		List<Product> list = sellerService.selectRecentList();
+    	List<StoreMainDTO> popularList = sellerService.selectPopularList();
+    	
+		List<StoreMainDTO> recentList = sellerService.selectRecentList();
 		
-		model.addAttribute("list", list);
+		model.addAttribute("popularList", popularList);
+		model.addAttribute("recentList", recentList);
 		
 		return "store/storeMain";
 	}

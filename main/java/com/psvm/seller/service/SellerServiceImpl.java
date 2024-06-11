@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.seller.dao.SellerDao;
+import com.psvm.seller.dto.StoreMainDTO;
 import com.psvm.seller.vo.Product;
 import com.psvm.seller.vo.ProductCategory;
 import com.psvm.seller.vo.ProductOption;
@@ -192,9 +193,16 @@ public class SellerServiceImpl implements SellerService {
 		return 0;
 	}
 
+	// 인기 상품 불러오기
+	@Override
+	public List<StoreMainDTO> selectPopularList() {
+		
+		return sellerDao.selectPopularList(sqlSession);
+	}
+	
 	// 최신 상품 불러오기
 	@Override
-	public List<Product> selectRecentList() {
+	public List<StoreMainDTO> selectRecentList() {
 		
 		return sellerDao.selectRecentList(sqlSession);
 	}

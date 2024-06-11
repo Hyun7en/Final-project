@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.psvm.commons.vo.PageInfo;
+import com.psvm.seller.dto.StoreMainDTO;
 import com.psvm.seller.vo.Product;
 import com.psvm.seller.vo.ProductCategory;
 import com.psvm.seller.vo.ProductOption;
@@ -127,8 +128,14 @@ public class SellerDao {
 	
 	// 상품 정보 수정
 	
+	// 인기 상품 불러오기
+	public List<StoreMainDTO> selectPopularList(SqlSessionTemplate sqlSession) {
+		
+		return (List)sqlSession.selectList("sellerMapper.selectPopularList");
+	}
+	
 	// 최신 상품 불러오기
-	public List<Product> selectRecentList(SqlSessionTemplate sqlSession) {
+	public List<StoreMainDTO> selectRecentList(SqlSessionTemplate sqlSession) {
 		
 		return (List)sqlSession.selectList("sellerMapper.selectRecentList");
 	}
