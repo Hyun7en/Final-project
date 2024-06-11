@@ -15,5 +15,6 @@
 		SELECT *
 		FROM public.detail_quration
 	</select>
+	
 
 </mapper>

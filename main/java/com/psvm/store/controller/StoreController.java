@@ -86,9 +86,20 @@ public class StoreController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("alarmCheck.st") //알람받기 체크
+	@RequestMapping("alarmCheck.st") //알람 체크
 	public int ajaxAlarmCheck(StoreInfo checker) {
 		return storeService.ajaxAlarmCheck(checker);
 	}
 	
+	@ResponseBody
+	@RequestMapping("alarmOn.st") //알람 설정
+	public String ajaxAlarmOn(StoreInfo checker) {
+		return storeService.ajaxAlarmOn(checker) > 0 ? "success" : "fail";
+	}
+	
+	@ResponseBody
+	@RequestMapping("alarmOff.st") //알람해제
+	public String ajaxAlarmOff(StoreInfo checker) {
+		return storeService.ajaxAlarmOff(checker) > 0 ? "success" : "fail";
+	}
 }

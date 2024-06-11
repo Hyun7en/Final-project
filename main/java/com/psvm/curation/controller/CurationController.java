@@ -1,16 +1,21 @@
 package com.psvm.curation.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.psvm.curation.service.CurationService;
 import com.psvm.curation.vo.Curation;
+import com.psvm.fishInfo.vo.Fish;
 
 @Controller
 public class CurationController {
@@ -25,20 +30,25 @@ public class CurationController {
 		return "curation/curation" ; 
 	}
 	
-	@RequestMapping(value="go-curation")
-	public String goCuration(){
-		return "curation/detailCuration";
+	@RequestMapping(value="detailCuration.cu")
+	public String resultCuration(@RequestParam(value="clickedTexts") String clickedTexts, Model model){
+	    // 쉼표로 구분된 문자열을 List로 변환
+	    List<String> clickedTextList = Arrays.asList(clickedTexts.split(","));
+	    
+	   	Fish fish = curationService.resultCuration(clickedTextList);
+	    System.out.println(fish);
+	    model.addAttribute("fish", fish);
+	    return "curation/detailCuration";
 	}
+
 	
 	@ResponseBody
 	@PostMapping(value="getQuestionList.cu", produces = "application/json; charset=UTF-8")
 	public String getQuestionList() {
-		System.out.println("실행됨");
 		ArrayList<Curation> list = curationService.getQuestionList();
-		
-		System.out.println(list);
 		
 		return new Gson().toJson(list);
 	}
+
 }
  

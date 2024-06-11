@@ -1,41 +1,26 @@
-function startCuration(){
-    getQuestionList(function(data){
-        drawCuration(data);
-    });
-
-    
-}
-
-function getQuestionList(callback){
-    $.ajax({
-        url: "getQuestionList.cu",
-        type:"post",
-        success: function(data){
-            callback(data)
-           
-        },
-        error: function(){
-            console.log("ajax요청실패")
-        }
-    })
-}
-
-function drawCuration(data){
-    let str = "";
-    let Section = document.getElementById("main-div");
-
-    str+= `
-            <div id="cu-explain">
-                <p>어울리는 물고기를 추천해드려요 !</p>
-            </div>
-            <div id="cu-img">
-                <img src="${pageContext.request.contextPath}/resources/image/whale.png" alt="">
-            </div>
-            <div id="cu-sub-explain">
-                <p>자신에게 맞는 물고기를 찾아보세요!</p>
-            </div>
-            <div id="cu-btn">
-                <button onclick="startCuration();">시작하기</button>
-            </div>
-        `
-}
+document.addEventListener('DOMContentLoaded', () => {
+    const splashText = document.querySelector('.splash-text');
+  
+    setTimeout(() => {
+        splashText.style.opacity = '1';
+        splashText.style.transform = 'translateY(0)';
+  
+        createSmoke(splashText);
+    }, 500);
+  
+    function createSmoke(container) {
+        const smoke = document.createElement('div');
+        smoke.classList.add('smoke');
+        container.appendChild(smoke);
+  
+        const x = container.clientWidth / 2;
+        const y = container.clientHeight / 2;
+  
+        smoke.style.left = `${x}px`;
+        smoke.style.top = `${y}px`;
+  
+        setTimeout(() => {
+            smoke.remove();
+        }, 1000);
+    }
+});
