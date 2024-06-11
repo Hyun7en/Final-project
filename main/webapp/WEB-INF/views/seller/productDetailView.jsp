@@ -80,6 +80,7 @@
     <main>
         <!-- Product Header -->
         <div>
+            
             <div id="seller-home-top">
                 <p>워터 박스</p>
             </div>

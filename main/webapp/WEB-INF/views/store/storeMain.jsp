@@ -90,45 +90,6 @@
             
         </section>
 
-       
-        <section class="sm-procuct-section" id="recommend-product">
-            <div class="sm-procuct-section-title" >
-                추천 제품
-            </div>
-
-            <div id="recommendList" class="carousel">
-
-               
-
-                    <div class="carousel-item">
-                            <div class="product-descript">
-                                <p class="product-descript-store-name">
-                                    가게명
-                                </p>
-                                <p class="product-descript-product-name">
-                                    제품명
-                                </p>
-                                <p class="product-descript-product-price">
-                                    가격
-                                </p>
-                                <p class="product-descript-rating-review">
-                                    <img style="width: 13px;" src="${pageContext.request.contextPath}/resources/image/star.png">
-                                    <span>4.7</span>
-                                    <span>리뷰</span>
-                                    <span>1400</span>
-                                </p>
-                                
-                            </div>
-                            <div class="carousel-dimg">
-                                <img src="${pageContext.request.contextPath}/resources/image/clownfish-1453910_1920.jpg" >
-                            </div>
-                    </div>
-
-                
-
-            </div>
-        </section>
-
         <section class="sm-procuct-section" id="popular-product">
             <div class="sm-procuct-section-title">
                 인기 상품
