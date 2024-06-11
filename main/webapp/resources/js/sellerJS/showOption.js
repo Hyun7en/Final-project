@@ -2,7 +2,7 @@
     const pno = ${pd.pdNo};
     console.log("pno: " + pno); // pno 값이 제대로 전달되었는지 확인
     
-    $(document).ready(function() {
+    $(function() {
     // 페이지 로드 시 옵션 목록을 가져오고, 그리기
     selectOptions();
 

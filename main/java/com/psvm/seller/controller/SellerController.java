@@ -400,6 +400,8 @@ public class SellerController {
     @ResponseBody
     public String ajaxGetOptions(@RequestParam("pno") int pno) {
 
+    	log.info("pno" + pno);
+    	
     	List<ProductOption> options = sellerService.selectOptions(pno);
         return new Gson().toJson(options);
     }
