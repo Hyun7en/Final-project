@@ -34,7 +34,13 @@
     <main>
 
         <section>
+            <div  class="banner">
 
+                    <div class="banner-item">
+                            <img src="${pageContext.request.contextPath}/resources/image/2024052809050218597.jpg" alt="">
+                    </div>
+
+            </div>
         </section>
 
         <section id="descript-quick">
@@ -170,6 +176,45 @@
             </div>
         </section>
 
+        <section class="sm-procuct-section" id="brand-new">
+            <div class="sm-procuct-section-title">
+                최신 제품
+            </div>
+
+            <div class="carousel">
+
+                <c:forEach var="spd" items="${recentList}">
+
+                    <div class="carousel-item" onclick="location.href='detail.spd?pno=${spd.prNo}'">
+                            <div class="product-descript">
+                                <a href="sellersStore.st?sellerPageNo=${spd.sellerPageNo}&order=1&cpage=1">
+                                    <p class="product-descript-store-name">
+                                        ${spd.storeName}
+                                    </p>
+                                </a>
+                                <p class="product-descript-product-name">
+                                    ${spd.prTitle}
+                                </p>
+                                <p class="product-descript-product-price">
+                                    ${spd.prPrice}원
+                                </p>
+                                <p class="product-descript-rating-review">
+                                    <img style="width: 13px;" src="${pageContext.request.contextPath}/resources/image/star.png">
+                                    <span>${spd.prStar}</span>
+                                    <span>리뷰</span>
+                                    <span>${spd.reviewCount}</span>
+                                </p>
+                                
+                            </div>
+                            <div class="carousel-dimg">
+                                <img src="${spd.prChangeName}" >
+                            </div>
+                    </div>
+
+                </c:forEach>
+
+            </div>
+        </section>
     </main>
 
     <!-- footer -->

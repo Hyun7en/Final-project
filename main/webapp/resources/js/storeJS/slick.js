@@ -2,14 +2,14 @@
 
 $(window).on('load', function() {
 
-    $('#recommendList').slick({
-        infinite: true,
-        slidesToShow: 4,
-        slidesToScroll: 1,
-        autoplay: false,
-        arrows: true,
-        dots: true
-    });
+    // $(',banner-item').slick({
+    //     infinite: true,
+    //     slidesToShow: 1,
+    //     slidesToScroll: 1,
+    //     autoplay: true,
+    //     arrows: true,
+    //     dots: true
+    // });
 
     $('#popularProduct').slick({
         infinite: true,

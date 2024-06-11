@@ -5,6 +5,19 @@
         padding-bottom: 200px;
     }
 
+    /* 배너 */
+
+    .banner-item{
+        width: 100%;
+        height: 380px;
+        border: 1px solid black;
+    }
+
+    .banner-item img{
+        width: 100%;
+        height: 100%;
+    }
+
     /* 설명과 문의사항, 빠른 이동 */
     #descript-quick {
         display: flex;
