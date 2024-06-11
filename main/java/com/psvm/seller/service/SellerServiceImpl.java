@@ -1,8 +1,8 @@
 package com.psvm.seller.service;
 
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.seller.dao.SellerDao;
+import com.psvm.seller.dto.StoreMainDTO;
 import com.psvm.seller.vo.Product;
 import com.psvm.seller.vo.ProductCategory;
 import com.psvm.seller.vo.ProductOption;
@@ -36,16 +37,23 @@ public class SellerServiceImpl implements SellerService {
 	
 	// 사업자 번호 가져오기
 	@Override
-	public int selectBusinessNo(int userNo) {
+	public int getBusinessNo(int userNo) {
 		
-		return sellerDao.selectBusinessNo(sqlSession, userNo);
+		return sellerDao.getBusinessNo(sqlSession, userNo);
+	}
+	
+	//판매자 홈페이지 번호 가져오기
+	@Override
+	public int getSellerPageNo(int businessNo) {
+		
+		return sellerDao.getSellerPageNo(sqlSession, businessNo);
 	}
 	
 	// 판매자 홈 등록 
 	// 카테고리 등록
 	@Transactional
 	@Override
-	public int insertSellerHome(SellerPage sellerPage, ArrayList<String> categories) {
+	public int insertSellerHome(SellerPage sellerPage, List<String> categories) {
 		
 		int t1 = sellerDao.insertSellerHome(sqlSession, sellerPage);
 		
@@ -67,7 +75,7 @@ public class SellerServiceImpl implements SellerService {
 	
 	// 판매 홈 카테고리 불러오기
 	@Override
-	public ArrayList<ProductCategory> selectCategories(int businessNo) {
+	public List<ProductCategory> selectCategories(int businessNo) {
 		
 		return sellerDao.selectCategories(sqlSession, businessNo);
 	}
@@ -80,37 +88,57 @@ public class SellerServiceImpl implements SellerService {
 	}
 	
 	//판매자 홈 수정
+	@Transactional
 	@Override
-	public int updateSellerHome(SellerPage sellerPage, ArrayList<String> categories) {
+	public int updateSellerHome(SellerPage sellerPage, List<ProductCategory> addCategories, List<ProductCategory> deleteCategories,int sellerPageNo) {
 		
 		int t1 = sellerDao.updateSellerHome(sqlSession, sellerPage);
 		
 		int t2 = 1;
+		int t3 = 1;
 		
-		for(String category : categories) {
-			
-			if(!category.equals("")) {
-				
-				t2 = t2 * sellerDao.updateProductCategory(sqlSession, category);
-				
-			}
-			
-		}	
 		
-		return t1*t2;
+		// 추가할 카테고리 처리
+        for (ProductCategory category : addCategories) {
+        	
+        	category.setSellerPageNo(sellerPageNo);
+        	
+        	HashMap<String, Object> map = new HashMap<>();
+        	
+        	map.put("pdCategory", category.getPdCategory());
+        	map.put("sellerPageNo", sellerPageNo);
+        	
+        	if(!category.getPdCategory().equals("")) {
+        		t2 = t2 * sellerDao.insertNewProductCategory(sqlSession,map);
+        	}
+        	
+        }
+
+        // 삭제할 카테고리 처리
+        for (ProductCategory category : deleteCategories) {
+        	
+        	HashMap<String, Object> map = new HashMap<>();
+        	
+        	map.put("caNo", category.getCaNo());
+        	
+        	if(!category.getPdCategory().equals("")) {
+        		t3 = t3 * sellerDao.deleteProductCategory(sqlSession,map);
+        	}
+        }
+
+		
+		return t1 * t2 * t3;
 	}
 	
 	// 상품 등록
 	// 옵션 등록
 	@Transactional
 	@Override
-	public int insertProduct(Product product, ArrayList<ProductOption> options) {
+	public int insertProduct(Product product, List<ProductOption> options) {
 		
 		int t1 = sellerDao.insertpProduct(sqlSession, product);
 		
 		int t2 = 1;
-		
-		System.out.println(options);
 		
 		for(ProductOption option : options) {
 		
@@ -139,14 +167,14 @@ public class SellerServiceImpl implements SellerService {
 
 	// 상품 리스트 불러오기
 	@Override
-	public ArrayList<Product> selectProductList(PageInfo pi, int businessNo) {
+	public List<Product> selectProductList(PageInfo pi, int businessNo) {
 		
 		return sellerDao.selectProductList(sqlSession, pi,businessNo);
 	}
 
 	// 상품 옵션 불러오기
 	@Override
-	public ArrayList<ProductOption> selectOptions(int pno) {
+	public List<ProductOption> selectOptions(int pno) {
 		
 		return sellerDao.selectOptions(sqlSession, pno);
 	}
@@ -160,14 +188,21 @@ public class SellerServiceImpl implements SellerService {
 	
 	// 상품 정보 수정
 	@Override
-	public int updateProduct(Product product, ArrayList<ProductOption> options) {
+	public int updateProduct(Product product, List<ProductOption> options) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
+	// 인기 상품 불러오기
+	@Override
+	public List<StoreMainDTO> selectPopularList() {
+		
+		return sellerDao.selectPopularList(sqlSession);
+	}
+	
 	// 최신 상품 불러오기
 	@Override
-	public ArrayList<Product> selectRecentList() {
+	public List<StoreMainDTO> selectRecentList() {
 		
 		return sellerDao.selectRecentList(sqlSession);
 	}
@@ -178,6 +213,5 @@ public class SellerServiceImpl implements SellerService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 	
 }

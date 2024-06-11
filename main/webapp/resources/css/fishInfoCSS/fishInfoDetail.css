@@ -28,10 +28,10 @@ main{
 
 /* 첫 번째 컨텐츠 */
 #fish-img img{
-    width: 400px;
+    width: 450px;
     height: 400px;
     margin-right: 20px;
-    border-radius: 5px;
+    border-radius: 15px;
 }
 
 #fish-img-info{
@@ -41,7 +41,7 @@ main{
 }
 
 #short-info{
-    height: 280px;
+    height: 300px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     column-gap: 20px;
@@ -59,7 +59,7 @@ main{
 }
 
 .short-info-1234{
-    width: 300px;
+    width: 290px;
     height: 120px;
     background-color: #0089FF;
     border-radius: 10px;
@@ -73,7 +73,7 @@ main{
 
 
 #long-info{
-    width: 620px;
+    width: 600px;
     height: 138px;
     padding-top: 10px;
 }

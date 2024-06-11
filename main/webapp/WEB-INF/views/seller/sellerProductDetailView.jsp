@@ -31,83 +31,64 @@
 
         <section>
             <h1>스토어 관리</h1>
-                <div id="product-management">
-                    <div>
-                        <div class="form-group">
-                            <div class="pd-detail-title" >
-                                상품명
-                            </div>
-                            <div class="form-control" id="productName">
-                                ${pd.pdTitle}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="pd-detail-title" >
-                                카테고리
-                            </div>
-                            <div class="form-control" id="category">
-                                ${pd.pdCategory}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="pd-detail-title">
-                                판매가
-                            </div>
-                            <div class="form-control" id="price">
-                                ${pd.pdPrice}원
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <div class="pd-detail-title">
-                                수량
-                            </div>
-                            <div class="form-control" id="amount">
-                                
-                            </div>
-                        </div> 
-                        
-                        <div class="form-group">
-                            <label  for="pdOptionName">
-                                옵션
-                            </label>
-                            <select class="form-control" id="select-option" name="pdOptionName" required>
-                                
-                            </select>
-                        </div>
+            
+            <div id="product-detail">
 
-                    </div>
+                <div class="form-group">
+                    <h4>상품명</h4>
+                    <span class="form-control" id="productName">
+                        ${pd.pdTitle}
+                    </span>
                 </div>
 
                 <div class="form-group">
-                    <div class="pd-detail-title">
-                        대표 이미지
-                    </div>
-                </div>
-
-                <div class="image-container">
-                    <img src="${pd.pdChangeName}">
+                    <h4>카테고리</h4>
+                    <span class="form-control" id="category">
+                        ${pd.pdCategory}
+                    </span>
                 </div>
 
                 <div class="form-group">
-                    <div class="pd-detail-title">
-                        상품 상세 정보
+                    <h4>판매가</h4>
+                    <span class="form-control" id="price">
+                        ${pd.pdPrice}원
+                    </span>
+                </div> 
+                
+                <div class="form-group">
+                    <h4>옵션</h4>
+                    <select class="form-control" id="select-option" name="optionName" required>
+                        
+                    </select>
+                </div>
+
+                <div class="form-g">
+                    <h4>상품 이미지</h4>
+
+                    <div class="image-container">
+                        <img src="${pd.pdChangeName}">
                     </div>
                 </div>
 
-                <div id="summernote">
-                    <!-- summernote 내용 -->
-                    ${pd.pdContent}
+                <div class="form-g">
+                    <h4>상품 상세 정보</h4>
+
+                    <div id="summernote">
+                        <!-- summernote 내용 -->
+                        ${pd.pdContent}
+                    </div>
                 </div>
 
-                <div class="form-actions">
-                    <a href="updateForm.pd">
-                        수정
-                    </a>
-                    <button>
-                        삭제
-                    </button>
-                </div>
+            </div>
+
+            <div class="form-actions">
+                <a href="updateForm.pd">
+                    수정
+                </a>
+                <button>
+                    삭제
+                </button>
+            </div>
             
         </section>
     </main>

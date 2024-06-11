@@ -30,7 +30,7 @@
             <h1>스토어 관리 &gt; 등록상품관리</h1>
 
             <div id="search-area">
-                <form action="search.AdminCs" method="get">
+                <form action="search.pd" method="get">
                     <input type="hidden" name="cpage" value="1">
                     <select name="condition">
                         <option value="category">카테고리</option>
