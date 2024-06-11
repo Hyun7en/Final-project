@@ -3,6 +3,14 @@ $(document).ready(function() {
 
     $('#add-categoryBtn').click(addCategory);
 
+    // Enter 키를 눌렀을 때도 카테고리가 등록되도록 설정
+    $('#enroll-category').on('keypress', function(event) {
+        if (event.which == 13) { // Enter 키 코드가 13입니다.
+            event.preventDefault(); // 폼 제출을 막습니다.
+            addCategory();
+        }
+    });
+
     $(document).on('click', '.removeBtn', removeCategory);
 
     $('#enrollForm').submit(function(event) {
@@ -26,22 +34,16 @@ $(document).ready(function() {
     // 카테고리를 추가하는 함수
     function addCategory() {
         let category = $('#enroll-category').val().trim();
-        if (category) {
-            if (!isValidCategory(category)) {
-                alert('올바른 카테고리를 입력하세요.');
-                return;
-            }
-            if (categories.includes(category)) {
-                alert('이미 추가된 카테고리입니다.');
-                return;
-            }
+        if (category && isValidCategory(category) && !categories.includes(category)) {
             categories.push(category);
             appendCategoryToList(category);
             $('#enroll-category').val('');  // 입력 필드 초기화
             console.log(categories);
             alert('카테고리가 성공적으로 추가되었습니다.');
+        } else if (categories.includes(category)) {
+            alert('이미 추가된 카테고리입니다.');
         } else {
-            alert('카테고리를 입력하세요.');
+            alert('카테고리에 빈값은 넣을수 없습니다.');
         }
     }
 

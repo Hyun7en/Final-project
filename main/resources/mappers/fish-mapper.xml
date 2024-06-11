@@ -17,8 +17,22 @@
 
 	</resultMap>
 	
-	<resultMap type="Fish" id="fishDetailInfoResult">
+		<resultMap type="Fish" id="resultCurationFish">
 	
+		<result column="fish_no" property="fishNo"/>
+		<result column="fish_type" property="fishType"/>
+		<result column="taste_type" property="tasteType"/>
+		<result column="fish_file_no" property="fishFileNo"/>
+		<result column="fish_name" property="fishName"/>
+		<result column="tendency" property="tendency"/>
+		<result column="origin_name" property="url"/>
+		<result column="difficulty" property="difficulty"/>
+		<result column="growth_length" property="growthLength"/>
+		<result column="life_span" property="lifeSpan"/>
+		<result column="environment" property="environment"/>
+	</resultMap>
+	
+	<resultMap type="Fish" id="fishDetailInfoResult">
 		<result column="fish_no" property="fishNo"/>
 		<result column="fish_type" property="fishType"/>
 		<result column="taste_type" property="tasteType"/>
@@ -37,6 +51,8 @@
 		<result column="environment" property="environment"/>
 		<result column="life_span" property="lifeSpan"/>
 		<result column="feed_type" property="feedType"/>
+		<result column="difficulty" property="difficulty"/>
+		<result column="growth_length" property="growthLength"/>
 	</resultMap>
 	
 	<resultMap type="Fish" id="anotherFish">
@@ -44,6 +60,7 @@
 		<result column="fish_name" property="fishName"/>
 		<result column="origin_name" property="url"/>
 	</resultMap>
+	
 	
 	<select id="selectListCount" resultType="_int">
 		SELECT COUNT(*) 
@@ -151,5 +168,36 @@
 		JOIN public.fish_attachment using(fish_file_no)
 		WHERE fish_type = #{fishType}
 		LIMIT 5
+	</select>
+	
+	<select id="resultCuration" parameterType="map" resultMap="resultCurationFish">
+		SELECT fish_no,
+			   fish_type,
+			   taste_type,
+			   fish_file_no,
+			   fish_name,
+			   tendency,
+			   origin_name,
+			   difficulty,
+			   growth_length,
+			   environment,
+			   life_span
+		FROM public.fish 
+		JOIN public.fish_attachment using(fish_file_no)
+		WHERE 1=1
+		<if test="fishType == '잘 모르겠어요'">
+			AND difficulty = #{difficulty}
+	   	 	AND growth_length LIKE '%' || #{max} || '%' 		
+		</if>
+		<if test = "max == '잘 모르겠어요!'">
+			AND fish_type = #{fishType}
+	   	 	AND difficulty = #{difficulty}
+		</if>
+		<if test="fishType != '잘 모르겠어요' and max != '잘 모르겠어요!'">
+			AND fish_type = #{fishType}
+		   	AND difficulty = #{difficulty}
+		   	AND growth_length LIKE '%' || #{max} || '%' 
+		</if>
+	   	  
 	</select>
 </mapper>

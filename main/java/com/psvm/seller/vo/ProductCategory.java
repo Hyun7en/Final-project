@@ -1,5 +1,6 @@
 package com.psvm.seller.vo;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,4 +17,5 @@ public class ProductCategory {
 	private int caNo;
 	private String pdCategory;
 	private int sellerPageNo;
+    
 }

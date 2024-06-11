@@ -2,14 +2,19 @@
 
     
     section {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
+        display: block;
         padding: 40px 200px;
         height: calc(100vh - 40px);
         overflow-y: scroll;
     }
+  
+    #product-detail{
+        display: block;
+    }
 
+    #product-detail div h4{
+        margin-right: 10px;
+    }
     /* 스크롤바 없애기 */
     body {
         -ms-overflow-style: none;
@@ -24,33 +29,25 @@
     section h1 {
         margin-bottom: 20px;
     }
-
-    section div{
-        margin-bottom: 20px;
-    }
+   
     section .form-group {
-        margin-bottom: 15px;
+        margin-top: 30px;
         display: flex;
         align-items: center;
     }
 
-    section .form-group .pd-detail-title {
-        width: 150px;
-        font-weight: bold;
+    section .form-g {
+        margin-top: 30px;
+        align-items: center;
+    }
+    section .form-g h4{
+        margin-bottom: 10px;
     }
 
     section .form-group div{
         flex: 1;
         padding: 5px;
         font-size: 16px;
-    }
-
-    #product-management{
-        display: flex;
-    }
-
-    #product-management div{
-        margin-right: 30px;
     }
     
     .image-container {
@@ -63,6 +60,10 @@
     .image-container img {
         width: 100%;
         height: 100%;
+    }
+
+    .form-actions{
+        margin-top: 20px;
     }
 
     .form-actions a, button {

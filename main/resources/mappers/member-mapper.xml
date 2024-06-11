@@ -23,6 +23,7 @@
 		<result column="USER_LV" property="userLv"/>
 		<result column="JOIN_DATE" property="joinDate"/>
 		<result column="MEMBER_FILE_NO" property="memberFileNo"/>
+		<result column="USER_INTRO" property="userIntro"/>
 	</resultMap>
 	
 	<select id="loginMember" resultMap="memberResult">
@@ -42,7 +43,8 @@
 				ACTIVATED,
 				USER_LV,
 				JOIN_DATE,
-				MEMBER_FILE_NO
+				MEMBER_FILE_NO,
+				USER_INTRO
 		FROM	MEMBER
 		WHERE	USER_ID = #{userId}
 		AND		ACTIVATED = 'Y'

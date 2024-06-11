@@ -32,13 +32,13 @@
         </div>
         <nav>
             <div>
-                <a href="memberList.ma?categoryName=member">회원 관리</a>
+                <a href="memberList.ma?cpage=1&categoryName=member">회원 관리</a>
             </div>
             <div>
-                <a href="sellerList.ma?categoryName=seller">판매자 관리</a>
+                <a href="sellerList.ma?cpage=1&categoryName=seller">판매자 관리</a>
             </div>    
             <div>
-                <a href="categoryList.ma?categoryName=category">카데고리 관리</a>
+                <a href="categoryList.ma?cpage=1&categoryName=category">카데고리 관리</a>
             </div>
             <div>
                 <a href="">혜택 관리</a>

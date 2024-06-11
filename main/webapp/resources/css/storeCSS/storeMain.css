@@ -130,22 +130,22 @@
         margin-bottom: 4px;
     }
 
-    .carousel-item .product-descript #product-descript-store-name{
-        font-size: 13px;
+    .carousel-item .product-descript .product-descript-store-name{
+        font-size: 15px;
         color: #0089FF;
     }
 
-    .carousel-item .product-descript #product-descript-rating-review{
+    .carousel-item .product-descript .product-descript-rating-review{
         font-size: 13px;
         display: flex;
-        align-items: center;
+        text-align: center;
     }
 
-    .carousel-item .product-descript #product-descript-rating-review img{
+    .carousel-item .product-descript .product-descript-rating-review img{
         height: 12px;
     }
 
-    .carousel-item .product-descript #product-descript-rating-review span{
+    .carousel-item .product-descript .product-descript-rating-review span{
         padding-left: 2px;
     }
 
@@ -159,6 +159,7 @@
 
     .carousel-item .carousel-dimg img{
         width: 100%; 
+        height: 300px;
         border-radius: 15px;
     }
 

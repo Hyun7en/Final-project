@@ -18,25 +18,26 @@ function confirm_nickname() {
     document.getElementById("nickname").style.backgroundColor = "#96E6FF";
     document.getElementById("nickname-btn").disabled = true;
     document.getElementById("nickname-btn").innerText = "확정됨";
-    document.getElementById("nickname-btn").style.backgroundColor = "#96E6FF";
     document.getElementById("nickname-btn").style.color = "#000";
 }
 
-// function change_intro() {
-//     document.getElementById("intro").disabled = false;
-//     document.getElementById("intro-btn").innerText = "확정";
-//     document.getElementById("intro-btn").setAttribute("onclick", "confirm_intro()");
-// }
+function change_userIntro() {
+    document.getElementById("userIntro").readOnly = false;
+    document.getElementById("userIntro").style.backgroundColor = "white";
+    document.getElementById("userIntro-btn").innerText = "확정";
+    document.getElementById("userIntro-btn").style.backgroundColor = "#96E6FF";
+    document.getElementById("userIntro-btn").setAttribute("onclick", "confirm_userIntro()");
+}
 
-// function confirm_intro() {
-//     document.getElementById("modify-btn").disabled = false;
-//     document.getElementById("modify-btn").style.backgroundColor = "#000";
-//     document.getElementById("intro").disabled = true;
-//     document.getElementById("intro").style.backgroundColor = "#9AE2AA";
-//     document.getElementById("intro-btn").disabled = true;
-//     document.getElementById("intro-btn").innerText = "확정됨";
-//     document.getElementById("intro-btn").style.color = "#bbb";
-// }
+function confirm_userIntro() {
+    document.getElementById("modify-btn").disabled = false;
+    document.getElementById("modify-btn").style.backgroundColor = "#000";
+    document.getElementById("userIntro").readOnly = true;
+    document.getElementById("userIntro").style.backgroundColor = "#96E6FF";
+    document.getElementById("userIntro-btn").disabled = true;
+    document.getElementById("userIntro-btn").innerText = "확정됨";
+    document.getElementById("userIntro-btn").style.color = "#000";
+}
 
 function change_gender() {
     document.getElementById("gender-display").style.display = "none";
@@ -131,6 +132,7 @@ function confirm_address() {
     document.getElementById("address-btn").style.color = "#000";
 }
 
+// 프로필 이미지 변경했을 때
 function loadImg(imgInputFile){
     console.log(imgInputFile.files.length)
     if(imgInputFile.files.length == 1){
@@ -152,16 +154,17 @@ function loadImg(imgInputFile){
     }
 }
 
+// 회원탈퇴 버튼 눌렀을 때 나타나는 모달창
 function delete_member_modal(){
     document.getElementById("delete-member-modal").style.display = "flex";
     
 }
 
+// 회원탈퇴 하기 전 비밀번호 확인(ajax)
 function password_check(){
     const inputPwd = document.getElementById("inputPwd").value;
     const loginUserPwd = document.getElementById("loginUserPwd").value;
-    console.log(inputPwd);
-    console.log(loginUserPwd);
+
     $.ajax({
         url: 'passwordCheck.my',
         type: 'POST',
@@ -183,25 +186,18 @@ function password_check(){
             }
         }
     });
-    
-    // const passwordCheck = "${passwordCheck}"
-    // console.log(inputPassword);
-    // console.log(passwordCheck)
-    // location.href="passwordCheck.my?userNo=${loginUser.userNo}&inputPassword=" + inputPassword;
-
-
-
-
 }
 
+// 회원탈퇴 모달창에서 탈퇴하기 버튼 눌렀을 때
 function delete_member(userNo){
     document.getElementById("delete-member-modal").style.display = "none";
     location.href="deleteMember.my?userNo=" + userNo;
 }
-
+// 회원탈퇴 모달창에서 닫기 버튼 눌렀을때
 function close_modal(){
     document.getElementById("inputPwd").value = "";
     document.getElementById("delete-member-modal").style.display = "none";
+    document.getElementById("warning-text").style.color = "red";
     document.getElementById("warning-text").innerText = "* 회원 탈퇴 시, 복구가 불가능합니다.";
 }
 
