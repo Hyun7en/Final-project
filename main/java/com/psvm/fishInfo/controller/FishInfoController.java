@@ -33,7 +33,6 @@ public class FishInfoController {
 		
 		
 		model.addAttribute("fish", fish);
-		
 		return "fishInfo/fishInfoDetail";
 	}
 	
