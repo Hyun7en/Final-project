@@ -55,7 +55,6 @@ public class MemberController {
 	        session.setAttribute("successMessage", "로그인에 성공했습니다!");
 	        session.setAttribute("loginUser", loginUser);
 	        mv.setViewName("redirect:" + recentLink);
-	        System.out.println("redirect : " + recentLink);
 	    }
 	    
 	    return mv;

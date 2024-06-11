@@ -11,23 +11,41 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.psvm.member.service.MemberService;
+import com.psvm.member.vo.Member;
 
 @Controller
 public class NaverLoginController {
 	
+	@Value("${sns.naver.clientId}")
+	private String clientId;
+	
+	@Value("${sns.naver.clientSecret}")
+	private String clientSecret;
+	
+	@Autowired
+	private MemberService memberService;
+	
+	@Autowired
+	private BCryptPasswordEncoder bcryptPasswordEncoder;
+	
 	@RequestMapping("naverLogin.me")
-	public String naverLoginCallback(HttpServletRequest request) {
+	public String naverLoginCallback(HttpServletRequest request, @RequestParam(name="recentLink", defaultValue="/") String recentLink, HttpSession session, String saveId, HttpServletResponse response) {
 		
-		String clientId = "USGHlbNkhJtAYXzsBoJd";
-		String clientSecret = "WhPtghFgR9";
 		String code = request.getParameter("code");
 		String state = request.getParameter("state");
 		
@@ -70,7 +88,6 @@ public class NaverLoginController {
 
 				
 				JsonObject totalObj = JsonParser.parseString(result).getAsJsonObject();
-				System.out.println(totalObj.get("access_token"));
 				
 				String token = totalObj.get("access_token").getAsString(); //정보접근을 위한 토큰
 				String header = "Bearer " + token;
@@ -84,20 +101,47 @@ public class NaverLoginController {
 				JsonObject memberInfo = JsonParser.parseString(responseBody).getAsJsonObject();
 				JsonObject resObj = memberInfo.getAsJsonObject("response");
 				
-				System.out.println(resObj);
-				//받아온 email과 데이터베이스의 email을 비교하여 가입유무 확인 후
-				//가입되어있다면 로그인, 아니라면 회원가입창으로 정보를 가지고 이동
-				//resObj.get().getAs();
-				//get()의 괄호 안에 "키" 입력
-				//id, nickname, profile_image, gender, email, mobile, mobile_e164, name, birthday, birthyear를 가져옴.
-				//이 중 nickname, mobile, birthday, birthyear은 양식에 맞게 재설정.
+				Member naverUser = new Member();
+				
+				String userId = resObj.get("id").getAsString();
+				naverUser.setUserId(userId);
+				
+				String encPwd = bcryptPasswordEncoder.encode("NaverUser");
+				naverUser.setUserPwd(encPwd);
+				
+				int idCheck = memberService.idCheck(userId);
+				
+				if (idCheck == 0) { //아이디가 없으므로 회원으로 등록
+					
+					naverUser.setEmail(resObj.get("email").getAsString());
+					naverUser.setUserName(resObj.get("name").getAsString());
+					naverUser.setNickname(resObj.get("nickname").getAsString());
+					
+					String birthday = (resObj.get("birthday").getAsString()).replace("-", "");
+					naverUser.setBirthday(resObj.get("birthyear").getAsString() + birthday);
+					
+					naverUser.setGender(resObj.get("gender").getAsString());
+					naverUser.setAddress("정보 미제공");
+					naverUser.setPhone((resObj.get("mobile").getAsString()).replace("-", ""));
+					
+					memberService.signupMember(naverUser);
+				}
+				
+				Member loginUser = memberService.loginMember(naverUser);
+				
+				Cookie ck = new Cookie("saveId", loginUser.getUserId());
+		        if (saveId == null) {
+		            ck.setMaxAge(0);
+		        }
+				response.addCookie(ck);
+		        session.setAttribute("successMessage", "로그인에 성공했습니다!");
+		        session.setAttribute("loginUser", loginUser);
 			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		return "redirect:login.me";
+		return "redirect:" + recentLink;
 		
 	}
 	
