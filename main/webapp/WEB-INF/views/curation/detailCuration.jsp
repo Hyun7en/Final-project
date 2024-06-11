@@ -20,47 +20,39 @@
         
         <main>
             <div class="splash-container">
-                <a href=""> <!-- 클릭 시 링크 설정 -->
-                    <div class="card">
-                
-                        <!-- 카드 헤더 -->
-                        <div class="card-header" >
-                            <div class = "card-header-is_closed" > 
-                                <div class = "card-header-text" > 모집중 </div > 
-                                <div class = "card-header-number" > 2 / 5 </div > 
-                            </div >
-                        </div>
-                
-                        <!--  카드 바디 -->
-                        <div class="card-body">
-                
-                            <!--  카드 바디 헤더 -->
-                            <div class="card-body-header">
-                                <h1>${fish.fishName}</h1>
-                                <p class="card-body-hashtag">#여수 #순천 #광양</p>
-                                 <p class = "card-body-nickname"> 
-                                                 작성자: ENDORPHIN0710
-                           		         </p>
+                <div class="splash-text">
+                    <h1 style="text-align: center; margin-left: 25px;">당신에게 어울리는 물고기는</h1>
+                    <a href="fishDetail.fi?fishName=${fish.fishName}">
+                        <div class="card">
+                            <!-- 카드 헤더 -->
+                            <div class="card-header">
+                                <img src="${pageContext.request.contextPath}/resources/image/${fish.url}" alt="">
                             </div>
-                            <p class="card-body-description">
-                                안녕하세요!
-                                4월 15일 순천만 동행구합니다!
-                            </p>
-                            <!--  카드 바디 본문 -->
-                
-                            <!--  카드 바디 푸터 -->
-                            <div class="card-body-footer">
-                                <hr style="margin-bottom: 8px; opacity: 0.5; border-color: #EF5A31">
-                                <i class="icon icon-view_count"></i>조회 38회
-                                <i class="icon icon-comments_count"></i>댓글 4개
-                                <i class="reg_date"> 2018/04/12 </i>
+                    
+                            <!-- 카드 바디 -->
+                            <div class="card-body">
+                    
+                                <!-- 카드 바디 헤더 -->
+                                <div class="card-body-header">
+                                    <h1>${fish.fishName}</h1>
+                                    <p class="card-body-hashtag">#${fish.fishType} #${fish.tasteType} #${fish.tendency}</p>
+                                    <p class="card-body-nickname">서식지: ${fish.environment}</p>
+                                </div>               
+                                <!-- 카드 바디 푸터 -->
+                                <hr class="divider">
+                                <div class="card-body-footer">
+                                    
+                                    <i class="icon icon-view_count">수명 : ${fish.lifeSpan}</i>
+                                    <i class="icon icon-comments_count">난이도 : ${fish.difficulty}</i>
+                                    <i class="reg_date">크기 : ${fish.growthLength}</i>
+                                </div>
+                    
                             </div>
-                
+                    
                         </div>
-                
-                    </div>
                     </a>
-                출처: https://endorphin0710.tistory.com/70 [Festina Lente:티스토리]
+                    <h1 style="text-align: center; margin-left: 25px;">입니다 !</h1>
+                </div>
             </div>
 		    
         </main>

@@ -36,7 +36,7 @@ public class CurationController {
 	    List<String> clickedTextList = Arrays.asList(clickedTexts.split(","));
 	    
 	   	Fish fish = curationService.resultCuration(clickedTextList);
-	    
+	    System.out.println(fish);
 	    model.addAttribute("fish", fish);
 	    return "curation/detailCuration";
 	}

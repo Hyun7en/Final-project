@@ -77,7 +77,7 @@
                         </div>
                     </div>
                     <section id="long-info">
-                        ${fish.caution}
+                        <p>${fish.caution}</p>
                     </section>
                 </div>
                 

@@ -33,10 +33,14 @@
                 <p>자신에게 맞는 물고기를 찾아보세요!</p>
             </div>
             <div id="cu-btn">
-                <button class="startBtn" onclick="startCuration(0);">시작하기</button>
+                <button class="startBtn" onclick="startCuration();">시작하기</button>
+                
             </div>
-		    
         </main>
+        <!-- 로딩 스피너 -->
+        <div id="loading_spinner">
+            <div class="spinner"></div>
+        </div>
                 
         <!-- footer -->
         <%@ include file="../commons/footer.jsp" %>

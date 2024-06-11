@@ -28,7 +28,8 @@
 		<result column="origin_name" property="url"/>
 		<result column="difficulty" property="difficulty"/>
 		<result column="growth_length" property="growthLength"/>
-
+		<result column="life_span" property="lifeSpan"/>
+		<result column="environment" property="environment"/>
 	</resultMap>
 	
 	<resultMap type="Fish" id="fishDetailInfoResult">
@@ -179,7 +180,9 @@
 			   tendency,
 			   origin_name,
 			   difficulty,
-			   growth_length
+			   growth_length,
+			   environment,
+			   life_span
 		FROM public.fish 
 		JOIN public.fish_attachment using(fish_file_no)
 		WHERE 1=1
