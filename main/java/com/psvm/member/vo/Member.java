@@ -31,4 +31,5 @@ public class Member {
 	private int userLv; //레벨
 	private Date joinDate; //가입일자
 	private int	memberFileNo; // 썸네일
+	private String userIntro; //한줄소개
 }

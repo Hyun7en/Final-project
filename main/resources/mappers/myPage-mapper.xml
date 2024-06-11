@@ -34,10 +34,12 @@
 		<result column="USER_LV" property="userLv"/>
 		<result column="JOIN_DATE" property="joinDate"/>
 		<result column="MEMBER_FILE_NO" property="memberFileNo"/>
+		<result column="USER_INTRO" property="userIntro"/>
 	</resultMap>
 	
 	<!-- 작성한 게시글 resultMapper -->
 	<resultMap type="Community" id="writePostResult">
+		<result column="board_no" property="boardNo"/>
 		<result column="board_level" property="boardLevel"/>
 		<result column="board_title" property="boardTitle"/>
 		<result column="write_date" property="writeDate"/>
@@ -67,6 +69,7 @@
 	<update id="modifyInfo">
 		UPDATE member
 		SET nickname = #{nickname},
+			user_intro = #{userIntro},
 			gender = #{gender},
 			phone = #{phone},
 			email = #{email},
@@ -125,7 +128,8 @@
 				ACTIVATED,
 				USER_LV,
 				JOIN_DATE,
-				MEMBER_FILE_NO
+				MEMBER_FILE_NO,
+				USER_INTRO
 		FROM	MEMBER
 		WHERE	USER_NO = #{userNo}
 		AND		ACTIVATED = 'Y'
@@ -139,11 +143,18 @@
 	</update>
 
 
+	<!-- 회원이 작성한 게시글 수 조회 -->
+	<select id="writePostListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM board
+		WHERE status = 'Y'
+		AND user_no = #{userNo}
+	</select>
 
-
-	<!-- 작성한 게시글 리스트 조회 -->
+	<!-- 회원이 작성한 게시글 조회 -->
 	<select id="writePostList" resultMap="writePostResult">
-		SELECT board_level,
+		SELECT board_no,
+			   board_level,
 			   board_title,
 			   write_date,
 			   board_count
@@ -153,8 +164,8 @@
 		ORDER BY write_date DESC
 	</select>
 	
-	<!-- 작성한 게시글 종류별 갯수 조회 -->
-	<select id="writePostListCount" resultType="_int">
+	<!-- 회원이 작성한 게시글 종류별 갯수 조회 -->
+	<select id="wirtePostTypeListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM board
 		WHERE status = 'Y'
@@ -163,7 +174,15 @@
 		GROUP BY board_level	<!-- board_level을 그룹화해서 board_level이 0, 1, 2, 3인 게시글들을 종류별로 카운트 -->
 	</select>
 	
-	<!-- 작성한 문의글 리스트 조회 -->
+	<!-- 회원이 작성한 문의글 수 조회 -->
+	<select id="inquiryListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM inquiry
+		WHERE status = 'Y'
+		AND user_no = #{userNo}
+	</select>
+	
+	<!-- 회원이 작성한 문의글 리스트 조회 -->
 	<select id="inquiryList" resultMap="inquiryResult">
 		SELECT inquiry_no,
 			   inquiry_title,
@@ -175,18 +194,21 @@
 		ORDER BY inquiry_date DESC
 	</select>
 	
+	<!-- 판매자 신청할 때 회원등급이 일반회원인지 확인하기 위한 조회 -->
 	<select id="selectSellerConversionAuthority" resultType="_int">
 		SELECT authority
 		FROM member
 		WHERE user_no = #{userNo}
 	</select>
 	
+	<!-- 판매자 신청할 때 이미 신청한 회원인지 확인하기 위한 조회 -->
 	<select id="selectSellerConversionStatus" resultType="string">
 		SELECT status
 		FROM seller_info
 		WHERE user_no = #{userNo}
 	</select>
 	
+	<!-- 판매자 정보 등록 -->
 	<insert id="sellerInfoInsert">
 		INSERT INTO seller_info(
 			business_no,

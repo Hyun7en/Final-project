@@ -98,7 +98,7 @@
                                     <th>레벨</th>
                                     <td>${loginUser.userLv}</td>
                                 </tr>
-                                <tr>
+                                <!-- <tr>
                                     <th>아이디</th>
                                     <td>
                                         ${loginUser.userId}
@@ -109,7 +109,7 @@
                                     <td>
                                         ${loginUser.userPwd}
                                     </td>
-                                </tr>
+                                </tr> -->
                             </table>
                         </div>
                          
@@ -123,7 +123,13 @@
                                         <button type="button" class="change-btn" id="nickname-btn" onclick="change_nickname(this)">변경</button>
                                     </td>
                                 </tr>
-
+                                <tr>
+                                    <th>한줄소개</th>
+                                    <td>
+                                        <input type="text" id="userIntro" name="userIntro" readonly value="${loginUser.userIntro}">
+                                        <button type="button" class="change-btn" id="userIntro-btn" onclick="change_userIntro()">변경</button>
+                                    </td>
+                                </tr>
                                 <tr>
                                     <th>성별</th>
                                     <td id="gender-area">
@@ -140,7 +146,6 @@
                                         <button type="button" class="change-btn" id="gender-change-btn" onclick="change_gender()">변경</button>
                                     </td>
                                 </tr>
-
                                 <tr>
                                     <th>연락처</th>
                                     <td>
@@ -175,10 +180,9 @@
                     <div id="delete-member-modal">
                         <div id="delete-member-modal-content">
                             <h3>회원 탈퇴 확인</h3>
-
                             <div id="password-check-area">
                                 <div>
-                                    <span id="" >현재 비밀번호</span>
+                                    <span>현재 비밀번호</span>
                                     <div>
                                         <input type="text" id="inputPwd" name="inputPwd" value="">
                                         <input type="hidden" id="loginUserPwd" name="loginUserPwd" value="${loginUser.userPwd}">
@@ -187,7 +191,6 @@
                                 </div>
                                 <span id="warning-text">* 회원 탈퇴 시, 복구가 불가능합니다.</span>
                             </div>
-   
                             <div id="modal-btn-area">
                                 <!-- <form id="form-area" action="deleteMember.my?userNo=${loginUser.userNo}"></form> -->
                                     <button type="button" id="delete-btn" onclick="delete_member('${loginUser.userNo}')" readonly style="color: #d0d0d0;">탈퇴하기</button>
@@ -195,7 +198,7 @@
                                 <button type="button" id="close-modal" onclick="close_modal()">닫기</button>
                             </div>
                         </div>
-                    </div>
+                    </div>  
 
                 </div>
             </div>

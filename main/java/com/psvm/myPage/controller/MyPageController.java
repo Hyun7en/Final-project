@@ -13,11 +13,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.psvm.commons.template.Pagination;
+import com.psvm.commons.vo.PageInfo;
 import com.psvm.community.vo.Community;
 import com.psvm.member.vo.Member;
 import com.psvm.member.vo.MemberAttachment;
@@ -34,9 +37,10 @@ public class MyPageController {
 	@Autowired
 	BCryptPasswordEncoder bcryptPasswordEncoder;
 
-	// 내 정보 페이지로 보내기
+	// 내 정보 페이지로  보내는 메서드
 	@RequestMapping("myPage.me")
 	public String selectMyInfo(HttpSession session, int userNo) {
+		// 내정보 페이지 가기전에 이미지 파일 첨부했는지 조회 
 		MemberAttachment ma = myPageService.selectMemberAttachment(userNo);
 
 		session.setAttribute("ma", ma);
@@ -44,7 +48,7 @@ public class MyPageController {
 		return "myPage/myPageInfo";
 	}
 
-	// 내정보 페이지에 있는 내정보 수정
+	// 내정보 페이지에 있는 회원정보 수정하는 메서드
 	@RequestMapping("modifyInfo.my")
 	public ModelAndView modifyInfo(HttpSession session, Member m, MemberAttachment ma, MultipartFile file,
 			ModelAndView mv) {
@@ -56,8 +60,9 @@ public class MyPageController {
 		// 전달된 첨부파일이 있을 경우
 		if (!file.getOriginalFilename().equals("")) {
 
-			// 기존의 첨부파일이 있다 => 기존의 파일을 삭제
+			// 기존의 첨부파일이 있을 때 
 			if (ma.getOriginName() != null) {
+				// 기존의 파일을 삭제
 				new File(session.getServletContext().getRealPath(ma.getChangeName())).delete();
 
 				// 파일명 변경하는 메소드로 보내고 값 받아오기
@@ -66,10 +71,12 @@ public class MyPageController {
 				ma.setOriginName(file.getOriginalFilename());
 				ma.setChangeName("resources/image/" + changeName);
 				ma.setRefMno(userNo);
-
+				
+				// 이미지 파일 제외한 정보 수정
 				result1 = myPageService.modifyInfo(m);
+				// 이미지 파일 정보 변경
 				result2 = myPageService.updateImageModifyInfo(ma);
-			} else {
+			} else { // 기존의 첨부파일이 없을때
 
 				// 파일명 변경하는 메소드로 보내고 값 받아오기
 				String changeName = saveFile(file, session);
@@ -77,12 +84,15 @@ public class MyPageController {
 				ma.setOriginName(file.getOriginalFilename());
 				ma.setChangeName("resources/image/" + changeName);
 				ma.setRefMno(userNo);
-
+				
+				//이미지 파일 제외한 정보 수정
 				result1 = myPageService.modifyInfo(m);
+				// 이미지 파일 정보 넣기
 				result2 = myPageService.insertImageModifyInfo(ma);
 			}
 
 		} else { // 전달된 첨부파일이 없을 경우
+			//이미지 파일 제외한 정보 수정
 			result1 = myPageService.modifyInfo(m);
 			result2 = 1;
 		}
@@ -96,17 +106,17 @@ public class MyPageController {
 			session.setAttribute("loginUser", mem);
 			session.setAttribute("ma", mematt);
 
-			mv.addObject("successMessage", "회원정보 수정 성공");
+			session.setAttribute("successMessage", "회원정보 수정 성공");
 			mv.setViewName("redirect:myPage.me?userNo=" + userNo);
 		} else {
-			mv.addObject("errorMessage", "회원정보 수정 실패");
+			session.setAttribute("errorMessage", "회원정보 수정 실패");
 			mv.setViewName("redirect:myPage.me?userNo=" + userNo);
 		}
 
 		return mv;
 	}
 
-	// 프로필 이미지 변경할 때
+	// 프로필 이미지 변경할 때 이미지 파일 이름 변경하는 메서드 (originName -> changeName)
 	public String saveFile(MultipartFile file, HttpSession session) {
 		// 파일명 수정 후 서버에 업로드하기("imgFile.jpg => 202404231004305488.jpg")
 		String originName = file.getOriginalFilename();
@@ -137,29 +147,32 @@ public class MyPageController {
 		return changeName;
 	}
 
-	// 회원 탈퇴
+	// 회원 탈퇴 메서드
 	@RequestMapping("deleteMember.my")
 	public ModelAndView deleteMember(int userNo, Model model, HttpSession session, ModelAndView mv) {
-
+		
+		// 회원 탈퇴(activated : 'Y' => 'N')
 		int result = myPageService.deleteMember(userNo);
 
 		if (result > 0) {
 			session.removeAttribute("loginUser");
-			mv.addObject("successMessage", "회원탈퇴 성공");
+			session.setAttribute("successMessage", "회원탈퇴 성공");
 			mv.setViewName("redirect:/");
 		} else {
-			mv.addObject("successMessage", "회원탈퇴 실패");
+			mv.addObject("errorMessage", "회원탈퇴 실패");
 			mv.setViewName("myPage/myPageInfo");
 		}
 		return mv;
 	}
 
-	// 회원탈퇴시 탈퇴한건지 확인하기 위한 비밀번호 확인이 맞는지 체크(ajax)
+	// 회원탈퇴시 탈퇴한건지 확인하기 위한 비밀번호 확인이 맞는지 체크(ajax)하는 메서드
 	@ResponseBody
 	@RequestMapping(value = "passwordCheck.my", produces = "application/json; charset-UTF-8")
 	public String passwordCheck(String inputPwd, HttpSession session) {
-
+		
+		// 세션에 로그인 되어있는 회원 비밀번호 가져오기
 		String loginUserPwd = ((Member) session.getAttribute("loginUser")).getUserPwd();
+		// 입력한 비밀번호가  로그인한 회원 비밀번호랑 같은지 비교
 		boolean isPasswordCheck = bcryptPasswordEncoder.matches(inputPwd, loginUserPwd);
 		return new Gson().toJson(isPasswordCheck);
 	}
@@ -172,7 +185,12 @@ public class MyPageController {
 //		model.addAttribute("interestProduct", InterestProduct);
 
 		return "myPage/myPageInterest";
+	}
+	
+	@RequestMapping("cart.my")
+	public String cart() {
 
+		return "myPage/myPageCart";
 	}
 
 	@RequestMapping("orderHistory.my")
@@ -180,50 +198,72 @@ public class MyPageController {
 
 		return "myPage/myPageOrderHistory";
 	}
-
+	
+	// 회원이 작성한 게시글을 조회하기 위한 메서드
 	@RequestMapping("writePost.my")
-	public String wirtePostList(HttpSession session, int userNo) {
-
-		ArrayList<Community> list = myPageService.wirtePostList(userNo);
-
-		ArrayList<Integer> listCount = myPageService.wirtePostListCount(userNo);
-
-		session.setAttribute("list", list);
-		session.setAttribute("listCount", listCount);
+	public String wirtePostList(@RequestParam(value="cpage", defaultValue="1") int currentPage, HttpSession session, int userNo) {
+		
+		// 회원이 작성한 게시글 수 조회
+		int myBoardListCount = myPageService.writePostListCount(userNo);
+		
+		// 페이징 처리
+		PageInfo pi = Pagination.getPageInfo(myBoardListCount, currentPage, 10, 10);
+		
+		// 회원이 작성한 게시글 리스트 조회
+		ArrayList<Community> myBoardList = myPageService.wirtePostList(userNo, pi);
+		
+		//회원이 작성한 타입별 게시글 수 조회(일반, 꿀팁, 질문, 중고거래)
+		ArrayList<Integer> myBoardTypeListCount = myPageService.wirtePostTypeListCount(userNo);
+		
+		session.setAttribute("pi", pi);
+		session.setAttribute("myBoardList", myBoardList);
+		session.setAttribute("myBoardListCount", myBoardTypeListCount);
 
 		return "myPage/myPageWritePost";
 	}
 
-	@RequestMapping("cart.my")
-	public String cart() {
-
-		return "myPage/myPageCart";
-	}
-
+	// 회원이 작성한 문의글을 조회하기 위한 메서드
 	@RequestMapping("inquiry.my")
-	public String inquiry(HttpSession session, int userNo) {
+	public String inquiry(@RequestParam(value="cpage", defaultValue="1") int currentPage, HttpSession session, int userNo) {
+		
+		// 회원이 작성한 문의글 수 조회
+		int myInquiryListCount = myPageService.inquiryListCount(userNo);
+		
+		// 페이징 처리
+		PageInfo pi = Pagination.getPageInfo(myInquiryListCount, currentPage, 10, 10);
+		
+		// 회원이 작성한 문의글 리스트 조회
+		ArrayList<Inquiry> myInquiryList = myPageService.inquiryList(userNo, pi);
 
-		ArrayList<Inquiry> list = myPageService.inquiryList(userNo);
-
-		session.setAttribute("list", list);
+		session.setAttribute("myInquiryList", myInquiryList);
 
 		return "myPage/myPageInquiry";
 	}
-
+	
+	// 판매자 신청할 때 회원등급(일반회원) 확인 및 이미 판매자 신청한 상태인지 확인하기위한 메서드
 	@RequestMapping("sellerConversionPage.my")
 	public String sellerConversionPage(HttpSession session, int userNo) {
-
+		
+		// 판매자 신청한 일반회원의 등급 조회(일반회원=0, 판매자=1, 관리자=2)
 		int authority = myPageService.selectSellerConversionAuthority(userNo);
+		// 판매자 신청한 일반회원의 상태 조회(seller_info의 status 조회 / 'Y', 'N') 
 		String status = myPageService.selectSellerConversionStatus(userNo);
+		
+		// 1. 판매자 신청 안한 회원, 2. 판매자 신청한 회원(아직 관리자한테 승인은 안됨), 3. 판매지 신청 승인된 회원 / 각각의 페이지가 필요해서 값 조회
+		// 1. 판마자 신청 안한 회원 => 판매자가 되기위한 정보 입력 페이지
+		// 2. 판매자 신청은 했지만 승인이 안된 회원 => 승인중 문구 페이지
+		// 3. 판매자 신청했고 승인된 회원 => 승인됨 문구 페이지
 
 		session.setAttribute("authority", authority);
 		session.setAttribute("status", status);
 
 		return "myPage/myPageSellerConversion";
 	}
-
+	
+	// 판매자 정보 등록하는 메서드
 	@RequestMapping("sellerConversion.my")
 	public ModelAndView sellerConversion(HttpSession session, SellerInfo s, ModelAndView mv) {
+		// 판매자 정보 입력 후 판매자 신청
 		int result = myPageService.sellerInfoInsert(s);
 
 		if (result > 0) {

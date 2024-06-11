@@ -42,14 +42,14 @@
             <c:choose>
                 <c:when test="${categoryName eq 'member'}">
                     <div id="side-list-head">회원 관리</div>
-                    <div class="select" id="side-list-selected1"><a href="memberList.ma?categoryName=member">회원 정보관리</a></div>
-                    <div class="select" id="side-list-selected2"><a href="memberLevel.ma?categoryName=member">회원 레벨 관리</a></div>
+                    <div class="select" id="side-list-selected1"><a href="memberList.ma?cpage=1&categoryName=member">회원 정보관리</a></div>
+                    <div class="select" id="side-list-selected2"><a href="memberLevel.ma?cpage=1&categoryName=member">회원 레벨 관리</a></div>
                 </c:when>
                 <c:when test="${categoryName eq 'seller'}">
                     <div id="side-list-head">판매자 관리</div>
-                    <div class="select" id="side-list-selected1"><a href="sellerList.ma?categoryName=seller">판매자 전체목록</a></div>
-                    <div class="select" id="side-list-selected2"><a href="sellerNewApplication.ma?categoryName=seller">판매자 신규신청</a></div>
-                    <div class="select" id="side-list-selected3"><a href="sellerProductApplication.ma?categoryName=seller">판매자 상품신청</a></div>
+                    <div class="select" id="side-list-selected1"><a href="sellerList.ma?cpage=1&categoryName=seller">판매자 전체목록</a></div>
+                    <div class="select" id="side-list-selected2"><a href="sellerNewApplication.ma?cpage=1&categoryName=seller">판매자 신규신청</a></div>
+                    <div class="select" id="side-list-selected3"><a href="sellerProductApplication.ma?cpage=1&categoryName=seller">판매자 상품신청</a></div>
                 </c:when>
                 <c:when test="${categoryName eq 'category'}">
                     

@@ -90,7 +90,8 @@
         
                                         <div class="info-input-area">
                                             <div class="info-input-title"><b>사업자등록번호</b></div>
-                                            <div><input type="text" name="businessNo"></div>
+                                            <div><input type="text" name="businessNo" id="businessNo"></div>
+                                            <div><button type="button" id="businessMan-certify">사업자 인증</button></div>
                                         </div>
                                         <div class="info-input-area">
                                             <div class="info-input-title"><b>대표자 성명</b></div>
@@ -168,5 +169,33 @@
         <%@ include file="../commons/footer.jsp" %>
         
      </div>
+
+     <script>
+
+        function businessNumber(){
+            let num = document.getElementById('businessNo').value; //사업자번호
+            var data = {
+                "b_no": ["xxxxxxx"] // 사업자번호 "xxxxxxx" 로 조회 시,
+            }; 
+        
+            $.ajax({
+                url: "https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=xIq4IHFGHcPIafZ+VFu6JAN9nmAcyMkNZoNVzQz/8x6dgEterbJnyBwsF2cBYSCIsZfQjMmgXuMUopHi8/IlNw==",  // serviceKey 값을 xxxxxx에 입력
+                type: "POST",
+                data: JSON.stringify(data), // json 을 string으로 변환하여 전송
+                dataType: "JSON",
+                contentType: "application/json",
+                accept: "application/json",
+                success: function(result) {
+                    console.log(result);
+                },
+                error: function(result) {
+                    console.log(result.responseText); //responseText의 에러메세지 확인
+                }
+            });
+        }
+
+
+     </script>
+
 </body>
 </html>
