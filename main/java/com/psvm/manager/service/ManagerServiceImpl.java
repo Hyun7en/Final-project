@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.manager.dao.ManagerDao;
+import com.psvm.manager.vo.Search;
 import com.psvm.manager.vo.Seller;
-import com.psvm.manager.vo.SellerSearch;
 import com.psvm.member.vo.Member;
 
 @Service
@@ -31,6 +31,18 @@ public class ManagerServiceImpl implements ManagerService{
 		return managerDao.memberList(sqlSession, pi);
 	}
 	
+	// 검색한 회원 수 조회
+	public int searchMemberCount(Search s) {
+		return managerDao.searchMemberCount(sqlSession, s);
+	}
+	
+	// 검색한 회원 조회
+	public 	ArrayList<Member> searchMemberList(Search s, PageInfo Pi) {
+		return managerDao.searchMemberList(sqlSession, s, Pi);
+	}
+	
+	
+	
 	// 관리자가 회원 강제 탈퇴
 	public int deleteMember(int userNo) {
 		return managerDao.deleteMember(sqlSession, userNo);
@@ -49,14 +61,14 @@ public class ManagerServiceImpl implements ManagerService{
 		return managerDao.sellerList(sqlSession, pi);
 	}
 	
-	// 검색된 판매자 수 조회
-	public int sellerSearchCount(SellerSearch ss) {
-		return managerDao.sellerSearchCount(sqlSession, ss);
+	// 검색한 판매자 수 조회
+	public int searchSellerCount(Search s) {
+		return managerDao.searchSellerCount(sqlSession, s);
 	}
 	
-	// 검색된 판매자 조회
-	public ArrayList<Seller> sellerSearchList(SellerSearch ss){
-		return managerDao.sellerSearchList(sqlSession, ss);
+	// 검색한 판매자 조회
+	public ArrayList<Seller> searchSellerList(Search s, PageInfo pi){
+		return managerDao.searchSellerList(sqlSession, s, pi);
 	}
 	
 	// 판매자 신규 신청한 회원 수 조회
@@ -68,6 +80,17 @@ public class ManagerServiceImpl implements ManagerService{
 	public ArrayList<Seller> sellerNewApplicationList(PageInfo pi){
 		return managerDao.sellerNewApplicationList(sqlSession, pi);
 	}
+	
+	// 검색한 판매자 신규 신청 회원 수 조회
+	public int searchSellerNewApplicationCount(Search s) {
+		return managerDao.searchSellerNewApplicationCount(sqlSession, s);
+	}
+	
+	// 검색한 판매자 신규 신청 회원 조회
+	public ArrayList<Seller> searchSellerNewApplicationList(Search s, PageInfo pi){
+		return managerDao.searchSellerNewApplicationList(sqlSession, s, pi);
+	}
+	
 	
 	// 판매자 신규신청 승인
 	public int sellerNewApplicationApprove(int userNo) {

@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,8 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.psvm.commons.template.Pagination;
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.manager.service.ManagerServiceImpl;
+import com.psvm.manager.vo.Search;
 import com.psvm.manager.vo.Seller;
-import com.psvm.manager.vo.SellerSearch;
 import com.psvm.member.vo.Member;
 
 @Controller
@@ -30,8 +31,8 @@ public class ManagerController {
 	
 	//관리자를 제외한 모든 회원 조회 메서드
 	@RequestMapping("memberList.ma")
-	public String memberListView(@RequestParam(value="cpage", defaultValue="1") int currentPage, HttpSession session, String categoryName) {
-		
+	public String memberListView(@RequestParam(value="cpage", defaultValue="1") int currentPage, Search s, String categoryName, Model model) {	//Model은 request처럼 한번만 값 내려줌(세션처럼 값을 저장해두지 않음)
+
 		// 관리자를 제외한 모든 회원 수 조회
 		int memberListCount = managerService.memberListCount();
 		
@@ -41,10 +42,35 @@ public class ManagerController {
 		//관리자를 제외한 모든 회원 조회
 		ArrayList<Member> memberList = managerService.memberList(pi);
 		
-		session.setAttribute("memberListCount", memberListCount);
-		session.setAttribute("memberList", memberList);
-		session.setAttribute("pi", pi);
-		session.setAttribute("categoryName", categoryName);
+		model.addAttribute("memberListCount", memberListCount);
+		model.addAttribute("memberList", memberList);
+		model.addAttribute("pi", pi);
+		model.addAttribute("categoryName", categoryName);
+		return "manager/managerMemberInfoManagement";
+	}
+	
+	// 회원 검색 조회 메서드
+	@RequestMapping("searchMember.ma")
+	public String searchMember(@RequestParam(value="cpage", defaultValue="1") int currentPage, Search s, String categoryName, Model model) {
+		
+    	// 검색한 회원 수 조회
+		int searchMemberCount = managerService.searchMemberCount(s);
+		
+		// 페이징 처리
+		PageInfo pi = Pagination.getPageInfo(searchMemberCount, currentPage, 10, 5);
+		
+		// 검색한 회원 조회
+    	ArrayList<Member> searchMemberList = managerService.searchMemberList(s, pi);
+        
+    	model.addAttribute("memberListCount", searchMemberCount);
+		model.addAttribute("memberList", searchMemberList);
+		model.addAttribute("pi", pi);
+		model.addAttribute("searchType", s.getSearchType());
+		model.addAttribute("searchKeyword", s.getSearchKeyword());
+		model.addAttribute("startDate", s.getStartDate());
+		model.addAttribute("endDate", s.getEndDate());
+		model.addAttribute("categoryName", categoryName);
+
 		return "manager/managerMemberInfoManagement";
 	}
 	
@@ -69,16 +95,16 @@ public class ManagerController {
 	
 	// 회원 레벨 관리하는 메서드
 	@RequestMapping("memberLevel.ma")
-	public String memberLevelManagement(HttpSession session, String categoryName) {
+	public String memberLevelManagement(String categoryName, Model model) {
 		
-		session.setAttribute("categoryName", categoryName);
+		model.addAttribute("categoryName", categoryName);
 		return "manager/managerMemberLevelManagement";
 	}
 	
 
 	// 판매자 조회 메서드
 	@RequestMapping("sellerList.ma")
-	public String sellerListView(@RequestParam(value="cpage", defaultValue="1") int currentPage, HttpSession session, String categoryName) {
+	public String sellerListView(@RequestParam(value="cpage", defaultValue="1") int currentPage, String categoryName, Model model) {
 		
 		// 판매자 수 조회
 		int sellerListCount = managerService.sellerListCount();
@@ -89,31 +115,40 @@ public class ManagerController {
 		// 판매자 조회
 		ArrayList<Seller> sellerList = managerService.sellerList(pi);
 		
-		session.setAttribute("sellerListCount", sellerListCount);
-		session.setAttribute("sellerList", sellerList);
-		session.setAttribute("pi", pi);
-		session.setAttribute("categoryName", categoryName);
+		model.addAttribute("sellerListCount", sellerListCount);
+		model.addAttribute("sellerList", sellerList);
+		model.addAttribute("pi", pi);
+		model.addAttribute("categoryName", categoryName);
 		return "manager/managerSellerListView";
 	}
 	
 	// 판매자 검색 조회 메서드
-	@RequestMapping("sellerSearch.ma")
-	public String sellerSearch(HttpSession session, SellerSearch ss) {
-		
-		// 검색된 판매자 수 조회
-		int searchCount = managerService.sellerSearchCount(ss);
-		System.out.println(searchCount);
-		
+	@RequestMapping("searchSeller.ma")
+	public String searchSeller(@RequestParam(value="cpage", defaultValue="1") int currentPage, HttpSession session, Search s, String categoryName, Model model) {
+
+    	// 검색한 판매자 수 조회
+		int searchSellerCount = managerService.searchSellerCount(s);
+		System.out.println(searchSellerCount);
+		// 페이징 처리
+		PageInfo pi = Pagination.getPageInfo(searchSellerCount, currentPage,10, 5);
+		 
 		// 검색된 판매자 조회
-		ArrayList<Seller> sellerSearchList = managerService.sellerSearchList(ss);
-		System.out.println(sellerSearchList);
-		
-		return "";
+    	ArrayList<Seller> searchSellerList = managerService.searchSellerList(s, pi);
+    	System.out.println(searchSellerList);
+		model.addAttribute("sellerListCount", searchSellerCount);
+		model.addAttribute("sellerList", searchSellerList);
+		model.addAttribute("pi", pi);
+		model.addAttribute("searchType", s.getSearchType());
+		model.addAttribute("searchKeyword", s.getSearchKeyword());
+		model.addAttribute("startDate", s.getStartDate());
+		model.addAttribute("endDate", s.getEndDate());
+		model.addAttribute("categoryName", categoryName);
+		return "manager/managerSellerListView";
 	}
 	
 	// 판매자 신규신청한 회원 조회 메서드
 	@RequestMapping("sellerNewApplication.ma")
-	public String sellerNewApplicationList(@RequestParam(value="cpage", defaultValue="1") int currentPage, HttpSession session, String categoryName) {
+	public String sellerNewApplicationList(@RequestParam(value="cpage", defaultValue="1") int currentPage, String categoryName, Model model) {
 		
 		// 판매자 신청한 일반회원 수 조회
 		int sellerNewApplicationCount = managerService.sellerNewApplicationCount();
@@ -122,17 +157,43 @@ public class ManagerController {
 		PageInfo pi = Pagination.getPageInfo(sellerNewApplicationCount, currentPage, 10, 5);
 		
 		// 판매자 신청한 일반회원 리스트 조회
-		ArrayList<Seller> list = managerService.sellerNewApplicationList(pi);
+		ArrayList<Seller> sellerNewApplicationList = managerService.sellerNewApplicationList(pi);
 		
-		session.setAttribute("list", list);
-		session.setAttribute("pi", pi);
-		session.setAttribute("categoryName", categoryName);
+		model.addAttribute("sellerNewApplicationCount", sellerNewApplicationCount);
+		model.addAttribute("sellerNewApplicationList", sellerNewApplicationList);
+		model.addAttribute("pi", pi);
+		model.addAttribute("categoryName", categoryName);
+		return "manager/managerSellerNewApplication";
+	}
+	
+	// 판매자 신규신청 검색 조회 메서드
+	@RequestMapping("searchSellerNewApplication.ma")
+	public String searchSellerNewApplication(@RequestParam(value="cpage", defaultValue="1") int currentPage, Search s, String categoryName, Model model) {
+
+    	// 검색한 판매자 수 조회
+		int searchSellerNewApplicationCount = managerService.searchSellerNewApplicationCount(s);
+		System.out.println(searchSellerNewApplicationCount);
+		// 페이징 처리
+		PageInfo pi = Pagination.getPageInfo(searchSellerNewApplicationCount, currentPage,10, 5);
+		 
+		// 검색된 판매자 조회
+    	ArrayList<Seller> searchSellerNewApplicationList = managerService.searchSellerNewApplicationList(s, pi);
+    	System.out.println(searchSellerNewApplicationList);
+
+    	model.addAttribute("sellerNewApplicationCount", searchSellerNewApplicationCount);
+		model.addAttribute("sellerNewApplicationList", searchSellerNewApplicationList);
+		model.addAttribute("pi", pi);
+		model.addAttribute("searchType", s.getSearchType());
+		model.addAttribute("searchKeyword", s.getSearchKeyword());
+		model.addAttribute("startDate", s.getStartDate());
+		model.addAttribute("endDate", s.getEndDate());
+		model.addAttribute("categoryName", categoryName);
 		return "manager/managerSellerNewApplication";
 	}
 	
 	// 판매자 신규신청 승인 메서드
 	@RequestMapping("sellerNewApplicationApprove.ma")
-	public String sellerNewApplicationApprove(HttpSession session, int userNo) {
+	public String sellerNewApplicationApprove(HttpSession session, int userNo, Model model) {
 		
 		// 회원의 판매자 신청 승인
 		int result = managerService.sellerNewApplicationApprove(userNo);
@@ -141,7 +202,7 @@ public class ManagerController {
 			session.setAttribute("alertMsg", "승인 되었습니다.");
 			return "redirect:sellerNewApplication.ma?categoryName=seller";
 		} else {  // 승인 실패
-			session.setAttribute("errorMsg", "승인 실패하였습니다.");
+			model.addAttribute("errorMsg", "승인 실패하였습니다.");
 			return "redirect:sellerNewApplication.ma?categoryName=seller";
 		}
 	}

@@ -11,10 +11,9 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class SellerSearch {
-	private String condition;
+public class Search {
+	private String searchType;
 	private String searchKeyword;
 	private String startDate;
 	private String endDate;
-	private int currentPage;
 }

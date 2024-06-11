@@ -164,7 +164,7 @@
 		ORDER BY write_date DESC
 	</select>
 	
-	<!-- 작성한 게시글 종류별 갯수 조회 -->
+	<!-- 회원이 작성한 게시글 종류별 갯수 조회 -->
 	<select id="wirtePostTypeListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM board
@@ -174,7 +174,15 @@
 		GROUP BY board_level	<!-- board_level을 그룹화해서 board_level이 0, 1, 2, 3인 게시글들을 종류별로 카운트 -->
 	</select>
 	
-	<!-- 작성한 문의글 리스트 조회 -->
+	<!-- 회원이 작성한 문의글 수 조회 -->
+	<select id="inquiryListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM inquiry
+		WHERE status = 'Y'
+		AND user_no = #{userNo}
+	</select>
+	
+	<!-- 회원이 작성한 문의글 리스트 조회 -->
 	<select id="inquiryList" resultMap="inquiryResult">
 		SELECT inquiry_no,
 			   inquiry_title,
@@ -186,18 +194,21 @@
 		ORDER BY inquiry_date DESC
 	</select>
 	
+	<!-- 판매자 신청할 때 회원등급이 일반회원인지 확인하기 위한 조회 -->
 	<select id="selectSellerConversionAuthority" resultType="_int">
 		SELECT authority
 		FROM member
 		WHERE user_no = #{userNo}
 	</select>
 	
+	<!-- 판매자 신청할 때 이미 신청한 회원인지 확인하기 위한 조회 -->
 	<select id="selectSellerConversionStatus" resultType="string">
 		SELECT status
 		FROM seller_info
 		WHERE user_no = #{userNo}
 	</select>
 	
+	<!-- 판매자 정보 등록 -->
 	<insert id="sellerInfoInsert">
 		INSERT INTO seller_info(
 			business_no,

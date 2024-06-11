@@ -79,16 +79,64 @@
 		AND		AUTHORITY &lt; 2
 	</select>
 	
+	<!-- 검색한 회원 수 조회 -->
+	<select id="searchMemberCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM member
+		WHERE activated = 'Y'
+		AND authority &lt; 2
+		<!-- 검색타입과 검색어를 입력했을 때 -->
+		<if test='searchType != "" and searchKeyword != ""'>
+			<!-- ${}는 자동 따옴표가 안붙는데 #{}는 자동 따옴표가 붙기떄문에 컬럼이름을 써야하는 searchType에는 ${} 사용 -->
+			AND	${searchType} LIKE '%' || #{searchKeyword} || '%'
+		</if>
+		<!-- 기간검색 날짜를 입력했을 때 -->
+		<if test='startDate != "" and endDate != ""'>
+			AND JOIN_DATE BETWEEN #{startDate}::date AND #{endDate}::date
+		</if>
+	</select>
+	
+	<!-- 검색한 회원 조회 -->
+	<select id="searchMemberList" resultMap="memberListResult">
+		SELECT 	USER_NO,
+				USER_ID,
+				USER_PWD,
+				EMAIL,
+				USER_NAME,
+				NICKNAME,
+				BIRTHDAY,
+				GENDER,
+				ADDRESS,
+				PHONE,
+				LIKE_FISH,
+				TAIL_FISH,
+				AUTHORITY,
+				ACTIVATED,
+				USER_LV,
+				JOIN_DATE,
+				MEMBER_FILE_NO,
+				USER_INTRO
+		FROM	MEMBER
+		WHERE	ACTIVATED = 'Y'
+		AND		AUTHORITY &lt; 2
+		<!-- 검색타입과 검색어를 입력했을 때 -->
+		<if test='searchType != "" and searchKeyword != ""'>
+			<!-- ${}는 자동 따옴표가 안붙는데 #{}는 자동 따옴표가 붙기떄문에 컬럼이름을 써야하는 searchType에는 ${} 사용 -->
+			AND	${searchType} LIKE '%' || #{searchKeyword} || '%'
+		</if>
+		<!-- 기간검색 날짜를 입력했을 때 -->
+		<if test='startDate != "" and endDate != ""'>
+			AND JOIN_DATE BETWEEN #{startDate}::date AND #{endDate}::date
+		</if>
+		
+	</select>
+	
 	<!-- 관리자가 회원 강제 탈퇴 -->
 	<update id="deleteMember">
 		UPDATE member
 		SET activated = 'N' 
 		WHERE user_no = #{userNo}
 	</update>
-	
-	
-	
-	
 	
 	<!-- 판매자 수 조회 -->
 	<select id="sellerListCount" resultType="_int">
@@ -120,21 +168,26 @@
 		AND m.authority = 1
 	</select>
 	
-	<!-- 검색된 판매자 수 조회 -->
-	<select id="sellerSearchCount" resultType="_int">
+	<!-- 검색한 판매자 수 조회 -->
+	<select id="searchSellerCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM member
+		JOIN seller_info s USING (user_no)
 		WHERE activated = 'Y'
 		AND authority = 1
-		AND (
-			(#{condition} = 'userId' AND user_id LIKE %#{searchKeyword}%)
-			OR
-			(#{condition} = 'userName' AND user_name LIKE %#{searchKeyword}%)
-		)
+		<!-- 검색타입과 검색어를 입력했을 때 -->
+		<if test='searchType != "" and searchKeyword != ""'>
+			<!-- ${}는 자동 따옴표가 안붙는데 #{}는 자동 따옴표가 붙기떄문에 컬럼이름을 써야하는 searchType에는 ${} 사용 -->
+			AND	${searchType} LIKE '%' || #{searchKeyword} || '%'
+		</if>
+		<!-- 등록일시 날짜를 입력했을 때 -->
+		<if test='startDate != "" and endDate != ""'>
+			AND s.APPLICATION_DATE BETWEEN #{startDate}::date AND #{endDate}::date
+		</if>
 	</select>
 	
-	<!-- 검색된 판매자 조회 -->
-	<select id="sellerSearchList" resultMap="sellerListResult">
+	<!-- 검색한 판매자 조회 -->
+	<select id="searchSellerList" resultMap="sellerListResult">
 		SELECT user_no,
 			   user_name,
 			   user_id,
@@ -151,15 +204,17 @@
 			   application_date		
 		FROM member m
 		JOIN seller_info s USING (user_no)
-		WHERE activated = 'Y'
-		AND authority = 1
-		AND (
-			(#{condition} = 'userId' AND user_id LIKE %#{searchKeyword}%)
-			OR
-			(#{condition} = 'userName' AND user_name LIKE %#{searchKeyword}%)
-		)	
-		AND application_date BETWEEN #{startDate} AND #{endDATE}
-		<!-- 안되면 #{startDate}와 #{endDate} 타입을 String에서 Date로 바꿔야 될수도 -->
+		WHERE m.activated = 'Y'
+		AND m.authority = 1
+		<!-- 검색타입과 검색어를 입력했을 때 -->
+		<if test='searchType != "" and searchKeyword != ""'>
+			<!-- ${}는 자동 따옴표가 안붙는데 #{}는 자동 따옴표가 붙기떄문에 컬럼이름을 써야하는 searchType에는 ${} 사용 -->
+			AND	${searchType} LIKE '%' || #{searchKeyword} || '%'
+		</if>
+		<!-- 등록일시 날짜를 입력했을 때 -->
+		<if test='startDate != "" and endDate != ""'>
+			AND APPLICATION_DATE BETWEEN #{startDate}::date AND #{endDate}::date
+		</if>
 	</select>
 	
 	<!-- 판매자 신규 신청한 회원 수 조회 -->
@@ -192,6 +247,58 @@
 		WHERE m.authority = 0
 		AND s.status = 'Y'
 	</select>
+	
+	<!-- 검색한 판매자 신규 신청 회원 수 조회 -->
+	<select id="searchSellerNewApplicationCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM member m
+		JOIN seller_info s USING (user_no)
+		WHERE m.authority = 0
+		AND s.status = 'Y'
+		<!-- 검색타입과 검색어를 입력했을 때 -->
+		<if test='searchType != "" and searchKeyword != ""'>
+			<!-- ${}는 자동 따옴표가 안붙는데 #{}는 자동 따옴표가 붙기떄문에 컬럼이름을 써야하는 searchType에는 ${} 사용 -->
+			AND	${searchType} LIKE '%' || #{searchKeyword} || '%'
+		</if>
+		<!-- 등록일시 날짜를 입력했을 때 -->
+		<if test='startDate != "" and endDate != ""'>
+			AND s.APPLICATION_DATE BETWEEN #{startDate}::date AND #{endDate}::date
+		</if>
+	</select>
+	
+	<!-- 검색한 판매자 신규 신청 회원 조회 -->
+	<select id="searchSellerNewApplicationList" resultMap="sellerListResult">
+		SELECT user_no,
+			   user_name,
+			   user_id,
+			   business_no,
+			   business_name,
+			   sub_business_name,
+			   open_business_date,
+			   store_name,
+			   crn,
+			   main_business_name,
+		 	   main_item_name,
+			   business_address,
+			   business_account,
+			   application_date				
+		FROM member m
+		JOIN seller_info s USING (user_no)
+		WHERE m.authority = 0
+		AND s.status = 'Y'
+		<!-- 검색타입과 검색어를 입력했을 때 -->
+		<if test='searchType != "" and searchKeyword != ""'>
+			<!-- ${}는 자동 따옴표가 안붙는데 #{}는 자동 따옴표가 붙기떄문에 컬럼이름을 써야하는 searchType에는 ${} 사용 -->
+			AND	${searchType} LIKE '%' || #{searchKeyword} || '%'
+		</if>
+		<!-- 등록일시 날짜를 입력했을 때 -->
+		<if test='startDate != "" and endDate != ""'>
+			AND s.APPLICATION_DATE BETWEEN #{startDate}::date AND #{endDate}::date
+		</if>
+	</select>
+	
+	
+	
 	
 	<!-- 판매자 신규신청 승인 -->
 	<update id="sellerNewApplicationApprove">

@@ -23,31 +23,33 @@
             <div id="managerMemberInfoManagement-info-area">
                 <div id="manager-sidebar-category-select-title"><h3>회원 정보관리</h3></div>
                 <div id="search-title"><b>검색</b></div>
-                <form id="search-form" action="">
+                <form id="search-form" action="searchMember.ma">
+                    <input type="hidden" name="cpage" value="1">
+                    <input type="hidden" name="categoryName" value="member">
                     <div id="search-condition-area">
                         <table>
                             <tr>
                                 <th>검색어</th>
                                 <td>
-                                    <select name="" id="">
-                                        <option value="">아이디</option>
-                                        <option value="">회원명</option>
+                                    <select name="searchType" id="">
+                                        <option value="user_id">아이디</option>
+                                        <option value="user_name">회원명</option>
                                     </select>
-                                    <input id="search-bar" type="text">
+                                    <input id="search-bar" type="text" name="searchKeyword">
                                 </td>
                             </tr>
                             <tr>
                                 <th>기간검색</th>
                                 <td>
-                                    <input class="date-search-bar" type="date">
+                                    <input class="date-search-bar" type="date" id="start-date" name="startDate" onchange="syncDate()">
                                     -
-                                    <input class="date-search-bar" type="date">
+                                    <input class="date-search-bar" type="date" id="end-date" name="endDate" readonly>
                                 </td>
                             </tr>
                         </table>
                         <div id="search-btn-area">
-                            <button>검색</button>
-                            <button>초기화</button>
+                            <button type="submit" onclick="submitForm()">검색</button>
+                            <button type="reset">초기화</button>
                         </div>
                     </div>
                 </form>
@@ -171,20 +173,33 @@
                                 <c:otherwise>
                                     <li class="page-item"><a class="page-link" href="memberList.ma?cpage=${pi.currentPage - 1}&categoryName=member">&laquo;</a></li>
                                 </c:otherwise>
-                        </c:choose>
+                            </c:choose>
                     
-                    <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-                        <li class="page-item ${p == pi.currentPage ? 'active' : ''}"><a class="page-link" href="memberList.ma?cpage=${p}&categoryName=member">${p}</a></li>
-                    </c:forEach>
+                            <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+                                <c:choose>
+                                    <c:when test="${empty searchKeyword && not empty startDate}"> <!-- 날짜 값만 입력하고 검색했을 때 -->
+                                        <li class="page-item ${p == pi.currentPage ? 'active' : ''}"><a class="page-link" href="searchMember.ma?cpage=${p}&categoryName=member&searchType=&searchKeyword=&startDate=${startDate}&endDate=${endDate}">${p}</a></li>
+                                    </c:when>
+                                    <c:when test="${not empty searchKeyword && empty startDate}"> <!-- 검색어만 입력하고 검색했을 때 -->
+                                        <li class="page-item ${p == pi.currentPage ? 'active' : ''}"><a class="page-link" href="searchMember.ma?cpage=${p}&categoryName=member&searchType=${searchType}&searchKeyword=${searchKeyword}&startDate=&endDate=">${p}</a></li>
+                                    </c:when>
+                                    <c:when test="${not empty searchKeyword && not empty startDate}"> <!-- 검색어, 날짜 둘다 입력하고 검색했을 때 -->
+                                        <li class="page-item ${p == pi.currentPage ? 'active' : ''}"><a class="page-link" href="searchMember.ma?cpage=${p}&categoryName=member&searchType=${searchType}&searchKeyword=${searchKeyword}&startDate=${startDate}&endDate=${endDate}">${p}</a></li>
+                                    </c:when>
+                                    <c:otherwise>   <!-- 헤더바나 사이드바에 있는 회원관리 눌렀을때 || 검색값 없이 검색 눌렀을 때 -->
+                                        <li class="page-item ${p == pi.currentPage ? 'active' : ''}"><a class="page-link" href="memberList.ma?cpage=${p}&categoryName=member">${p}</a></li>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
                         
-                    <c:choose>
-                            <c:when test="${ pi.currentPage eq pi.maxPage }">
-                                <li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
-                            </c:when>
-                            <c:otherwise>
-                                <li class="page-item"><a class="page-link" href="memberList.ma?cpage=${pi.currentPage + 1}&categoryName=member">&raquo;</a></li>
-                            </c:otherwise>
-                        </c:choose>
+                            <c:choose>
+                                <c:when test="${ pi.currentPage eq pi.maxPage }">
+                                    <li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="page-item"><a class="page-link" href="memberList.ma?cpage=${pi.currentPage + 1}&categoryName=member">&raquo;</a></li>
+                                </c:otherwise>
+                            </c:choose>
                         </ul>
                     </div>
 
@@ -194,6 +209,7 @@
      </div>
 
      <script>
+
         $(document).ready(function(){
             // // 사이드바 서브 카테고리 숨김
             // $("#nav ul.sub").hide();
@@ -220,6 +236,23 @@
                 })
             });
         });
+
+        // 시작 날짜 선택했을 때
+        function syncDate(){
+            var startDate = document.getElementById("start-date").value;
+            var endDate = document.getElementById("end-date");
+            endDate.value = startDate; // 시작 날짜를 선택했을 때 끝 날짜도 자동으로 시작 날짜로 변경(시작날짜만 선택하고 검색하는것을 방지)
+            endDate.readOnly = false; // 시작 날짜를 선택해야 끝 날짜를 선택할 수 있음(끝 날짜 먼저 선택 불가)
+        }
+        
+        // 검색 버튼 눌렀을 떄
+        function submitForm() {
+            var searchKeyword = document.getElementById("search-bar").value;
+            var startDate = document.getElementById("start-date").value
+            if (searchKeyword.trim() === "" && startDate.trim() === "") { // 검색값이 공백인지 확인
+                document.getElementById('search-form').action = 'memberList.ma'; // 값이 없을 경우 memberList.ma로 변경
+            }
+        }
 
      </script>
 </body>

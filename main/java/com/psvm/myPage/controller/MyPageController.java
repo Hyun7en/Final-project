@@ -48,7 +48,7 @@ public class MyPageController {
 		return "myPage/myPageInfo";
 	}
 
-	// 내정보 페이지에 있는 내정보 수정하는 메서드
+	// 내정보 페이지에 있는 회원정보 수정하는 메서드
 	@RequestMapping("modifyInfo.my")
 	public ModelAndView modifyInfo(HttpSession session, Member m, MemberAttachment ma, MultipartFile file,
 			ModelAndView mv) {
@@ -186,13 +186,20 @@ public class MyPageController {
 
 		return "myPage/myPageInterest";
 	}
+	
+	@RequestMapping("cart.my")
+	public String cart() {
+
+		return "myPage/myPageCart";
+	}
 
 	@RequestMapping("orderHistory.my")
 	public String orderHistory() {
 
 		return "myPage/myPageOrderHistory";
 	}
-
+	
+	// 회원이 작성한 게시글을 조회하기 위한 메서드
 	@RequestMapping("writePost.my")
 	public String wirtePostList(@RequestParam(value="cpage", defaultValue="1") int currentPage, HttpSession session, int userNo) {
 		
@@ -215,23 +222,25 @@ public class MyPageController {
 		return "myPage/myPageWritePost";
 	}
 
-	@RequestMapping("cart.my")
-	public String cart() {
-
-		return "myPage/myPageCart";
-	}
-
+	// 회원이 작성한 문의글을 조회하기 위한 메서드
 	@RequestMapping("inquiry.my")
-	public String inquiry(HttpSession session, int userNo) {
+	public String inquiry(@RequestParam(value="cpage", defaultValue="1") int currentPage, HttpSession session, int userNo) {
+		
+		// 회원이 작성한 문의글 수 조회
+		int myInquiryListCount = myPageService.inquiryListCount(userNo);
+		
+		// 페이징 처리
+		PageInfo pi = Pagination.getPageInfo(myInquiryListCount, currentPage, 10, 10);
 		
 		// 회원이 작성한 문의글 리스트 조회
-		ArrayList<Inquiry> myInquiryList = myPageService.inquiryList(userNo);
+		ArrayList<Inquiry> myInquiryList = myPageService.inquiryList(userNo, pi);
 
 		session.setAttribute("myInquiryList", myInquiryList);
 
 		return "myPage/myPageInquiry";
 	}
-
+	
+	// 판매자 신청할 때 회원등급(일반회원) 확인 및 이미 판매자 신청한 상태인지 확인하기위한 메서드
 	@RequestMapping("sellerConversionPage.my")
 	public String sellerConversionPage(HttpSession session, int userNo) {
 		
@@ -250,7 +259,8 @@ public class MyPageController {
 
 		return "myPage/myPageSellerConversion";
 	}
-
+	
+	// 판매자 정보 등록하는 메서드
 	@RequestMapping("sellerConversion.my")
 	public ModelAndView sellerConversion(HttpSession session, SellerInfo s, ModelAndView mv) {
 		// 판매자 정보 입력 후 판매자 신청
