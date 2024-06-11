@@ -92,8 +92,4 @@
 				default
 				)
 	</insert>
-	<update id="updateMember">
-	</update>
-	<update id="deleteMember">
-	</update>
 </mapper>
