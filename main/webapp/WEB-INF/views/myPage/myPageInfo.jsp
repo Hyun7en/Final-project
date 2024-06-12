@@ -7,22 +7,19 @@
 <meta charset="UTF-8">
 <title>내 정보</title>
 	
-    <!-- alert 메세지 창 -->
-	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!-- Popper JS -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!-- css -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/myPageCSS/myPageInfo.css">
     <!-- javaScript -->
     <script src="${pageContext.request.contextPath}/resources/js/myPageJS/myPageInfo.js"></script>
-
+        <!-- alert 메세지 창 -->
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+</head>
 <body>
     <c:if test="${ not empty successMessage}">
 		<script>
@@ -33,8 +30,9 @@
             title: 'success!',
             html: successMessage
         });
-    }
+        }
 		</script>
+
 		<c:remove var="successMessage" scope="session"/>
 	</c:if>
 

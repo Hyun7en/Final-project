@@ -27,6 +27,7 @@ http://java.sun.com/xml/ns/javaee/web-app_3_1.xsd" version="3.0">
 			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
+		<async-supported>true</async-supported>
 	</servlet>
 		
 	<servlet-mapping>
@@ -37,6 +38,7 @@ http://java.sun.com/xml/ns/javaee/web-app_3_1.xsd" version="3.0">
 	 <filter>
 	 	<filter-name>encodingFilter</filter-name>
 	 	<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+	 	<async-supported>true</async-supported>
 	 	<!-- 옵션1. 인코딩방식을 UTF-8 -->
 	 	<init-param>
 	 		<param-name>encoding</param-name>
