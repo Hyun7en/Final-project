@@ -12,6 +12,7 @@ import com.psvm.member.vo.Member;
 import com.psvm.member.vo.MemberAttachment;
 import com.psvm.myPage.vo.Inquiry;
 import com.psvm.seller.vo.SellerInfo;
+import com.psvm.store.vo.StoreInfo;
 
 @Repository
 public class MyPageDao {
@@ -46,7 +47,17 @@ public class MyPageDao {
 		return sqlSession.update("myPageMapper.deleteMember", userNo);
 	}
 	
+	// 찜 목록 갯수 조회
+	public int selectInterestCount(SqlSessionTemplate sqlSession, int userNo) {
+		return sqlSession.selectOne("myPageMapper.selectInterestCount", userNo);
+	}
 	
+	// 찜 목록 조회
+	public ArrayList<StoreInfo> selectInterest(SqlSessionTemplate sqlSession, PageInfo pi, int userNo) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("myPageMapper.selectInterest", userNo, rowBounds);
+	}
 	
 	// 회원이 작성한 게시글 수 조회
 	public int writePostListCount(SqlSessionTemplate sqlSession, int userNo) {

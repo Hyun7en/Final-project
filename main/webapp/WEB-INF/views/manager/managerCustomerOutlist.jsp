@@ -52,7 +52,7 @@
                         <table>
                             <tr id="admin-2ndtable-head">
                                 <th><input type="checkbox"></th>
-                                <th >번호</th>
+                                <th>번호</th>
                                 <th>회원명</th>
                                 <th>아이디</th>
                                 <th>탈퇴일시</th>

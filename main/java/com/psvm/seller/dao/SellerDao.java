@@ -143,4 +143,15 @@ public class SellerDao {
 	// 판매 상품 상세 정보
 	
 	
+	// 무한 스크롤로 전체 상품 가져오기
+	public List<StoreMainDTO> selectAllProduct(SqlSessionTemplate sqlSession,int page, int size) {
+		
+		int offset = page * size;  
+		
+		RowBounds rowBounds = new RowBounds(offset, size);
+		
+		return (List)sqlSession.selectList("sellerMapper.selectAllProduct", null, rowBounds);
+	}
+
+	
 }

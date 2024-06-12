@@ -105,9 +105,24 @@
                                     <br>
                                     <p>&#9733; ${pr.prStar} 리뷰 ${pr.reviewCount}</p>
                                 </a>
-                                <button id="bookmarkgrey">
-                                    <img src="${pageContext.request.contextPath}\resources\image\bookmarkfishgrey.png" alt="북마크 회색" >
-                                </button>
+                                <c:choose>
+                                    <c:when test="${empty loginUser}">
+                                        <!-- 로그인 전 -->
+                                        <button class="loveitButton" id="bookmarkgrey"></button>
+                                    </c:when>
+                                    <c:when test="${empty pr.loveDate}">
+                                        <!-- 찜 상품이 아닐 경우 -->
+                                        <button class="loveitButton-${pr.prNo}" id="bookmarkgrey" onclick="loveitOn(`${loginUser.userNo}`, `${pr.prNo}`)">
+                                            <img src="${pageContext.request.contextPath}\resources\image\bookmarkfishgrey.png" alt="북마크 회색" >
+                                        </button>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <!-- 찜 상품일 경우 -->
+                                            <button class="loveitButton-${pr.prNo}" id="bookmarkblue" onclick="loveitOff(`${loginUser.userNo}`, `${pr.prNo}`)">
+                                                <img src="${pageContext.request.contextPath}\resources\image\bookmarkfishblue.png" alt="북마크 파랑" >
+                                            </button>
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                         </div>
                     </c:forEach>    

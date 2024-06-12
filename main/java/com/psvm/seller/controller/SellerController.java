@@ -480,9 +480,9 @@ public class SellerController {
      * storeMain
      */
     
-    // 최신 상품 리스트
+    // 스토어 상품 리스트
     @RequestMapping("list.spd")
-  	public String selectRecentList(HttpSession session, Model model) {
+  	public String storeMain(HttpSession session, Model model) {
 		
     	List<StoreMainDTO> popularList = sellerService.selectPopularList();
     	
@@ -505,8 +505,36 @@ public class SellerController {
     	return "seller/productDetailView";
     }
     
+    // 무한 스크롤로 전체 상품 가져오기
+  
+    @RequestMapping(value = "/allProduct.ax", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public String fetchProducts(@RequestParam("page") int page, @RequestParam("size") int size) {
+    	
+        List<StoreMainDTO> products = sellerService.selectAllProduct(page, size);
+        boolean hasMore = products.size() == size; // 더 불러올 데이터가 있는지 확인
+        HashMap<String, Object> response = new HashMap<>();
+        
+        response.put("products", products);
+        response.put("hasMore", hasMore);
+        
+        return new Gson().toJson(response);
+    }
     
+    // 고객 문의 관리
     
-   
+    @RequestMapping("manage.ci")
+    public String selectCustomerInqueryManagement() {
+    	
+    	return "seller/customerInqueryManagement";
+    }
+    
+    // 고객 리뷰 관리
+    
+    @RequestMapping("manage.cr")
+    public String selectCustomerReviewManagement() {
+    	
+    	return "seller/customerReviewManagement";
+    }
    
 }
