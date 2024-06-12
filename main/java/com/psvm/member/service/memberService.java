@@ -12,5 +12,7 @@ public interface MemberService {
 	
 	//회원가입
 	int signupMember(Member m);
-
+	
+	//카카오 로그인
+	Member kakaoLogin(String email);
 }

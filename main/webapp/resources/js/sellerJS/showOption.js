@@ -1,5 +1,5 @@
     // JSP에서 pno 변수를 JavaScript로 전달
-    const pno = ${pd.pdNo};
+    const pno = '${pd.pdNo}';
     console.log("pno: " + pno); // pno 값이 제대로 전달되었는지 확인
     
     $(function() {

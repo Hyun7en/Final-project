@@ -24,6 +24,7 @@
 		<result column="JOIN_DATE" property="joinDate"/>
 		<result column="MEMBER_FILE_NO" property="memberFileNo"/>
 		<result column="USER_INTRO" property="userIntro"/>
+		<result column="CHANGE_NAME" property="changeName"/>
 	</resultMap>
 	
 	<select id="loginMember" resultMap="memberResult">
@@ -43,9 +44,11 @@
 				ACTIVATED,
 				USER_LV,
 				JOIN_DATE,
-				MEMBER_FILE_NO,
-				USER_INTRO
-		FROM	MEMBER
+				M.MEMBER_FILE_NO,
+				USER_INTRO,
+				CHANGE_NAME
+		FROM	MEMBER M
+		LEFT JOIN	MEMBER_ATTACHMENT A on(REF_MNO = USER_NO)
 		WHERE	USER_ID = #{userId}
 		AND		ACTIVATED = 'Y'
 	</select>
@@ -94,4 +97,26 @@
 				default
 				)
 	</insert>
+	<select id="kakaoLogin" resultMap="memberResult">
+		SELECT 	USER_NO,
+				USER_ID,
+				USER_PWD,
+				EMAIL,
+				USER_NAME,
+				NICKNAME,
+				BIRTHDAY,
+				GENDER,
+				ADDRESS,
+				PHONE,
+				LIKE_FISH,
+				TAIL_FISH,
+				AUTHORITY,
+				ACTIVATED,
+				USER_LV,
+				JOIN_DATE,
+				MEMBER_FILE_NO
+		FROM	MEMBER
+		WHERE	EMAIL = #{email}
+		AND		ACTIVATED = 'Y'
+	</select>
 </mapper>
