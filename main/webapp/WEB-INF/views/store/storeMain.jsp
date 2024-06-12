@@ -22,10 +22,12 @@
 <!-- Slick JS -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
+<!-- JS -->
 <script src="${pageContext.request.contextPath}/resources/js/storeJS/slick.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/storeJS/infineteScroll.js"></script>
 
 </head>
-<body>
+<body onload="starImgInit('${pageContext.request.contextPath}')">
 <div class="wrap">
 
     <!-- header -->
@@ -34,7 +36,13 @@
     <main>
 
         <section>
+            <div  class="banner">
 
+                    <div class="banner-item">
+                            <img src="${pageContext.request.contextPath}/resources/image/2024052809050218597.jpg" alt="">
+                    </div>
+
+            </div>
         </section>
 
         <section id="descript-quick">
@@ -90,48 +98,9 @@
             
         </section>
 
-       
-        <section class="sm-procuct-section" id="recommend-product">
-            <div class="sm-procuct-section-title" >
-                추천 제품
-            </div>
-
-            <div id="recommendList" class="carousel">
-
-               
-
-                    <div class="carousel-item">
-                            <div class="product-descript">
-                                <p class="product-descript-store-name">
-                                    가게명
-                                </p>
-                                <p class="product-descript-product-name">
-                                    제품명
-                                </p>
-                                <p class="product-descript-product-price">
-                                    가격
-                                </p>
-                                <p class="product-descript-rating-review">
-                                    <img style="width: 13px;" src="${pageContext.request.contextPath}/resources/image/star.png">
-                                    <span>4.7</span>
-                                    <span>리뷰</span>
-                                    <span>1400</span>
-                                </p>
-                                
-                            </div>
-                            <div class="carousel-dimg">
-                                <img src="${pageContext.request.contextPath}/resources/image/clownfish-1453910_1920.jpg" >
-                            </div>
-                    </div>
-
-                
-
-            </div>
-        </section>
-
         <section class="sm-procuct-section" id="popular-product">
             <div class="sm-procuct-section-title">
-                인기 상품
+                인기 제품
             </div>
 
             <div id="popularProduct" class="carousel">
@@ -139,27 +108,29 @@
                <c:forEach var="spd" items="${popularList}">
 
                     <div class="carousel-item" onclick="location.href='detail.spd?pno=${spd.prNo}'">
-                            <div class="product-descript">
+                        <div class="product-descript">
+                            <a href="sellersStore.st?sellerPageNo=${spd.sellerPageNo}&order=1&cpage=1">
                                 <p class="product-descript-store-name">
                                     ${spd.storeName}
                                 </p>
-                                <p class="product-descript-product-name">
-                                    ${spd.prTitle}
-                                </p>
-                                <p class="product-descript-product-price">
-                                    ${spd.prPrice}원
-                                </p>
-                                <p class="product-descript-rating-review">
-                                    <img style="width: 13px;" src="${pageContext.request.contextPath}/resources/image/star.png">
-                                    <span>${spd.prStar}</span>
-                                    <span>리뷰</span>
-                                    <span>${spd.reviewCount}</span>
-                                </p>
+                            </a>
+                            <p class="product-descript-product-name">
+                                ${spd.prTitle}
+                            </p>
+                            <p class="product-descript-product-price">
+                                ${spd.prPrice}원
+                            </p>
+                            <p class="product-descript-rating-review">
+                                <img style="width: 13px;" src="${pageContext.request.contextPath}/resources/image/star.png">
+                                <span>${spd.prStar}</span>
+                                <span>리뷰</span>
+                                <span>${spd.reviewCount}</span>
+                            </p>
                                 
-                            </div>
-                            <div class="carousel-dimg">
-                                <img src="${spd.prChangeName}" >
-                            </div>
+                        </div>
+                        <div class="carousel-dimg">
+                            <img src="${spd.prChangeName}" >
+                        </div>
                     </div>
 
                 </c:forEach>
@@ -169,7 +140,7 @@
             
         </section>
 
-        <section class="sm-procuct-section" id="brand-new">
+        <section class="sm-procuct-section" id="brand-new-product">
             <div class="sm-procuct-section-title">
                 최신 제품
             </div>
@@ -179,29 +150,29 @@
                 <c:forEach var="spd" items="${recentList}">
 
                     <div class="carousel-item" onclick="location.href='detail.spd?pno=${spd.prNo}'">
-                            <div class="product-descript">
-                                <a href="sellersStore.st?sellerPageNo=${spd.sellerPageNo}&order=1&cpage=1">
-                                    <p class="product-descript-store-name">
-                                        ${spd.storeName}
-                                    </p>
-                                </a>
-                                <p class="product-descript-product-name">
-                                    ${spd.prTitle}
+                        <div class="product-descript">
+                            <a href="sellersStore.st?sellerPageNo=${spd.sellerPageNo}&order=1&cpage=1">
+                                <p class="product-descript-store-name">
+                                    ${spd.storeName}
                                 </p>
-                                <p class="product-descript-product-price">
-                                    ${spd.prPrice}원
-                                </p>
-                                <p class="product-descript-rating-review">
-                                    <img style="width: 13px;" src="${pageContext.request.contextPath}/resources/image/star.png">
-                                    <span>${spd.prStar}</span>
-                                    <span>리뷰</span>
-                                    <span>${spd.reviewCount}</span>
-                                </p>
-                                
-                            </div>
-                            <div class="carousel-dimg">
-                                <img src="${spd.prChangeName}" >
-                            </div>
+                            </a>
+                            <p class="product-descript-product-name">
+                                ${spd.prTitle}
+                            </p>
+                            <p class="product-descript-product-price">
+                                ${spd.prPrice}원
+                            </p>
+                            <p class="product-descript-rating-review">
+                                <img style="width: 13px;" src="${pageContext.request.contextPath}/resources/image/star.png">
+                                <span>${spd.prStar}</span>
+                                <span>리뷰</span>
+                                <span>${spd.reviewCount}</span>
+                            </p>
+                            
+                        </div>
+                        <div class="carousel-dimg">
+                            <img src="${spd.prChangeName}" >
+                        </div>
                     </div>
 
                 </c:forEach>
@@ -209,12 +180,25 @@
             </div>
         </section>
 
+        <section class="sm-procuct-section" id="all-product">
+            <div class="sm-procuct-section-title">
+                전체 제품
+            </div>
+
+            <div class="carousel" id="all-product-carousel">
+
+            </div>
+
+            <div class="button-container">
+                <button id="load-more" style="display: none;">더 보기</button>
+            </div>
+        </section>
     </main>
 
     <!-- footer -->
     <%@ include file="../commons/footer.jsp" %>
 
 </div>
-
+    
 </body>
 </html>

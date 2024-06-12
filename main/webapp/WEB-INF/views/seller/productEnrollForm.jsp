@@ -63,8 +63,8 @@
                         <div id="div-enroll-option">
                             <div>
                                 <h4>옵션 등록</h4>
-                                <input id="enroll-option" type="text" placeholder="옵션 입력">
-                                <input id="enroll-pdCount" type="number" min="0" placeholder="수량">
+                                <input id="enroll-option" type="text" placeholder="옵션 입력" >
+                                <input id="enroll-pdCount" type="number" min="0" placeholder="수량" >
                                 <button type="button" id="add-optionBtn">추가</button>
                             </div>
                             <div>

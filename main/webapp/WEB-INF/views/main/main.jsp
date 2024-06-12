@@ -115,7 +115,7 @@
                         <img src="${pageContext.request.contextPath}/resources/image/whale_explane.png" alt="">
                     </div>
                     <div id="fourth-img">
-                        <img src="${pageContext.request.contextPath}/resources/image/whale.png" alt="">
+                        <a href="gotoCuration.cu"><img src="${pageContext.request.contextPath}/resources/image/whale.png" alt=""></a>
                     </div>
                 </div>
             

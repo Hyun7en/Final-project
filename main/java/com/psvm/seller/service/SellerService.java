@@ -61,5 +61,7 @@ public interface SellerService {
 	// 판매 상품 상세 정보
 	public Product selectSalesProduct(int pno);
 	
+	// 무한 스크롤로 전체 상품 가져오기
+	public List<StoreMainDTO> selectAllProduct(int page, int size);
 	
 }
