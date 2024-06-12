@@ -64,4 +64,19 @@ public class StoreServiceImpl implements StoreService {
 	public int ajaxAlarmOff(StoreInfo checker) {
 		return storeDao.ajaxAlarmOff(sqlSession, checker);
 	}
+	
+	@Override
+	public int ajaxLoveitCheck(StoreInfo checker) {
+		return storeDao.ajaxLoveitCheck(sqlSession, checker);
+	}
+	
+	@Override
+	public int ajaxLoveitOn(StoreInfo checker) {
+		return storeDao.ajaxLoveitOn(sqlSession, checker);
+	}
+	
+	@Override
+	public int ajaxLoveitOff(StoreInfo checker) {
+		return storeDao.ajaxLoveitOff(sqlSession, checker);
+	}
 }

@@ -103,6 +103,46 @@ function getAlarmOff(userNo, sellerPageNo){
     })
 }
 
+//찜 등록
+function loveitOn(userNo, prNo){
+    console.log(prNo);
+    const loveitButton = document.querySelector(`.loveitButton-` + prNo);
+    const url = path + `/resources/image/bookmarkfishblue.png`
+    $.ajax({
+        url: "loveitOn.st",
+        data: {userNo : userNo, prNo : prNo},
+        success: function(){
+            console.log("ajax 완료")
+            loveitButton.id = "bookmarkblue";
+            loveitButton.setAttribute("onclick", `loveitOff(${userNo}, ${prNo})`);
+            document.querySelector(`.loveitButton-` + prNo + `>img`).src = url;
+            infoMsg("찜 목록에 등록되었습니다.")
+        },
+        error: function(){
+            console.log("찜 등록 실패");
+        }
+    })
+}
+//찜 제외
+function loveitOff(userNo, prNo){
+    console.log(prNo);
+    const loveitButton = document.querySelector(`.loveitButton-` + prNo);
+    const url = path + `/resources/image/bookmarkfishgrey.png`
+    $.ajax({
+        url: "loveitOff.st",
+        data: {userNo : userNo, prNo : prNo},
+        success: function(){
+            console.log("ajax 완료")
+            loveitButton.id = "bookmarkgrey";
+            loveitButton.setAttribute("onclick", `loveitOn(${userNo}, ${prNo})`);
+            document.querySelector(`.loveitButton-` + prNo + `>img`).src = url;
+            infoMsg("찜 목록에서 제외되었습니다.")
+        },
+        error: function(){
+            console.log("찜 해제 실패");
+        }
+    })
+}
 
 function infoMsg(infoMsg){
     swal({

@@ -51,4 +51,16 @@ public class StoreDao {
 	public int ajaxAlarmOff(SqlSessionTemplate sqlSession, StoreInfo checker) {
 		return sqlSession.delete("storeMapper.ajaxAlarmOff", checker);
 	}
+	
+	public int ajaxLoveitCheck(SqlSessionTemplate sqlSession, StoreInfo checker) {
+		return sqlSession.selectOne("storeMapper.ajaxLoveitCheck", checker);
+	}
+	
+	public int ajaxLoveitOn(SqlSessionTemplate sqlSession, StoreInfo checker) {
+		return sqlSession.insert("storeMapper.ajaxLoveitOn", checker);
+	}
+	
+	public int ajaxLoveitOff(SqlSessionTemplate sqlSession, StoreInfo checker) {
+		return sqlSession.delete("storeMapper.ajaxLoveitOff", checker);
+	}
 }

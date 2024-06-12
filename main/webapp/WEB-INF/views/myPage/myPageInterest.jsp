@@ -41,28 +41,30 @@
                     <div id="interest-product-count">
                         <b>상품(count)</b>
                     </div>
-                    <div id="interest-product">
-                        <div id="interest-product-img">
-                            <img src="https://fishermanbt.com/web/product/big/202207/8dfb7e68c81ce1a373ea8c79ebdf1830.jpg" alt="">
-                        </div>
-                        <div id="interest-product-info">
-                            <ul>
-                                <li><b>${cart.name}테트라 피쉬</b></li>
-                                <li>${cart.value}21,000원</li>
-                            </ul>
-                            <ul id="ul2">
-                                <li><b>판매자</b></li>
-                                <li>${buisnessInfo}(주)피쉬마켓</li>
-                            </ul>
-                        </div>
-                        <form action="">
-                            <div id="interest-product-button-area">
-                                <div class="interest-product-button"><button>구매하기</button></div>
-                                <div class="interest-product-button"><button>판매자의 다른 상품 보기</button></div>
-                                <div class="interest-product-button"><button>관심상품 취소</button></div>
+                    <c:forEach var="i" items="${iList}">
+                        <div id="interest-product">
+                            <div id="interest-product-img">
+                                <img src="${i.prChangeName}" alt="">
                             </div>
-                        </form>
-                    </div>
+                            <div id="interest-product-info">
+                                <ul>
+                                    <li><b>${i.prTitle}</b></li>
+                                    <li>${i.prPrice} 원</li>
+                                </ul>
+                                <ul id="ul2">
+                                    <li><b>판매자</b></li>
+                                    <li>${i.storeName}</li>
+                                </ul>
+                            </div>
+                            <form action="">
+                                <div id="interest-product-button-area">
+                                    <div class="interest-product-button"><button>구매하기</button></div>
+                                    <div class="interest-product-button"><button onclick="gotoStore(`${i.sellerPageNo}`)">판매자의 다른 상품 보기</button></div>
+                                    <div class="interest-product-button"><button>관심상품 취소</button></div>
+                                </div>
+                            </form>
+                        </div>
+                    </c:forEach>
 
                     <div id="btnList-area">
                         <div class="btnList" align="center">
