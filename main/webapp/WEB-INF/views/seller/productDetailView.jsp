@@ -21,56 +21,8 @@
 
 <!-- CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/storeCSS/productDetailView.css">
 
-<style>
-
-    main {
-        padding: 150px 300px;
-        background-color: #eaf2fc;
-    }
-
-    #seller-home-top {
-        width: 100%;
-        height: 100px;
-        display: flex;
-        padding: 30px 0;
-        margin: 0 auto;
-        align-items: center;
-    }
-
-    #seller-home-top p {
-        width: 1000px;
-        font-size: 30px;
-        font-weight: bold;
-        color: #0089FF;
-        text-align: center;
-        margin: 0;
-    }
-
-    #seller-home-nav {
-        width: 100%;
-        height: 80px;
-        display: flex;
-        font-size: 20px;
-        text-align: center;
-        border-top: 1px solid;
-        border-bottom: 1px solid;
-        margin: 0 auto;
-        align-items: center;
-        justify-content: center;
-    }
-
-    #seller-home-nav a {
-        width: 150px;
-        height: 30px;
-        text-align: center;
-        color: black;
-        margin: 25px 0;
-        line-height: 30px;
-        text-decoration: none;
-    }
-
-</style>
 </head>
 <body>
 <div class="wrap">
@@ -80,11 +32,12 @@
     <main>
         <!-- Product Header -->
         <div>
+            
             <div id="seller-home-top">
-                <p>워터 박스</p>
+                    <p>워터 박스</p>
             </div>
             <div id="seller-home-nav">
-                <a href="" style="margin-left: auto;">BEST</a>
+                <a href="#" style="margin-left: auto;">BEST</a>
                 <a href="">전체상품</a>
                 <a href="">특가판매</a>
                 <a href="">주문제작</a>

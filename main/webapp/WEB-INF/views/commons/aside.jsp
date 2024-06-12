@@ -34,31 +34,30 @@
             <li>
                 <div>주문/배송 <img src="${pageContext.request.contextPath}/resources/image/triangle.png"></div>
                 <ul class="sub-menu">
-                    <li><a href="#">세부사항 1</a></li>
-                    <li><a href="#">세부사항 2</a></li>
+                    <li><a href="#">주문 관리</a></li>
+                    <li><a href="#">배송 관리</a></li>
                     <li><a href="#">세부사항 3</a></li>
                 </ul>
             </li>
             <li>
                 <div>취소/반품/교환 <img src="${pageContext.request.contextPath}/resources/image/triangle.png"></div>
                 <ul class="sub-menu">
-                    <li><a href="#">추후 기재</a></li>
-                    <li><a href="#">추후 기재</a></li>
-                    <li><a href="#">추후 기재</a></li>
+                    <li><a href="#">취소 상품관리</a></li>
+                    <li><a href="#">반품 상품관리</a></li>
+                    <li><a href="#">교환 상품관리</a></li>
                 </ul>
             </li>
             <li>
                 <div>고객 관리 <img src="${pageContext.request.contextPath}/resources/image/triangle.png"></div>
                 <ul class="sub-menu">
-                    <li><a href="#">고객 문의</a></li>
-                    <li><a href="#">고객 리뷰</a></li>
+                    <li><a href="manage.ci">고객 문의</a></li>
+                    <li><a href="manage.cr">고객 리뷰</a></li>
                 </ul>
             </li>
             <li>
                 <div>정산 관리 <img src="${pageContext.request.contextPath}/resources/image/triangle.png"></div>
                 <ul class="sub-menu">
-                    <li><a href="#">추후 기재</a></li>
-                    <li><a href="#">추후 기재</a></li>
+                    <li><a href="#">정산</a></li>
                     <li><a href="#">추후 기재</a></li>
                 </ul>
             </li>
