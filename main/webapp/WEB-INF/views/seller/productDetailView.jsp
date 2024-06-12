@@ -34,10 +34,10 @@
         <div>
             
             <div id="seller-home-top">
-                <p>워터 박스</p>
+                    <p>워터 박스</p>
             </div>
             <div id="seller-home-nav">
-                <a href="" style="margin-left: auto;">BEST</a>
+                <a href="#" style="margin-left: auto;">BEST</a>
                 <a href="">전체상품</a>
                 <a href="">특가판매</a>
                 <a href="">주문제작</a>
