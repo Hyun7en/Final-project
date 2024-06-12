@@ -1,6 +1,7 @@
 package com.psvm.manager.dao;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -120,6 +121,25 @@ public class ManagerDao {
 		
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("managerMapper.sellerProductApplicationList", null, rowBounds);
+	}
+	
+	// 검새한 판매자 상품신청 수 조회
+	public int searchSellerProductApplicationCount(SqlSessionTemplate sqlSession, Search s) {
+		return sqlSession.selectOne("managerMapper.searchSellerProductApplicationCount", s);
+	}
+	
+	// 검색한 판매자 상품신청 조회
+	public ArrayList<ApplicationProduct> searchSellerProductApplicationList(SqlSessionTemplate sqlSession, Search s, PageInfo pi){
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("managerMapper.searchSellerProductApplicationList", s, rowBounds);
+	}
+	
+	// 판매자 상품신청 승인
+	public int sellerProductApplicationApprove(SqlSessionTemplate sqlSession, int pdOptionNo) {
+		return sqlSession.update("managerMapper.sellerProductApplicationApprove", pdOptionNo);
+		
 	}
 	
 	

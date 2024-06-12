@@ -28,4 +28,5 @@ public class ApplicationProduct {
 	private String pdChangeName;
 	private int pdCount;
 	private String pdOptionName;
+	private int pdOptionNo;
 }

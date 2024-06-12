@@ -51,7 +51,6 @@
 		<result column="USER_NAME" property="userName"/>
 		<result column="STORE_NAME" property="storeName"/>
 		<result column="P_NO" property="pdNo"/>
-		<result column="P_CATEGORY" property="pdCategory"/>
 		<result column="P_TITLE" property="pdTitle"/>
 		<result column="P_PRICE" property="pdPrice"/>
 		<result column="P_CONTENT" property="pdContent"/>
@@ -62,6 +61,8 @@
 		<result column="C_NO" property="caNo"/>
 		<result column="P_COUNT" property="pdCount"/>
 		<result column="P_OPTION_NAME" property="pdOptionName"/>
+		<result column="P_OPTION_NO" property="pdOptionNo"/>
+		<result column="P_CATEGORY" property="pdCategory"/>
 	</resultMap> 
 	
 	<!-- 관리자를 제외한 모든 회원 수 조회 -->
@@ -330,13 +331,12 @@
 		JOIN seller_page USING (business_no)
 		JOIN product_category USING (seller_page_no)
 		JOIN product p USING (c_no)
-		JOIN product_option po USING (p_no)
-		JOIN produce_category USING (c_no)
+		LEFT JOIN product_option po USING (p_no)
 		WHERE m.activated = 'Y'
 		AND m.authority = '1'
 		AND si.status = 'Y'
-		AND p.p_status = 'N' 
-		AND po.p_status = 'Y'
+		AND p.p_status = 'Y' 
+		AND po.p_status = 'N'
 	</select>
 
 	<!-- 판매자가 신청한 상품 조회 -->
@@ -353,21 +353,95 @@
 			   p_change_name,
 			   c_no,
 			   p_count,
-			   p_option_name
+			   p_option_name,
+			   p_option_no,
 			   p_category
 		FROM member m
 		JOIN seller_info si USING (user_no)
 		JOIN seller_page USING (business_no)
 		JOIN product_category USING (seller_page_no)
 		JOIN product p USING (c_no)
-		JOIN product_option po USING (p_no)
-		JOIN produce_category USING (c_no)
+		LEFT JOIN product_option po USING (p_no)
 		WHERE m.activated = 'Y'
 		AND m.authority = '1'
 		AND si.status = 'Y'
-		AND p.p_status = 'N' 
-		AND po.p_status = 'Y'
+		AND p.p_status = 'Y'
+		AND po.p_status = 'N'
 	</select>
+	
+	<!-- 검색한 판매자 상품신청 수 조회 -->
+	<select id="searchSellerProductApplicationCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM member m
+		JOIN seller_info si USING (user_no)
+		JOIN seller_page USING (business_no)
+		JOIN product_category USING (seller_page_no)
+		JOIN product p USING (c_no)
+		LEFT JOIN product_option po USING (p_no)
+		WHERE m.activated = 'Y'
+		AND m.authority = '1'
+		AND si.status = 'Y'
+		AND p.p_status = 'Y' 
+		AND po.p_status = 'N'
+		<!-- 검색타입과 검색어를 입력했을 때 -->
+		<if test='searchType != "" and searchKeyword != ""'>
+			<!-- ${}는 자동 따옴표가 안붙는데 #{}는 자동 따옴표가 붙기떄문에 컬럼이름을 써야하는 searchType에는 ${} 사용 -->
+			AND	${searchType} LIKE '%' || #{searchKeyword} || '%'
+		</if>
+		<!-- 등록일시 날짜를 입력했을 때 -->
+		<if test='startDate != "" and endDate != ""'>
+			AND p.P_ENROLL_DATE BETWEEN #{startDate}::date AND #{endDate}::date
+		</if>
+	</select>
+	
+	<!-- 검색한 판매자 상품신청 조회 -->
+	<select id="searchSellerProductApplicationList" resultMap="applicationProductResult">
+		SELECT user_name,
+			   store_name,
+			   p_no,
+			   p_title,
+			   p_price,
+			   p_content,
+			   p_enroll_date,
+			   p_star,
+			   p_origin_name,
+			   p_change_name,
+			   c_no,
+			   p_count,
+			   p_option_name,
+			   p_option_no,
+			   p_category
+		FROM member m
+		JOIN seller_info si USING (user_no)
+		JOIN seller_page USING (business_no)
+		JOIN product_category USING (seller_page_no)
+		JOIN product p USING (c_no)
+		LEFT JOIN product_option po USING (p_no)
+		WHERE m.activated = 'Y'
+		AND m.authority = '1'
+		AND si.status = 'Y'
+		AND p.p_status = 'Y'
+		AND po.p_status = 'N'
+		<!-- 검색타입과 검색어를 입력했을 때 -->
+		<if test='searchType != "" and searchKeyword != ""'>
+			<!-- ${}는 자동 따옴표가 안붙는데 #{}는 자동 따옴표가 붙기떄문에 컬럼이름을 써야하는 searchType에는 ${} 사용 -->
+			AND	${searchType} LIKE '%' || #{searchKeyword} || '%'
+		</if>
+		<!-- 등록일시 날짜를 입력했을 때 -->
+		<if test='startDate != "" and endDate != ""'>
+			AND p.P_ENROLL_DATE BETWEEN #{startDate}::date AND #{endDate}::date
+		</if>
+	</select>
+	
+	<!-- 판매자 상품신청 승인  -->
+	<update id="sellerProductApplicationApprove">
+		UPDATE product_option 
+		SET p_status = 'Y'
+		WHERE p_option_no = #{pdOptionNo}
+	</update>
+	
+
+	
 
 
 </mapper>

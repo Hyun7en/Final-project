@@ -225,13 +225,13 @@
                 modal.css("display", "flex"); // 모달 표시
 
                 // 회원탈퇴 버튼 눌렀을 때
-                $(".deleteMember-btn").click(function(){
-                    var userNo = modal.find(".userNo").text(); // 해당 모달안의 class이름이 userNo인 input태그안의 값 가져옴
+                modal.find(".deleteMember-btn").click(function(){
+                    var userNo = modal.find(".userNo").text(); // 해당 모달안의 class이름이 userNo인 태그이 text 가져옴
                     location.href="deleteMember.ma?userNo=" + userNo; // 회원탈퇴하는 메서드로 이동
                 })
 
                 // 닫기 버튼 눌렀을 때
-                $(".close-btn").click(function(){
+                modal.find(".close-btn").click(function(){
                     modal.css("display", "none"); // 모달 숨김
                 })
             });

@@ -223,13 +223,13 @@
                 modal.css("display", "flex"); // 모달 표시
 
                 // 판매자탈퇴 버튼 눌렀을 때
-                // $(".deleteSeller-btn").click(function(){
-                //     var userNo = modal.find(".userNo").text(); // 해당 모달안의 class이름이 userNo인 input태그안의 값 가져옴
-                //     location.href="deleteSeller.ma?userNo=" + userNo; // 판매자탈퇴하는 메서드로 이동(아직 안만들었음 병현님이 만들실것같음)
-                // })
+                modal.find(".deleteSeller-btn").click(function(){
+                    var userNo = modal.find(".userNo").text(); // 해당 모달안의 class이름이 userNo인 태그의 text 가져옴
+                    // location.href="deleteSeller.ma?userNo=" + userNo; // 판매자탈퇴하는 메서드로 이동(아직 안만들었음 병현님이 만들실것같음)
+                })
 
                 // 닫기 버튼 눌렀을 때
-                $(".close-btn").click(function(){
+                mdal.find(".close-btn").click(function(){
                     modal.css("display", "none"); // 모달 숨김
                 })
             });

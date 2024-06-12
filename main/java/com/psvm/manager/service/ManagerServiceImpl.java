@@ -1,6 +1,7 @@
 package com.psvm.manager.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,22 +73,22 @@ public class ManagerServiceImpl implements ManagerService{
 		return managerDao.searchSellerList(sqlSession, s, pi);
 	}
 	
-	// 판매자 신규 신청한 회원 수 조회
+	// 판매자 신규신청 회원 수 조회
 	public int sellerNewApplicationCount() {
 		return managerDao.sellerNewApplicationCount(sqlSession);
 	}
 	
-	// 판매자 신규 신청한 회원 조회
+	// 판매자 신규신청 회원 조회
 	public ArrayList<Seller> sellerNewApplicationList(PageInfo pi){
 		return managerDao.sellerNewApplicationList(sqlSession, pi);
 	}
 	
-	// 검색한 판매자 신규 신청 회원 수 조회
+	// 검색한 판매자 신규신청 회원 수 조회
 	public int searchSellerNewApplicationCount(Search s) {
 		return managerDao.searchSellerNewApplicationCount(sqlSession, s);
 	}
 	
-	// 검색한 판매자 신규 신청 회원 조회
+	// 검색한 판매자 신규신청 회원 조회
 	public ArrayList<Seller> searchSellerNewApplicationList(Search s, PageInfo pi){
 		return managerDao.searchSellerNewApplicationList(sqlSession, s, pi);
 	}
@@ -105,6 +106,24 @@ public class ManagerServiceImpl implements ManagerService{
 	// 판매자가 신청한 상품 조회
 	public ArrayList<ApplicationProduct> sellerProductApplicationList(PageInfo pi){
 		return managerDao.sellerProductApplicationList(sqlSession, pi);
+	}
+	
+	// 검색한 판매자 상품신청 수 조회
+	public int searchSellerProductApplicationCount(Search s) {
+		return managerDao.searchSellerProductApplicationCount(sqlSession, s);
+	}
+	
+	// 검색한 판매자 상품신청 조회
+	public ArrayList<ApplicationProduct> searchSellerProductApplicationList(Search s, PageInfo pi){
+		return managerDao.searchSellerProductApplicationList(sqlSession, s, pi);
+	}
+	
+	// 판매자 상품신청 승인
+	public int sellerProductApplicationApprove(int pdOptionNo) {
+		
+		int result = managerDao.sellerProductApplicationApprove(sqlSession, pdOptionNo);
+//		int result2 = managerDao.sellerProductApplicationApprove(sqlSession, pdOptionNo);
+		return result;
 	}
 	
 }

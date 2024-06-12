@@ -59,7 +59,7 @@
                 </form>
 
                 <div id="search-result-list-area">
-                    <div id="total-seller"><b>총 신규신청 수 : ${sellerNewApplicationList}</b></div>
+                    <div id="total-seller"><b>총 신규신청 수 : ${sellerNewApplicationCount}</b></div>
                     <div id="search-result-list">
                         <table>
                             <thead>
@@ -222,14 +222,13 @@
                 modal.css("display", "flex"); // 모달 표시
 
                 // 승인하기 버튼 눌렀을 때
-                $(".approve-btn").click(function(){
-                    var userNo = modal.find(".userNo").text(); // 해당 모달안의 class이름이 userNo인 태그안의 값 가져옴
+                modal.find(".approve-btn").click(function(){
+                    var userNo = modal.find(".userNo").text(); // 해당 모달안의 class이름이 userNo인 태그안의 text 가져옴
                     location.href="sellerNewApplicationApprove.ma?userNo=" + userNo;
                 })
 
                 // 닫기 버튼 눌렀을 때
-                $(".close-btn").click(function(){
-                    // modal.find(".change-input").val(""); // class이름이 change-input인 태그의 value값을 "" 으로 바꿈
+                modal.find(".close-btn").click(function(){
                     modal.css("display", "none"); // 모달 숨김
                 })
             });
