@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.psvm.commons.template.Pagination;
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.manager.service.ManagerServiceImpl;
+import com.psvm.manager.vo.ApplicationProduct;
 import com.psvm.manager.vo.Search;
 import com.psvm.manager.vo.Seller;
 import com.psvm.member.vo.Member;
@@ -208,16 +209,29 @@ public class ManagerController {
 	}
 	
 	
-	
-	
-	
-	
+	// 판매자 상품신청 조회 메서드
 	@RequestMapping("sellerProductApplication.ma")
-	public String sellerProductApplication(HttpSession session, String categoryName) {
+	public String sellerProductApplication(@RequestParam(value="cpage", defaultValue="1") int currentPage, String categoryName, Model model) {
+		// 판매자 신청한 일반회원 수 조회
+		int sellerProductApplicationCount = managerService.sellerProductApplicationCount();
 		
-		session.setAttribute("categoryName", categoryName);
+		// 페이징 처리
+		PageInfo pi = Pagination.getPageInfo(sellerProductApplicationCount, currentPage, 10, 5);
+		
+		// 판매자 신청한 일반회원 리스트 조회
+		ArrayList<ApplicationProduct> sellerProductApplicationList = managerService.sellerProductApplicationList(pi);
+		
+		model.addAttribute("sellerProductApplicationCount", sellerProductApplicationCount);
+		model.addAttribute("sellerProductApplicationList", sellerProductApplicationList);
+		model.addAttribute("pi", pi);
+		model.addAttribute("categoryName", categoryName);
 		return "manager/managerSellerProductApplication";
 	}
+	
+	
+	
+	
+	
 	
 	@RequestMapping("customerOnetoOne.ma")
 	public String customerOnetoOne(HttpSession session, String categoryName) {

@@ -59,7 +59,7 @@
                 </form>
 
                 <div id="search-result-list-area">
-                    <div id="total-seller"><b>총 신규신청 수 : ${fn:length(sellerNewApplicationList)}</b></div>
+                    <div id="total-seller"><b>총 신규신청 수 : ${sellerNewApplicationList}</b></div>
                     <div id="search-result-list">
                         <table>
                             <thead>

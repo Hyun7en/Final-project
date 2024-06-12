@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.psvm.commons.vo.PageInfo;
+import com.psvm.manager.vo.ApplicationProduct;
 import com.psvm.manager.vo.Search;
 import com.psvm.manager.vo.Seller;
 import com.psvm.member.vo.Member;
@@ -107,4 +108,19 @@ public class ManagerDao {
 	public int sellerNewApplicationApprove(SqlSessionTemplate sqlSession, int userNo) {
 		return sqlSession.update("managerMapper.sellerNewApplicationApprove", userNo);
 	}
+	
+	// 판매자가 신청한 상품 수 조회
+	public int sellerProductApplicationCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("managerMapper.sellerProductApplicationCount");
+	}
+	
+	// 판매자가 신청한 상품 조회
+	public ArrayList<ApplicationProduct> sellerProductApplicationList(SqlSessionTemplate sqlSession, PageInfo pi){
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("managerMapper.sellerProductApplicationList", null, rowBounds);
+	}
+	
+	
 }

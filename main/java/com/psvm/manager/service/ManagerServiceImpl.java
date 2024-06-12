@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.manager.dao.ManagerDao;
+import com.psvm.manager.vo.ApplicationProduct;
 import com.psvm.manager.vo.Search;
 import com.psvm.manager.vo.Seller;
 import com.psvm.member.vo.Member;
@@ -91,10 +92,19 @@ public class ManagerServiceImpl implements ManagerService{
 		return managerDao.searchSellerNewApplicationList(sqlSession, s, pi);
 	}
 	
-	
 	// 판매자 신규신청 승인
 	public int sellerNewApplicationApprove(int userNo) {
 		return managerDao.sellerNewApplicationApprove(sqlSession, userNo);
+	}
+	
+	// 판매자가 신청한 상품 수 조회
+	public int sellerProductApplicationCount() {
+		return managerDao.sellerProductApplicationCount(sqlSession);
+	}
+	
+	// 판매자가 신청한 상품 조회
+	public ArrayList<ApplicationProduct> sellerProductApplicationList(PageInfo pi){
+		return managerDao.sellerProductApplicationList(sqlSession, pi);
 	}
 	
 }

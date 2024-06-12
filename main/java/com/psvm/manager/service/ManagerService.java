@@ -3,6 +3,7 @@ package com.psvm.manager.service;
 import java.util.ArrayList;
 
 import com.psvm.commons.vo.PageInfo;
+import com.psvm.manager.vo.ApplicationProduct;
 import com.psvm.manager.vo.Search;
 import com.psvm.manager.vo.Seller;
 import com.psvm.member.vo.Member;
@@ -51,8 +52,13 @@ public interface ManagerService {
 	// 검색한 판매자 신규신청 회원 조회
 	ArrayList<Seller> searchSellerNewApplicationList(Search s, PageInfo pi);
 	
-	
 	// 판매자 신규 신청 승인
 	int sellerNewApplicationApprove(int userNo);
+	
+	// 판매자가 신청한 상품 수 조회
+	int sellerProductApplicationCount();
+	
+	// 판매자가 신청한 상품 조회
+	ArrayList<ApplicationProduct> sellerProductApplicationList(PageInfo pi);
 	
 }

@@ -6,7 +6,7 @@
 <!-- namespace: 해당 mapper파일의 고유한 별칭 -->
 <mapper namespace="managerMapper">
 
-	<!-- 판매자 정보 resultMapper -->
+	<!-- 판매자 정보 resultMap -->
 	<resultMap type="Seller" id="sellerListResult">
 		<result column="user_no" property="userNo"/>
 		<result column="user_name" property="userName"/>
@@ -24,7 +24,7 @@
 		<result column="application_date" property="applicationDate"/>
 	</resultMap>
 	
-	<!-- 회원 정보 resultMapper -->
+	<!-- 회원 정보 resultMap -->
 	<resultMap type="Member" id="memberListResult">
 		<result column="USER_NO" property="userNo"/>
 		<result column="USER_ID" property="userId"/>
@@ -45,6 +45,24 @@
 		<result column="MEMBER_FILE_NO" property="memberFileNo"/>
 		<result column="USER_INTRO" property="userIntro"/>
 	</resultMap>
+	
+	<!-- 판매 상품 resultMap -->
+	<resultMap type="ApplicationProduct" id="applicationProductResult">
+		<result column="USER_NAME" property="userName"/>
+		<result column="STORE_NAME" property="storeName"/>
+		<result column="P_NO" property="pdNo"/>
+		<result column="P_CATEGORY" property="pdCategory"/>
+		<result column="P_TITLE" property="pdTitle"/>
+		<result column="P_PRICE" property="pdPrice"/>
+		<result column="P_CONTENT" property="pdContent"/>
+		<result column="P_ENROLL_DATE" property="pdEnrollDate"/>
+		<result column="P_STAR" property="pdStar"/>
+		<result column="P_ORIGIN_NAME" property="pdOriginName"/>
+		<result column="P_CHANGE_NAME" property="pdChangeName"/>	
+		<result column="C_NO" property="caNo"/>
+		<result column="P_COUNT" property="pdCount"/>
+		<result column="P_OPTION_NAME" property="pdOptionName"/>
+	</resultMap> 
 	
 	<!-- 관리자를 제외한 모든 회원 수 조회 -->
 	<select id="memberListCount" resultType="_int">
@@ -297,9 +315,6 @@
 		</if>
 	</select>
 	
-	
-	
-	
 	<!-- 판매자 신규신청 승인 -->
 	<update id="sellerNewApplicationApprove">
 		UPDATE member
@@ -307,10 +322,52 @@
 		WHERE user_no = #{userNo}
 	</update>
 
+	<!-- 판매자가 신청한 상품 수 조회 -->
+	<select id="sellerProductApplicationCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM member m
+		JOIN seller_info si USING (user_no)
+		JOIN seller_page USING (business_no)
+		JOIN product_category USING (seller_page_no)
+		JOIN product p USING (c_no)
+		JOIN product_option po USING (p_no)
+		JOIN produce_category USING (c_no)
+		WHERE m.activated = 'Y'
+		AND m.authority = '1'
+		AND si.status = 'Y'
+		AND p.p_status = 'N' 
+		AND po.p_status = 'Y'
+	</select>
 
-
-
-
+	<!-- 판매자가 신청한 상품 조회 -->
+	<select id="sellerProductApplicationList" resultMap="applicationProductResult">
+		SELECT user_name,
+			   store_name,
+			   p_no,
+			   p_title,
+			   p_price,
+			   p_content,
+			   p_enroll_date,
+			   p_star,
+			   p_origin_name,
+			   p_change_name,
+			   c_no,
+			   p_count,
+			   p_option_name
+			   p_category
+		FROM member m
+		JOIN seller_info si USING (user_no)
+		JOIN seller_page USING (business_no)
+		JOIN product_category USING (seller_page_no)
+		JOIN product p USING (c_no)
+		JOIN product_option po USING (p_no)
+		JOIN produce_category USING (c_no)
+		WHERE m.activated = 'Y'
+		AND m.authority = '1'
+		AND si.status = 'Y'
+		AND p.p_status = 'N' 
+		AND po.p_status = 'Y'
+	</select>
 
 
 </mapper>

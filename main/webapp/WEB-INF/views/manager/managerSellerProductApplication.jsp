@@ -57,14 +57,14 @@
                 </form>
 
                 <div id="search-result-list-area">
-                    <div id="total-store"><b>총 상품신청 수 : 1</b></div> <!-- 총 신규신청 수 가져오기-->
+                    <div id="total-store"><b>총 상품신청 수 : ${sellerProductApplicationCount}</b></div> <!-- 총 신규신청 수 가져오기-->
                     <div id="search-result-list">
                         <table>
                             <thead>
                                 <th>
                                     <input type="checkbox">
                                 </th>
-                                <th>승인</th>
+                                <th>회원명</th>
                                 <th>상점명</th>
                                 <th>상품명</th>
                                 <th>판매가</th>
@@ -74,38 +74,71 @@
                                 <th>승인</th>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox">
-                                    </td>
-                                    <td>완료</td>
-                                    <td>그린피쉬</td>
-                                    <td>25특 HQ 올디아망 수조</td>
-                                    <td>23,000원</td>
-                                    <td>100개</td>
-                                    <td>어항/수조</td>
-                                    <td>2024-05-13</td>
-                                    <td>
-                                        <button>승인</button>
-                                    </td>
-                                </tr>
+                                <c:forEach var="spa" items="${sellerProductApplicationList}">
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox">
+                                        </td>
+                                        <td>${spa.userName}</td>
+                                        <td>${spa.storeName}</td>
+                                        <td>${spa.pdTitle}</td>
+                                        <td>${spa.pdPrice}</td>
+                                        <td>${spa.pdCount}</td>
+                                        <td>${spa.pdCategory}</td>
+                                        <td>${spa.pdEnrollDate}</td>
+                                        <td>
+                                            <button>승인</button>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+
                             </tbody>
                         </table>
                     </div>
 
-                    <form action="">
-                        <div id="select-btn-area">
-                            <button>선택삭제</button>
-                            <button>선택승인</button>
-                        </div>
-                    </form>
+                    <div id="select-btn-area">
+                        <button>선택삭제</button>
+                        <button>선택승인</button>
+                    </div>
 
-                    <div id="pageList-area">
-                        <div class="pageList" align="center">
-                            <a id="a1">&lt;</a>
-                            <a id="a2">1</a>
-                            <a id="a3">&gt;</a>
-                        </div> 
+                    <!-- 페이징 처리 -->
+                    <div id="pagination-div">
+                        <ul class="pagination">
+                            <c:choose>
+                                <c:when test="${ pi.currentPage eq 1 }">
+                                    <li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="page-item"><a class="page-link" href="sellerProductApplication.ma?cpage=${pi.currentPage - 1}&categoryName=seller">&laquo;</a></li>
+                                </c:otherwise>
+                        </c:choose>
+                    
+                        <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+                            <c:choose>
+                                <c:when test="${empty searchKeyword && not empty startDate}"> <!-- 날짜 값만 입력하고 검색했을 때 -->
+                                    <li class="page-item ${p == pi.currentPage ? 'active' : ''}"><a class="page-link" href="searchSellerProductApplication.ma?cpage=${p}&categoryName=seller&searchType=&searchKeyword=&startDate=${startDate}&endDate=${endDate}">${p}</a></li>
+                                </c:when>
+                                <c:when test="${not empty searchKeyword && empty startDate}"> <!-- 검색어만 입력하고 검색했을 때 -->
+                                    <li class="page-item ${p == pi.currentPage ? 'active' : ''}"><a class="page-link" href="searchSellerProductApplication.ma?cpage=${p}&categoryName=seller&searchType=${searchType}&searchKeyword=${searchKeyword}&startDate=&endDate=">${p}</a></li>
+                                </c:when>
+                                <c:when test="${not empty searchKeyword && not empty startDate}"> <!-- 검색어, 날짜 둘다 입력하고 검색했을 때 -->
+                                    <li class="page-item ${p == pi.currentPage ? 'active' : ''}"><a class="page-link" href="searchSellerProductApplication.ma?cpage=${p}&categoryName=seller&searchType=${searchType}&searchKeyword=${searchKeyword}&startDate=${startDate}&endDate=${endDate}">${p}</a></li>
+                                </c:when>
+                                <c:otherwise>   <!-- 헤더바나 사이드바에 있는 회원관리 눌렀을때 || 검색값 없이 검색 눌렀을 때 -->
+                                    <li class="page-item ${p == pi.currentPage ? 'active' : ''}"><a class="page-link" href="sellerProductApplication.ma?cpage=${p}&categoryName=seller">${p}</a></li>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                        
+                        <c:choose>
+                            <c:when test="${ pi.currentPage eq pi.maxPage }">
+                                <li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="page-item"><a class="page-link" href="sellerProductApplication.ma?cpage=${pi.currentPage + 1}&categoryName=seller">&raquo;</a></li>
+                            </c:otherwise>
+                        </c:choose>
+                        </ul>
                     </div>
 
                 </div>
