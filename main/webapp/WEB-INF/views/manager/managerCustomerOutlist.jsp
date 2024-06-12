@@ -56,7 +56,6 @@
                                 <th>회원명</th>
                                 <th>아이디</th>
                                 <th>탈퇴일시</th>
-                                <th>탈퇴사유</th>
                             </tr>
                             <tr>
                                 <td><input type="checkbox"></td>
@@ -64,7 +63,6 @@
                                 <td>홍길동</td>
                                 <td>qwqw11</td>
                                 <td>2024-05-14</td>
-                                <td>사이트가 너무 불친절해요.</td>
                             </tr>
                             <tr>
                                 <td><input type="checkbox"></td>
@@ -72,7 +70,6 @@
                                 <td>고길동</td>
                                 <td>qwqw22</td>
                                 <td>2024-05-14</td>
-                                <td>사이트가 너무 불친절해요.</td>
                             </tr>
                             <tr>
                                 <td><input type="checkbox"></td>
@@ -80,7 +77,6 @@
                                 <td>최길동</td>
                                 <td>qwqw33</td>
                                 <td>2024-05-14</td>
-                                <td>사이트가 너무 불친절해요.</td>
                             </tr>
                             <tr>
                                 <td><input type="checkbox"></td>
@@ -88,7 +84,6 @@
                                 <td>나길동</td>
                                 <td>qwqw44</td>
                                 <td>2024-05-14</td>
-                                <td>사이트가 너무 불친절해요.</td>
                             </tr>
                             <tr>
                                 <td><input type="checkbox"></td>
@@ -96,7 +91,6 @@
                                 <td>조길동</td>
                                 <td>qwqw55</td>
                                 <td>2024-05-14</td>
-                                <td>사이트가 너무 불친절해요.</td>
                             </tr>
                         </table>
                     </div>
