@@ -8,6 +8,7 @@ import com.psvm.member.vo.Member;
 import com.psvm.member.vo.MemberAttachment;
 import com.psvm.myPage.vo.Inquiry;
 import com.psvm.seller.vo.SellerInfo;
+import com.psvm.store.vo.StoreInfo;
 
 public interface MyPageService {
 	
@@ -29,7 +30,11 @@ public interface MyPageService {
 	// 비밀번호 체크 후 회원탈퇴
 	int deleteMember(int userNo);
 	
-//	ArrayList<InterestProduct> selectInterestProduct(int userNo);
+	//찜 목록 갯수 조회
+	int selectInterestCount(int userNo);
+	
+	// 찜 목록 조회
+	ArrayList<StoreInfo> selectInterest(PageInfo pi, int userNo);
 	
 	// 회원이 작성한 게시글 수 조회
 	int writePostListCount(int userNo);

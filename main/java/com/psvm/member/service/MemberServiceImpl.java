@@ -30,5 +30,9 @@ public class MemberServiceImpl implements MemberService{
 	public int signupMember(Member m) {
 		return memberDao.signupMember(sqlSession, m);
 	}
-
+	
+	@Override
+	public Member kakaoLogin(String email) {
+		return memberDao.kakaoLogin(sqlSession, email);
+	}
 }

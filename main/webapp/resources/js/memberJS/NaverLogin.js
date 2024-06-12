@@ -4,7 +4,6 @@ function NaverLogin(){
     script.src = "resources/js/memberJS/apikey.js";
     script.onload = function(){
         const clientId = config.APIclientId;
-        console.log(clientId);
         
         //리다이렉트 URI를 utf-8로 인코딩해서 저장
         const redirectURI = encodeURIComponent("http://localhost:8888/psvm/naverLogin.me");

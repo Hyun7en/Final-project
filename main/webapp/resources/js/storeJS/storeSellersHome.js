@@ -27,8 +27,6 @@ function orderSelected() {
 
 //알람 ON/OFF 체크
 function checkAlarm(userNo, sellerPageNo){
-    console.log(userNo);
-    console.log(sellerPageNo);
     if (Object.keys(userNo).length != 0){
         const alarmDiv = document.querySelector('.alarmDiv');
         const alarmButton = document.querySelector('.alarmButton');
@@ -37,7 +35,6 @@ function checkAlarm(userNo, sellerPageNo){
             url: "alarmCheck.st",
             data: {userNo : userNo, sellerPageNo : sellerPageNo},
             success: function(count){
-                console.log(count);
                 if (count > 0){
                     console.log("알람 ON");
                     alarmDiv.id = "seller-confirmed-img";
@@ -103,7 +100,48 @@ function getAlarmOff(userNo, sellerPageNo){
     })
 }
 
+//관심상품 등록
+function loveitOn(userNo, prNo){
+    console.log(prNo);
+    const loveitButton = document.querySelector(`.loveitButton-` + prNo);
+    const url = path + `/resources/image/bookmarkfishblue.png`
+    $.ajax({
+        url: "loveitOn.st",
+        data: {userNo : userNo, prNo : prNo},
+        success: function(){
+            console.log("ajax 완료")
+            loveitButton.id = "bookmarkblue";
+            loveitButton.setAttribute("onclick", `loveitOff(${userNo}, ${prNo})`);
+            document.querySelector(`.loveitButton-` + prNo + `>img`).src = url;
+            infoMsg("관심상품에 등록되었습니다.")
+        },
+        error: function(){
+            console.log("관심상품 등록 실패");
+        }
+    })
+}
+//관심상품 제외
+function loveitOff(userNo, prNo){
+    console.log(prNo);
+    const loveitButton = document.querySelector(`.loveitButton-` + prNo);
+    const url = path + `/resources/image/bookmarkfishgrey.png`
+    $.ajax({
+        url: "loveitOff.st",
+        data: {userNo : userNo, prNo : prNo},
+        success: function(){
+            console.log("ajax 완료")
+            loveitButton.id = "bookmarkgrey";
+            loveitButton.setAttribute("onclick", `loveitOn(${userNo}, ${prNo})`);
+            document.querySelector(`.loveitButton-` + prNo + `>img`).src = url;
+            infoMsg("관심상품에서 제외되었습니다.")
+        },
+        error: function(){
+            console.log("관심상품 해제 실패");
+        }
+    })
+}
 
+//알림 보내기
 function infoMsg(infoMsg){
     swal({
         title: "NOTICE",

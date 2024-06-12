@@ -39,4 +39,5 @@ public class StoreInfo {
 	private String prStatus; //판매중
 	private int userNo; //회원고유번호
 	private int reviewCount; //리뷰 갯수
+	private Date loveDate; //찜 등록 날짜
 }

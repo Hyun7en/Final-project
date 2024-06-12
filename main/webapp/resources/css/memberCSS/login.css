@@ -55,7 +55,7 @@ body{
     width: 400px;
     height: 30px;
     margin-top: 30px;
-    margin-bottom: 100px;
+    margin-bottom: 30px;
     display: flex;
     text-align: center;
     color: black;
@@ -68,22 +68,19 @@ body{
     width: 175px;
     color: black;
 }
-#login-easy{
+#login-naver, #login-kakao{
     width: 400px;
     text-align: center;
 }
-#login-easy>p{
+#login-naver>p, #login-kakao>p{
     font-size: 12px;
-    color: #AFA8A8;
 }
-#login-easy>button, #login-easy img{
-    width: 50px;
+#login-naver>button, #login-naver>button>img, #login-kakao>button, #login-kakao>button>img{
+    width: 200px;
     height: 50px;
     border: none;
-    border-radius: 25px;
     padding: 0;
-}
-#login-easy>button{
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
 }

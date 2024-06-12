@@ -24,4 +24,10 @@ public interface StoreService {
 	int ajaxAlarmOn(StoreInfo checker);
 	
 	int ajaxAlarmOff(StoreInfo checker);
+	
+	int ajaxLoveitCheck(StoreInfo checker);
+	
+	int ajaxLoveitOn(StoreInfo checker);
+	
+	int ajaxLoveitOff(StoreInfo checker);
 }
