@@ -20,6 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="P_STATUS" property="prStatus"/>
 		<result column="USER_NO" property="userNo"/>
 		<result column="REVIEW_COUNT" property="reviewCount"/>
+		<result column="LOVE_DATE" property="loveDate"/>
 	</resultMap>
 	<select id="selectSellersStore" resultMap="StoreInfoResult">
 		SELECT	SELLER_PAGE_NO,
@@ -50,9 +51,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				P_PRICE,
 				P_STAR,
 				P_CHANGE_NAME,
-				COALESCE(REVIEW_COUNT, 0) AS REVIEW_COUNT
+				COALESCE(REVIEW_COUNT, 0) AS REVIEW_COUNT,
+				LOVE_DATE
 		FROM	PRODUCT
 		JOIN	PRODUCT_CATEGORY USING(C_NO)
+		LEFT JOIN	(SELECT P_NO, USER_NO, LOVE_DATE FROM LOVE_IT WHERE USER_NO = CAST(#{userNo} AS INTEGER)) LOVE_IT USING(P_NO)
 		LEFT JOIN	(SELECT P_NO, COUNT(REPLY_NO) AS REVIEW_COUNT FROM REVIEW GROUP BY P_NO) REVIEW_COUNT_TABLE USING(P_NO)
 		WHERE	SELLER_PAGE_NO = CAST(#{sellerPageNo} AS INTEGER)
 		AND		P_STATUS = 'Y'
@@ -130,5 +133,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE FROM USER_ALARM
 		WHERE	USER_NO = #{userNo}
 		AND		SELLER_PAGE_NO = #{sellerPageNo}
+	</delete>
+	<select id="ajaxLoveitCheck" resultType="_int">
+		SELECT	COUNT(*)
+		FROM	LOVE_IT
+		WHERE	USER_NO = #{userNo}
+		AND		P_NO = #{prNo}
+	</select>
+	<insert id="ajaxLoveitOn">
+		INSERT INTO LOVE_IT(
+				USER_NO,
+				P_NO,
+				LOVE_DATE
+		)VALUES(
+				#{userNo},
+				#{prNo},
+				default)
+	</insert>
+	<delete id="ajaxLoveitOff">
+		DELETE FROM LOVE_IT
+		WHERE	USER_NO = #{userNo}
+		AND		P_NO = #{prNo}
 	</delete>
 </mapper>

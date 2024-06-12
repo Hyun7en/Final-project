@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.psvm.commons.template.Pagination;
 import com.psvm.commons.vo.PageInfo;
+import com.psvm.member.vo.Member;
 import com.psvm.seller.vo.Product;
 import com.psvm.store.service.StoreServiceImpl;
 import com.psvm.store.vo.StoreInfo;
@@ -33,7 +34,7 @@ public class StoreController {
 	private StoreServiceImpl storeService;
 	
 	@RequestMapping("sellersStore.st")//판매자 상점 페이지
-	public String sellersStore(@RequestParam(value="cpage", defaultValue="1") int currentPage, int sellerPageNo, @RequestParam(value="order", defaultValue = "1") int order, Model model) {
+	public String sellersStore(@RequestParam(value="cpage", defaultValue="1") int currentPage, int sellerPageNo, @RequestParam(value="order", defaultValue = "1") int order, Model model, HttpSession session) {
 		StoreInfo si = storeService.selectSellersStore(sellerPageNo); //판매자 홈페이지 기본 정보 가져오기
 		ArrayList<StoreInfo> siList = storeService.getCategory(sellerPageNo); //카테고리 가져오기
 		HashMap<String, String> map = new HashMap<String, String>();
@@ -41,9 +42,15 @@ public class StoreController {
 		map.put("sellerPageNo", Integer.toString(sellerPageNo));
 		map.put("order", Integer.toString(order));
 		
+		Member m = (Member)session.getAttribute("loginUser");
+		if(m != null) {
+			map.put("userNo", Integer.toString(m.getUserNo()));
+		}
+		
 		int productCount = storeService.selectProductCount(map);
 		PageInfo pi = Pagination.getPageInfo(productCount, currentPage, 12, 10);
 		ArrayList<StoreInfo> prList = storeService.selectProductList(pi, map);
+		
 		
 		model.addAttribute("si", si);
 		model.addAttribute("siList", siList);
@@ -101,5 +108,23 @@ public class StoreController {
 	@RequestMapping("alarmOff.st") //알람해제
 	public String ajaxAlarmOff(StoreInfo checker) {
 		return storeService.ajaxAlarmOff(checker) > 0 ? "success" : "fail";
+	}
+	
+	@ResponseBody
+	@RequestMapping("loveitCheck.st") //알람 체크
+	public int ajaxLoveitCheck(StoreInfo checker) {
+		return storeService.ajaxLoveitCheck(checker);
+	}
+	
+	@ResponseBody
+	@RequestMapping("loveitOn.st") //알람 설정
+	public String ajaxLoveitOn(StoreInfo checker) {
+		return storeService.ajaxLoveitOn(checker) > 0 ? "success" : "fail";
+	}
+	
+	@ResponseBody
+	@RequestMapping("loveitOff.st") //알람해제
+	public String ajaxLoveitOff(StoreInfo checker) {
+		return storeService.ajaxLoveitOff(checker) > 0 ? "success" : "fail";
 	}
 }

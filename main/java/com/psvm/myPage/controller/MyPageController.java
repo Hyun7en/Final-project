@@ -27,6 +27,7 @@ import com.psvm.member.vo.MemberAttachment;
 import com.psvm.myPage.service.MyPageServiceImpl;
 import com.psvm.myPage.vo.Inquiry;
 import com.psvm.seller.vo.SellerInfo;
+import com.psvm.store.vo.StoreInfo;
 
 @Controller
 public class MyPageController {
@@ -178,12 +179,14 @@ public class MyPageController {
 	}
 
 	@RequestMapping("interestProduct.my")
-	public String interestProduct() {
-
-//		ArrayList<InterestProduct> InterestProduct = myPageService.selectInterestProduct(userNo);
-//		
-//		model.addAttribute("interestProduct", InterestProduct);
-
+	public String interestProduct(@RequestParam(value="cpage", defaultValue="1") int currentPage, HttpSession session, Model model) {
+		int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
+		//페이징
+		int interestCount = myPageService.selectInterestCount(userNo);
+		PageInfo pi = Pagination.getPageInfo(interestCount, currentPage, 5, 10);
+		ArrayList<StoreInfo> InterestList = myPageService.selectInterest(pi, userNo);
+		
+		model.addAttribute("iList", InterestList);
 		return "myPage/myPageInterest";
 	}
 	

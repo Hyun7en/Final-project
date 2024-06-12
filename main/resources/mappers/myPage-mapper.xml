@@ -53,6 +53,26 @@
 		<result column="inquiry_date" property="inquiryDate"/>
 	</resultMap>
 	
+	<!-- 찜한 상품 resultMapper -->
+	<resultMap type="StoreInfo" id="StoreInfoResult">
+		<result column="SELLER_PAGE_NO" property="sellerPageNo"/>
+		<result column="BUSINESS_NO" property="businessNo"/>
+		<result column="SELLER_EXPLAIN" property="sellerExplain"/>
+		<result column="SP_CHANGE_NAME" property="spChangeName"/>
+		<result column="P_CATEGORY" property="prCategory"/>
+		<result column="STORE_NAME" property="storeName"/>
+		<result column="P_NO" property="prNo"/>
+		<result column="P_TITLE" property="prTitle"/>
+		<result column="P_PRICE" property="prPrice"/>
+		<result column="P_ENROLLDATE" property="prEnrollDate"/>
+		<result column="P_STAR" property="prStar"/>
+		<result column="P_CHANGE_NAME" property="prChangeName"/>
+		<result column="P_STATUS" property="prStatus"/>
+		<result column="USER_NO" property="userNo"/>
+		<result column="REVIEW_COUNT" property="reviewCount"/>
+		<result column="LOVE_DATE" property="loveDate"/>
+	</resultMap>
+	
 	<!-- 내 정보로 이동할 때 이미지 파일 가지고있는지 확인하기 위한 select -->
 	<select id="selectMemberAttachment" resultMap="selectMemberAttachmentResult">
 		SELECT member_file_no,
@@ -238,8 +258,30 @@
 		)
 	</insert>
 	
-
-
+	<select id="selectInterestCount" resultType="_int">
+		SELECT	COUNT(*)
+		FROM	LOVE_IT
+		WHERE	USER_NO = #{userNo}
+	</select>
+	<select id="selectInterest" resultMap="StoreInfoResult">
+		SELECT	P_NO,
+				P_TITLE,
+				P_PRICE,
+				P_CHANGE_NAME,
+				LOVE_DATE,
+				SELLER_PAGE_NO,
+				STORE_NAME
+		FROM	PRODUCT
+		JOIN	PRODUCT_CATEGORY USING(C_NO)
+		LEFT JOIN (SELECT	SELLER_PAGE_NO,
+				BUSINESS_NO,
+				STORE_NAME
+		FROM	SELLER_PAGE
+		JOIN	SELLER_INFO USING(BUSINESS_NO)) PRODUCT_INFO USING (SELLER_PAGE_NO)
+		JOIN	LOVE_IT USING(P_NO)
+		WHERE	USER_NO = #{userNo}
+		ORDER BY LOVE_DATE DESC
+	</select>
 
 
 </mapper>

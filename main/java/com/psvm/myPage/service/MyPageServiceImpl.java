@@ -13,6 +13,7 @@ import com.psvm.member.vo.MemberAttachment;
 import com.psvm.myPage.dao.MyPageDao;
 import com.psvm.myPage.vo.Inquiry;
 import com.psvm.seller.vo.SellerInfo;
+import com.psvm.store.vo.StoreInfo;
 
 @Service
 public class MyPageServiceImpl implements MyPageService {
@@ -53,11 +54,15 @@ public class MyPageServiceImpl implements MyPageService {
 		return myPageDao.deleteMember(sqlSession, userNo);
 	}
 	
+	// 찜 목록 갯수 조회
+	public int selectInterestCount(int userNo) {
+		return myPageDao.selectInterestCount(sqlSession, userNo);
+	}
 
-	
-//	public ArrayList<InterestProduct> selectInterestProduct(int userNo){
-//		return myPageDao.selectInterestProduct(sqlSession, userNo);
-//	}
+	// 찜 목록 조회
+	public ArrayList<StoreInfo> selectInterest(PageInfo pi, int userNo){
+		return myPageDao.selectInterest(sqlSession, pi, userNo);
+	}
 	
 	// 회원이 작성한 게시글 수 조회
 	public int writePostListCount(int userNo) {
