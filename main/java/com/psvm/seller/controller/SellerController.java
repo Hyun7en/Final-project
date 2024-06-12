@@ -8,9 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -534,6 +532,14 @@ public class SellerController {
     public String selectCustomerReviewManagement() {
     	
     	return "seller/customerReviewManagement";
+    }
+    
+    // 구매 페이지
+    
+    @RequestMapping("order.pd")
+    public String insertBuyingProduct() {
+    	
+    	return "store/order";
     }
    
 }

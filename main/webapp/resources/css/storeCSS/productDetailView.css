@@ -5,25 +5,94 @@ main {
     background-color: #eaf2fc;
 }
 
-#seller-home-top {
+#seller-home{
+    min-height: 100%;
     width: 100%;
-    height: 100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#seller-home-top{
+    width: 1200px;
+    height: 70px;
     display: flex;
-    padding: 30px 0;
-    margin: 0 auto;
-    align-items: center;
+    padding: 30px 0 0px 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+#seller-home-catchphrase{
+    height: 30px;
+    line-height: 30px;
+}
+#seller-home-catchphrase p{
+    text-align: center;
+    font-size: 15px; color: black;
+    margin-bottom: 0;
 }
 
-#seller-home-top p {
-    width: 1000px;
+#seller-blue-button, #seller-grey-button{
+    border: 0;
+    width: 110px;
+    height: 40px;
+    color: white;
+    margin-right: 0px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 0 10px 10px 0;
+    padding-right: 35px;
+}
+#seller-blue-button, #seller-blue-img{
+    background: #0089FF;
+}
+#seller-grey-button, #seller-grey-img{
+    background: #AFA8A8;
+}
+#seller-confirmed-button{
+    border: 3px solid #0089FF;
+    border-left: 0;
+    width: 110px;
+    height: 40px;
+    color: #0089FF;
+    margin-right: 0px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 0 10px 10px 0;
+    padding-right: 32px;
+    background-color: white;
+}
+#seller-confirmed-img{
+    border: 3px solid #0089FF;
+    border-right: 0;
+    width: 40px;
+    height: 40px;
+    margin-left: 0;
+    border-radius: 10px 0 0 10px;
+    text-align: center;
+    padding-top: 2px;
+    background-color: white;
+}
+
+#seller-blue-img, #seller-grey-img{
+    width: 40px;
+    height: 40px;
+    margin-left: 0;
+    border-radius: 10px 0 0 10px;
+    text-align: center;
+    padding-top: 5px;
+}
+#seller-home-top>div>img{
+    width: 30px;
+    height: 30px;
+}
+#seller-home-top p{
+    width: 900px;
+    height: 40px;
     font-size: 30px;
     font-weight: bold;
     color: #0089FF;
     text-align: center;
-    margin: 0;
+    margin-bottom: 0;
 }
-
-#seller-home-nav {
+#seller-home-nav{
     width: 100%;
     height: 80px;
     display: flex;
@@ -31,17 +100,17 @@ main {
     text-align: center;
     border-top: 1px solid;
     border-bottom: 1px solid;
-    margin: 0 auto;
-    align-items: center;
-    justify-content: center;
 }
-
-#seller-home-nav a {
+#seller-home-nav a{
     width: 150px;
     height: 30px;
     text-align: center;
     color: black;
-    margin: 25px 0;
-    line-height: 30px;
-    text-decoration: none;
+    margin: 25px 0 25px 0;
+}
+
+/* 상품 구매 */
+.product-info{
+    height: 500px;
+    border: 1px solid black;
 }
