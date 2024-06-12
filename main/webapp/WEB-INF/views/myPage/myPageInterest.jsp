@@ -58,9 +58,9 @@
                             </div>
                             <form action="">
                                 <div id="interest-product-button-area">
-                                    <div class="interest-product-button"><button>구매하기</button></div>
-                                    <div class="interest-product-button"><button onclick="gotoStore(`${i.sellerPageNo}`)">판매자의 다른 상품 보기</button></div>
-                                    <div class="interest-product-button"><button>관심상품 취소</button></div>
+                                    <div class="interest-product-button"><a>구매하기</a></div>
+                                    <div class="interest-product-button"><a href="sellersStore.st?sellerPageNo=${i.sellerPageNo}&order=1&cpage=1">판매자의 다른 상품 보기</a></div>
+                                    <div class="interest-product-button"><a>관심상품 취소</a></div>
                                 </div>
                             </form>
                         </div>
