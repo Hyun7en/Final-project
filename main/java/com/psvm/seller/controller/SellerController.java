@@ -26,7 +26,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.psvm.commons.template.Pagination;
 import com.psvm.commons.vo.PageInfo;
-import com.psvm.community.vo.Community;
 import com.psvm.member.vo.Member;
 import com.psvm.seller.dto.ProductCategoryDTO;
 import com.psvm.seller.dto.StoreMainDTO;

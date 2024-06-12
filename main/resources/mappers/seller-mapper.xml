@@ -75,7 +75,6 @@
 		<result column="REVIEW_COUNT" property="reviewCount"/>
 	</resultMap>
 	
-	
 	<select id="selectSeller" resultMap="sellerInfoResult">
 		SELECT *
 		  FROM SELLER_INFO
