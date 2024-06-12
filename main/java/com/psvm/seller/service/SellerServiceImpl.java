@@ -214,4 +214,10 @@ public class SellerServiceImpl implements SellerService {
 		return null;
 	}
 	
+	// 무한 스크롤로 전체 상품 가져오기
+	@Override
+	public List<StoreMainDTO> selectAllProduct(int page, int size) {
+		
+		return sellerDao.selectAllProduct(sqlSession, page, size);
+	}
 }
