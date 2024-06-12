@@ -28,57 +28,84 @@
                 </div>
                 
                 <div id="loginArea">
-                <c:choose>
-	            	<c:when test="${empty loginUser}">
-		                <!-- 로그인 전 -->
-                        <form action="loginForm.me" method="post">
-                            <input type="hidden" name="recentLink" id="recentLink">
-                        </form>
-                        <a href="javascript:void(0)" onclick="getRecentURL()" >로그인</a>
-                        <a href="signUpForm.me">회원가입</a>
-                        
-                        <script>
-                            function getRecentURL(){
-                                const recentLink = document.querySelector('#recentLink');
-                                recentLink.value = (window.location.href);
-                                recentLink.form.submit();
-                            }
-                        </script>
-	            	</c:when>
-                    
-	                <c:otherwise>
-                        <c:choose>
-                            <c:when test="${loginUser.authority == 0}">
-                                <!-- 일반 회원일 경우 로그인 후 -->
-                                <label>${loginUser.userName}님 환영합니다</label> &nbsp;&nbsp;
-                                <a href="myPage.me?userNo=${loginUser.userNo}">마이페이지</a>
-                                <a href="logout.me">로그아웃</a>
-                            </c:when>
+                    <c:choose>
+                        <c:when test="${empty loginUser}">
+                            <!-- 로그인 전 -->
+                            <form action="loginForm.me" method="post">
+                                <input type="hidden" name="recentLink" id="recentLink">
+                            </form>
+                            <a href="javascript:void(0)" onclick="getRecentURL()" >로그인</a>
+                            <a href="signUpForm.me">회원가입</a>
+                            
+                            <script>
+                                function getRecentURL(){
+                                    const recentLink = document.querySelector('#recentLink');
+                                    recentLink.value = (window.location.href);
+                                    recentLink.form.submit();
+                                }
+                            </script>
+                        </c:when>
+                        <c:otherwise>
+                            <c:choose>
+                                <c:when test="${loginUser.authority == 0}">
+                                    <!-- 일반 회원일 경우 로그인 후 -->
+                                    <div class="user-img">
+                                        <img src="${pageContext.request.contextPath}/resources/image/user.png" alt="이미지">
+                                    </div>
 
-                            <c:when test="${loginUser.authority == 1}">
-                                <!-- 판매자일 경우 로그인 후  -->
-                                <label>${loginUser.userName}님 환영합니다</label> &nbsp;&nbsp;
-                                <a href="myPage.me?userNo=${loginUser.userNo}">마이페이지</a>
-                                <a href="info.sr">판매자 관리 페이지</a>
-                                <a href="logout.me">로그아웃</a>
-                            </c:when>
+                                    <!-- <a href="myPage.me?userNo=${loginUser.userNo}">마이페이지</a>
+                                    <a href="logout.me">로그아웃</a> -->
+                                </c:when>
 
-                            <c:otherwise>
-                                <!-- 관리자일 경우 로그인 후  -->
-                                <label>${loginUser.userName}님 환영합니다</label> &nbsp;&nbsp;
-                                <a href="main.ma">관리자 페이지</a>
-                                <a href="logout.me">로그아웃</a>
-                            </c:otherwise>
+                                <c:when test="${loginUser.authority == 1}">
+                                    <!-- 판매자일 경우 로그인 후  -->
+                                    <div class="user-img">
+                                        
+                                        <img style="margin-right: 5px;" src="${pageContext.request.contextPath}/resources/image/loveit.png" alt="">
+                                        <img style="margin-right: 15px;" src="${pageContext.request.contextPath}/resources/image/shopping.png" alt="">
+                                        
+                                        <div id="myPageInfo-profile-img">
+                                            <c:choose>
+                                                <c:when test="${empty loginUser.changeName}">
+                                                    <img id="profile-img" src="${pageContext.request.contextPath}/resources/image/user.png">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <img id="profile-img" src="${ma.changeName}">
+                                                </c:otherwise>
+                                            </c:choose>
+                                            <c:if test="${not empty ma.originName}">
+                                                <input type="hidden" name="originName" value="${ma.originName }">
+                                                   <input type="hidden" name="changeName" value="${ma.changeName }">
+                                            </c:if>
+                                            
+                                        </div>
 
-                        </c:choose>
-	                </c:otherwise>
-                    
-	            </c:choose>
-                
-                
-                
-                
+                                    </div>
 
+
+
+
+
+                                    <!-- <a href="myPage.me?userNo=${loginUser.userNo}">마이페이지</a>
+                                    <a href="info.sr">판매자 관리 페이지</a>
+                                    <a href="logout.me">로그아웃</a> -->
+                                </c:when>
+
+                                <c:otherwise>
+                                    <!-- 관리자일 경우 로그인 후  -->
+                                    <label>${loginUser.userName}님 환영합니다</label> &nbsp;&nbsp;
+
+
+
+
+
+                                    <!-- <a href="main.ma">관리자 페이지</a>
+                                    <a href="logout.me">로그아웃</a> -->
+                                </c:otherwise>
+
+                            </c:choose>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
 

@@ -78,3 +78,10 @@ nav a:hover{
     color: #0089ff;
     text-decoration-line: none;
 }
+
+#loginArea{
+    width: 140px;
+    height: 40px;
+    margin-right: 25px;
+}
+
