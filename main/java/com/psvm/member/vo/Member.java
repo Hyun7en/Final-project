@@ -32,4 +32,5 @@ public class Member {
 	private Date joinDate; //가입일자
 	private int	memberFileNo; // 썸네일
 	private String userIntro; //한줄소개
+	private String changeName; // 썸네일 파일명
 }

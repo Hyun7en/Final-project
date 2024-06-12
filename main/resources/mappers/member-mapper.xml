@@ -24,6 +24,7 @@
 		<result column="JOIN_DATE" property="joinDate"/>
 		<result column="MEMBER_FILE_NO" property="memberFileNo"/>
 		<result column="USER_INTRO" property="userIntro"/>
+		<result column="CHANGE_NAME" property="changeName"/>
 	</resultMap>
 	
 	<select id="loginMember" resultMap="memberResult">
@@ -44,8 +45,10 @@
 				USER_LV,
 				JOIN_DATE,
 				MEMBER_FILE_NO,
-				USER_INTRO
+				USER_INTRO,
+				CHANGE_NAME
 		FROM	MEMBER
+		JOIN	MEMBER_ATTACHMENT USING(MEMBER_FILE_NO)
 		WHERE	USER_ID = #{userId}
 		AND		ACTIVATED = 'Y'
 	</select>
