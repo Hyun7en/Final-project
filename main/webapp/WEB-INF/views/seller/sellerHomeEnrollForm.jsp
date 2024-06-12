@@ -34,6 +34,7 @@
             <h1>스토어 관리 &gt; 판매자 홈 등록</h1>
 
             <form id="enrollForm"  action="insert.srh" method="post" enctype="multipart/form-data">
+                
                 <div>
                     <h4>스토어 소개</h4>
                     <input id="store-introduce" type="text" name="sellerExplain" placeholder="스토어 소개 입력" style="width: 300px; padding: 5px;">

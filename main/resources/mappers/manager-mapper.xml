@@ -6,8 +6,8 @@
 <!-- namespace: 해당 mapper파일의 고유한 별칭 -->
 <mapper namespace="managerMapper">
 
-	<!-- 판매자 신규신청 리스트 조회 resultMapper -->
-	<resultMap type="SellerNewApplication" id="sellerNewApplicationResult">
+	<!-- 판매자 정보 resultMapper -->
+	<resultMap type="Seller" id="sellerListResult">
 		<result column="user_no" property="userNo"/>
 		<result column="user_name" property="userName"/>
 		<result column="user_id" property="userId"/>
@@ -24,9 +24,210 @@
 		<result column="application_date" property="applicationDate"/>
 	</resultMap>
 	
+	<!-- 회원 정보 resultMapper -->
+	<resultMap type="Member" id="memberListResult">
+		<result column="USER_NO" property="userNo"/>
+		<result column="USER_ID" property="userId"/>
+		<result column="USER_PWD" property="userPwd"/>
+		<result column="EMAIL" property="email"/>
+		<result column="USER_NAME" property="userName"/>
+		<result column="NICKNAME" property="nickname"/>
+		<result column="BIRTHDAY" property="birthday"/>
+		<result column="GENDER" property="gender"/>
+		<result column="ADDRESS" property="address"/>
+		<result column="PHONE" property="phone"/>
+		<result column="LIKE_FISH" property="likeFish"/>
+		<result column="TAIL_FISH" property="tailFish"/>
+		<result column="AUTHORITY" property="authority"/>
+		<result column="ACTIVATED" property="activated"/>
+		<result column="USER_LV" property="userLv"/>
+		<result column="JOIN_DATE" property="joinDate"/>
+		<result column="MEMBER_FILE_NO" property="memberFileNo"/>
+		<result column="USER_INTRO" property="userIntro"/>
+	</resultMap>
 	
-	<!-- 판매자 신규신청 리스트 조회 -->
-	<select id="sellerNewApplicationList" resultMap="sellerNewApplicationResult">
+	<!-- 관리자를 제외한 모든 회원 수 조회 -->
+	<select id="memberListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM member
+		WHERE activated = 'Y'
+		AND authority &lt; 2
+	</select>
+	
+	<!-- 관리자를 제외한 모든 회원 조회 -->
+	<select id="memberList" resultMap="memberListResult">
+		SELECT 	USER_NO,
+				USER_ID,
+				USER_PWD,
+				EMAIL,
+				USER_NAME,
+				NICKNAME,
+				BIRTHDAY,
+				GENDER,
+				ADDRESS,
+				PHONE,
+				LIKE_FISH,
+				TAIL_FISH,
+				AUTHORITY,
+				ACTIVATED,
+				USER_LV,
+				JOIN_DATE,
+				MEMBER_FILE_NO,
+				USER_INTRO
+		FROM	MEMBER
+		WHERE	ACTIVATED = 'Y'
+		AND		AUTHORITY &lt; 2
+	</select>
+	
+	<!-- 검색한 회원 수 조회 -->
+	<select id="searchMemberCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM member
+		WHERE activated = 'Y'
+		AND authority &lt; 2
+		<!-- 검색타입과 검색어를 입력했을 때 -->
+		<if test='searchType != "" and searchKeyword != ""'>
+			<!-- ${}는 자동 따옴표가 안붙는데 #{}는 자동 따옴표가 붙기떄문에 컬럼이름을 써야하는 searchType에는 ${} 사용 -->
+			AND	${searchType} LIKE '%' || #{searchKeyword} || '%'
+		</if>
+		<!-- 기간검색 날짜를 입력했을 때 -->
+		<if test='startDate != "" and endDate != ""'>
+			AND JOIN_DATE BETWEEN #{startDate}::date AND #{endDate}::date
+		</if>
+	</select>
+	
+	<!-- 검색한 회원 조회 -->
+	<select id="searchMemberList" resultMap="memberListResult">
+		SELECT 	USER_NO,
+				USER_ID,
+				USER_PWD,
+				EMAIL,
+				USER_NAME,
+				NICKNAME,
+				BIRTHDAY,
+				GENDER,
+				ADDRESS,
+				PHONE,
+				LIKE_FISH,
+				TAIL_FISH,
+				AUTHORITY,
+				ACTIVATED,
+				USER_LV,
+				JOIN_DATE,
+				MEMBER_FILE_NO,
+				USER_INTRO
+		FROM	MEMBER
+		WHERE	ACTIVATED = 'Y'
+		AND		AUTHORITY &lt; 2
+		<!-- 검색타입과 검색어를 입력했을 때 -->
+		<if test='searchType != "" and searchKeyword != ""'>
+			<!-- ${}는 자동 따옴표가 안붙는데 #{}는 자동 따옴표가 붙기떄문에 컬럼이름을 써야하는 searchType에는 ${} 사용 -->
+			AND	${searchType} LIKE '%' || #{searchKeyword} || '%'
+		</if>
+		<!-- 기간검색 날짜를 입력했을 때 -->
+		<if test='startDate != "" and endDate != ""'>
+			AND JOIN_DATE BETWEEN #{startDate}::date AND #{endDate}::date
+		</if>
+		
+	</select>
+	
+	<!-- 관리자가 회원 강제 탈퇴 -->
+	<update id="deleteMember">
+		UPDATE member
+		SET activated = 'N' 
+		WHERE user_no = #{userNo}
+	</update>
+	
+	<!-- 판매자 수 조회 -->
+	<select id="sellerListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM member
+		WHERE activated = 'Y'
+		AND authority = 1
+	</select>
+	
+	<!-- 판매자 조회 -->
+	<select id="sellerList" resultMap="sellerListResult">
+		SELECT user_no,
+			   user_name,
+			   user_id,
+			   business_no,
+			   business_name,
+			   sub_business_name,
+			   open_business_date,
+			   store_name,
+			   crn,
+			   main_business_name,
+		 	   main_item_name,
+			   business_address,
+			   business_account,
+			   application_date				
+		FROM member m
+		JOIN seller_info s USING (user_no)
+		WHERE m.activated = 'Y'
+		AND m.authority = 1
+	</select>
+	
+	<!-- 검색한 판매자 수 조회 -->
+	<select id="searchSellerCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM member
+		JOIN seller_info s USING (user_no)
+		WHERE activated = 'Y'
+		AND authority = 1
+		<!-- 검색타입과 검색어를 입력했을 때 -->
+		<if test='searchType != "" and searchKeyword != ""'>
+			<!-- ${}는 자동 따옴표가 안붙는데 #{}는 자동 따옴표가 붙기떄문에 컬럼이름을 써야하는 searchType에는 ${} 사용 -->
+			AND	${searchType} LIKE '%' || #{searchKeyword} || '%'
+		</if>
+		<!-- 등록일시 날짜를 입력했을 때 -->
+		<if test='startDate != "" and endDate != ""'>
+			AND s.APPLICATION_DATE BETWEEN #{startDate}::date AND #{endDate}::date
+		</if>
+	</select>
+	
+	<!-- 검색한 판매자 조회 -->
+	<select id="searchSellerList" resultMap="sellerListResult">
+		SELECT user_no,
+			   user_name,
+			   user_id,
+			   business_no,
+			   business_name,
+			   sub_business_name,
+			   open_business_date,
+			   store_name,
+			   crn,
+			   main_business_name,
+		 	   main_item_name,
+			   business_address,
+			   business_account,
+			   application_date		
+		FROM member m
+		JOIN seller_info s USING (user_no)
+		WHERE m.activated = 'Y'
+		AND m.authority = 1
+		<!-- 검색타입과 검색어를 입력했을 때 -->
+		<if test='searchType != "" and searchKeyword != ""'>
+			<!-- ${}는 자동 따옴표가 안붙는데 #{}는 자동 따옴표가 붙기떄문에 컬럼이름을 써야하는 searchType에는 ${} 사용 -->
+			AND	${searchType} LIKE '%' || #{searchKeyword} || '%'
+		</if>
+		<!-- 등록일시 날짜를 입력했을 때 -->
+		<if test='startDate != "" and endDate != ""'>
+			AND APPLICATION_DATE BETWEEN #{startDate}::date AND #{endDate}::date
+		</if>
+	</select>
+	
+	<!-- 판매자 신규 신청한 회원 수 조회 -->
+	<select id="sellerNewApplicationCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM member m
+		JOIN seller_info s USING (user_no)
+		WHERE m.authority = 0
+		AND s.status = 'Y'
+	</select>
+	
+	<!-- 판매자 신규 신청한 회원 조회 -->
+	<select id="sellerNewApplicationList" resultMap="sellerListResult">
 		SELECT user_no,
 			   user_name,
 			   user_id,
@@ -46,6 +247,58 @@
 		WHERE m.authority = 0
 		AND s.status = 'Y'
 	</select>
+	
+	<!-- 검색한 판매자 신규 신청 회원 수 조회 -->
+	<select id="searchSellerNewApplicationCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM member m
+		JOIN seller_info s USING (user_no)
+		WHERE m.authority = 0
+		AND s.status = 'Y'
+		<!-- 검색타입과 검색어를 입력했을 때 -->
+		<if test='searchType != "" and searchKeyword != ""'>
+			<!-- ${}는 자동 따옴표가 안붙는데 #{}는 자동 따옴표가 붙기떄문에 컬럼이름을 써야하는 searchType에는 ${} 사용 -->
+			AND	${searchType} LIKE '%' || #{searchKeyword} || '%'
+		</if>
+		<!-- 등록일시 날짜를 입력했을 때 -->
+		<if test='startDate != "" and endDate != ""'>
+			AND s.APPLICATION_DATE BETWEEN #{startDate}::date AND #{endDate}::date
+		</if>
+	</select>
+	
+	<!-- 검색한 판매자 신규 신청 회원 조회 -->
+	<select id="searchSellerNewApplicationList" resultMap="sellerListResult">
+		SELECT user_no,
+			   user_name,
+			   user_id,
+			   business_no,
+			   business_name,
+			   sub_business_name,
+			   open_business_date,
+			   store_name,
+			   crn,
+			   main_business_name,
+		 	   main_item_name,
+			   business_address,
+			   business_account,
+			   application_date				
+		FROM member m
+		JOIN seller_info s USING (user_no)
+		WHERE m.authority = 0
+		AND s.status = 'Y'
+		<!-- 검색타입과 검색어를 입력했을 때 -->
+		<if test='searchType != "" and searchKeyword != ""'>
+			<!-- ${}는 자동 따옴표가 안붙는데 #{}는 자동 따옴표가 붙기떄문에 컬럼이름을 써야하는 searchType에는 ${} 사용 -->
+			AND	${searchType} LIKE '%' || #{searchKeyword} || '%'
+		</if>
+		<!-- 등록일시 날짜를 입력했을 때 -->
+		<if test='startDate != "" and endDate != ""'>
+			AND s.APPLICATION_DATE BETWEEN #{startDate}::date AND #{endDate}::date
+		</if>
+	</select>
+	
+	
+	
 	
 	<!-- 판매자 신규신청 승인 -->
 	<update id="sellerNewApplicationApprove">

@@ -11,7 +11,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class SellerNewApplication {
+public class Seller {
 	   private int userNo;
 	   private String userName;
 	   private String userId;

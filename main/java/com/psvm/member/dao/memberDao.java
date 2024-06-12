@@ -18,5 +18,8 @@ public class MemberDao {
 	public int signupMember(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.insert("memberMapper.signupMember", m);
 	}
-
+	
+	public Member kakaoLogin(SqlSessionTemplate sqlSession, String email) {
+		return sqlSession.selectOne("memberMapper.kakaoLogin", email);
+	}
 }

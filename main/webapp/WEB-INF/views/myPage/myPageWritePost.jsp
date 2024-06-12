@@ -42,19 +42,47 @@
                     <div id="myPageWritePost-status-area">
                         <div id="ps1" class="myPageWritePost-status">
                             <b>일반 게시판</b>
-                            <p>${listCount[0]} 개</p>
+                            <c:choose>
+                                <c:when test="${empty myBoardListCount[0]}">
+                                    <p>0 개</p>
+                                </c:when>
+                                <c:otherwise>
+                                    <p>${myBoardListCount[0]} 개</p>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                         <div id="ps2" class="myPageWritePost-status">
                             <b>꿀팁 게시판</b>
-                            <p>${listCount[1]} 개</p>
+                            <c:choose>
+                                <c:when test="${empty myBoardListCount[1]}">
+                                    <p>0 개</p>
+                                </c:when>
+                                <c:otherwise>
+                                    <p>${myBoardListCount[1]} 개</p>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                         <div id="ps3" class="myPageWritePost-status">
                             <b>질문 게시판</b>
-                            <p>${listCount[2]} 개</p>
+                            <c:choose>
+                                <c:when test="${empty myBoardListCount[2]}">
+                                    <p>0 개</p>
+                                </c:when>
+                                <c:otherwise>
+                                    <p>${myBoardListCount[2]} 개</p>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                         <div class="myPageWritePost-status">
                             <b>중고거래 게시판</b>
-                            <p>${listCount[3]} 개</p>
+                            <c:choose>
+                                <c:when test="${empty myBoardListCount[3]}">
+                                    <p>0 개</p>
+                                </c:when>
+                                <c:otherwise>
+                                    <p>${myBoardListCount[3]} 개</p>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                     <div id="myPageWritePost-list-area">
@@ -67,13 +95,13 @@
                             </thead>
                             <tbody>
                                 <c:choose>
-                                    <c:when test="${empty list}">
+                                    <c:when test="${empty myBoardList}">
                                         <tr>
                                             <td colspan="4" style="text-align: center;"><p>작성한 게시글이 없습니다.</p></td>
                                         </tr>
                                     </c:when>
                                     <c:otherwise>
-                                        <c:forEach var="b" items="${list}">
+                                        <c:forEach var="b" items="${myBoardList}">
                                             <!-- 호연님한테 cpage는 뺼수 있냐 물어보기(호연님 게시글 페이징이랑 내 마이페이지 작성한글 페이징이랑 다름. 
                                             예를 들어 호연님은 카태고리 일반, 꿀팁, 질문, 거래별로 페이징 처리 해놨는데 나는 작성한글 내가 쓴글이 전부
                                             있기떄문에 페이지 수가 다를수밖에 없음)-->
@@ -101,13 +129,34 @@
                                 </c:choose>
                             </tbody>
                         </table>
-                        <div id="btnList-area">
-                            <div class="btnList" align="center">
-                                <button id="btn1">&lt;</button>
-                                <button id="btn2">1</button>
-                                <button id="btn3">&gt;</button>
-                            </div> 
+
+                          <!-- 페이징 처리 -->
+                        <div id="pagination-div">
+                            <ul class="pagination">
+                                <c:choose>
+                                    <c:when test="${ pi.currentPage eq 1 }">
+                                        <li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li class="page-item"><a class="page-link" href="writePost.my?cpage=${pi.currentPage - 1}&userNo=${loginUser.userNo}">&laquo;</a></li>
+                                    </c:otherwise>
+                            </c:choose>
+                        
+                            <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+                                <li class="page-item ${p == pi.currentPage ? 'active' : ''}"><a class="page-link" href="writePost.my?cpage=${p}&userNo=${loginUser.userNo}">${p}</a></li>
+                            </c:forEach>
+                            
+                            <c:choose>
+                                <c:when test="${ pi.currentPage eq pi.maxPage }">
+                                    <li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="page-item"><a class="page-link" href="writePost.my?cpage=${pi.currentPage + 1}&userNo=${loginUser.userNo}">&raquo;</a></li>
+                                </c:otherwise>
+                            </c:choose>
+                            </ul>
                         </div>
+
                     </div>
                 </div>
             </div>

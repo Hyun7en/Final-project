@@ -1,4 +1,8 @@
-$(document).ready(function() {
+    // JSP에서 pno 변수를 JavaScript로 전달
+    const pno = ${pd.pdNo};
+    console.log("pno: " + pno); // pno 값이 제대로 전달되었는지 확인
+    
+    $(function() {
     // 페이지 로드 시 옵션 목록을 가져오고, 그리기
     selectOptions();
 
@@ -6,6 +10,7 @@ $(document).ready(function() {
         $.ajax({
             url: "options.ax", // 서버 URL
             method: "GET",
+            data: { pno: pno },
             success: function(res) {
                 drawOptions(res);
             },
