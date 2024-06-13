@@ -279,6 +279,46 @@ input{
     width: 90%;
 }
 
+#change-pwd-modal{
+    padding-top: 300px;
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+#change-pwd-modal-content{
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    height: 30%;
+    background-color: white;
+    margin-left: 680px;
+    padding: 10px 0 0 20px;
+}
+
+#change-pwd-modal-content h3{
+    margin-bottom: 15px;
+}
+
+#change-pwd-modal-content button{
+    width: 60px;
+    height: 40px;
+    border: 1px solid black;
+    background-color: white;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+#change-pwd-modal-content form input{
+    width: 90%;
+}
+
 #warning-text{
     margin-left: 10px;
     color: red;

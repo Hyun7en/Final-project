@@ -96,18 +96,13 @@
                                     <th>레벨</th>
                                     <td>${loginUser.userLv}</td>
                                 </tr>
-                                <!-- <tr>
-                                    <th>아이디</th>
-                                    <td>
-                                        ${loginUser.userId}
-                                    </td>
-                                </tr>
                                 <tr>
                                     <th>비밀번호</th>
                                     <td>
-                                        ${loginUser.userPwd}
+                                        <input type="password" id="userPwd" name="userPwd" placeholder="기존의 비밀번호 입력">
+                                        <button type="button" class="change-btn" onclick="change_pwd_modal()">변경</button>
                                     </td>
-                                </tr> -->
+                                </tr>
                             </table>
                         </div>
                          
@@ -198,6 +193,25 @@
                         </div>
                     </div>  
 
+                    <div id="change-pwd-modal">
+                        <div id="change-pwd-modal-content">
+                            <h3>비밀번호 변경</h3>
+                            <div id="password-check-area">
+                                <div>
+                                    <span>새 비밀번호 입력</span>
+                                    <div>
+                                        <input type="pwd" id="inputNewPwd" name="inputPwd">
+                                        <button  id="confirm-btn" type="button" onclick="new_password_check()">결정</button>
+                                    </div>
+                                </div>
+                                <span id="notice-text"></span>
+                            </div>
+                            <div id="modal-btn-area">
+                                <button type="button" id="changePwd-btn" onclick="change_pwd('${loginUser.userNo}')" readonly style="color: #d0d0d0;">변경하기</button>
+                                <button type="button" id="close-modal" onclick="close_pwd_modal()">닫기</button>
+                            </div>
+                        </div>
+                    </div> 
                 </div>
             </div>
         </main>
