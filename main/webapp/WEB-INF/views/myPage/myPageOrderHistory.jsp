@@ -6,12 +6,13 @@
 <head>
 <meta charset="UTF-8">
 <title>주문내역</title>
-	
+	<!-- jQuery library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <!-- css -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/myPageCSS/myPageOrderHistory.css">
  
-
 <body>
 	<div class="wrap">
 	

@@ -336,7 +336,7 @@
 		AND m.authority = '1'
 		AND si.status = 'Y'
 		AND p.p_status = 'Y' 
-		AND po.p_status = 'N'
+		AND po.po_status = 'N'
 	</select>
 
 	<!-- 판매자가 신청한 상품 조회 -->
@@ -366,7 +366,7 @@
 		AND m.authority = '1'
 		AND si.status = 'Y'
 		AND p.p_status = 'Y'
-		AND po.p_status = 'N'
+		AND po.po_status = 'N'
 	</select>
 	
 	<!-- 검색한 판매자 상품신청 수 조회 -->
@@ -382,7 +382,7 @@
 		AND m.authority = '1'
 		AND si.status = 'Y'
 		AND p.p_status = 'Y' 
-		AND po.p_status = 'N'
+		AND po.po_status = 'N'
 		<!-- 검색타입과 검색어를 입력했을 때 -->
 		<if test='searchType != "" and searchKeyword != ""'>
 			<!-- ${}는 자동 따옴표가 안붙는데 #{}는 자동 따옴표가 붙기떄문에 컬럼이름을 써야하는 searchType에는 ${} 사용 -->
@@ -421,7 +421,7 @@
 		AND m.authority = '1'
 		AND si.status = 'Y'
 		AND p.p_status = 'Y'
-		AND po.p_status = 'N'
+		AND po.po_status = 'N'
 		<!-- 검색타입과 검색어를 입력했을 때 -->
 		<if test='searchType != "" and searchKeyword != ""'>
 			<!-- ${}는 자동 따옴표가 안붙는데 #{}는 자동 따옴표가 붙기떄문에 컬럼이름을 써야하는 searchType에는 ${} 사용 -->
@@ -436,7 +436,7 @@
 	<!-- 판매자 상품신청 승인  -->
 	<update id="sellerProductApplicationApprove">
 		UPDATE product_option 
-		SET p_status = 'Y'
+		SET po_status = 'Y'
 		WHERE p_option_no = #{pdOptionNo}
 	</update>
 	

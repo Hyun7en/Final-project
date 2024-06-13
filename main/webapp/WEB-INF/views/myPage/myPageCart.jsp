@@ -6,11 +6,16 @@
 <head>
 <meta charset="UTF-8">
 <title>장바구니</title>
-	
+
+	<!-- jQuery library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <!-- css -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/myPageCSS/myPageCart.css">
 	
+    <!-- javaScript -->
+    <script src="${pageContext.request.contextPath}/resources/js/myPageJS/myPageCart.js"></script>
    
 <body>
 	<div class="wrap">
@@ -115,28 +120,10 @@
                 </div>
             </div>
         </main>
-                
+
         <!-- footer -->
         <%@ include file="../commons/footer.jsp" %>
-        
+
      </div>
-
-     <script>
-        function count(type){
-            const result = document.getElementById("product-count");
-
-            let number = result.innerText;
-
-            if(type === 'minus') {
-                if(number != 1){
-                    number = parseInt(number) -1;
-                }
-            } else if(type === 'plus') {
-                number = parseInt(number) + 1;
-            }
-
-            result.innerText = number;
-        }
-     </script>
 </body>
 </html>
