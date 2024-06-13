@@ -165,8 +165,30 @@ public class MyPageController {
 		}
 		return mv;
 	}
+	
+	// 비밀번호 변경 메서드
+	@RequestMapping("changePwd.my")
+	public ModelAndView changePwd(Member m, String newPwd, Model model, HttpSession session, ModelAndView mv) {
+		
+		// 비밀번호 변경
+		String encPwd = bcryptPasswordEncoder.encode(m.getUserPwd());
+		
+		m.setUserPwd(encPwd);
+		
+		int result = myPageService.changePwd(m);
+		
+		if (result > 0) {
+			session.removeAttribute("loginUser");
+			session.setAttribute("successMessage", "비밀번호가 변경되어 로그아웃되었습니다.");
+			mv.setViewName("redirect:/");
+		} else {
+			mv.addObject("errorMessage", "비밀번호 변경 실패");
+			mv.setViewName("myPage/myPageInfo");
+		}
+		return mv;
+	}
 
-	// 회원탈퇴시 탈퇴한건지 확인하기 위한 비밀번호 확인이 맞는지 체크(ajax)하는 메서드
+	// 회원탈퇴, 비밀번호 변경시 입력한 비밀번호를 체크(ajax)하는 메서드
 	@ResponseBody
 	@RequestMapping(value = "passwordCheck.my", produces = "application/json; charset-UTF-8")
 	public String passwordCheck(String inputPwd, HttpSession session) {
