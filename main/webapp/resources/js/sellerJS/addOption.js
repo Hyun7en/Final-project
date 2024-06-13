@@ -1,59 +1,59 @@
-$(document).ready(function() {
-    let options = [];
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('add-optionBtn').addEventListener('click', function() {
+        let table = document.querySelector('#div-enroll-option table');
+        
+        // 테이블에서 모든 옵션명 입력 필드를 찾아 중복 검사
+        let optionInputs = table.querySelectorAll('input[type="text"]');
+        let lastInput = optionInputs[optionInputs.length - 1];
+        let optionValue = lastInput ? lastInput.value.trim() : "";
 
-    // 엔터 키 이벤트를 처리하는 함수
-    function addOption() {
-        let optionName = $('#enroll-option').val().trim();
-        let pdCount = parseInt($('#enroll-pdCount').val().trim(), 10);
-
-        if (optionName && !isNaN(pdCount) && pdCount >= 0) {
-            let option = { optionName: optionName, pdCount: pdCount };
-            
-            if (options.some(opt => opt.optionName.toLowerCase() === optionName.toLowerCase())) {
-                alert('이미 추가된 옵션입니다.');
-            } else {
-                options.push(option);
-                $('#optionList').append('<div data-option="' + optionName + '"><li>' + optionName + ' - ' + pdCount + '</li><button class="removeBtn">x</button></div>');
-                $('#enroll-option').val('');
-                $('#enroll-pdCount').val(''); // 입력 필드 초기화
-                console.log(options);
-                alert('옵션이 성공적으로 추가되었습니다.');
-            }
-        } else {
-            alert('옵션과 수량을 모두 올바르게 입력하세요.');
+        // 옵션명이 비어있는 경우 경고
+        if (optionValue === "") {
+            alert("옵션명을 입력해주세요.");
+            return;
         }
-    }
 
-    // 클릭 이벤트에 addOption 함수를 연결
-    $('#add-optionBtn').click(addOption);
+        // 중복 검사 수행
+        let isDuplicate = Array.from(optionInputs, input => input.value.trim()).slice(0, -1).includes(optionValue);
 
-    // 입력 필드에서 엔터 키 입력 처리
-    $('#enroll-option, #enroll-pdCount').keypress(function(event) {
-        if (event.which == 13) {  // 엔터 키의 키 코드는 13
-            event.preventDefault();  // 폼 제출을 방지
-            addOption();  // 옵션 추가 함수 실행
+        if (isDuplicate) {
+            alert("이미 같은 옵션이 존재합니다.");
+            return;
         }
+
+        // 중복이 아니면 행 추가
+        addNewOptionRow(table);
     });
 
-    $(document).on('click', '.removeBtn', function() {
-        let optionDiv = $(this).parent();
-        let optionName = optionDiv.data('option');
-        options = options.filter(opt => opt.optionName !== optionName);
-        optionDiv.remove();
-        console.log(options);
-        alert('옵션이 성공적으로 제거되었습니다.');
-    });
+    function addNewOptionRow(table) {
+        let newTr = document.createElement('tr');
 
-    $('#enrollForm').submit(function(event) {
-        let optionsInput = $('<input>').attr('type', 'hidden').attr('name', 'optionsJson').val(JSON.stringify(options));
-        $(this).append(optionsInput);
-    });
+        let td1 = document.createElement('td');
+        let input1 = document.createElement('input');
+        input1.type = 'text';
+        input1.placeholder = '옵션명 입력';
+        td1.appendChild(input1);
+        newTr.appendChild(td1);
 
-    $('#productImage').change(function(event) {
-        let reader = new FileReader();
-        reader.onload = function(e) {
-            $('#preview-image').attr('src', e.target.result);
+        let td2 = document.createElement('td');
+        let input2 = document.createElement('input');
+        input2.type = 'number';
+        input2.min = '0';
+        input2.placeholder = '수량';
+        td2.appendChild(input2);
+        newTr.appendChild(td2);
+
+        let td3 = document.createElement('td');
+        let removeBtn = document.createElement('button');
+        removeBtn.textContent = '제거';
+        removeBtn.className = 'remove-btn';
+        removeBtn.onclick = function(event) {
+            let tr = event.target.closest('tr');
+            tr.remove(); // 해당 행 제거
         };
-        reader.readAsDataURL(event.target.files[0]);
-    });
+        td3.appendChild(removeBtn);
+        newTr.appendChild(td3);
+
+        table.appendChild(newTr);
+    }
 });
