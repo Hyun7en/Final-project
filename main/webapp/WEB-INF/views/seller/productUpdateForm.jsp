@@ -36,14 +36,14 @@
 
         <section>
             <h1>스토어 관리 &gt; 상품 등록</h1>
-            <form id="enrollForm" action="insert.pd" method="post" enctype="multipart/form-data">
+            <form id="updateForm" action="update.pd" method="post" enctype="multipart/form-data">
                 <div id="product-management">
                     <div>
                         <div class="form-group">
                             <label for="pdTitle">
                                 상품명
                             </label>
-                            <input class="form-control" type="text" id="pdTitle" name="pdTitle" placeholder="상품명 입력" required>
+                            <input class="form-control" type="text" id="pdTitle" name="pdTitle" placeholder="상품명 입력" value="${pd.pdTitle}" required>
                         </div>
                         <div class="form-group">
                             <label  for="select-category">
@@ -57,7 +57,7 @@
                             <label for="pPrice">
                                 판매가
                             </label>
-                            <input class="form-control" type="number" min="0" step="100"  id="pdPrice" name="pdPrice" placeholder="판매가 입력" required>
+                            <input class="form-control" type="number" min="0" step="100"  id="pdPrice" name="pdPrice" placeholder="판매가 입력" value="${pd.pdPrice}" required>
                         </div>
 
                         <div id="div-enroll-option">
@@ -81,7 +81,7 @@
                     <input type="file" id="productImage" name="productImage" required>
                 </div>
                 <div class="image-container">
-                    <img id="preview-image" src="getImage?id=1" alt="상품 이미지">
+                    <img id="preview-image" src="${pd.pdChangeName}" alt="상품 이미지">
                 </div>
                 <div class="form-group">
                     <label for="summernote">
@@ -89,11 +89,11 @@
                     </label>
                 </div>
                 <div>
-                    <textarea id="summernote" name="pdContent"></textarea>
+                    <textarea id="summernote" name="pdContent">${pd.pdContent}</textarea>
                 </div>
                 <div class="form-actions">
                     <button type="submit">
-                        수정 요청
+                        수정
                     </button>
                     <button type="reset">
                         초기화

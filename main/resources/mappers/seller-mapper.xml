@@ -52,11 +52,20 @@
 	
 	<resultMap type="ProductOption" id="productOptionResult">
 		<result column="P_COUNT" property="pdCount"/>
-		<result column="P_STATUS" property="pdContent"/>	
+		<result column="PO_STATUS" property="poStatus"/>	
 		<result column="P_NO" property="pdNo"/>
 		<result column="P_OPTION_NAME" property="optionName"/>
 		<result column="P_OPTION_NO" property="pdOptionNo"/>
-	</resultMap>  
+	</resultMap> 
+	
+	<resultMap type="Review" id="ReviewResult">
+		<result column="REPLY_NO" property="replyNo"/>
+		<result column="USER_NO" property="userNo"/>
+		<result column="P_NO" property="pdNo"/>
+		<result column="REVIEW_DATE" property="reviewDate"/>
+		<result column="REVIEW_DIBS" property="reviewDibs"/>
+		<result column="REVIEW_CONTENTS" property="reviewContents"/>
+	</resultMap> 
 	
 	<resultMap type="StoreMainDTO" id="StoreMainDTOResult">
 		<result column="SELLER_PAGE_NO" property="sellerPageNo"/>
@@ -73,6 +82,25 @@
 		<result column="USER_NO" property="userNo"/>
 		<result column="REPLY_NO" property="replyNo"/>
 		<result column="REVIEW_COUNT" property="reviewCount"/>
+	</resultMap>
+	
+	<resultMap type="ProductDTO" id="ProductDTOResult">
+		<result column="P_NO" property="pdNo"/>
+		<result column="C_NO" property="caNo"/>
+		<result column="P_CATEGORY" property="pdCategory"/>
+		<result column="P_TITLE" property="pdTitle"/>
+		<result column="P_PRICE" property="pdPrice"/>
+		<result column="P_CONTENT" property="pdContent"/>
+		<result column="P_ENROLL_DATE" property="pdEnrollDate"/>
+		<result column="P_STAR" property="pdStar"/>
+		<result column="P_ORIGIN_NAME" property="pdOriginName"/>
+		<result column="P_CHANGE_NAME" property="pdChangeName"/>	
+		<result column="P_STATUS" property="pdStatus"/>	
+		<result column="P_COUNT" property="pdCount"/>
+		<result column="PO_STATUS" property="poStatus"/>	
+		<result column="P_NO" property="pdNo"/>
+		<result column="P_OPTION_NAME" property="optionName"/>
+		<result column="P_OPTION_NO" property="pdOptionNo"/>
 	</resultMap>
 	
 	<select id="selectSeller" resultMap="sellerInfoResult">
@@ -205,7 +233,7 @@
 		INSERT INTO 
 					PRODUCT_OPTION (
 									  p_count,
-								 	  p_status,
+								 	  po_status,
 								 	  p_no,
 								 	  p_option_name
 								 	  )
@@ -245,6 +273,12 @@
 		 WHERE P_STATUS = 'Y'
 		   AND P_NO = #{pno}
 	</select>
+	
+	<update id="deleteProduct">
+		UPDATE PRODUCT
+		   SET P_STATUS = 'N' 
+		 WHERE P_NO = #{pno} 
+	</update>
 	
 	<select id="selectOptions" resultMap="productOptionResult">
 		SELECT P_COUNT,
