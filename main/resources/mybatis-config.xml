@@ -31,6 +31,7 @@
  		<typeAlias type="com.psvm.curation.vo.Curation" alias="Curation"/>
  		<typeAlias type="com.psvm.cs.vo.Cs" alias="Cs"/>
  		<typeAlias type="com.psvm.seller.dto.StoreMainDTO" alias="StoreMainDTO"/>
+ 		<typeAlias type="com.psvm.manager.vo.ApplicationProduct" alias="ApplicationProduct"/>
  		<typeAlias type="com.psvm.seller.dto.ProductDTO" alias="ProductDTO"/>
  		<typeAlias type="com.psvm.seller.vo.Review" alias="Review"/>
  	</typeAliases>

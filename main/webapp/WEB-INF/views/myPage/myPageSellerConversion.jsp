@@ -8,18 +8,24 @@
 <meta charset="UTF-8">
 <title>판매자 신청</title>
 
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+     
+    <!-- css -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/myPageCSS/myPageSellerConversion.css">
+     
+    <!-- javaScript -->
+    <script src="${pageContext.request.contextPath}/resources/js/myPageJS/myPageSellerConversion.js"></script>
+
     <!-- Popper JS -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/myPageCSS/myPageSellerConversion.css">
 
+    <!-- alert 메세지 -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+</head>
 <body>
     <c:if test="${ not empty successMessage}">
 		<script>
@@ -44,7 +50,7 @@
                 <div id="myPage-sidebar">
                     <div id="myPage-sidebar-profile-area">
                         <div id="myPage-sidebar-profile-img">
-                            <img src="https://previews.123rf.com/images/ann24precious/ann24precious1602/ann24precious160200015/53140153-%EA%B7%80%EC%97%AC%EC%9A%B4-%EB%AC%BC%EA%B3%A0%EA%B8%B0.jpg" alt="">
+                            <img src="${ma.changeName}" alt="">
                         </div>
                         <div id="myPage-sidebar-profile-nickName"><b>${loginUser.nickname}</b>님 환영합니다.</div>
                     </div>
@@ -152,16 +158,7 @@
                             </form>
                         </c:otherwise>
                     </c:choose>
-
-
-
-
-
-
-
-  
                 </div>
-
             </div>
         </main>
                 
@@ -170,32 +167,6 @@
         
      </div>
 
-     <script>
-
-        function businessNumber(){
-            let num = document.getElementById('businessNo').value; //사업자번호
-            var data = {
-                "b_no": ["xxxxxxx"] // 사업자번호 "xxxxxxx" 로 조회 시,
-            }; 
-        
-            $.ajax({
-                url: "https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=xIq4IHFGHcPIafZ+VFu6JAN9nmAcyMkNZoNVzQz/8x6dgEterbJnyBwsF2cBYSCIsZfQjMmgXuMUopHi8/IlNw==",  // serviceKey 값을 xxxxxx에 입력
-                type: "POST",
-                data: JSON.stringify(data), // json 을 string으로 변환하여 전송
-                dataType: "JSON",
-                contentType: "application/json",
-                accept: "application/json",
-                success: function(result) {
-                    console.log(result);
-                },
-                error: function(result) {
-                    console.log(result.responseText); //responseText의 에러메세지 확인
-                }
-            });
-        }
-
-
-     </script>
 
 </body>
 </html>

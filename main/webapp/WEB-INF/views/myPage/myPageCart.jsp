@@ -6,11 +6,16 @@
 <head>
 <meta charset="UTF-8">
 <title>장바구니</title>
-	
+
+	<!-- jQuery library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <!-- css -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/myPageCSS/myPageCart.css">
 	
+    <!-- javaScript -->
+    <script src="${pageContext.request.contextPath}/resources/js/myPageJS/myPageCart.js"></script>
    
 <body>
 	<div class="wrap">
@@ -23,7 +28,7 @@
                 <div id="myPage-sidebar">
                     <div id="myPage-sidebar-profile-area">
                         <div id="myPage-sidebar-profile-img">
-                            <img src="https://previews.123rf.com/images/ann24precious/ann24precious1602/ann24precious160200015/53140153-%EA%B7%80%EC%97%AC%EC%9A%B4-%EB%AC%BC%EA%B3%A0%EA%B8%B0.jpg" alt="">
+                            <img src="${ma.changeName}" alt="">
                         </div>
                         <div id="myPage-sidebar-profile-nickName"><b>${loginUser.nickname}</b>님 환영합니다.</div>
                     </div>
@@ -115,28 +120,10 @@
                 </div>
             </div>
         </main>
-                
+
         <!-- footer -->
         <%@ include file="../commons/footer.jsp" %>
-        
+
      </div>
-
-     <script>
-        function count(type){
-            const result = document.getElementById("product-count");
-
-            let number = result.innerText;
-
-            if(type === 'minus') {
-                if(number != 1){
-                    number = parseInt(number) -1;
-                }
-            } else if(type === 'plus') {
-                number = parseInt(number) + 1;
-            }
-
-            result.innerText = number;
-        }
-     </script>
 </body>
 </html>

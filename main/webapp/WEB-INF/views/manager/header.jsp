@@ -8,8 +8,8 @@
 <meta charset="UTF-8">
  <title>adminMenubar</title>
 
+    <!-- css -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/managerCSS/header.css">
-
 
 </head>
 <body>
@@ -38,7 +38,7 @@
                 <a href="sellerList.ma?cpage=1&categoryName=seller">판매자 관리</a>
             </div>    
             <div>
-                <a href="categoryList.ma?cpage=1&categoryName=category">카데고리 관리</a>
+                <a href="boardList.ma?cpage=1&categoryName=board">게시판 관리</a>
             </div>
             <div>
                 <a href="">혜택 관리</a>
