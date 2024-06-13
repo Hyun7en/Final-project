@@ -52,15 +52,15 @@
                                     <!-- 일반 회원일 경우 로그인 후 -->
                                     <div class="user-img">
                                         <div id="myPageInfo-profile-imgs">
-                                            <img style="margin-right: 15px;" src="${pageContext.request.contextPath}/resources/image/loveit.png" alt="">
-                                            <img style="margin-right: 15px;" src="${pageContext.request.contextPath}/resources/image/shopping.png" alt="">
+                                            <a href="interestProduct.my?userNo=${loginUser.userNo}"><img style="margin-right: 15px;" src="${pageContext.request.contextPath}/resources/image/loveit.png" alt=""></a>
+                                            <a href="cart.my?userNo=${loginUser.userNo}"><img style="margin-right: 15px;" src="${pageContext.request.contextPath}/resources/image/shopping.png" alt=""></a>
 
                                             <c:choose>
                                                 <c:when test="${empty loginUser.changeName}">
-                                                    <img id="profile-img" onclick="show()" src="${pageContext.request.contextPath}/resources/image/user.png">
+                                                    <img id="profile-img" onclick="headerShow()" src="${pageContext.request.contextPath}/resources/image/user.png">
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <img id="profile-img" onclick="show()" src="${loginUser.changeName}">
+                                                    <img id="profile-img" onclick="headerShow()" src="${loginUser.changeName}">
                                                 </c:otherwise>
                                             </c:choose>
                                             <div id="click-menu">
@@ -76,15 +76,15 @@
                                     <!-- 판매자일 경우 로그인 후  -->
     
                                         <div id="myPageInfo-profile-imgs">
-                                            <img style="margin-right: 15px;" src="${pageContext.request.contextPath}/resources/image/loveit.png" alt="">
-                                            <img style="margin-right: 15px;" src="${pageContext.request.contextPath}/resources/image/shopping.png" alt="">
+                                            <a href="interestProduct.my?userNo=${loginUser.userNo}"><img style="margin-right: 15px;" src="${pageContext.request.contextPath}/resources/image/loveit.png" alt=""></a>
+                                            <a href="cart.my?userNo=${loginUser.userNo}"><img style="margin-right: 15px;" src="${pageContext.request.contextPath}/resources/image/shopping.png" alt=""></a>
 
                                             <c:choose>
                                                 <c:when test="${empty loginUser.changeName}">
-                                                    <img id="profile-img" onclick="show()" src="${pageContext.request.contextPath}/resources/image/user.png">
+                                                    <img id="profile-img" onclick="headerShow()" src="${pageContext.request.contextPath}/resources/image/user.png">
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <img id="profile-img" onclick="show()" src="${loginUser.changeName}">
+                                                    <img id="profile-img" onclick="headerShow()" src="${loginUser.changeName}">
                                                 </c:otherwise>
                                             </c:choose>
                                             <div id="click-menu">
@@ -99,15 +99,15 @@
                                     <!-- 관리자일 경우 로그인 후  -->
 
                                     <div id="myPageInfo-profile-imgs">
-                                        <img style="margin-right: 15px;" src="${pageContext.request.contextPath}/resources/image/loveit.png" alt="">
-                                        <img style="margin-right: 15px;" src="${pageContext.request.contextPath}/resources/image/shopping.png" alt="">
+                                        <a href="interestProduct.my?userNo=${loginUser.userNo}"><img style="margin-right: 15px;" src="${pageContext.request.contextPath}/resources/image/loveit.png" alt=""></a>
+                                            <a href="cart.my?userNo=${loginUser.userNo}"><img style="margin-right: 15px;" src="${pageContext.request.contextPath}/resources/image/shopping.png" alt=""></a>
 
                                         <c:choose>
                                             <c:when test="${empty loginUser.changeName}">
-                                                <img id="profile-img" onclick="show()" src="${pageContext.request.contextPath}/resources/image/user.png">
+                                                <img id="profile-img" onclick="headerShow()" src="${pageContext.request.contextPath}/resources/image/user.png">
                                             </c:when>
                                             <c:otherwise>
-                                                <img id="profile-img" onclick="show()" src="${loginUser.changeName}">
+                                                <img id="profile-img" onclick="headerShow()" src="${loginUser.changeName}">
                                             </c:otherwise>
                                         </c:choose>
                                         <div id="click-menu">
