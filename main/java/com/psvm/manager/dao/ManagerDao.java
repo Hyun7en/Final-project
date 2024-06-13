@@ -111,16 +111,16 @@ public class ManagerDao {
 	}
 	
 	// 판매자가 신청한 상품 수 조회
-	public int sellerProductApplicationCount(SqlSessionTemplate sqlSession) {
-		return sqlSession.selectOne("managerMapper.sellerProductApplicationCount");
+	public int reportProductListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("managerMapper.reportProductListCount");
 	}
 	
 	// 판매자가 신청한 상품 조회
-	public ArrayList<ApplicationProduct> sellerProductApplicationList(SqlSessionTemplate sqlSession, PageInfo pi){
+	public ArrayList<ApplicationProduct> reportProductList(SqlSessionTemplate sqlSession, PageInfo pi){
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("managerMapper.sellerProductApplicationList", null, rowBounds);
+		return (ArrayList)sqlSession.selectList("managerMapper.reportProductList", null, rowBounds);
 	}
 	
 	// 검새한 판매자 상품신청 수 조회

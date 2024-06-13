@@ -28,7 +28,7 @@
             <%@ include file="sidebar.jsp" %>
 
             <div id="managerSellerProductApplication-info-area">
-                <div id="manager-sidebar-category-select-title"><h3>판매자 상품신청</h3></div>
+                <div id="manager-sidebar-category-select-title"><h3>신고상품 목록</h3></div>
 
                 <div id="search-title"><b>검색</b></div>
                 <form id="search-form" action="searchSellerProductApplication.ma">
@@ -63,7 +63,7 @@
                 </form>
 
                 <div id="search-result-list-area">
-                    <div id="total-store"><b>총 상품신청 수 : ${sellerProductApplicationCount}</b></div> <!-- 총 신규신청 수 가져오기-->
+                    <div id="total-store"><b>총 신고상품 수 : ${sellerProductApplicationCount}</b></div> <!-- 총 신규신청 수 가져오기-->
                     <div id="search-result-list">
                         <table>
                             <thead>
@@ -76,8 +76,8 @@
                                 <th>판매가</th>
                                 <th>판매수량</th>
                                 <th>카테고리</th>
-                                <th>신청일시</th>
-                                <th>승인</th>
+                                <th>신고일시</th>
+                                <th>상세정보</th>
                             </thead>
                             <tbody>
                                 <c:forEach var="spa" items="${sellerProductApplicationList}">
@@ -105,10 +105,10 @@
                     <c:forEach var="spa" items="${sellerProductApplicationList}">
                         <div class="seller-info-modal">
                             <div class="seller-info-modal-content">
-                                <h3>판매자 신규신청 상세</h3>
+                                <h3>신고상품 상세</h3>
                                 <table>
                                     <tr>
-                                        <th>상품번호</th> <!-- product_option 테이블의  p_no 컬럼의 값 -->
+                                        <th>상품번호</th> <!-- product 테이블의  p_no 컬럼의 값 -->
                                         <td class="pdOptionNo">${spa.pdOptionNo}</td>
                                     </tr>
                                     <tr>
@@ -132,10 +132,6 @@
                                         <td>${spa.pdCategory}</td> 
                                     </tr>
                                     <tr>
-                                        <th>옵션명</th>
-                                        <td>${spa.pdOptionName}</td>
-                                    </tr>
-                                    <tr>
                                         <th>상품갯수</th>
                                         <td>${spa.pdCount}</td>
                                     </tr>
@@ -146,6 +142,14 @@
                                     <tr>
                                         <th>별점</th>
                                         <td>${spa.pdStar}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>신고한 회원</th>
+                                        <td>${spa.userId}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>신고 내용</th>
+                                        <td>${spa.reportContent}</td>
                                     </tr>
                                 </table>
 

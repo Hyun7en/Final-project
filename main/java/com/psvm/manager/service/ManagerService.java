@@ -57,10 +57,10 @@ public interface ManagerService {
 	int sellerNewApplicationApprove(int userNo);
 	
 	// 판매자가 신청한 상품 수 조회
-	int sellerProductApplicationCount();
+	int reportProductListCount();
 	
 	// 판매자가 신청한 상품 조회
-	ArrayList<ApplicationProduct> sellerProductApplicationList(PageInfo pi);
+	ArrayList<ApplicationProduct> reportProductList(PageInfo pi);
 	
 	// 검색한 판매자 상품신청 수 조회
 	int searchSellerProductApplicationCount(Search s);

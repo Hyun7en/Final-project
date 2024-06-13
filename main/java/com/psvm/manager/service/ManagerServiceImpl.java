@@ -99,13 +99,13 @@ public class ManagerServiceImpl implements ManagerService{
 	}
 	
 	// 판매자가 신청한 상품 수 조회
-	public int sellerProductApplicationCount() {
-		return managerDao.sellerProductApplicationCount(sqlSession);
+	public int reportProductListCount() {
+		return managerDao.reportProductListCount(sqlSession);
 	}
 	
 	// 판매자가 신청한 상품 조회
-	public ArrayList<ApplicationProduct> sellerProductApplicationList(PageInfo pi){
-		return managerDao.sellerProductApplicationList(sqlSession, pi);
+	public ArrayList<ApplicationProduct> reportProductList(PageInfo pi){
+		return managerDao.reportProductList(sqlSession, pi);
 	}
 	
 	// 검색한 판매자 상품신청 수 조회

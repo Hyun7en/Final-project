@@ -210,26 +210,27 @@ public class ManagerController {
 	}
 	
 	
-	// 판매자 상품신청 조회 메서드
-	@RequestMapping("sellerProductApplication.ma")
-	public String sellerProductApplication(@RequestParam(value="cpage", defaultValue="1") int currentPage, String categoryName, Model model) {
+	// 신고상품 조회 메서드
+	@RequestMapping("reportProductList.ma")
+	public String reportProductList(@RequestParam(value="cpage", defaultValue="1") int currentPage, String categoryName, Model model) {
+		
 		// 판매자 신청한 일반회원 수 조회
-		int sellerProductApplicationCount = managerService.sellerProductApplicationCount();
+		int reportProductListCount = managerService.reportProductListCount();
 		
 		// 페이징 처리
-		PageInfo pi = Pagination.getPageInfo(sellerProductApplicationCount, currentPage, 10, 5);
+		PageInfo pi = Pagination.getPageInfo(reportProductListCount, currentPage, 10, 5);
 
 		// 판매자 신청한 일반회원 리스트 조회
-		ArrayList<ApplicationProduct> sellerProductApplicationList = managerService.sellerProductApplicationList(pi);
+		ArrayList<ApplicationProduct> reportProductList = managerService.reportProductList(pi);
 
-		model.addAttribute("sellerProductApplicationCount", sellerProductApplicationCount);
-		model.addAttribute("sellerProductApplicationList", sellerProductApplicationList);
+		model.addAttribute("sellerProductApplicationCount", reportProductListCount);
+		model.addAttribute("sellerProductApplicationList", reportProductList);
 		model.addAttribute("pi", pi);
 		model.addAttribute("categoryName", categoryName);
 		return "manager/managerSellerProductApplication";
 	}
 	
-	// 판매자 상품신청 검색 조회 메서드
+	// 신고상품 검색 조회 메서드
 	@RequestMapping("searchSellerProductApplication.ma")
 	public String searchSellerProductApplication(@RequestParam(value="cpage", defaultValue="1") int currentPage, Search s, String categoryName, Model model) {
 
@@ -254,7 +255,7 @@ public class ManagerController {
 	}
 	
 	
-	// 판매자 상품 신청 승인 메서드
+	// 신고상품 처리 메서드
 	@RequestMapping("sellerProductApplicationApprove.ma")
 	public String sellerProductApplicationApprove(HttpSession session, int pdOptionNo, Model model) {
 		
