@@ -69,7 +69,11 @@ function getAlarmOn(userNo, sellerPageNo){
             alarmButton.setAttribute("onclick", `getAlarmOff(${userNo}, ${sellerPageNo})`);
             alarmButton.innerHTML = "알람해제"
             document.querySelector('.alarmDiv>img').src = url;
-            infoMsg("알람이 설정되었습니다.")
+            infoMsg("알람이 설정되었습니다.");
+
+            // SSE 알람신청
+            setAlarm(userNo);
+            
         },
         error: function(){
             console.log("알람 ON 실패");
@@ -147,5 +151,11 @@ function infoMsg(infoMsg){
         title: "NOTICE",
         text: infoMsg,
         type: "info",
+    })
+}
+
+function setAlarm(userNo){
+    $.ajax({
+        
     })
 }
