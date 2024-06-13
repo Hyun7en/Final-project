@@ -20,71 +20,9 @@
 
 <!-- JS -->
 <script src="${pageContext.request.contextPath}/resources/js/sellerJS/showCategory.js"></script>
-<!-- <script src="${pageContext.request.contextPath}/resources/js/sellerJS/addOption.js"></script> -->
+<script src="${pageContext.request.contextPath}/resources/js/sellerJS/addOption.js"></script>
+    
 
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('add-optionBtn').addEventListener('click', function() {
-        let table = document.querySelector('#div-enroll-option table');
-
-        // 마지막 입력된 옵션명 가져오기
-        let optionInputs = table.querySelectorAll('input[type="text"]');
-        let lastInputValue = optionInputs.length > 0 ? optionInputs[optionInputs.length - 1].value.trim() : "";
-
-        // 옵션명 입력 검사 (마지막 입력된 값만 검사)
-        if (optionInputs.length > 0 && lastInputValue === "") {
-            alert("옵션명을 입력해주세요.");
-            return;
-        }
-
-        // 중복 검사 (마지막 값이 입력된 후에만 수행)
-        if (optionInputs.length > 0) {
-            let isDuplicate = Array.from(optionInputs, input => input.value.trim()).slice(0, -1).includes(lastInputValue);
-            if (isDuplicate) {
-                alert("이미 같은 옵션이 존재합니다.");
-                return;
-            }
-        }
-
-        // 새 행 추가
-        addNewOptionRow(table);
-    });
-
-    function addNewOptionRow(table) {
-        let newTr = document.createElement('tr');
-
-        let td1 = document.createElement('td');
-        let input1 = document.createElement('input');
-        input1.type = 'text';
-        input1.placeholder = '옵션명 입력';
-        td1.appendChild(input1);
-        newTr.appendChild(td1);
-
-        let td2 = document.createElement('td');
-        let input2 = document.createElement('input');
-        input2.type = 'number';
-        input2.min = '0';
-        input2.placeholder = '수량';
-        td2.appendChild(input2);
-        newTr.appendChild(td2);
-
-        let td3 = document.createElement('td');
-        let removeBtn = document.createElement('button');
-        removeBtn.textContent = '제거';
-        removeBtn.className = 'remove-btn';
-        removeBtn.onclick = function(event) {
-            let tr = event.target.closest('tr');
-            tr.remove(); // 해당 행 제거
-        };
-        td3.appendChild(removeBtn);
-        newTr.appendChild(td3);
-
-        table.appendChild(newTr);
-    }
-});
-
-</script>
 </head>
 <body>
 <div class="wrap">
@@ -155,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
                 <div class="form-actions">
                     <button type="submit" >
-                        검수 요청
+                        등록
                     </button>
                     <button type="reset" onclick="sendMessage(4)"> 
                         초기화
