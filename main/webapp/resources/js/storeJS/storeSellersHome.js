@@ -72,7 +72,7 @@ function getAlarmOn(userNo, sellerPageNo){
             infoMsg("알람이 설정되었습니다.");
 
             // SSE 알람신청
-            setAlarm(userNo);
+            notification(userNo);
             
         },
         error: function(){
@@ -154,8 +154,11 @@ function infoMsg(infoMsg){
     })
 }
 
-function setAlarm(userNo){
-    $.ajax({
-        
-    })
+function notification(userNo){
+    console.log("notification함수 실행")
+    const eventSource = new EventSource(`http://localhost:8888/psvm/notifications/subscribe.pr/${userNo}`);
+
+    eventSource.addEventListener('sse', event => {
+        console.log(event);
+});
 }

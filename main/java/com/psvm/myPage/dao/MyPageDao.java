@@ -47,6 +47,11 @@ public class MyPageDao {
 		return sqlSession.update("myPageMapper.deleteMember", userNo);
 	}
 	
+	// 비밀번호 변경
+	public int changePwd(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("myPageMapper.changePwd", m);
+	}
+	
 	// 찜 목록 갯수 조회
 	public int selectInterestCount(SqlSessionTemplate sqlSession, int userNo) {
 		return sqlSession.selectOne("myPageMapper.selectInterestCount", userNo);
@@ -57,6 +62,11 @@ public class MyPageDao {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("myPageMapper.selectInterest", userNo, rowBounds);
+	}
+	
+	// 찜 취소
+	public int interestCancle(SqlSessionTemplate sqlSession, StoreInfo si) {
+		return sqlSession.delete("myPageMapper.interestCancle", si);
 	}
 	
 	// 회원이 작성한 게시글 수 조회

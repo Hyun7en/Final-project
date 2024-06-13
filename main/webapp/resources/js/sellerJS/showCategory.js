@@ -41,3 +41,15 @@ $(document).ready(function() {
         }
     }
 });
+
+function sendMessage(userNo){
+    $.ajax({
+        type : 'post',
+        url : `notifications/send-data.pr/${userNo}`,
+        success: function(){
+            console.log("발송완료");
+        }, error: function(){
+            console.log("발송실패");
+        }
+    })
+}

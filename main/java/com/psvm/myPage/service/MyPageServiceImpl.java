@@ -54,6 +54,11 @@ public class MyPageServiceImpl implements MyPageService {
 		return myPageDao.deleteMember(sqlSession, userNo);
 	}
 	
+	// 비밀번호 변경
+	public int changePwd(Member m) {
+		return myPageDao.changePwd(sqlSession, m);
+	}
+	
 	// 찜 목록 갯수 조회
 	public int selectInterestCount(int userNo) {
 		return myPageDao.selectInterestCount(sqlSession, userNo);
@@ -62,6 +67,11 @@ public class MyPageServiceImpl implements MyPageService {
 	// 찜 목록 조회
 	public ArrayList<StoreInfo> selectInterest(PageInfo pi, int userNo){
 		return myPageDao.selectInterest(sqlSession, pi, userNo);
+	}
+	
+	// 찜 취소
+	public int interestCancle(StoreInfo si) {
+		return myPageDao.interestCancle(sqlSession, si);
 	}
 	
 	// 회원이 작성한 게시글 수 조회

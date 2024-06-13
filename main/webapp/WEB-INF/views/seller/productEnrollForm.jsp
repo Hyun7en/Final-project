@@ -36,6 +36,7 @@
 
         <section>
             <h1>스토어 관리 &gt; 상품 등록</h1>
+
             <form id="enrollForm" action="insert.pd" method="post" enctype="multipart/form-data">
                 <div id="product-management">
                     <div>
@@ -92,10 +93,10 @@
                     <textarea id="summernote" name="pdContent"></textarea>
                 </div>
                 <div class="form-actions">
-                    <button type="submit">
+                    <button type="submit" >
                         검수 요청
                     </button>
-                    <button type="reset">
+                    <button type="reset" onclick="sendMessage(4)"> 
                         초기화
                     </button>
                 </div>

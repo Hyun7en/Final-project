@@ -117,6 +117,8 @@ public class SellerDao {
 	// 상품 옵션 불러오기
 	public List<ProductOption> selectOptions(SqlSessionTemplate sqlSession,int pno) {
 		
+		System.out.println((List)sqlSession.selectList("sellerMapper.selectOptions", pno));
+		
 		return (List)sqlSession.selectList("sellerMapper.selectOptions", pno);
 	}
 	
@@ -127,6 +129,12 @@ public class SellerDao {
 	}
 	
 	// 상품 정보 수정
+	
+	// 상품 삭제
+	public int deleteProduct(SqlSessionTemplate sqlSession, int pno) {
+		
+		return sqlSession.update("sellerMapper.deleteProduct",pno);
+	}
 	
 	// 인기 상품 불러오기
 	public List<StoreMainDTO> selectPopularList(SqlSessionTemplate sqlSession) {

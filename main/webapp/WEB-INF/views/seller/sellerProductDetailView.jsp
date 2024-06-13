@@ -14,6 +14,11 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sellerCSS/sellerProductDetailView.css">
 
+<script>
+    // JSP에서 JavaScript로 변수 전달
+    const pno = '${pd.pdNo}'; // JSP 변수를 JavaScript 변수로 할당
+</script>
+
 <!-- JS -->
 <script src="${pageContext.request.contextPath}/resources/js/sellerJS/showOption.js"></script>
 
@@ -82,13 +87,35 @@
             </div>
 
             <div class="form-actions">
-                <a href="updateForm.pd">
+                <a onclick="postFormSubmit('edit')">
                     수정
                 </a>
-                <button>
+                <a onclick="postFormSubmit('delete')">
                     삭제
-                </button>
+                </a>
             </div>
+
+            <form action="" method="POST" id="postForm">
+                <input type="hidden" name="pno" value="${pd.pdNo}">
+            </form>
+
+            <script>
+                function postFormSubmit(type){
+                    const formEl = document.querySelector("#postForm");
+                    switch(type){
+                        case "edit" : {
+                            //formEl.action = "updateForm.bo";
+                            $(formEl).attr("action", "updateForm.pd");
+                        }break;
+                        case "delete":{
+                            //formEl.action = "delete.bo";
+                            $(formEl).attr("action", "delete.pd")
+                        }break;
+                    }
+                    
+                    $(formEl).submit();
+                }
+            </script>
             
         </section>
     </main>

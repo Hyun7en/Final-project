@@ -181,3 +181,7 @@ padding: 15px;
 .similar-products-info{
     padding: 0 20px 20px 20px;
 }
+
+.swal2-icon .swal2-icon-content {
+    font-size: 60px !important;
+}

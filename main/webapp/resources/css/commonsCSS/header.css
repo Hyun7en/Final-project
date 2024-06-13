@@ -6,7 +6,7 @@ header{
     position: fixed;
     width: 100%;
     top: 0;
-    z-index: 30;
+    z-index: 100;
     
 }
 
@@ -61,7 +61,7 @@ header{
 
 
 /* 메뉴바 */
-nav{
+header nav{
     height: 40px;
     background-color: black;
     display: flex;
@@ -69,13 +69,13 @@ nav{
     align-items: center;
 }
 
-nav > a{
+header nav > a{
     color: white;
     font-size: 15px;
     text-decoration : none;
 }
 
-nav a:hover{
+header nav a:hover{
     color: #0089ff;
     text-decoration-line: none;
 }
@@ -113,11 +113,13 @@ nav a:hover{
     display: flex;
     flex-direction: column;
     visibility: hidden;
+    z-index: 900;
 }
 
 #click-menu a{
     text-decoration: none;
     color: rgb(47, 52, 56);
     padding: 10px;
+    
 }
 

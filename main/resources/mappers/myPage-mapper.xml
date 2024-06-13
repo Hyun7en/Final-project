@@ -162,6 +162,12 @@
 	WHERE user_no = #{userNo}
 	</update>
 
+	<!-- 비밀번호 변경  -->
+	<update id="changePwd">
+	UPDATE member
+	SET USER_PWD = #{userPwd}
+	WHERE user_no = #{userNo}
+	</update>
 
 	<!-- 회원이 작성한 게시글 수 조회 -->
 	<select id="writePostListCount" resultType="_int">
@@ -282,6 +288,10 @@
 		WHERE	USER_NO = #{userNo}
 		ORDER BY LOVE_DATE DESC
 	</select>
-
+	<delete id="interestCancle">
+		DELETE FROM LOVE_IT
+		WHERE	USER_NO = #{userNo}
+		AND		P_NO = #{prNo}
+	</delete>
 
 </mapper>

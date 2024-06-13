@@ -39,7 +39,6 @@ $(document).ready(function() {
             appendCategoryToList(category);
             $('#enroll-category').val('');  // 입력 필드 초기화
             console.log(categories);
-            alert('카테고리가 성공적으로 추가되었습니다.');
         } else if (categories.includes(category)) {
             alert('이미 추가된 카테고리입니다.');
         } else {
@@ -59,6 +58,5 @@ $(document).ready(function() {
         categories = categories.filter(cat => cat !== category);
         categoryDiv.remove();
         console.log(categories);
-        alert('카테고리가 성공적으로 제거되었습니다.');
     }
 });

@@ -13,15 +13,14 @@
     <script src="${pageContext.request.contextPath}/resources/js/commonsJS/header.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
 </head>
-<body onload="notification()">
+<body onload="console.log(loginUser.userNo)">
 	 <header>
             <div id="Header" style="background-color: white">
                 <div id="logo">
                     <a href="home.ma"><p>Aquaqu</p></a>
                 </div>
                 <div id="searchBar">
-                    <form action="">
-                        
+                    <form action="">                       
                         <input type="text" id="inputArea">
                         <input type="submit" id="inputSubmit" value="">
                     </form>

@@ -30,11 +30,17 @@ public interface MyPageService {
 	// 비밀번호 체크 후 회원탈퇴
 	int deleteMember(int userNo);
 	
+	// 비밀번호 변경
+	int changePwd(Member m);
+	
 	//찜 목록 갯수 조회
 	int selectInterestCount(int userNo);
 	
 	// 찜 목록 조회
 	ArrayList<StoreInfo> selectInterest(PageInfo pi, int userNo);
+	
+	//찜 취소
+	int interestCancle(StoreInfo si);
 	
 	// 회원이 작성한 게시글 수 조회
 	int writePostListCount(int userNo);
