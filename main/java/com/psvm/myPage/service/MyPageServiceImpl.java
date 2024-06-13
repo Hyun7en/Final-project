@@ -64,6 +64,11 @@ public class MyPageServiceImpl implements MyPageService {
 		return myPageDao.selectInterest(sqlSession, pi, userNo);
 	}
 	
+	// 찜 취소
+	public int interestCancle(StoreInfo si) {
+		return myPageDao.interestCancle(sqlSession, si);
+	}
+	
 	// 회원이 작성한 게시글 수 조회
 	public int writePostListCount(int userNo) {
 		return myPageDao.writePostListCount(sqlSession, userNo);

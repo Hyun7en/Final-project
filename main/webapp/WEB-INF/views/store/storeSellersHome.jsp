@@ -39,6 +39,19 @@
 		</script>
 		<c:remove var="successMessage" scope="session"/>
 	</c:if>
+    <c:if test="${ not empty errorMessage}">
+		<script>
+			var errorMessage = '${errorMessage}';
+            if (errorMessage) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    html: errorMessage
+                });
+            }
+		</script>
+		<c:remove var="errorMessage" scope="session"/>
+	</c:if>
     <div id="wrap">
         <%@ include file="../commons/header.jsp" %>
         <main id="seller-home">

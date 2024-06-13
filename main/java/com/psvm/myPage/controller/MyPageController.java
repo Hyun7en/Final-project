@@ -190,6 +190,18 @@ public class MyPageController {
 		return "myPage/myPageInterest";
 	}
 	
+	@RequestMapping("interestCancle.my")
+	public ModelAndView interestCancle(StoreInfo si, ModelAndView mv, HttpSession session) {
+		int result = myPageService.interestCancle(si);
+		if (result > 0) {
+			session.setAttribute("infoMessage", "관심상품에서 제외되었습니다.");
+		} else {
+			session.setAttribute("errorMessage", "관심상품 제외에 실패하였습니다.");
+		}
+		mv.setViewName("redirect:interestProduct.my?userNo=" + si.getUserNo());
+		return mv;
+	}
+	
 	@RequestMapping("cart.my")
 	public String cart() {
 
