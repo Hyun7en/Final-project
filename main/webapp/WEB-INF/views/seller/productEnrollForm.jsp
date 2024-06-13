@@ -36,6 +36,7 @@
 
         <section>
             <h1>스토어 관리 &gt; 상품 등록</h1>
+
             <form id="enrollForm" action="insert.pd" method="post" enctype="multipart/form-data">
                 <div id="product-management">
                     <div>

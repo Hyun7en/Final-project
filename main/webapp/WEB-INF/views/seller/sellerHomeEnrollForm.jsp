@@ -33,37 +33,43 @@
         <section>
             <h1>스토어 관리 &gt; 판매자 홈 등록</h1>
 
-            <form id="enrollForm"  action="insert.srh" method="post" enctype="multipart/form-data">
-                
-                <div>
-                    <h4>스토어 소개</h4>
-                    <input id="store-introduce" type="text" name="sellerExplain" placeholder="스토어 소개 입력" style="width: 300px; padding: 5px;">
-                </div>
-                <div>
-                    <h4>대표 이미지</h4>
-                    <input type="file" name="storeHomeImage" id="storeHomeImage">
-                </div>
-                <div class="image-container">
-                    <img id="preview-image" src="getImage?id=1" alt="스토어 홈 이미지">
-                </div>
+            <c:if test="${not sessionScope.SellerHomeRegistered}">
 
-                <div id="div-enroll-category">
+                <form id="enrollForm"  action="insert.srh" method="post" enctype="multipart/form-data">
+                    
                     <div>
-                        <h4>카테고리 등록</h4>
-                        <input id="enroll-category" type="text" placeholder="카테고리 입력">
-                        <button type="button" id="add-categoryBtn">추가</button>
+                        <h4>스토어 소개</h4>
+                        <input id="store-introduce" type="text" name="sellerExplain" placeholder="스토어 소개 입력" style="width: 300px; padding: 5px;">
                     </div>
                     <div>
-                        <ul id="categoryList"></ul>
+                        <h4>대표 이미지</h4>
+                        <input type="file" name="storeHomeImage" id="storeHomeImage">
                     </div>
-                </div>                
-                
-                <div class="form-actions">
-                    <button type="submit">등록</button>
-                    <button type="reset">초기화</button>
-                </div>
-            </form>
+                    <div class="image-container">
+                        <img id="preview-image" src="getImage?id=1" alt="스토어 홈 이미지">
+                    </div>
+
+                    <div id="div-enroll-category">
+                        <div>
+                            <h4>카테고리 등록</h4>
+                            <input id="enroll-category" type="text" placeholder="카테고리 입력">
+                            <button type="button" id="add-categoryBtn">추가</button>
+                        </div>
+                        <div>
+                            <ul id="categoryList"></ul>
+                        </div>
+                    </div>                
+                    
+                    <div class="form-actions">
+                        <button type="submit">등록</button>
+                        <button type="reset">초기화</button>
+                    </div>
+                </form>
+            </c:if>
         
+            <c:if test="${sessionScope.SellerHomeRegistered}">
+                <p>등록이 완료되었습니다.</p>
+            </c:if>
         </section>
     </main>
 

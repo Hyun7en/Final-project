@@ -192,6 +192,11 @@ public class SellerServiceImpl implements SellerService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	@Override
+	public int deleteProduct(int pno) {
+		return sellerDao.deleteProduct(sqlSession, pno);
+	}
 
 	// 인기 상품 불러오기
 	@Override
@@ -209,7 +214,7 @@ public class SellerServiceImpl implements SellerService {
 
 	// 판매 상품 상세 정보
 	@Override
-	public Product selectSalesProduct(int pno) {
+	public StoreMainDTO selectSalesProduct(int pno) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -220,4 +225,5 @@ public class SellerServiceImpl implements SellerService {
 		
 		return sellerDao.selectAllProduct(sqlSession, page, size);
 	}
+
 }

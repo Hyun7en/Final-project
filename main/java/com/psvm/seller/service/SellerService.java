@@ -52,6 +52,9 @@ public interface SellerService {
 	// 상품 정보 수정
 	public int updateProduct(Product product, List<ProductOption> options);
 	
+	// 상품 삭제
+	public int deleteProduct(int pno);
+	
 	// 인기 상품 불러오기
 	public List<StoreMainDTO> selectPopularList();
 	
@@ -59,7 +62,7 @@ public interface SellerService {
 	public List<StoreMainDTO> selectRecentList();
 	
 	// 판매 상품 상세 정보
-	public Product selectSalesProduct(int pno);
+	public StoreMainDTO selectSalesProduct(int pno);
 	
 	// 무한 스크롤로 전체 상품 가져오기
 	public List<StoreMainDTO> selectAllProduct(int page, int size);

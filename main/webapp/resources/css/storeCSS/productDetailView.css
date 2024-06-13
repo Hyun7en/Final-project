@@ -1,47 +1,213 @@
 @charset "UTF-8";
 
 main {
-    padding: 150px 300px;
-    background-color: #eaf2fc;
+    background-color: #E0F1FF;
 }
 
-#seller-home-top {
+h1{
+    font-size: 18px;
+}
+
+section{
+    padding: 50px 350px 0px 350px;
+}
+
+#seller-home{
+    min-height: 100%;
     width: 100%;
-    height: 100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#seller-home-top{
+    width: 1200px;
+    height: 70px;
     display: flex;
-    padding: 30px 0;
-    margin: 0 auto;
-    align-items: center;
+    padding: 30px 0 0px 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+#seller-home-catchphrase{
+    height: 30px;
+    line-height: 30px;
+}
+#seller-home-catchphrase p{
+    text-align: center;
+    font-size: 15px; color: black;
+    margin-bottom: 0;
 }
 
-#seller-home-top p {
-    width: 1000px;
+#seller-blue-button, #seller-grey-button{
+    border: 0;
+    width: 110px;
+    height: 40px;
+    color: white;
+    margin-right: 0px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 0 10px 10px 0;
+    padding-right: 35px;
+}
+#seller-blue-button, #seller-blue-img{
+    background: #0089FF;
+}
+#seller-grey-button, #seller-grey-img{
+    background: #AFA8A8;
+}
+#seller-confirmed-button{
+    border: 3px solid #0089FF;
+    border-left: 0;
+    width: 110px;
+    height: 40px;
+    color: #0089FF;
+    margin-right: 0px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 0 10px 10px 0;
+    padding-right: 32px;
+    background-color: white;
+}
+#seller-confirmed-img{
+    border: 3px solid #0089FF;
+    border-right: 0;
+    width: 40px;
+    height: 40px;
+    margin-left: 0;
+    border-radius: 10px 0 0 10px;
+    text-align: center;
+    padding-top: 2px;
+    background-color: white;
+}
+
+#seller-home-top p{
+    width: 900px;
+    height: 40px;
     font-size: 30px;
     font-weight: bold;
     color: #0089FF;
     text-align: center;
-    margin: 0;
+    margin-bottom: 0;
 }
 
-#seller-home-nav {
+#seller-home-nav{
     width: 100%;
     height: 80px;
     display: flex;
     font-size: 20px;
     text-align: center;
-    border-top: 1px solid;
-    border-bottom: 1px solid;
-    margin: 0 auto;
-    align-items: center;
-    justify-content: center;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
 }
-
-#seller-home-nav a {
+#seller-home-nav a{
     width: 150px;
     height: 30px;
     text-align: center;
     color: black;
-    margin: 25px 0;
-    line-height: 30px;
+    margin: 25px 0 25px 0;
+}
+
+/* 상품 구매 */
+.product-info{
+    width: 100%;
+    margin-bottom: 50px;
+    display: flex;
+}
+
+/* 상품 이미지 */
+.product-img-container{
+    width: 550px;
+    height: 550px;
+    border: 1px solid black;
+    margin-right: 100px;
+
+}
+
+.product-information div{
+    display: flex;
+}
+
+
+/* 네비 */
+
+.sticky-container{
+    width: 100%;
+    z-index: 100;
+}
+
+.sticky-container{
+    z-index: 100;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}  
+
+.navbar-nav li a{
+    color: black;
+    margin-right: 100px;
+}
+
+.navbar-nav li a:hover{
+    color: #0089FF;
+}
+
+/* 상품 설명 */
+.product-detail{
+    width: 100%;
+    height: 500px;
+}
+
+/* 상품 리뷰 */
+.product-review{
+    width: 100%;
+    height: 500px;
+}
+
+.product-review-area .review-top{
+    display: flex;
+}
+
+/* 상품 문의 */
+.product-inquiry{
+    width: 100%;
+    height: 500px;
+}
+
+.product-inquiry-area .inquiry-top{
+    display: flex;
+}
+
+/* 배송/환불/교환 */
+
+.product-delivery{
+    width: 100%;
+    height: 500px;
+}
+
+/* 페이지네이션 */
+
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    justify-content: center;
+}
+
+.pagination > li {
+    margin-right: 10px;
+}
+
+.pagination > li > a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
     text-decoration: none;
+}
+
+.pagination > li.active > a {
+    background-color: #0089FF; /* 활성화된 버튼의 배경색 */
+    color: white;             /* 활성화된 버튼의 글자색 */
+    border-radius: 5px;       /* 테두리 둥글게 */
+}
+
+.pagination > li > a:hover:not(.active) {
+    background-color: #005bb5;  /* 활성화되지 않은 버튼에 마우스를 올렸을 때 배경색 */
+    border-radius: 5px;      /* 테두리 둥글게 */
 }
