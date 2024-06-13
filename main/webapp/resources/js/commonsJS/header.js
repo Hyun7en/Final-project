@@ -1,4 +1,4 @@
-function show(){
+function headerShow(){
     const s = document.getElementById("click-menu");
     if(s.style.visibility === 'visible') {
         s.style.visibility = 'hidden';
