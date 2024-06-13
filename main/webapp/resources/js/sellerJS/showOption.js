@@ -1,6 +1,3 @@
-    // JSP에서 pno 변수를 JavaScript로 전달
-    const pno = '${pd.pdNo}';
-    console.log("pno: " + pno); // pno 값이 제대로 전달되었는지 확인
     
     $(function() {
     // 페이지 로드 시 옵션 목록을 가져오고, 그리기
@@ -12,6 +9,7 @@
             method: "GET",
             data: { pno: pno },
             success: function(res) {
+                console.log("ajax 성공")
                 drawOptions(res);
             },
             error: function() {
@@ -33,7 +31,7 @@
         // 옵션 목록의 각 항목에 대해 option 요소를 생성하여 추가
         options.forEach(function(option) {
             if (option) {
-                $selectOption.append($('<option>').text(option.pdOptionName).val(option.pdOptionName)); // 값을 옵션 이름으로 사용
+                $selectOption.append($('<option>').text(option.optionName).val(option.optionName)); // 값을 옵션 이름으로 사용
             } else {
                 console.log('Invalid option data', option);
             }

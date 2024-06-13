@@ -8,9 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +24,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.psvm.commons.template.Pagination;
 import com.psvm.commons.vo.PageInfo;
-import com.psvm.community.vo.Community;
 import com.psvm.member.vo.Member;
 import com.psvm.seller.dto.ProductCategoryDTO;
 import com.psvm.seller.dto.StoreMainDTO;
@@ -118,22 +115,22 @@ public class SellerController {
         }
 
      
-            Type listType = new TypeToken<List<String>>() {}.getType();
-            List<String> categories = gson.fromJson(categoriesJson, listType);
+        Type listType = new TypeToken<List<String>>() {}.getType();
+        List<String> categories = gson.fromJson(categoriesJson, listType);
 
-            int result = sellerService.insertSellerHome(sellerPage, categories);
+        int result = sellerService.insertSellerHome(sellerPage, categories);
+        
+        if (result > 0 ) { // 성공
+            session.setAttribute("SellerHomeRegistered", true);
+            redirectAttributes.addFlashAttribute("message", "등록이 완료되었습니다.");
             
-            if (result > 0 ) { // 성공
-                session.setAttribute("SellerHomeRegistered", true);
-                redirectAttributes.addFlashAttribute("message", "등록이 완료되었습니다.");
-                
-                return "redirect:detail.srh";
-                
-            }else { // 실패
-            	redirectAttributes.addFlashAttribute("message", "이미 홈 등록이 완료되었습니다.");
-                return "redirect:detail.srh"; // 등록 페이지로 리다이렉트
-                
-            }
+            return "redirect:detail.srh";
+            
+        }else { // 실패
+        	redirectAttributes.addFlashAttribute("message", "이미 홈 등록이 완료되었습니다.");
+            return "redirect:detail.srh"; // 등록 페이지로 리다이렉트
+            
+        }
       
     }
 
@@ -218,9 +215,6 @@ public class SellerController {
     public String updateSellerHome(SellerPage sellerPage, MultipartFile storeHomeImage, @RequestParam("categoriesJson") String categoriesJson,
         HttpSession session, RedirectAttributes redirectAttributes) {
         
-        log.info("sellerPage: " + sellerPage);
-        log.info("categoriesJson: " + categoriesJson);
-    	
         // 새로운 첨부파일이 넘어온 경우
         if (!storeHomeImage.getOriginalFilename().equals("")) {
             // 기존의 첨부파일이 있다면 기존의 파일을 삭제
@@ -239,9 +233,6 @@ public class SellerController {
         sellerPage.setBusinessNo(businessNo);
        
         int sellerPageNo = getSellerPageNo(session);
-        
-        System.out.println(businessNo);
-        System.out.println(sellerPageNo);
         
         ProductCategoryDTO categories = null;
         
@@ -400,8 +391,6 @@ public class SellerController {
     @ResponseBody
     public String ajaxGetOptions(@RequestParam("pno") int pno) {
 
-    	log.info("pno" + pno);
-    	
     	List<ProductOption> options = sellerService.selectOptions(pno);
         return new Gson().toJson(options);
     }
@@ -470,8 +459,15 @@ public class SellerController {
     
     //상품 삭제
     @RequestMapping("delete.pd")
-    public String deleteProduct() {
+    public String deleteProduct(int pno) {
     	
+    	int result = sellerService.deleteProduct(pno);
+    	
+    	if(result > 0) {
+    		log.info("msg" + "삭제완료");
+    	}else {
+    		log.info("msg" + "삭제 실패");
+    	}
     	
     	return "redirect:list.pd";
     }
@@ -498,7 +494,7 @@ public class SellerController {
     @RequestMapping("detail.spd")
     public String selectSalesProduct(int pno, Model model) {
     	
-    	Product spd = sellerService.selectSalesProduct(pno);
+    	StoreMainDTO spd = sellerService.selectSalesProduct(pno);
     	
     	model.addAttribute("spd",spd);
     	
@@ -535,6 +531,14 @@ public class SellerController {
     public String selectCustomerReviewManagement() {
     	
     	return "seller/customerReviewManagement";
+    }
+    
+    // 구매 페이지
+    
+    @RequestMapping("order.pd")
+    public String insertBuyingProduct() {
+    	
+    	return "store/order";
     }
    
 }
