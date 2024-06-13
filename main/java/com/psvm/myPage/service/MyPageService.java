@@ -36,6 +36,9 @@ public interface MyPageService {
 	// 찜 목록 조회
 	ArrayList<StoreInfo> selectInterest(PageInfo pi, int userNo);
 	
+	//찜 취소
+	int interestCancle(StoreInfo si);
+	
 	// 회원이 작성한 게시글 수 조회
 	int writePostListCount(int userNo);
 

@@ -59,6 +59,11 @@ public class MyPageDao {
 		return (ArrayList)sqlSession.selectList("myPageMapper.selectInterest", userNo, rowBounds);
 	}
 	
+	// 찜 취소
+	public int interestCancle(SqlSessionTemplate sqlSession, StoreInfo si) {
+		return sqlSession.delete("myPageMapper.interestCancle", si);
+	}
+	
 	// 회원이 작성한 게시글 수 조회
 	public int writePostListCount(SqlSessionTemplate sqlSession, int userNo) {
 		return sqlSession.selectOne("myPageMapper.writePostListCount", userNo);
