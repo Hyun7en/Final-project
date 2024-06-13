@@ -7,10 +7,11 @@ function headerShow(){
       }
 }
 
-function notification(){
-    const eventSource = new EventSource(`http://localhost:8888/psvm/notifications/subscribe/1`);
+function notification(userNo){
+  console.log("notification함수 실행")
+  const eventSource = new EventSource(`http://localhost:8888/psvm/notifications/subscribe.pr/${userNo}`);
 
-    eventSource.addEventListener('sse', event => {
-        console.log(event);
+  eventSource.addEventListener('sse', event => {
+      console.log(event);
 });
 }
