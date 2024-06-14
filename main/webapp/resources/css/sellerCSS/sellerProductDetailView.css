@@ -36,6 +36,14 @@
         align-items: center;
     }
 
+    section .form-group select{
+        padding: 3px 10px; 
+        font-size: 15px;
+        font-family: inherit; 
+        border: 1px solid #ccc;
+        margin-left: 20px;
+    }
+
     section .form-g {
         margin-top: 30px;
         align-items: center;
