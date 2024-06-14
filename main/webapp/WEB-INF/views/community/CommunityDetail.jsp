@@ -131,7 +131,7 @@
                                     </th>
                                     <th colspan="2" style="vertical-align:middle; width: 180px !important;">
                                         <button id="com-reply-button" class="btn btn-secondary"
-                                        onclick="addReply('${pageContext.request.contextPath}/resources/image/Cancel.png', '${c.boardLevel}', '${c.boardNo}')">
+                                        onclick="addReply('${pageContext.request.contextPath}/resources/image/Cancel.png', '${c.boardLevel}', '${c.boardNo}', '${loginUser.userNo}')">
                                             등록하기
                                         </button>
                                     </th>
