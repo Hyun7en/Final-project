@@ -47,7 +47,7 @@
                 </form>
 
                 <div id="managerOutlist-2nd">
-                    <div id="total-Outlist"><b>총 탈퇴회원 수 : 5</b></div>
+                    <div id="total-Outlist"><b>총 탈퇴회원 수 : ${outCount}</b></div>
                     <div id="managerOutlist-2ndtable">
                         <table>
                             <tr id="admin-2ndtable-head">
@@ -57,14 +57,16 @@
                                 <th>아이디</th>
                                 <th>탈퇴일시</th>
                             </tr>
+                            <c:forEach var="ol" items="${olist}">
                             <tr>
                                 <td><input type="checkbox"></td>
-                                <td>5</td>
-                                <td>홍길동</td>
-                                <td>qwqw11</td>
+                                <td>${ol.userNo}</td>
+                                <td>${ol.userName}</td>
+                                <td>${ol.userId}</td>
                                 <td>2024-05-14</td>
                             </tr>
-                            <tr>
+                            </c:forEach>
+                            <!-- <tr>
                                 <td><input type="checkbox"></td>
                                 <td>4</td>
                                 <td>고길동</td>
@@ -91,7 +93,7 @@
                                 <td>조길동</td>
                                 <td>qwqw55</td>
                                 <td>2024-05-14</td>
-                            </tr>
+                            </tr> -->
                         </table>
                     </div>
                     <div id="managerOutlist-2ndbottom">
