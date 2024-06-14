@@ -142,5 +142,16 @@ public class ManagerDao {
 		
 	}
 	
+	// 탈퇴 회원 수 조회
+	public int customerOutCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("managerMapper.customerOutCount");
+	}
 	
+	// 탈퇴 회원 조회
+	public ArrayList<Member> customerOutList(SqlSessionTemplate sqlSession, PageInfo pi){
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return sqlSession.selectList("managerMapper.customerOutList", rowBounds);
+	}
 }

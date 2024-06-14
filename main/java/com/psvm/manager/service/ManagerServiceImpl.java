@@ -126,4 +126,13 @@ public class ManagerServiceImpl implements ManagerService{
 		return result;
 	}
 	
+	// 탈퇴 회원 수 조회
+	public int customerOutCount() {
+		return managerDao.customerOutCount(sqlSession);
+	}
+	
+	// 탈퇴 회원 조회
+	public ArrayList<Member> customerOutList(PageInfo pi){
+		return managerDao.customerOutList(sqlSession, pi);
+	}
 }

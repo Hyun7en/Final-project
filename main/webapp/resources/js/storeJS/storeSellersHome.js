@@ -1,7 +1,3 @@
-let path;
-function contextPath(contextPath){
-    path = contextPath;
-}
 
 function order(sellerPageNo, number){
     location.href=`sellersStore.st?sellerPageNo=` + sellerPageNo + `&order=` + number + `&cpage=1`;
