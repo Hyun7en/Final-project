@@ -26,7 +26,7 @@
     <!-- success -->
 
 </head>
-<body onload="categorySelected();">
+<body onload="init('CommunityList', `${pageContext.request.contextPath}`)">
     <c:if test="${ not empty successMessage}">
 		<script>
             var successMessage = '${successMessage}';

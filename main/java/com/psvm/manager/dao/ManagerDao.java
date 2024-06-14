@@ -1,7 +1,6 @@
 package com.psvm.manager.dao;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -152,6 +151,6 @@ public class ManagerDao {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
-		return sqlSession.selectList("managerMapper.customerOutList", rowBounds);
+		return (ArrayList)sqlSession.selectList("managerMapper.customerOutList",rowBounds);
 	}
 }

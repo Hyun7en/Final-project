@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/storeCSS/storeSellersCategory.css">
 
 </head>
-<body onload="orderSelected(); contextPath(`${pageContext.request.contextPath}`); checkAlarm(`${loginUser.userNo}`, `${si.sellerPageNo}`);">
+<body onload="init('storeSellersCategory',`${pageContext.request.contextPath}`,{loginUser : `${loginUser.userNo}`,sellerPageNo : `${si.sellerPageNo}`})">
     <c:if test="${ not empty successMessage}">
 		<script>
             var successMessage = '${successMessage}';

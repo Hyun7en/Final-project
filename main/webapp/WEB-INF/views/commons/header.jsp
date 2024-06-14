@@ -14,7 +14,7 @@
     <script src="${pageContext.request.contextPath}/resources/js/commonsJS/header.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
 </head>
-<body onload="contextPath(`${pageContext.request.contextPath}`); notification(`${loginUser.userNo}`);">
+<body onload="startHeader(`'${pageContext.request.contextPath}'`,`${loginUser.userNo}`);  init(1, `'${pageContext.request.contextPath}'`);   ">
 	 <header>
             <div id="Header" style="background-color: white">
                 <div id="logo">
