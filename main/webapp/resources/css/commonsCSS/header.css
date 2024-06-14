@@ -157,3 +157,9 @@ header nav a:hover{
     position: relative;
 }
 
+.notification-link.clicked {
+    color: gray;
+    opacity: 0.6;
+  }
+  
+
