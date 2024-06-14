@@ -27,7 +27,7 @@
             if (optionInputs.length > 0) {
                 let isDuplicate = Array.from(optionInputs, input => input.value.trim()).slice(0, -1).includes(lastInputValue);
                 if (isDuplicate) {
-                    alert("이미 같은 옵션이 존재합니다.");
+                    alert("중복된 옵션이 존재합니다. 중복된 옵션을 제거하거나 수정해 주세요.");
                     return;
                 }
             }

@@ -1,9 +1,5 @@
-let path;
 
-function starImgInit(contextPath){
-    path = contextPath;
-}
-    
+//무한 스크롤
 $(document).ready(function() {
     let isLoading = false;
     let page = 0;
@@ -53,6 +49,7 @@ $(document).ready(function() {
                     isLoading = true;
                 },
                 success: function(response) {
+                    console.log("ajax 성공")
                     appendProducts(response);
                     if (!response.hasMore) { // 더 이상 불러올 데이터가 없으면 버튼 숨김
                         $('#load-more').hide();
@@ -61,7 +58,7 @@ $(document).ready(function() {
                     }
                 },
                 error: function() {
-                    alert('더 이상 상품을 불러올 수 없습니다.');
+                    console.log("ajax 실패")
                 },
                 complete: function() {
                     isLoading = false;

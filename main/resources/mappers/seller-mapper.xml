@@ -274,6 +274,44 @@
 		   AND P_NO = #{pno}
 	</select>
 	
+	<!-- 상품 정보 수정  -->
+	<update id="updateProduct">
+		UPDATE PRODUCT
+		   SET P_TITLE = #{pdTitle},
+		   	   P_ORIGIN_NAME = #{pdOriginName},
+		   	   P_CHANGE_NAME = #{pdChangeName},
+		   	   P_CONTENT = #{pdContent}
+		 WHERE P_NO = #{pno}
+	</update>
+	
+	<insert id="insertNewProductOption">
+		INSERT INTO 
+					PRODUCT_OPTION (
+									  p_count,
+								 	  po_status,
+								 	  p_no,
+								 	  p_option_name
+								 	  )
+						 	  VALUES (
+							 		  #{pdCount},
+							 		  default,
+							 		  #{pno},
+							 		 #{optionName}
+						 		 	  )	
+	</insert>
+	
+	<update id="updateProductOption">
+		UPDATE PRODUCT_OPTION
+		   SET P_COUNT = #{pdCount},
+		   	   P_OPTION_NAME = #{optionName}
+		 WHERE P_OPTION_NO = #{pdOptionNo}
+	</update>
+	
+	<delete id="deleteProductOption">
+		DELETE FROM PRODUCT_OPTION
+		 WHERE P_OPTION_NO = #{pdOptionNo} 
+	</delete>
+	
 	<update id="deleteProduct">
 		UPDATE PRODUCT
 		   SET P_STATUS = 'N' 
@@ -282,7 +320,8 @@
 	
 	<select id="selectOptions" resultMap="productOptionResult">
 		SELECT P_COUNT,
-			   P_OPTION_NAME	
+			   P_OPTION_NAME,
+			   P_OPTION_NO	
 		  FROM PRODUCT_OPTION
 		WHERE P_NO = #{pno}
 	</select>
