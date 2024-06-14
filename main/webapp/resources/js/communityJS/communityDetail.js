@@ -93,13 +93,12 @@ function callReply(CboardNo, Cancel, cBoardLevel){
 }
 
 //댓글 등록
-function addReply(Cancel, cBoardLevel, CboardNo){
+function addReply(Cancel, cBoardLevel, CboardNo, CuserNo){
     //boardNo
     //userId
     //댓글내용
-
-    const boardNo = "${c.boardNo}";
-    const userNo = "${loginUser.userNo}";
+    const boardNo = CboardNo;
+    const userNo = CuserNo;
     const content = document.querySelector("#com-reply-insertbox").value;
 
 
@@ -108,7 +107,7 @@ function addReply(Cancel, cBoardLevel, CboardNo){
         userNo: userNo,
         replyContents: content
     }, function(res){
-        getReplyList({bno : "${c.boardNo}"}, function(result){
+        getReplyList({bno : CboardNo}, function(result){
             setReplyCount(result.length);
             drawTableList(result, document.querySelector("#com-reply tbody"), Cancel, cBoardLevel, CboardNo);
         })
@@ -152,7 +151,6 @@ function getReplyList(data, callback){
 
 function drawTableList(itemList, parent, Cancel, cBoardLevel, CboardNo){
     $(parent).empty();
-
     //이벤트를 넣는 뷰를 작성하고 싶을 때
     for (let reply of itemList) {
 
