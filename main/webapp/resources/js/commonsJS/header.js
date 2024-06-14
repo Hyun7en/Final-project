@@ -28,6 +28,8 @@ function init(pageType, contextPath, data){
       categorySelected(data.boardLevel);
       conditionSelected(data.condition);
       break;
+    case 'storeMain':
+      break;
     
     
   }
