@@ -71,4 +71,9 @@ public interface ManagerService {
 	// 판매자 상품신청 승인
 	int sellerProductApplicationApprove(int pdOptionNo);
 	
+	// 탈퇴 회원 수 조회
+	int customerOutCount();
+	
+	// 탈퇴 회원 조회
+	ArrayList<Member> customerOutList(PageInfo pi);
 }

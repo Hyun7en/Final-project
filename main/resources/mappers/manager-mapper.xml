@@ -427,8 +427,18 @@
 		WHERE p_no = #{p_no}
 	</update>
 	
-
+	<!-- 탈퇴 회원 수 조회 -->
+	<select id="customerOutCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE ACTIVATED = 'N'
+	</select>
 	
-
+	<!-- 탈퇴 회원 조회 -->
+	<select id="" resultMap="memberListResult">
+		SELECT	USER_NO,
+				USER_ID,
+				USER_NAME
+	</select>
 
 </mapper>
