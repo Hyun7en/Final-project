@@ -98,6 +98,7 @@ header nav a:hover{
     width: 45px;
     height: 45px;
     border-radius: 100%;
+    margin-left: 40px;
 }
 
 #click-menu{
@@ -106,7 +107,7 @@ header nav a:hover{
     position: absolute;
     background-color: white;
     top: 39px;
-    right: 86px;
+    right: -15px;
     box-shadow: rgba(63, 71, 77, 0.5) 0px 4px 10px 0px;
     border-radius: 6px;
     border: 1px solid rgb(218, 221, 224);
@@ -121,5 +122,38 @@ header nav a:hover{
     color: rgb(47, 52, 56);
     padding: 10px;
     
+}
+
+#notification-img{
+    margin-top: 7px;
+    margin-right: 12px;
+}
+
+#notification-div{
+    width: 240px;
+    height: 120px;
+    position: absolute;
+    background-color: white;
+    top: 39px;
+    right: 113px;
+    box-shadow: rgba(63, 71, 77, 0.5) 0px 4px 10px 0px;
+    border-radius: 6px;
+    border: 1px solid rgb(218, 221, 224);
+    display: flex;
+    flex-direction: column;
+    visibility: hidden;
+    z-index: 900;
+}
+
+#notification-div a{
+    text-decoration: none;
+    color: rgb(47, 52, 56);
+    padding: 10px;
+}
+
+#notifi-bell{
+    display: flex;
+    align-items: center;
+    position: relative;
 }
 
