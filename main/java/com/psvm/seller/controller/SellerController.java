@@ -29,6 +29,7 @@ import com.psvm.commons.template.Pagination;
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.member.vo.Member;
 import com.psvm.seller.dto.ProductCategoryDTO;
+import com.psvm.seller.dto.ProductDTO;
 import com.psvm.seller.dto.StoreMainDTO;
 import com.psvm.seller.service.SellerService;
 import com.psvm.seller.vo.Product;
@@ -587,7 +588,7 @@ public class SellerController {
     @RequestMapping("detail.spd")
     public String selectSalesProduct(int pno, Model model) {
     	
-    	StoreMainDTO spd = sellerService.selectSalesProduct(pno);
+    	ProductDTO spd = sellerService.selectSalesProduct(pno);
     	
     	model.addAttribute("spd",spd);
     	
@@ -598,7 +599,7 @@ public class SellerController {
   
     @RequestMapping(value = "/allProduct.ax", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public String fetchProducts(@RequestParam("page") int page, @RequestParam("size") int size) {
+    public String selectAllProduct(@RequestParam("page") int page, @RequestParam("size") int size) {
     	
         List<StoreMainDTO> products = sellerService.selectAllProduct(page, size);
         boolean hasMore = products.size() == size; // 더 불러올 데이터가 있는지 확인

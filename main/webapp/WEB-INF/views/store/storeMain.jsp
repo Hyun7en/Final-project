@@ -26,8 +26,9 @@
 <script src="${pageContext.request.contextPath}/resources/js/storeJS/slick.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/storeJS/storeMain.js"></script>
 
+
 </head>
-<body>
+<body >
 
 <div class="wrap">
 

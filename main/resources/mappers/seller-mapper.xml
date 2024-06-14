@@ -358,6 +358,10 @@
 		 LIMIT 10;
 	</select>
 	
+	<!-- <select id="selectSalesProduct" resultMap="ProductDTO">
+		
+	</select> -->
+	
 	<select id="selectAllProduct" resultMap="StoreMainDTOResult">
 		SELECT P_NO, STORE_NAME,SELLER_PAGE_NO, P_TITLE, P_PRICE, P_CHANGE_NAME, P_STAR, COUNT(REVIEW.REPLY_NO) AS REVIEW_COUNT
 		  FROM PRODUCT
