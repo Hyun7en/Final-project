@@ -280,7 +280,16 @@ public class ManagerController {
 	}
 	
 	@RequestMapping("customerOutlist.ma")
-	public String customerOutlist(HttpSession session, String categoryName) {
+	public String customerOutlist(HttpSession session, String categoryName, @RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
+		int customerOutCount = managerService.customerOutCount();
+		
+		PageInfo pi = Pagination.getPageInfo(customerOutCount, currentPage, 5 , 5);
+		
+		ArrayList<Member> outList = managerService.customerOutList(pi);
+		
+		model.addAttribute("pi", pi);
+		model.addAttribute("outCount", customerOutCount);
+		model.addAttribute("oL", outList);
 		session.setAttribute("categoryName", categoryName);
 		return "manager/managerCustomerOutlist";
 		
