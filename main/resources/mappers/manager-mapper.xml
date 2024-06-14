@@ -429,16 +429,18 @@
 	
 	<!-- 탈퇴 회원 수 조회 -->
 	<select id="customerOutCount" resultType="_int">
-		SELECT COUNT(*)
-		FROM MEMBER
-		WHERE ACTIVATED = 'N'
+		SELECT	COUNT(*)
+		FROM	MEMBER
+		WHERE	ACTIVATED = 'N'
 	</select>
 	
 	<!-- 탈퇴 회원 조회 -->
-	<select id="" resultMap="memberListResult">
+	<select id="customerOutList" resultMap="memberListResult">
 		SELECT	USER_NO,
 				USER_ID,
 				USER_NAME
+		FROM	MEMBER
+		WHERE	ACTIVATED = 'N'
 	</select>
 
 </mapper>
