@@ -630,7 +630,7 @@ public class SellerController {
 	@RequestMapping(value="getAlarmList.se", produces = "application/json; charset=UTF-8")
 	public String getAlarmList(@RequestParam("userNo") int userNo) {
 		ArrayList<String> list = sellerService.getAlarmList(userNo);
-		System.out.println(userNo);
+
 		
 		return new Gson().toJson(list);
 	}

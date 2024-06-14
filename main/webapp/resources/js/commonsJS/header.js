@@ -1,8 +1,43 @@
-let path;
-function contextPath(contextPath){
-    path = contextPath;
+function startHeader(contextPath, userNo){
+  contextPath(contextPath);
+  
 }
 
+let path; 
+
+function init(pageType, contextPath, data){
+    path = contextPath;
+  switch(pageType){ 
+    case 'storeSellersHome','storeSellersCategory':
+      orderSelected();
+      checkAlarm(data.loginUser, data.sellerPageNo);
+      break;
+    case 'communityDetail':
+      callThumbup(data.boardNo, data.userNo);
+      callReply(data.boardNo, `${path}+/resources/image/Cancel.png`, data.boardLevel);
+      categorySelectedsc(data.boardLevel);
+      conditionSelected(data.condition);
+      break;
+    case 'communityEdit':
+      communityInit(data.boardLevel, data.boardContents);
+      break;
+    case 'CommunityList':
+      categorySelected();
+      break;
+    case 'CommunitySearchList':
+      categorySelected(data.boardLevel);
+      conditionSelected(data.condition);
+      break;
+    
+    
+  }
+// `${pageContext.request.contextPath}`
+  //head세팅
+}
+
+function headerSet(){
+
+}
 //header의 프로필 클릭시 div 등장
 function headerShow(){
     const s = document.getElementById("click-menu");

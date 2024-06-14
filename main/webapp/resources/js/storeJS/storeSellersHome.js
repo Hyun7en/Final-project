@@ -1,4 +1,3 @@
-
 function order(sellerPageNo, number){
     location.href=`sellersStore.st?sellerPageNo=` + sellerPageNo + `&order=` + number + `&cpage=1`;
 }
@@ -23,6 +22,7 @@ function orderSelected() {
 
 //알람 ON/OFF 체크
 function checkAlarm(userNo, sellerPageNo){
+    console.log(path)
     if (Object.keys(userNo).length != 0){
         const alarmDiv = document.querySelector('.alarmDiv');
         const alarmButton = document.querySelector('.alarmButton');
