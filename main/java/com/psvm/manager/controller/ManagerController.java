@@ -286,10 +286,10 @@ public class ManagerController {
 		PageInfo pi = Pagination.getPageInfo(customerOutCount, currentPage, 5 , 5);
 		
 		ArrayList<Member> outList = managerService.customerOutList(pi);
-		
+		System.out.println(outList);
 		model.addAttribute("pi", pi);
 		model.addAttribute("outCount", customerOutCount);
-		model.addAttribute("oL", outList);
+		model.addAttribute("olist", outList);
 		session.setAttribute("categoryName", categoryName);
 		return "manager/managerCustomerOutlist";
 		
