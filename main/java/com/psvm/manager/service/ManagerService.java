@@ -1,8 +1,10 @@
 package com.psvm.manager.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import com.psvm.commons.vo.PageInfo;
+import com.psvm.manager.vo.ApplicationProduct;
 import com.psvm.manager.vo.Search;
 import com.psvm.manager.vo.Seller;
 import com.psvm.member.vo.Member;
@@ -45,14 +47,28 @@ public interface ManagerService {
 	//판매자 신규 신청한 회원 조회
 	ArrayList<Seller> sellerNewApplicationList(PageInfo pi);
 	
-	// 검색한 판매자 신규 신청 회원 수 조회
+	// 검색한 판매자 신규신청 회원 수 조회
 	int searchSellerNewApplicationCount(Search s);
 	
 	// 검색한 판매자 신규신청 회원 조회
 	ArrayList<Seller> searchSellerNewApplicationList(Search s, PageInfo pi);
 	
-	
-	// 판매자 신규 신청 승인
+	// 판매자 신규신청 승인
 	int sellerNewApplicationApprove(int userNo);
+	
+	// 판매자가 신청한 상품 수 조회
+	int reportProductListCount();
+	
+	// 판매자가 신청한 상품 조회
+	ArrayList<ApplicationProduct> reportProductList(PageInfo pi);
+	
+	// 검색한 판매자 상품신청 수 조회
+	int searchSellerProductApplicationCount(Search s);
+	
+	// 검색한 판매자 상품신청 조회
+	ArrayList<ApplicationProduct> searchSellerProductApplicationList(Search s, PageInfo pi);
+	
+	// 판매자 상품신청 승인
+	int sellerProductApplicationApprove(int pdOptionNo);
 	
 }

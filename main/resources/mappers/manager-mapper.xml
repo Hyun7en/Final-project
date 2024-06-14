@@ -6,7 +6,7 @@
 <!-- namespace: 해당 mapper파일의 고유한 별칭 -->
 <mapper namespace="managerMapper">
 
-	<!-- 판매자 정보 resultMapper -->
+	<!-- 판매자 정보 resultMap -->
 	<resultMap type="Seller" id="sellerListResult">
 		<result column="user_no" property="userNo"/>
 		<result column="user_name" property="userName"/>
@@ -24,7 +24,7 @@
 		<result column="application_date" property="applicationDate"/>
 	</resultMap>
 	
-	<!-- 회원 정보 resultMapper -->
+	<!-- 회원 정보 resultMap -->
 	<resultMap type="Member" id="memberListResult">
 		<result column="USER_NO" property="userNo"/>
 		<result column="USER_ID" property="userId"/>
@@ -45,6 +45,25 @@
 		<result column="MEMBER_FILE_NO" property="memberFileNo"/>
 		<result column="USER_INTRO" property="userIntro"/>
 	</resultMap>
+	
+	<!-- 판매 상품 resultMap -->
+	<resultMap type="ApplicationProduct" id="applicationProductResult">
+		<result column="USER_NAME" property="userName"/>
+		<result column="STORE_NAME" property="storeName"/>
+		<result column="P_NO" property="pdNo"/>
+		<result column="P_TITLE" property="pdTitle"/>
+		<result column="P_PRICE" property="pdPrice"/>
+		<result column="P_CONTENT" property="pdContent"/>
+		<result column="P_ENROLL_DATE" property="pdEnrollDate"/>
+		<result column="P_STAR" property="pdStar"/>
+		<result column="P_ORIGIN_NAME" property="pdOriginName"/>
+		<result column="P_CHANGE_NAME" property="pdChangeName"/>	
+		<result column="C_NO" property="caNo"/>
+		<result column="P_COUNT" property="pdCount"/>
+		<result column="P_OPTION_NAME" property="pdOptionName"/>
+		<result column="P_OPTION_NO" property="pdOptionNo"/>
+		<result column="P_CATEGORY" property="pdCategory"/>
+	</resultMap> 
 	
 	<!-- 관리자를 제외한 모든 회원 수 조회 -->
 	<select id="memberListCount" resultType="_int">
@@ -297,9 +316,6 @@
 		</if>
 	</select>
 	
-	
-	
-	
 	<!-- 판매자 신규신청 승인 -->
 	<update id="sellerNewApplicationApprove">
 		UPDATE member
@@ -307,10 +323,112 @@
 		WHERE user_no = #{userNo}
 	</update>
 
+	<!-- 신고상품 수 조회 -->
+	<select id="reportProductListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM product 
+		JOIN faq f USING (p_no)						<!-- product의 p_no와 fap의 p_no가  같은것끼리 JOIN -->
+		JOIN product_category USING (c_no)			<!-- product의 c_no와 product_category가 c_no가 같은것끼리 JOIN  -->
+		JOIN seller_page USING (seller_page_no)		<!-- product_category의 seller_page_no와 seller_page의 seller_page_no가 같은것끼리 JOIN-->
+		JOIN seller_info si USING (business_no)		<!-- seller_page의 business_no와 seller_info의 business_no가 같은것끼리 JOIN -->
+		JOIN member s ON si.user_no = salem.user_no	<!-- seller_info의 user_no와 member의 user_no가 같은것끼리 조인 --> <!-- si.user_no : 신고당한 판매자의 회원번호 -->
+		JOIN member m ON f.user_no = faqm.user_no	<!-- faq의 user_no와 member의 user_no가 같은것끼리 JOIN --> <!-- f.user_no : 신고한 회원의 회원번호 -->
+		WHERE report_status = true					<!-- 조건1 : product의 report_status의 true인 것 --> <!-- 신고된 상품은 status가 true임-->
+		AND p_status = 'Y'							<!-- 조건2 : product의 p_status가 'Y'인 것 -->
+	</select>
 
+	<!-- 신고상품 조회 -->
+	<select id="reportProductList" resultMap="applicationProductResult">
+		SELECT  p_no,				<!-- 신고당한 상품 번호  -->
+				s.user_name, 		<!-- 신고당한 상품 판매자의 이름  -->
+				m.user_id,			<!-- 신고한 회원의 아이디-->
+				store_name,			<!-- 신고당한 상품 판매자의 상점명-->
+				p_title,			<!-- 신고당한 상품 제목-->
+				p_price,			<!-- 신고당한 상품 가격-->
+				p_content,			<!-- 신고당한 상품 내용-->
+				p_enroll_date,  	<!-- 신고당한 상품 등록일-->
+				p_category,			<!-- 신고당한 상품 카테고리-->
+				inquiry_title,		<!-- 신고 제목-->
+				inquiry_contents,	<!-- 신고 내용-->
+				inquiry_date		<!-- 신고 일시-->
+		FROM product 
+		JOIN faq f USING (p_no)						<!-- product의 p_no와 fap의 p_no가  같은것끼리 JOIN -->
+		JOIN product_category USING (c_no)			<!-- product의 c_no와 product_category가 c_no가 같은것끼리 JOIN  -->
+		JOIN seller_page USING (seller_page_no)		<!-- product_category의 seller_page_no와 seller_page의 seller_page_no가 같은것끼리 JOIN-->
+		JOIN seller_info si USING (business_no)		<!-- seller_page의 business_no와 seller_info의 business_no가 같은것끼리 JOIN -->
+		JOIN member s ON si.user_no = salem.user_no	<!-- seller_info의 user_no와 member의 user_no가 같은것끼리 조인 --> <!-- si.user_no : 신고당한 판매자의 회원번호 -->
+		JOIN member m ON f.user_no = faqm.user_no	<!-- faq의 user_no와 member의 user_no가 같은것끼리 JOIN --> <!-- f.user_no : 신고한 회원의 회원번호 -->
+		WHERE report_status = true					<!-- 조건1 : product의 report_status가 true인 것 --> <!-- 신고된 상품은 status가 true임-->
+		AND p_status = 'Y'							<!-- 조건2 : product의 p_status가 'Y'인 것 -->
+	</select>
+	
+	<!-- 검색한 신고상품 수 조회 -->
+	<select id="searchSellerProductApplicationCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM product 
+		JOIN faq f USING (p_no)						<!-- product의 p_no와 fap의 p_no가  같은것끼리 JOIN -->
+		JOIN product_category USING (c_no)			<!-- product의 c_no와 product_category가 c_no가 같은것끼리 JOIN  -->
+		JOIN seller_page USING (seller_page_no)		<!-- product_category의 seller_page_no와 seller_page의 seller_page_no가 같은것끼리 JOIN-->
+		JOIN seller_info si USING (business_no)		<!-- seller_page의 business_no와 seller_info의 business_no가 같은것끼리 JOIN -->
+		JOIN member s ON si.user_no = salem.user_no	<!-- seller_info의 user_no와 member의 user_no가 같은것끼리 조인 --> <!-- si.user_no : 신고당한 판매자의 회원번호 -->
+		JOIN member m ON f.user_no = faqm.user_no	<!-- faq의 user_no와 member의 user_no가 같은것끼리 JOIN --> <!-- f.user_no : 신고한 회원의 회원번호 -->
+		WHERE report_status = true					<!-- 조건1 : product의 report_status의 true인 것 --> <!-- 신고된 상품은 status가 true임-->
+		AND p_status = 'Y'							<!-- 조건2 : product의 p_status가 'Y'인 것 -->
+		<!-- 검색타입과 검색어를 입력했을 때 -->
+		<if test='searchType != "" and searchKeyword != ""'>
+			<!-- ${}는 자동 따옴표가 안붙는데 #{}는 자동 따옴표가 붙기떄문에 컬럼이름을 써야하는 searchType에는 ${} 사용 -->
+			AND	${searchType} LIKE '%' || #{searchKeyword} || '%'
+		</if>
+		<!-- 등록일시 날짜를 입력했을 때 -->
+		<if test='startDate != "" and endDate != ""'>
+			AND p.P_ENROLL_DATE BETWEEN #{startDate}::date AND #{endDate}::date
+		</if>
+	</select>
+	
+	<!-- 검색한 신고상품 조회 -->
+	<select id="searchSellerProductApplicationList" resultMap="applicationProductResult">
+		SELECT  p_no,				<!-- 신고당한 상품 번호  -->
+				s.user_name, 		<!-- 신고당한 상품 판매자의 이름  -->
+				m.user_id,			<!-- 신고한 회원의 아이디-->
+				store_name,			<!-- 신고당한 상품 판매자의 상점명-->
+				p_title,			<!-- 신고당한 상품 제목-->
+				p_price,			<!-- 신고당한 상품 가격-->
+				p_content,			<!-- 신고당한 상품 내용-->
+				p_enroll_date,  	<!-- 신고당한 상품 등록일-->
+				p_category,			<!-- 신고당한 상품 카테고리-->
+				inquiry_title,		<!-- 신고 제목-->
+				inquiry_contents,	<!-- 신고 내용-->
+				inquiry_date		<!-- 신고 일시-->
+		FROM product 
+		JOIN faq f USING (p_no)						<!-- product의 p_no와 fap의 p_no가  같은것끼리 JOIN -->
+		JOIN product_category USING (c_no)			<!-- product의 c_no와 product_category가 c_no가 같은것끼리 JOIN  -->
+		JOIN seller_page USING (seller_page_no)		<!-- product_category의 seller_page_no와 seller_page의 seller_page_no가 같은것끼리 JOIN-->
+		JOIN seller_info si USING (business_no)		<!-- seller_page의 business_no와 seller_info의 business_no가 같은것끼리 JOIN -->
+		JOIN member s ON si.user_no = salem.user_no	<!-- seller_info의 user_no와 member의 user_no가 같은것끼리 조인 --> <!-- si.user_no : 신고당한 판매자의 회원번호 -->
+		JOIN member m ON f.user_no = faqm.user_no	<!-- faq의 user_no와 member의 user_no가 같은것끼리 JOIN --> <!-- f.user_no : 신고한 회원의 회원번호 -->
+		WHERE report_status = true					<!-- 조건1 : product의 report_status가 true인 것 --> <!-- 신고된 상품은 status가 true임-->
+		AND p_status = 'Y'							<!-- 조건2 : product의 p_status가 'Y'인 것 -->
+		<!-- 검색타입과 검색어를 입력했을 때 -->
+		<if test='searchType != "" and searchKeyword != ""'>
+			<!-- ${}는 자동 따옴표가 안붙는데 #{}는 자동 따옴표가 붙기떄문에 컬럼이름을 써야하는 searchType에는 ${} 사용 -->
+			AND	${searchType} LIKE '%' || #{searchKeyword} || '%'
+		</if>
+		<!-- 등록일시 날짜를 입력했을 때 -->
+		<if test='startDate != "" and endDate != ""'>
+			AND p.P_ENROLL_DATE BETWEEN #{startDate}::date AND #{endDate}::date
+		</if>
+	</select>
+	
+	<!-- 신고상품 처리  -->
+	<update id="sellerProductApplicationApprove">
+		UPDATE product
+		SET report_status = false,
+			p_status = 'N'
+		WHERE p_no = #{p_no}
+	</update>
+	
 
-
-
+	
 
 
 </mapper>

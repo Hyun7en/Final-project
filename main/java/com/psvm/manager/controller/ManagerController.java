@@ -1,6 +1,8 @@
 package com.psvm.manager.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.psvm.commons.template.Pagination;
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.manager.service.ManagerServiceImpl;
+import com.psvm.manager.vo.ApplicationProduct;
 import com.psvm.manager.vo.Search;
 import com.psvm.manager.vo.Seller;
 import com.psvm.member.vo.Member;
@@ -111,7 +114,7 @@ public class ManagerController {
 
 		// 페이징 처리
 		PageInfo pi = Pagination.getPageInfo(sellerListCount, currentPage, 10, 5);
-
+		
 		// 판매자 조회
 		ArrayList<Seller> sellerList = managerService.sellerList(pi);
 		
@@ -128,13 +131,13 @@ public class ManagerController {
 
     	// 검색한 판매자 수 조회
 		int searchSellerCount = managerService.searchSellerCount(s);
-		System.out.println(searchSellerCount);
+		
 		// 페이징 처리
 		PageInfo pi = Pagination.getPageInfo(searchSellerCount, currentPage,10, 5);
 		 
 		// 검색된 판매자 조회
     	ArrayList<Seller> searchSellerList = managerService.searchSellerList(s, pi);
-    	System.out.println(searchSellerList);
+    	
 		model.addAttribute("sellerListCount", searchSellerCount);
 		model.addAttribute("sellerList", searchSellerList);
 		model.addAttribute("pi", pi);
@@ -172,13 +175,12 @@ public class ManagerController {
 
     	// 검색한 판매자 수 조회
 		int searchSellerNewApplicationCount = managerService.searchSellerNewApplicationCount(s);
-		System.out.println(searchSellerNewApplicationCount);
+
 		// 페이징 처리
 		PageInfo pi = Pagination.getPageInfo(searchSellerNewApplicationCount, currentPage,10, 5);
 		 
-		// 검색된 판매자 조회
+		// 검색한 판매자 조회
     	ArrayList<Seller> searchSellerNewApplicationList = managerService.searchSellerNewApplicationList(s, pi);
-    	System.out.println(searchSellerNewApplicationList);
 
     	model.addAttribute("sellerNewApplicationCount", searchSellerNewApplicationCount);
 		model.addAttribute("sellerNewApplicationList", searchSellerNewApplicationList);
@@ -208,16 +210,67 @@ public class ManagerController {
 	}
 	
 	
-	
-	
-	
-	
-	@RequestMapping("sellerProductApplication.ma")
-	public String sellerProductApplication(HttpSession session, String categoryName) {
+	// 신고상품 조회 메서드
+	@RequestMapping("reportProductList.ma")
+	public String reportProductList(@RequestParam(value="cpage", defaultValue="1") int currentPage, String categoryName, Model model) {
 		
-		session.setAttribute("categoryName", categoryName);
+		// 판매자 신청한 일반회원 수 조회
+		int reportProductListCount = managerService.reportProductListCount();
+		
+		// 페이징 처리
+		PageInfo pi = Pagination.getPageInfo(reportProductListCount, currentPage, 10, 5);
+
+		// 판매자 신청한 일반회원 리스트 조회
+		ArrayList<ApplicationProduct> reportProductList = managerService.reportProductList(pi);
+
+		model.addAttribute("sellerProductApplicationCount", reportProductListCount);
+		model.addAttribute("sellerProductApplicationList", reportProductList);
+		model.addAttribute("pi", pi);
+		model.addAttribute("categoryName", categoryName);
 		return "manager/managerSellerProductApplication";
 	}
+	
+	// 신고상품 검색 조회 메서드
+	@RequestMapping("searchSellerProductApplication.ma")
+	public String searchSellerProductApplication(@RequestParam(value="cpage", defaultValue="1") int currentPage, Search s, String categoryName, Model model) {
+
+    	// 검색한 판매자 상품신청 수 조회
+		int searchSellerProductApplicationCount = managerService.searchSellerProductApplicationCount(s);
+		System.out.println(searchSellerProductApplicationCount);
+		// 페이징 처리
+		PageInfo pi = Pagination.getPageInfo(searchSellerProductApplicationCount, currentPage,10, 5);
+		 
+		// 검색한 판매자 상품신청 조회
+    	ArrayList<ApplicationProduct> searchSellerProductApplicationList = managerService.searchSellerProductApplicationList(s, pi);
+    	System.out.println(searchSellerProductApplicationList);
+    	model.addAttribute("sellerProductApplicationCount", searchSellerProductApplicationCount);
+		model.addAttribute("sellerProductApplicationList", searchSellerProductApplicationList);
+		model.addAttribute("pi", pi);
+		model.addAttribute("searchType", s.getSearchType());
+		model.addAttribute("searchKeyword", s.getSearchKeyword());
+		model.addAttribute("startDate", s.getStartDate());
+		model.addAttribute("endDate", s.getEndDate());
+		model.addAttribute("categoryName", categoryName);
+		return "manager/managerSellerProductApplication";
+	}
+	
+	
+	// 신고상품 처리 메서드
+	@RequestMapping("sellerProductApplicationApprove.ma")
+	public String sellerProductApplicationApprove(HttpSession session, int pdOptionNo, Model model) {
+		
+		// 판매자의 상품신청 승인
+		int result = managerService.sellerProductApplicationApprove(pdOptionNo);
+		
+		if(result > 0) {  // 승인 성공
+			session.setAttribute("alertMsg", "승인 되었습니다.");
+			return "redirect:sellerProductApplication.ma?categoryName=seller";
+		} else {  // 승인 실패
+			model.addAttribute("errorMsg", "승인 실패하였습니다.");
+			return "redirect:sellerProductApplication.ma?categoryName=seller";
+		}
+	}
+	
 	
 	@RequestMapping("customerOnetoOne.ma")
 	public String customerOnetoOne(HttpSession session, String categoryName) {

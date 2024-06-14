@@ -6,13 +6,13 @@
 <head>
 <meta charset="UTF-8">
 <title>작성한 글</title>
-	
+	<!-- jQuery library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <!-- css -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/myPageCSS/myPageWritePost.css">
 
-	
-   
 <body>
 	<div class="wrap">
 	
@@ -24,7 +24,7 @@
                 <div id="myPage-sidebar">
                     <div id="myPage-sidebar-profile-area">
                         <div id="myPage-sidebar-profile-img">
-                            <img src="https://previews.123rf.com/images/ann24precious/ann24precious1602/ann24precious160200015/53140153-%EA%B7%80%EC%97%AC%EC%9A%B4-%EB%AC%BC%EA%B3%A0%EA%B8%B0.jpg" alt="">
+                            <img src="${ma.changeName}" alt="">
                         </div>
                         <div id="myPage-sidebar-profile-nickName"><b>${loginUser.nickname}</b>님 환영합니다.</div>
                     </div>
@@ -102,9 +102,6 @@
                                     </c:when>
                                     <c:otherwise>
                                         <c:forEach var="b" items="${myBoardList}">
-                                            <!-- 호연님한테 cpage는 뺼수 있냐 물어보기(호연님 게시글 페이징이랑 내 마이페이지 작성한글 페이징이랑 다름. 
-                                            예를 들어 호연님은 카태고리 일반, 꿀팁, 질문, 거래별로 페이징 처리 해놨는데 나는 작성한글 내가 쓴글이 전부
-                                            있기떄문에 페이지 수가 다를수밖에 없음)-->
                                             <tr onclick="location.href = 'detail.co?category=${b.boardLevel}&boardNo=${b.boardNo}'">
                                                 <c:choose>
                                                     <c:when test="${b.boardLevel eq 0}">
