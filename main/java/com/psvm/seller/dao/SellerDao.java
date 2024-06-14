@@ -118,8 +118,6 @@ public class SellerDao {
 	// 상품 옵션 불러오기
 	public List<ProductOption> selectOptions(SqlSessionTemplate sqlSession,int pno) {
 		
-		System.out.println((List)sqlSession.selectList("sellerMapper.selectOptions", pno));
-		
 		return (List)sqlSession.selectList("sellerMapper.selectOptions", pno);
 	}
 	
@@ -130,6 +128,22 @@ public class SellerDao {
 	}
 	
 	// 상품 정보 수정
+	public int updateProduct(SqlSessionTemplate sqlSession, Product product) {
+		return sqlSession.update("sellerMapper.updateProduct",product);
+	}
+	
+	public int insertNewProductOption(SqlSessionTemplate sqlSession, ProductOption option) {
+		return sqlSession.insert("sellerMapper.insertNewProductOption",option);
+	}
+	
+	public int updateProductOption(SqlSessionTemplate sqlSession, ProductOption option) {
+		return sqlSession.update("sellerMapper.updateProductOption",option);
+	}
+	
+	public int deleteProductOption(SqlSessionTemplate sqlSession, ProductOption option) {
+		return sqlSession.delete("sellerMapper.deleteProductOption",option);
+	}
+	
 	
 	// 상품 삭제
 	public int deleteProduct(SqlSessionTemplate sqlSession, int pno) {

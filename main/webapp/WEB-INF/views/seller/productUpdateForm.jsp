@@ -20,7 +20,13 @@
 
 <!-- JS -->
 <script src="${pageContext.request.contextPath}/resources/js/sellerJS/showCategory.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/sellerJS/addOption.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/sellerJS/productUpdateForm.js"></script>
+
+<script>
+
+const pno = '${pd.pdNo}';
+
+</script>
 
 </head>
 <body>
@@ -35,8 +41,11 @@
         <%@ include file="../commons/aside.jsp" %>
 
         <section>
-            <h1>스토어 관리 &gt; 상품 등록</h1>
+            <h1>스토어 관리 &gt; 상품 수정</h1>
             <form id="updateForm" action="update.pd" method="post" enctype="multipart/form-data">
+
+                <input type="hidden" name="pno" value="${pd.pdNo}">
+
                 <div id="product-management">
                     <div>
                         <div class="form-group">
@@ -59,17 +68,15 @@
                             </label>
                             <input class="form-control" type="number" min="0" step="100"  id="pdPrice" name="pdPrice" placeholder="판매가 입력" value="${pd.pdPrice}" required>
                         </div>
-
+                        
                         <div id="div-enroll-option">
-                            <div>
-                                <h4>옵션 등록</h4>
-                                <input id="enroll-option" type="text" placeholder="옵션 입력">
-                                <input id="enroll-pdCount" type="number" min="0" placeholder="수량">
-                                <button type="button" id="add-optionBtn">추가</button>
-                            </div>
-                            <div>
-                                <ul id="optionList"></ul>
-                            </div>
+                                <div>
+                                    <h4>옵션 등록</h4>
+                                    <button type="button" id="add-optionBtn">옵션 추가</button> 
+                                </div>
+                                <table >
+                                  
+                                </table>                           
                         </div>
                     </div>
                 </div>

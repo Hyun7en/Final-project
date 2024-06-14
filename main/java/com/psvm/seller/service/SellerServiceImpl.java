@@ -189,10 +189,30 @@ public class SellerServiceImpl implements SellerService {
 	
 	// 상품 정보 수정
 	@Override
-	public int updateProduct(Product product, List<ProductOption> options) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Transactional
+    public int updateProduct(Product product, List<ProductOption> options) {
+        // 상품 업데이트
+        int t1 = sellerDao.updateProduct(sqlSession, product);
+        int t2 = 1, t3 =1 ,t4 =1;
+        
+        // 옵션 처리
+        for (ProductOption option : options) {
+            switch (option.getOptionStatus()) {
+                case "new":
+                	 t2 = t2 * sellerDao.insertNewProductOption(sqlSession, option);
+                    break;
+                case "updated":
+                	 t3 = t3 * sellerDao.updateProductOption(sqlSession, option);
+                    break;
+                case "deleted":
+                	 t4 = t4 * sellerDao.deleteProductOption(sqlSession, option);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Unknown option status: " + option.getOptionStatus());
+            }
+        }
+        return t1*t2*t3*t4;
+    }
 	
 	@Override
 	public int deleteProduct(int pno) {
