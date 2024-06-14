@@ -1,6 +1,7 @@
 package com.psvm.seller.dao;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -159,6 +160,11 @@ public class SellerDao {
 		RowBounds rowBounds = new RowBounds(offset, size);
 		
 		return (List)sqlSession.selectList("sellerMapper.selectAllProduct", null, rowBounds);
+	}
+	
+	//알람 ajax
+	public ArrayList<String> getAlarmList(SqlSessionTemplate sqlSession, int userNo){
+		return (ArrayList)sqlSession.selectList("sellerMapper.getAlarmList", userNo);
 	}
 
 	

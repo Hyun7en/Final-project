@@ -1,6 +1,7 @@
 package com.psvm.seller.service;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -224,6 +225,12 @@ public class SellerServiceImpl implements SellerService {
 	public List<StoreMainDTO> selectAllProduct(int page, int size) {
 		
 		return sellerDao.selectAllProduct(sqlSession, page, size);
+	}
+	
+	//알람 ajax
+	@Override
+	public ArrayList<String> getAlarmList(int userNo) {
+		return sellerDao.getAlarmList(sqlSession, userNo);
 	}
 
 }

@@ -16,10 +16,10 @@
    <!-- Popper JS -->
    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
    <!-- Latest compiled JavaScript -->
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  
    
 <!-- 스크립트에서는 contextPath를 못알아먹으니 여기서 선언하고 함수의 인자로 넘긴다. -->
-<body onload="fishInfoInit('${pageContext.request.contextPath}')"> 
+<body > 
    <div class="wrap">
    
       <!-- header -->
