@@ -157,7 +157,6 @@ function loadImg(imgInputFile){
 // 회원탈퇴 버튼 눌렀을 때 나타나는 모달창
 function delete_member_modal(){
     document.getElementById("delete-member-modal").style.display = "flex";
-    
 }
 
 // 회원탈퇴 하기 전 비밀번호 확인(ajax)
@@ -199,5 +198,110 @@ function close_modal(){
     document.getElementById("delete-member-modal").style.display = "none";
     document.getElementById("warning-text").style.color = "red";
     document.getElementById("warning-text").innerText = "* 회원 탈퇴 시, 복구가 불가능합니다.";
+    document.getElementById("delete-btn").disabled = true;
+    document.getElementById("delete-btn").style.color = "#d0d0d0";
 }
 
+// 비밀번호 변경 모달창 띄우기 위한 기존 비밀번호 확인(ajax)
+function change_pwd_modal(){
+    const inputPwd = document.getElementById("userPwd").value;
+    const loginUserPwd = document.getElementById("loginUserPwd").value;
+
+    $.ajax({
+        url: 'passwordCheck.my',
+        type: 'POST',
+        data: {
+            inputPwd : inputPwd,
+            loginUserPwd : loginUserPwd
+        },
+        success: function(res){
+            console.log(res);
+            if(res === true){
+                document.getElementById("change-pwd-modal").style.display = "flex";
+            } else{
+                callErrorMsg("비밀번호가 일치하지 않습니다.");
+            }
+        }  
+    });
+}
+
+// 비밀번호 변경 모달창에서 결정 버튼 누름
+function new_password_check(){
+    const inputNewPwd = document.getElementById('inputNewPwd');
+    const inputChkPwd = document.getElementById('inputChkPwd');
+    if(inputNewPwd.value == ""){ //비밀번호 누락
+        document.getElementById("notice-text").style.color = "red";
+        document.getElementById("notice-text").innerText = "비밀번호를 입력하세요.";
+    } else if (inputNewPwd.value != inputChkPwd.value){
+        document.getElementById("notice-text").style.color = "red";
+        document.getElementById("notice-text").innerText = "비밀번호가 일치하지 않습니다.";
+    } else{
+        inputNewPwd.readOnly = true;
+        inputChkPwd.readOnly = true;
+        document.getElementById("confirm-btn").innerText = "취소"
+        document.getElementById("confirm-btn").setAttribute("onclick", "password_reset()");
+
+        document.getElementById("changePwd-btn").disabled = false;
+        document.getElementById("changePwd-btn").style.color = "black";
+
+        document.getElementById("notice-text").style.color = "green";
+        document.getElementById("notice-text").innerText = "다시 입력하고 싶으시면 취소 버튼을 눌러주세요.";
+    }
+}
+
+// 비밀번호 변경 모달창에서 새 비밀번호 재입력
+function password_reset(){
+    document.getElementById('inputNewPwd').value = "";
+    document.getElementById('inputNewPwd').readOnly = false;
+
+    document.getElementById('inputChkPwd').value = "";
+    document.getElementById('inputChkPwd').readOnly = false;
+
+    document.getElementById("confirm-btn").innerHTML = "결정"
+    document.getElementById("confirm-btn").setAttribute("onclick", "new_password_check()");
+
+    document.getElementById("notice-text").style.color = "black";
+    document.getElementById("notice-text").innerText = "";
+
+    document.getElementById("changePwd-btn").disabled = true;
+    document.getElementById("changePwd-btn").style.color = "#d0d0d0";
+}
+
+// 비밀번호 변경 모달창에서 변경하기 버튼 눌렀을 때
+function change_pwd(userNo){
+    const userPwd = document.getElementById('inputNewPwd').value;
+    document.getElementById("change-pwd-modal").style.display = "none";
+    location.href="changePwd.my?userNo=" + userNo + "&userPwd=" + userPwd;
+}
+
+// 비밀번호 변경에서 닫기 버튼 눌렀을때
+function close_pwd_modal(){
+    document.getElementById("change-pwd-modal").style.display = "none";
+    
+    document.getElementById("inputNewPwd").value = "";
+    document.getElementById("inputNewPwd").readOnly = false;
+
+    document.getElementById('inputChkPwd').value = "";
+    document.getElementById('inputChkPwd').readOnly = false;
+
+    document.getElementById("confirm-btn").innerHTML = "결정"
+    document.getElementById("confirm-btn").setAttribute("onclick", "new_password_check()");
+
+    document.getElementById("notice-text").style.color = "black";
+    document.getElementById("notice-text").innerText = "";
+
+    document.getElementById("changePwd-btn").disabled = true;
+    document.getElementById("changePwd-btn").style.color = "#d0d0d0";
+}
+
+//오류 메시지
+function callErrorMsg(errMsg){
+    var errorMessage = errMsg;
+    if (errorMessage) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            html: errorMessage
+        });
+    }
+}

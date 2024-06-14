@@ -47,6 +47,11 @@ public class MyPageDao {
 		return sqlSession.update("myPageMapper.deleteMember", userNo);
 	}
 	
+	// 비밀번호 변경
+	public int changePwd(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("myPageMapper.changePwd", m);
+	}
+	
 	// 찜 목록 갯수 조회
 	public int selectInterestCount(SqlSessionTemplate sqlSession, int userNo) {
 		return sqlSession.selectOne("myPageMapper.selectInterestCount", userNo);

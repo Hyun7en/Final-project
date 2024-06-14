@@ -1,5 +1,7 @@
 package com.psvm.member.service;
 
+import java.util.ArrayList;
+
 import com.psvm.member.vo.Member;
 
 public interface MemberService {
@@ -15,4 +17,5 @@ public interface MemberService {
 	
 	//카카오 로그인
 	Member kakaoLogin(String email);
+	
 }

@@ -22,4 +22,5 @@ public class MemberDao {
 	public Member kakaoLogin(SqlSessionTemplate sqlSession, String email) {
 		return sqlSession.selectOne("memberMapper.kakaoLogin", email);
 	}
+	
 }

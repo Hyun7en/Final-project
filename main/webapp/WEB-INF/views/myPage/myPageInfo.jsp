@@ -7,18 +7,23 @@
 <meta charset="UTF-8">
 <title>내 정보</title>
 	
-
+    <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <!-- Popper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    
     <!-- css -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/myPageCSS/myPageInfo.css">
+    
     <!-- javaScript -->
     <script src="${pageContext.request.contextPath}/resources/js/myPageJS/myPageInfo.js"></script>
-        <!-- alert 메세지 창 -->
+
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+    <!-- alert 메세지 -->
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 </head>
 <body>
     <c:if test="${ not empty successMessage}">
@@ -44,13 +49,13 @@
                 <div id="myPage-sidebar">
                     <div id="myPage-sidebar-profile-area">
                         <div id="myPage-sidebar-profile-img">
-                            <img src="https://previews.123rf.com/images/ann24precious/ann24precious1602/ann24precious160200015/53140153-%EA%B7%80%EC%97%AC%EC%9A%B4-%EB%AC%BC%EA%B3%A0%EA%B8%B0.jpg" alt="">
+                            <img src="${ma.changeName}" alt="">
                         </div>
                         <div id="myPage-sidebar-profile-nickName"><b>${loginUser.nickname}</b>님 환영합니다.</div>
                     </div>
                     <div id="myPage-category-area"> 
                         <div class="myPage-category"><a style="color: #0089FF;" href="myPage.me?userNo=${loginUser.userNo}">내 정보</a></div>
-                        <div class="myPage-category"><a href="interestProduct.my?userNo=${loginUser.userNo}">관심상품</a></div>
+                        <div class="myPage-category"><a href="interestProduct.my?userNo=${loginUser.userNo}&cpage=1">관심상품</a></div>
                         <div class="myPage-category"><a href="cart.my?userNo=${loginUser.userNo}">장바구니</a></div>
                         <div class="myPage-category"><a href="orderHistory.my?userNo=${loginUser.userNo}">주문내역</a></div>
                         <div class="myPage-category"><a href="writePost.my?userNo=${loginUser.userNo}">작성한 글</a></div>
@@ -96,18 +101,13 @@
                                     <th>레벨</th>
                                     <td>${loginUser.userLv}</td>
                                 </tr>
-                                <!-- <tr>
-                                    <th>아이디</th>
-                                    <td>
-                                        ${loginUser.userId}
-                                    </td>
-                                </tr>
                                 <tr>
                                     <th>비밀번호</th>
                                     <td>
-                                        ${loginUser.userPwd}
+                                        <input type="password" id="userPwd" name="userPwd" placeholder="기존의 비밀번호 입력">
+                                        <button type="button" class="change-btn" onclick="change_pwd_modal()">변경</button>
                                     </td>
-                                </tr> -->
+                                </tr>
                             </table>
                         </div>
                          
@@ -191,13 +191,33 @@
                             </div>
                             <div id="modal-btn-area">
                                 <!-- <form id="form-area" action="deleteMember.my?userNo=${loginUser.userNo}"></form> -->
-                                    <button type="button" id="delete-btn" onclick="delete_member('${loginUser.userNo}')" readonly style="color: #d0d0d0;">탈퇴하기</button>
+                                    <button type="button" id="delete-btn" onclick="delete_member('${loginUser.userNo}')" disabled style="color: #d0d0d0;">탈퇴하기</button>
                                 <!-- </form> -->
                                 <button type="button" id="close-modal" onclick="close_modal()">닫기</button>
                             </div>
                         </div>
                     </div>  
 
+                    <div id="change-pwd-modal">
+                        <div id="change-pwd-modal-content">
+                            <h3>비밀번호 변경</h3>
+                            <div id="password-check-area">
+                                <div>
+                                    <span>새 비밀번호 입력</span>
+                                    <div>
+                                        <input type="password" id="inputNewPwd" placeholder="새 비밀번호">
+                                        <input type="password" id="inputChkPwd" placeholder="새 비밀번호 확인">
+                                        <button type="button" id="confirm-btn" type="button" onclick="new_password_check()">결정</button>
+                                    </div>
+                                </div>
+                                <span id="notice-text"></span>
+                            </div>
+                            <div id="modal-btn-area">
+                                <button type="button" id="changePwd-btn" onclick="change_pwd('${loginUser.userNo}')" disabled style="color: #d0d0d0;">변경하기</button>
+                                <button type="button" id="close-modal" onclick="close_pwd_modal()">닫기</button>
+                            </div>
+                        </div>
+                    </div> 
                 </div>
             </div>
         </main>

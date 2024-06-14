@@ -1,12 +1,14 @@
 package com.psvm.manager.dao;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.psvm.commons.vo.PageInfo;
+import com.psvm.manager.vo.ApplicationProduct;
 import com.psvm.manager.vo.Search;
 import com.psvm.manager.vo.Seller;
 import com.psvm.member.vo.Member;
@@ -106,5 +108,50 @@ public class ManagerDao {
 	// 판매자 신규신청 승인
 	public int sellerNewApplicationApprove(SqlSessionTemplate sqlSession, int userNo) {
 		return sqlSession.update("managerMapper.sellerNewApplicationApprove", userNo);
+	}
+	
+	// 판매자가 신청한 상품 수 조회
+	public int reportProductListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("managerMapper.reportProductListCount");
+	}
+	
+	// 판매자가 신청한 상품 조회
+	public ArrayList<ApplicationProduct> reportProductList(SqlSessionTemplate sqlSession, PageInfo pi){
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("managerMapper.reportProductList", null, rowBounds);
+	}
+	
+	// 검새한 판매자 상품신청 수 조회
+	public int searchSellerProductApplicationCount(SqlSessionTemplate sqlSession, Search s) {
+		return sqlSession.selectOne("managerMapper.searchSellerProductApplicationCount", s);
+	}
+	
+	// 검색한 판매자 상품신청 조회
+	public ArrayList<ApplicationProduct> searchSellerProductApplicationList(SqlSessionTemplate sqlSession, Search s, PageInfo pi){
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("managerMapper.searchSellerProductApplicationList", s, rowBounds);
+	}
+	
+	// 판매자 상품신청 승인
+	public int sellerProductApplicationApprove(SqlSessionTemplate sqlSession, int pdOptionNo) {
+		return sqlSession.update("managerMapper.sellerProductApplicationApprove", pdOptionNo);
+		
+	}
+	
+	// 탈퇴 회원 수 조회
+	public int customerOutCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("managerMapper.customerOutCount");
+	}
+	
+	// 탈퇴 회원 조회
+	public ArrayList<Member> customerOutList(SqlSessionTemplate sqlSession, PageInfo pi){
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return sqlSession.selectList("managerMapper.customerOutList", rowBounds);
 	}
 }

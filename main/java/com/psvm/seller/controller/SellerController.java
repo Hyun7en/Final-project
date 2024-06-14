@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -624,5 +625,14 @@ public class SellerController {
     	
     	return "store/order";
     }
+    
+	@ResponseBody
+	@RequestMapping(value="getAlarmList.se", produces = "application/json; charset=UTF-8")
+	public String getAlarmList(@RequestParam("userNo") int userNo) {
+		ArrayList<String> list = sellerService.getAlarmList(userNo);
+		System.out.println(userNo);
+		
+		return new Gson().toJson(list);
+	}
    
 }

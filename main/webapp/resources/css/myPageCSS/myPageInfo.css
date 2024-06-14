@@ -239,7 +239,7 @@ input{
     background-color: #eeeeee;
 }
 
-#delete-member-modal{
+#delete-member-modal, #change-pwd-modal{
     padding-top: 300px;
     display: none;
     position: fixed;
@@ -252,7 +252,7 @@ input{
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-#delete-member-modal-content{
+#delete-member-modal-content, #change-pwd-modal-content{
     display: flex;
     flex-direction: column;
     width: 40%;
@@ -261,12 +261,15 @@ input{
     margin-left: 680px;
     padding: 10px 0 0 20px;
 }
+#change-pwd-modal-content{
+    height: 37%;
+}
 
-#delete-member-modal-content h3{
+#delete-member-modal-content h3, #change-pwd-modal-content h3{
     margin-bottom: 15px;
 }
 
-#delete-member-modal-content button{
+#delete-member-modal-content button, #change-pwd-modal-content button{
     width: 60px;
     height: 40px;
     border: 1px solid black;
@@ -275,18 +278,22 @@ input{
     cursor: pointer;
 }
 
-#delete-member-modal-content form input{
+#change-pwd-modal-content input{
     width: 90%;
+    margin-bottom: 5px;
+}
+
+#warning-text, #notice-text{
+    margin-left: 10px;
 }
 
 #warning-text{
-    margin-left: 10px;
     color: red;
 }
 
 #modal-btn-area{
     display: flex;
     justify-content: flex-end;
-    margin: 40px 5px 5px 0;
+    margin: 20px 5px 5px 0;
 }
 

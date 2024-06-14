@@ -2,10 +2,7 @@
 // $(document).ready(function(){
 //     startFunction(1)
 // })
-let path;
-function fishInfoInit(contextPath){
-    path = contextPath;
-}
+
 
 function contentsFunction(cpage, cate){
     if (event) {
