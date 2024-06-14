@@ -1,7 +1,6 @@
 
-$(function(){
+$(function(){ // 아이디, 비밀번호 체크
     const idInput = document.querySelector("#signup-id");
-    document.getElementById("checkResult");
     let eventFlag;
     idInput.onkeyup = function(ev){
         clearTimeout(eventFlag);
@@ -41,7 +40,7 @@ $(function(){
             document.getElementById("checkResult").style.color = "#0089FF"
             document.getElementById("checkResult").innerHTML = "5자 이상 입력해야 합니다.";
         }
-    }    
+    }
 })
 
 
@@ -102,6 +101,7 @@ var themeObj = { //다음 주소 API 테마
 
 function signUpSubmit(){ //회원가입 신청 시 필수 항목 체크
     const userPwd = document.querySelector('#signup-pwd').value;
+    const checkPwd = document.querySelector('#check-pwd').value;
     const email = document.querySelector('#signup-email').value;
     const userName = document.querySelector('#signup-name').value;
     const nickname = document.querySelector('#signup-nickname').value;
@@ -111,6 +111,9 @@ function signUpSubmit(){ //회원가입 신청 시 필수 항목 체크
     const signUp = document.querySelector('#signup-input');
     if(userPwd == ""){ //비밀번호 누락
         callErrorMsg("비밀번호를 입력해주세요.")
+        return false;
+    } else if(userPwd != checkPwd){ //비밀번호 확인 불일치
+        callErrorMsg("비밀번호가 일치하지 않습니다.")
         return false;
     } else if(email.length == "" || isValidEmail(email) == false){ //이메일 누락 또는 정규식 탈락
         callErrorMsg("이메일 형식은 아래의 8가지만 허용됩니다.<br>'@naver.com', '@gmail.com', '@hanmail.net', '@daum.net', '@nate.com', '@hotmail.com', '@icloud.com', '@outlook.com'")
