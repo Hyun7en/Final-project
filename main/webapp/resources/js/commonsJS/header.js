@@ -3,7 +3,8 @@ let path;
 function init(pageType, contextPath, data){
     path = contextPath;
   switch(pageType){ 
-    case 'storeSellersHome','storeSellersCategory':
+    case 'storeSellersHome':
+    case 'storeSellersCategory':
       orderSelected();
       checkAlarm(data.userNo, data.sellerPageNo);
       break;
