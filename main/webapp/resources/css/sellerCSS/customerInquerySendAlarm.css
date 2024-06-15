@@ -1,0 +1,25 @@
+section {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 40px 200px;
+    height: calc(100vh - 40px);
+    overflow-y: hidden; /* section 전체에서 스크롤을 없애기 위해 변경 */
+}
+
+.subscriber-list-container {
+    padding: 20px;
+    margin: 0;
+    max-height: calc(100vh - 200px); /* 리스트의 최대 높이를 화면 높이에 맞게 조정 */
+    overflow-y: auto; /* 컨테이너 내부에서 스크롤이 가능하게 합니다. */
+}
+
+.subscriber-item {
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    font-size: 1em;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}

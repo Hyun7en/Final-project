@@ -1,4 +1,6 @@
-package com.psvm.example.vo;
+package com.psvm.alarm.vo;
+
+import java.sql.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,6 +13,12 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class test {
-	private int a;
+public class Alarm {
+	int alarmNo;
+	int userNo;
+	int sellerPageNo;
+	String alarmContents;
+	Date alarmDate;
+	boolean alarmCheck;
+	String storeName;
 }

@@ -246,11 +246,5 @@ public class SellerServiceImpl implements SellerService {
 		
 		return sellerDao.selectAllProduct(sqlSession, page, size);
 	}
-	
-	//알람 ajax
-	@Override
-	public ArrayList<String> getAlarmList(int userNo) {
-		return sellerDao.getAlarmList(sqlSession, userNo);
-	}
 
 }
