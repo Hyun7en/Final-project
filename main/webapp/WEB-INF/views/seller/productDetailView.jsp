@@ -171,13 +171,52 @@
         <!-- 리뷰 -->
         <section class="product-review" id="product-review">
             <div class="product-review-area">
-                    <div class="review-top">
+                <div class="review-top">
                     <h1 class="description-title">
                         리뷰
                     </h1>
                     <button id="review-btn" class="btn btn-primary" data-toggle="modal" data-target="#review-Modal">
                         리뷰쓰기
                     </button>
+                </div>
+
+                <div>
+                   <!-- 반복 구문 시작 -->
+                    <table>
+                        <tr>
+                            <td>
+                                <img src="" alt="">
+                            </td>
+                            <td>
+                                이름
+                            </td>
+                            <td>
+                                별점
+                            </td>
+                            <td>
+                                날짜
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                상품명
+                            </td>
+                            <td>
+                                옵션명
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="" alt="">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                리뷰 내용
+                            </td>
+                        </tr>
+                    </table>
+                    
                 </div>
             </div>
 
@@ -284,18 +323,29 @@
                     </button>
                 </div>
 
-                <table id="qna_content">
-                    <thead>
+                <div>
+                    <!--  반복문 시작 -->
+                    <table>
                         <tr>
-                            <td class="qna_title">제목</td>
-                            <td class="qna_writer">작성자</td>
-                            <td class="qna_create_date">작성일</td>
-                            <td class="qna_status">답변상태</td>
+                            <td>
+                                문의자명
+                            </td>
+                            <td>
+                                문의날짜
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
+                        <tr>
+                            <td>
+                                문의 내용
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                문의 답변
+                            </td>
+                        </tr>
+                    </table>
+                </div>
                  <!-- 페이징 처리 들어오는 곳-->
                 <div id="pagination-div">
                     <ul class="pagination">
@@ -371,8 +421,62 @@
             </div>
         </div>
 
-        <section class="product-delivery" id="product-delivery">
-            <h1>배송/교환/환불</h1>
+        <section class="seller-info" id="seller-info">
+            <h1>판매자 정보</h1>
+
+            <div>
+                <table>
+                    <tr>
+                        <th>
+                            상호
+                        </th>
+                        <td>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            대표자
+                        </th>
+                        <td>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            사업장 소재지
+                        </th>
+                        <td>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            전화번호
+                        </th>
+                        <td>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            E-mail
+                        </th>
+                        <td>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            사업자 번호
+                        </th>
+                        <td>
+
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
         </section>
        
     </main>
