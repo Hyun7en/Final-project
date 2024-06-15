@@ -370,15 +370,4 @@
 		 ORDER BY P_ENROLL_DATE DESC
 	</select>
 	
-	<select id="getAlarmList" resultMap="StoreMainDTOResult">
-		SELECT store_name,
-			   SELLER_PAGE_NO
-		FROM seller_info
-		JOIN seller_page using(business_no)
-		WHERE seller_page_no in (SELECT seller_page_no
-								FROM public.user_alarm
-								WHERE user_no = #{userNo}
-								AND alarm = 1)
-	</select>
-	 
 </mapper>

@@ -176,10 +176,4 @@ public class SellerDao {
 		return (List)sqlSession.selectList("sellerMapper.selectAllProduct", null, rowBounds);
 	}
 	
-	//알람 ajax
-	public ArrayList<String> getAlarmList(SqlSessionTemplate sqlSession, int userNo){
-		return (ArrayList)sqlSession.selectList("sellerMapper.getAlarmList", userNo);
-	}
-
-	
 }

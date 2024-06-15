@@ -67,7 +67,4 @@ public interface SellerService {
 	
 	// 무한 스크롤로 전체 상품 가져오기
 	public List<StoreMainDTO> selectAllProduct(int page, int size);
-	
-	//알람 ajax
-	ArrayList<String> getAlarmList(int userNo);
 }
