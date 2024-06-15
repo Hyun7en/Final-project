@@ -13,7 +13,6 @@
  	<!-- typeAlias : VO/DTO 클래스들의 풀클래스명을 단순한 클래스명(별칭)으로 사용하기위한 별칭을 등록하는 영역-->
  	<typeAliases>
  		<!-- <typeAlias type="com.kh.spring.board.model.vo.Reply" alias="Reply" /> -->
- 		<typeAlias type="com.psvm.example.vo.test" alias="test" />
  		<typeAlias type="com.psvm.member.vo.Member" alias="Member"/>
  		<typeAlias type="com.psvm.member.vo.MemberAttachment" alias="MemberAttachment"/>
  		<typeAlias type="com.psvm.community.vo.Community" alias="Community"/>
@@ -34,6 +33,8 @@
  		<typeAlias type="com.psvm.manager.vo.ApplicationProduct" alias="ApplicationProduct"/>
  		<typeAlias type="com.psvm.seller.dto.ProductDTO" alias="ProductDTO"/>
  		<typeAlias type="com.psvm.seller.vo.Review" alias="Review"/>
+ 		<typeAlias type="com.psvm.alarm.vo.Alarm" alias="Alarm"/>
+ 		<typeAlias type="com.psvm.alarm.vo.Subscribe" alias="Subscribe"/>
  	</typeAliases>
  	
  	<!-- 
@@ -44,7 +45,6 @@
  	<!-- mappers : 실행할 sql문들을 기록해둔 mapper파일들을 등록하는 영역 -->
  	<mappers>
  		<mapper resource="/mappers/member-mapper.xml"/>
- 		<mapper resource="/mappers/board-mapper.xml"/>
  		<mapper resource="/mappers/myPage-mapper.xml"/>
  		<mapper resource="/mappers/community-mapper.xml"/>
  		<mapper resource="/mappers/seller-mapper.xml"/>
@@ -53,6 +53,7 @@
  		<mapper resource="/mappers/curation-mapper.xml"/>
  		<mapper resource="/mappers/store-mapper.xml"/>
  		<mapper resource="/mappers/cs-mapper.xml"/>
+ 		<mapper resource="/mappers/alarm-mapper.xml"/>
  	</mappers>
 
  	

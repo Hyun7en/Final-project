@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/storeCSS/storeSellersHome.css">
 
 </head>
-<body onload="init('storeSellersHome',`${pageContext.request.contextPath}`,{loginUser : `${loginUser.userNo}`,sellerPageNo : `${si.sellerPageNo}`})">
+<body onload="init('storeSellersHome',`${pageContext.request.contextPath}`,{userNo : `${loginUser.userNo}`,sellerPageNo : `${si.sellerPageNo}`})">
     <c:if test="${ not empty successMessage}">
 		<script>
             var successMessage = '${successMessage}';
