@@ -33,4 +33,5 @@ public class Member {
 	private int	memberFileNo; // 썸네일
 	private String userIntro; //한줄소개
 	private String changeName; // 썸네일 파일명
+	private Date dropDate; //탈퇴일자
 }

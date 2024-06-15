@@ -1,6 +1,7 @@
 package com.psvm.manager.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -133,6 +134,15 @@ public class ManagerServiceImpl implements ManagerService{
 	
 	// 탈퇴 회원 조회
 	public ArrayList<Member> customerOutList(PageInfo pi){
+		return managerDao.customerOutList(sqlSession, pi);
+	}
+	// 탈퇴 회원 수 조회(검색)
+	public int searchedOutCount(HashMap<String, String> map) {
+		return managerDao.customerOutCount(sqlSession);
+	}
+	
+	// 탈퇴 회원 조회(검색)
+	public ArrayList<Member> searchedOutlist(PageInfo pi, HashMap<String, String> map){
 		return managerDao.customerOutList(sqlSession, pi);
 	}
 }
