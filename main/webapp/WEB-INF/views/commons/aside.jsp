@@ -34,16 +34,8 @@
             <li>
                 <div>주문/배송 <img src="${pageContext.request.contextPath}/resources/image/triangle.png"></div>
                 <ul class="sub-menu">
-                    <li><a href="#">주문 관리</a></li>
-                    <li><a href="#">배송 관리</a></li>
-                </ul>
-            </li>
-            <li>
-                <div>취소/반품/교환 <img src="${pageContext.request.contextPath}/resources/image/triangle.png"></div>
-                <ul class="sub-menu">
-                    <li><a href="#">취소 상품관리</a></li>
-                    <li><a href="#">반품 상품관리</a></li>
-                    <li><a href="#">교환 상품관리</a></li>
+                    <li><a href="manage.co">주문 관리</a></li>
+                    <li><a href="manage.cs">배송 관리</a></li>
                 </ul>
             </li>
             <li>
@@ -55,7 +47,7 @@
             <li>
                 <div>정산 관리 <img src="${pageContext.request.contextPath}/resources/image/triangle.png"></div>
                 <ul class="sub-menu">
-                    <li><a href="#">정산</a></li>
+                    <li><a href="settlement.pd">정산</a></li>
                 </ul>
             </li>
         </ul>

@@ -627,6 +627,24 @@ public class SellerController {
     	return "store/order";
     }
     
+    @RequestMapping("settlement.pd")
+    public String selectSettleMent() {
+    	
+    	return "seller/settlement";
+    }
+    
+    @RequestMapping("manage.cs")
+    public String selectCustomerShipmentManagement() {
+    	
+    	return "seller/customerShipmentManagement";
+    }
+    
+    @RequestMapping("manage.co")
+    public String selectCustomerOrderManagement() {
+    	
+    	return "seller/customerOrderManagement";
+    }
+    
 	@ResponseBody
 	@RequestMapping(value="getAlarmList.se", produces = "application/json; charset=UTF-8")
 	public String getAlarmList(@RequestParam("userNo") int userNo) {
