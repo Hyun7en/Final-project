@@ -27,12 +27,15 @@
 
         <section>
             <h1>고객 관리 &gt; 고객 알림 </h1>
+            <br>
             
+            <div class="subscriber-count">총 구독자 수: 5</div>
             <div class="subscriber-list-container">
                 <c:forEach var="subscriber" items="${list}">
                     <div class="subscriber-item">${subscriber.nickName}</div>
                 </c:forEach>
             </div>
+
         </section>
     </main>
 
