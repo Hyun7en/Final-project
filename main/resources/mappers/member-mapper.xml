@@ -25,6 +25,7 @@
 		<result column="MEMBER_FILE_NO" property="memberFileNo"/>
 		<result column="USER_INTRO" property="userIntro"/>
 		<result column="CHANGE_NAME" property="changeName"/>
+		<result column="DROP_DATE" property="dropDate"/>
 	</resultMap>
 	
 	<select id="loginMember" resultMap="memberResult">
