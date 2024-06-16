@@ -588,6 +588,8 @@ public class SellerController {
     @RequestMapping("detail.spd")
     public String selectSalesProduct(int pno, Model model) {
     	
+    	log.info("pno" + pno);
+    	
     	ProductDTO spd = sellerService.selectSalesProduct(pno);
     	
     	model.addAttribute("spd",spd);

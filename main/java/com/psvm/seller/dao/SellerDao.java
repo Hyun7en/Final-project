@@ -167,8 +167,7 @@ public class SellerDao {
 	// 판매 상품 상세 정보
 	public ProductDTO selectSalesProduct( SqlSessionTemplate sqlSession,int pno) {
 		
-		return null;
-//		return sqlSession.selectOne("sellerMapper.selectSalesProduct", pno);
+		return sqlSession.selectOne("sellerMapper.selectSalesProduct", pno);
 	}
 	
 	// 무한 스크롤로 전체 상품 가져오기

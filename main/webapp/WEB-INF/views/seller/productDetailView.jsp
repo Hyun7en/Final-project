@@ -29,8 +29,10 @@
     
 </head>
 <body>
-
 <div class="wrap">
+    <form id="auto-submit-form" action="detail.spd?submitted=true" method="post">
+        <input type="hidden" name="pno" value="${param.pno}">
+    </form>    
 
     <!-- header -->
     <%@ include file="../commons/header.jsp" %>
@@ -39,22 +41,21 @@
         
         <div id="store-name-container">
             <div id="store-name">
-                <h1>수조의 달인</h1>
+                <h1>${spd.storeName}</h1>
             </div>
             <button type="button" class="btn btn-danger">상품신고</button>
         </div>
 
         <!-- 상품 구매 -->
         <section class="product-info">
-            <input type="hidden" name="pno" value="">
-
+            
             <div class="product-img-container">
-                <img class="product-img" src="" alt="">
+                <img class="product-img" src="${spd.pdChangeName}" alt="">
             </div>
 
             <div class="product-information">
                 <div class="product-name-area">
-                    <span class="product-name">상품명</span>
+                    <span class="product-name">${spd.pdTitle}</span>
                     <span class="dibs">
                         <i class="fa-regular fa-heart"></i>
                     </span>
@@ -70,7 +71,7 @@
               
                 <div class="product-price-area">
                     <div>
-                        <span class="product-price">10000원</span>
+                        <span class="product-price">${spd.pdPrice}</span>원
                     </div>
                 </div>
                 <!-- <div class="product-etc">
@@ -78,13 +79,12 @@
                 </div> -->
                 <div class="top-product-buy-area">
                     <div class="product-buy-info">
-                        <div><span>상품 선택</span></div>
                         <div id="product-opt-form-wrapper">
                             <form action="" id="product-opt-form" method="post">
                                 <div class="product-opts">
                                     <div class="product-opt-select">
-                                        <div><span>상품을 선택해주세요</span></div>
-                                        <ul class="product-opts-list">
+                                        <div><span>옵션을 선택해주세요</span></div>
+                                        <ul class="product-opt-list">
 
                                         </ul>
                                     </div>
@@ -427,7 +427,7 @@
                                         상호
                                     </th>
                                     <td>
-
+                                        ${spd.mainBusinessName}
                                     </td>
                                 </tr>
                                 <tr>
@@ -435,7 +435,7 @@
                                         대표자
                                     </th>
                                     <td>
-
+                                        ${spd.businessName}
                                     </td>
                                 </tr>
                                 <tr>
@@ -443,7 +443,7 @@
                                         사업장 소재지
                                     </th>
                                     <td>
-
+                                        ${spd.businessAddress}
                                     </td>
                                 </tr>
                                 <tr>
@@ -451,15 +451,15 @@
                                         전화번호
                                     </th>
                                     <td>
-
+                                        ${spd.phone}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>
-                                        E-mail
+                                       이메일
                                     </th>
                                     <td>
-
+                                        ${spd.email}
                                     </td>
                                 </tr>
                                 <tr>
@@ -467,7 +467,7 @@
                                         사업자 번호
                                     </th>
                                     <td>
-
+                                        ${spd.businessNo}
                                     </td>
                                 </tr>
                             </table>
