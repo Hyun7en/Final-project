@@ -2,13 +2,13 @@ package com.psvm.alarm.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.psvm.alarm.dao.AlarmDao;
-import com.psvm.seller.dao.SellerDao;
 
 @Service
 public class AlarmServiceImpl implements AlarmService{
@@ -34,4 +34,16 @@ public class AlarmServiceImpl implements AlarmService{
 	public ArrayList<String> loadAlarm(int userNo) {
 		return alarmDao.loadAlarm(sqlSession, userNo);
 	}
+
+	@Override
+	public List<Integer> getuserNos(int sellerNo) {
+		return alarmDao.getuserNos(sqlSession, sellerNo);
+	}
+
+	@Override
+	public int insertAlarm(HashMap<String, Object> map) {
+		return alarmDao.insertAlarm(sqlSession, map);
+	}
+	
+	
 }

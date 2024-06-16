@@ -2,6 +2,7 @@ package com.psvm.alarm.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -19,5 +20,13 @@ public class AlarmDao {
 	
 	public ArrayList<String> loadAlarm(SqlSessionTemplate sqlSession, int userNo) {
 		return (ArrayList)sqlSession.selectList("alarmMapper.loadAlarm", userNo);
+	}
+	
+	public List<Integer> getuserNos(SqlSessionTemplate sqlSession, int sellerNo){
+		return (ArrayList)sqlSession.selectList("alarmMapper.getuserNos", sellerNo);
+	}
+	
+	public int insertAlarm(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		return sqlSession.insert("alarmMapper.insertAlarm", map);
 	}
 }
