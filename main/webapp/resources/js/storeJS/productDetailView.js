@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     //구매 페이지로 이동
     document.getElementById('product-buy-btn').onclick = function() {
-        location.href = 'enrollForm.pd';
+        location.href = 'order.pd';
     };    
 
 });

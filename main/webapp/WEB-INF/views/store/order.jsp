@@ -11,7 +11,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/storeCSS/order.css">
 
+<script src="${pageContext.request.contextPath}/resources/js/storeJS/order.js"></script>
 
 </head>
 <body>
@@ -20,227 +22,285 @@
     <!-- header -->
     <%@ include file="../commons/header.jsp" %>
 
-    <main>
-        <div>
-            <table class="tbl_col prd">
-                <caption class="hidden">주문상품</caption>
-                <colgroup>
-                    <col style="width:100px;">
-                    <col>
-                    <col style="width:18%;">
-                    <col style="width:10%;">
-                    <col style="width:10%;">
-                    <col style="width:10%;">
-                    <col style="width:10%;">
-                    <col style="width:10%;">
-                </colgroup>
-                <thead>
-                    <tr>
-                        <th scope="col" colspan="2">상품명</th>
-                        <th scope="col">옵션</th>
-                        <th scope="col">가격</th>
-                        <th scope="col">수량</th>
-                        <th scope="col">추가금액</th>
-                        <th scope="col">총 금액</th>
-                        <th scope="col">적립금</th>
-                    </tr>
-                </thead>
-                <tbody>
-            <!-- 반복구문시작 -->
-                    <tr>
-                        <td class="img">{{$상품이미지(링크포함)}}</td>
-                        <td class="tal">
-                            {{$상품명(링크포함)}}
-                            {{if(오늘출발)}}
-                            <p class="today"><strong>오늘출발</strong><span>평일 {{$오늘출발주문마감시간}} 주문마감</span></p>
-                            {{endif(오늘출발)}}
-                        </td>
-                        <td class="tal">{{$상품옵션정보(추가가격포함)}}<div>{{$기타메세지}}</div></td>
-                        <td>{{$화폐단위전}}{{$옵션제외가격}}{{$화폐단위후}}</td>
-                        <td>{{$구매수량}}</td>
-                        <td>{{$화폐단위전}}{{$총옵션가격}}{{$화폐단위후}}</td>
-                        <td>{{$화폐단위전}}{{$상품총가격}}{{$화폐단위후}}</td>
-                        <td>{{$화폐단위전}}{{$상품총적립금}}{{$화폐단위후}}</td>
-                    </tr>
-            <!-- 반복구문끝 -->
-                </tbody>
-            </table>
-        </div>
+    <!-- 주문 container -->
+    <div id="order-container">
+        <div id="order-information-area">
+            <div style="font-size: 23px; font-weight: bold;">주문/결제</div>
 
-        <div>
-            <section>
-                <h3 class="title">주문자 입력</h3>
-                <table class="tbl_order">
-                    <caption class="hidden">주문자 입력</caption>
-                    <colgroup>
-                        <col style="width:18%;">
-                        <col>
-                    </colgroup>
-                    <tbody>
-                        <tr>
-                            <th scope="row"><label for="order_buyer_name">주문하시는 분</label></th>
-                            <td><input type="text" name="buyer_name" value="{{$주문자명}}" id="order_buyer_name" class="form_input">{{$로그인전2}}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><label for="buyer_phone">전화번호</label></th>
-                            <td>
-                                <input type="text" name="buyer_phone" id="buyer_phone" value="{{$전화번호}}" class="form_input remove_dash">
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><label for="buyer_cell">휴대전화번호</label></th>
-                            <td>
-                                <input type="text" name="buyer_cell" id="buyer_cell" value="{{$휴대전화}}" class="form_input remove_dash">
-                                <input type="checkbox" name="sms" id="sms" value="Y" checked><label for="sms" class="msg">주문관련 SMS를 수신합니다.</label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><label for="order_buyer_email">이메일</label></th>
-                            <td><input type="text" name="buyer_email" value="{{$주문자이메일}}" id="order_buyer_email" class="form_input mail3"></td>
-                        </tr>
-                        {{$로그인후3}}
-                    </tbody>
-                </table>
-            </section>
-
-            <section>
-                <div class="title_delivery">
-                    <h3 class="title">배송지 정보</h3>
-                    {{if(국내해외배송선택)}}
-                    <span>{{$국내해외배송라디오}}</span>
-                    {{endif(국내해외배송선택)}}
-                    <label class="msg"><input type="checkbox" name="save_addr" value="Y"> 현재 배송지 정보를 회원정보로 저장</label>
+            <!-- 구매자 정보 칸 -->
+            <div id="buyer-information-area">
+                <div class="area-top">
+                    구매자 정보
+                    <button id="put-myInfo">내 정보 넣기</button>
+                    <input type="hidden" id="information-loginUser-email" value="${loginUser.memberEmail}">
+                    <input type="hidden" id="information-loginUser-phone" value="${loginUser.memberPhone}">
                 </div>
-                <table class="tbl_order">
-                    <caption class="hidden">배송지 정보</caption>
-                    <colgroup>
-                        <col style="width:18%;">
-                        <col>
-                    </colgroup>
-                    <tbody>
-                        <tr>
-                            <th scope="row">기존 배송지</th>
-                            <td>
-                                {{$배송지선택}}
-                                <label class="msg"><input type="checkbox" name="copy_info" onClick="copyInfo(this.form)"> 주문인 정보와 동일</label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><label for="order_addressee_name">받으시는 분</label></th>
-                            <td><input type="text" name="addressee_name" value="" id="order_addressee_name" class="form_input"></td>
-                        </tr>
-                        {{$주소및전화입력박스(국내)}}
-                        {{$주소및전화입력박스(해외)}}
-                        <tr>
-                            <th scope="row"><label for="order_dlv_memo">배송시요청사항</label></th>
-                            <td><textarea type="text" name="dlv_memo" value="" id="order_dlv_memo" class="form_input block"></textarea></td>
-                        </tr>
-                        {{$주문추가항목리스트}}
-                    </tbody>
-                </table>
-            </section>
-        </div>
+                <div id="buyer-information" class="information-area">
+                    <div id="buyer-name-area" class="information-div">
+                        <div class="information-title">이름</div>
+                        <div class="input-container">
+                            <input type="text" id="input-buyer-name">
+                        </div>
+                    </div>
+                    <div id="buyer-email-area" class="information-div">
+                        <div class="information-title">이메일</div>
+                        <div id="email-container">
+                            <div id="email-name-container" class="input-container">
+                                <input type="text" id="input-buyer-email">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="buyer-phone-area" class="information-div">
+                        <div class="information-title">전화번호</div>
+                        <div class="input-container">
+                            <input type="text" id="input-buyer-phone">
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <div>
-            <section>
-                <h3 class="title first">결제 정보</h3>
-                <table class="tbl_order2">
-                    <caption class="hidden">결제 가격정보</caption>
-                    <colgroup>
-                        <col style="width:60%;">
-                        <col>
-                    </colgroup>
-                    <tbody>
-                        <tr>
-                            <th scope="row">상품합계 금액</th>
-                            <td>{{$화폐단위전}}{{$총상품구매금액}}{{$화폐단위후}}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">배송료</th>
-                            <td>(+) {{$화폐단위전}}<span id="delivery_prc2">{{$배송비}}</span>{{$화폐단위후}}</td>
-                        </tr>
-                        {{if(해외배송사용)}}
-                        <tr>
-                            <th scope="row">관세</th>
-                            <td>(+) {{$화폐단위전}}<span id="tax_prc"></span>{{$화폐단위후}}</td>
-                        </tr>
-                        {{endif(해외배송사용)}}
-                    </tbody>
-                </table>
-                <table class="tbl_order2 sale">
-                    <caption class="hidden">결제 할인정보</caption>
-                    <colgroup>
-                        <col style="width:50%;">
-                        <col>
-                    </colgroup>
-                    <tbody>
-                        <tr class="total order_area_total_sale_prc">
-                            <th scope="row">할인 금액 합계 <a class="i_info p_cursor" onclick="$('#discount_info').toggle()"></a></th>
-                            <td>
-                                (-) {{$화폐단위전}}{{$총할인금액합계}}{{$화폐단위후}}
-                                <div id="discount_info" class="view_info">
-                                    <div class="order_area_event_prc">이벤트 할인금액<br>{{$화폐단위전}}{{$이벤트할인금액}}{{$화폐단위후}}</div>
-                                    <div class="order_area_timesale">타임세일금액<br>{{$화폐단위전}}{{$타임세일금액}}{{$화폐단위후}}</div>
-                                    <div class="order_area_member_prc">회원할인금액<br>{{$화폐단위전}}{{$회원할인금액}}{{$화폐단위후}}</div>
-                                    <div class="order_area_cpn_prc">쿠폰할인금액<br>{{$화폐단위전}}{{$쿠폰할인금액}}{{$화폐단위후}}</div>
-                                    <div class="order_area_prd_prc">상품금액별할인금액<br>{{$화폐단위전}}{{$상품금액별할인금액}}{{$화폐단위후}}</div>
-                                    <div class="order_area_prdcpn_prc">상품별쿠폰 할인금액<br>{{$화폐단위전}}{{$개별상품쿠폰할인금액}}</span>{{$화폐단위후}}</div>
+            <!-- 구매자 배송지 정보 칸 -->
+            <div id="buyer-address-information">
+                <div class="area-top">배송지 정보</div>
+                <div class="information-area">
+                    <div id="buyer-address-name-area" class="information-div">
+                        <div class="information-title">배송지명</div>
+                        <div class="input-container">
+                            <input type="text" id="input-delivery-name">
+                        </div>
+                    </div>
+
+                    <div id="buyer-recipient-area" class="information-div">
+                        <div class="information-title">받는사람</div>
+                        <div class="input-container">
+                            <input type="text" id="input-delivery-recipient">
+                        </div>
+                    </div>
+
+                    <div id="buyer-phonenumber-area" class="information-div">
+                        <div class="information-title">전화번호</div>
+                        <div class="input-container">
+                            <input type="text" id="input-delivery-phone">
+                        </div>
+                    </div>
+
+                    <div id="buyer-address-area" class="information-div">
+                        <div class="information-title">주소</div>
+                        <div class="address-input-container">
+                            <div class="find_address_area">
+                                <div>
+                                    <button id="find-address-btn" onclick="searchAddress()">주소찾기</button>
                                 </div>
-                            </td>
-                        </tr>
-                        <tr class="use_milage_field total_sale">
-                            <th scope="row">적립금 사용</th>
-                            <td>(-) {{$화폐단위전}}<span class="use_milage_prc"></span>{{$화폐단위후}}</td>
-                        </tr>
-                        <tr class="use_emoney_field total_sale">
-                            <th scope="row">예치금 사용</th>
-                            <td>(-) {{$화폐단위전}}<span class="use_emoney_prc"></span>{{$화폐단위후}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <table class="tbl_order2">
-                    <caption class="hidden">결제정보</caption>
-                    <colgroup>
-                        <col style="width:60%;">
-                        <col>
-                    </colgroup>
-                    <tbody>
-                        <tr class="total order_area_total_milage">
-                            <th scope="row">총 적립금 <a class="i_info p_cursor" onclick="$('#milage_info').toggle()"></a></th>
-                            <td>
-                                {{$화폐단위전}}{{$총지급적립금}}{{$화폐단위후}}
-                                <div id="milage_info" class="view_info">
-                                    <div class="order_area_prd_milage">상품 적립금<br>{{$화폐단위전}}{{$상품적립금}}{{$화폐단위후}}</div>
-                                    <div class="order_area_member_milage">회원 적립금<br>{{$화폐단위전}}{{$회원적립금}}{{$화폐단위후}}</div>
-                                    <div class="order_area_event_milage">이벤트 적립금<br>{{$화폐단위전}}{{$이벤트적립금}}{{$화폐단위후}}</div>
+                                <div class="input-container" id="zonecode">
                                 </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">총 결제 금액</th>
-                            <td>
-                                <strong class="total_price">{{$화폐단위전}}{{$실결제금액}}{{$화폐단위후}}</strong>
-                                {{if(참조화폐사용)}}<br>({{$참조화폐단위전}}<span id="total_r_order_price_div"></span>{{$참조화폐단위후}}){{endif(참조화폐사용)}}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
+                            </div>
+                            <div class="input-container large" id="address">
+                            </div>
+                            <div class="input-container large">
+                                <input type="text" placeholder="상세주소 입력" style="padding-left: 10px;"
+                                    id="input-delivery-detailAddress">
+                            </div>
+                        </div>
+                    </div>
 
-            <section>
-                <h3 class="title line">결제수단</h3>
-                <div class="method">
-                    {{$결제방식선택}}
+                    <div id="buyer-requirement-area" class="information-div">
+                        <div class="information-title">요청사항</div>
+                        <div class="input-container wd-576">
+                            <select name="" id="requirement-select">
+                                <option value="부재시 문앞에 놓아주세요">부재시 문앞에 놓아주세요</option>
+                                <option value="배송전 미리 연락주세요">배송전 미리 연락주세요</option>
+                                <option value="부재시 경비실에 맡겨주세요">부재시 경비실에 맡겨주세요</option>
+                                <option value="부재시 전화주시거나 문자 남겨주세요">부재시 전화주시거나 문자 남겨주세요</option>
+                                <option value="직접 입력">직접 입력</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+
                 </div>
-                {{if(미입금주문취소일)}}<p class="order_cancel_msg">* 주문신청 후 <strong class="point_color">{{$미입금주문취소일}}</strong>일 이내에 입금 확인이 되지 않으면 자동취소 됩니다.</p>{{endif(미입금주문취소일)}}
-                <div id="order1">
-                    <label><input name="reconfirm" id="reconfirm" type="checkbox" value="Y"> 결제정보를 확인하였으며,<br>구매진행에 동의합니다.</label>
-                    <span class="box_btn huge block"><a href="javascript:confirmOrder(); scroll_page();">주문하기</a></span>
+            </div>
+
+            <!-- 주문상품 -->
+            <div id="buyer-order-product-area">
+                <div class="area-top">주문상품</div>
+                <div class="information-area">
+                    <c:forEach var="entry" items="${groupedOpts}">
+                        <div class="order-product-container">
+                            <div class="order-product-container-top">
+                                <span class="brandName">${entry.key.productBrand}</span>
+                            </div>
+                            <div class="order-product-container-content">
+                                <div class="order-product-img-container">
+                                    <img class="order-product-img"
+                                        src="${contextPath }/resources/uploadfile/product/productimg/${entry.key.mainImg}"
+                                        alt="">
+                                </div>
+                                <div class="order-product-info">
+                                    <div class="order-product-name">
+                                        <span
+                                            class="order-product-name-pname">${entry.key.productName}</span>
+                                    </div>
+                                    <c:forEach var="opt" items="${entry.value}">
+                                        <div class="order-productOpt-container">
+                                            <input type="hidden" class="input-order-optNo"
+                                                value="${opt.detailOptionNo}">
+                                            <span
+                                                class="order-product-name-optname">${opt.detailOptionName}</span>
+                                            <div class="order-product-quantity-area">
+                                                <div>
+                                                    <span class="order-product-saled-price">
+                                                        <fmt:formatNumber
+                                                            value="${opt.detailOptionSaledPrice}"
+                                                            type="number" />
+                                                    </span><span class="won">원</span>
+                                                </div>
+                                                <span style="color: #ededed;">|</span>
+                                                <div>
+                                                    <span
+                                                        class="order-product-quantity">${opt.detailOptionQuantity}</span><span>개</span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </c:forEach>
+                                    <div class="order-product-delivery-info order-product-quantity-area">
+                                        <div class="order-product-shipping-cost">
+                                            <span class="order-product-additional-info">배송비</span>
+                                            <span class="shipping-cost order-product-additional-info">
+                                                ${entry.key.shippingPrice}
+                                            </span>
+                                        </div>
+                                        
+                                        <span style="color: #ededed;">|</span>
+                                        <span
+                                            class="shipping-method order-product-additional-info">${entry.key.shipmentType}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </c:forEach>
+
                 </div>
-            </section>
+            </div>
+
+            <!-- 결제수단 -->
+            <div id="order-payment-container">
+                <div class="area-top">결제수단</div>
+                <div class="information-area">
+
+                    <div class="payment-list">
+                        <div class="payment" id="payment-card" onclick="clickPayment(this,'card')">
+                            <div>카드</div>
+                            <div>
+                                <img src="${contextPath }/resources/dummyImg/shopping/payment/card.png"
+                                    alt="">
+                            </div>
+                        </div>
+                        <div class="payment" id="payment-bank-transfer"
+                            onclick="clickPayment(this,'transfer')">
+                            <div>무통장입급</div>
+                            <div>
+                                <img src="${contextPath }/resources/dummyImg/shopping/payment/bank_transfer.png"
+                                    alt="">
+                            </div>
+                        </div>
+                        <div class="payment" id="payment-kakaopay" onclick="clickPayment(this,'kakaopay')">
+                            <div>카카오페이</div>
+                            <div>
+                                <img src="${contextPath }/resources/dummyImg/shopping/payment/img_kakaopay.png"
+                                    alt="">
+                            </div>
+                        </div>
+                        <div class="payment" id="payment-naverpay" onclick="clickPayment(this,'naverpay')">
+                            <div>네이버페이</div>
+                            <div>
+                                <img src="${contextPath }/resources/dummyImg/shopping/payment/img_naver.png"
+                                    alt="">
+                            </div>
+                        </div>
+                        <div class="payment" id="payment-phone" onclick="clickPayment(this,'phone')">
+                            <div>핸드폰</div>
+                            <div>
+                                <img src="${contextPath }/resources/dummyImg/shopping/payment/phone.png"
+                                    alt="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 카드를 선택했을 때 나올 div -->
+                    <div id="select-card-area">
+                        <div class="select-list">
+                            <select name="" id="">
+                                <option value="">농협</option>
+                                <option value="">신한</option>
+                                <option value="">우리</option>
+                                <option value="">BC</option>
+                                <option value="">삼성</option>
+                                <option value="">현대</option>
+                            </select>
+                        </div>
+                        <div class="select-list">
+                            <select name="" id="">
+                                <option value="">1개월</option>
+                                <option value="">2개월</option>
+                                <option value="">3개월</option>
+                                <option value="">4개월</option>
+                                <option value="">5개월</option>
+                                <option value="">6개월</option>
+                                <option value="">7개월</option>
+                                <option value="">8개월</option>
+                                <option value="">9개월</option>
+                                <option value="">10개월</option>
+                            </select>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </main>
 
+        <div id="cart-price-area">
+            <div id="cart-detail-price-area">
+
+                <div style="font-weight: bold; font-size: 18px;">
+                    결제금액
+                </div>
+
+                <div id="cart-detail-price">
+                    <div id="total-product-price-area">
+                        <span>총 상품금액</span>
+                        <div>
+                            <span id="total-product-price"></span><span>원</span>
+                        </div>
+                    </div>
+                    <div id="total-delivery-charge-area">
+                        <span>배송비</span>
+                        <div>
+                            <span id="total-delivery-charge">0</span><span>원</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="cart-price-sum-area">
+                    <span style="font-size: 17px; font-weight: bold;">결제금액</span>
+                    <div>
+                        <span class="cart-price-sum totalPrice"></span><span
+                            class="total-price-sum">원</span>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <form id="buy_btn_container" method="post" action="insertOrder.po">
+                <input type="hidden" id="order-input-orderInfo" name="orderDataJson">
+                <button id="buy_btn"><span class="totalPrice"></span>원 결제하기</button>
+            </form>
+        </div>
+    </div>
+               
     <!-- footer -->
     <%@ include file="../commons/footer.jsp" %>
 

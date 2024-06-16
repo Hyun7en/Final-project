@@ -37,11 +37,14 @@
     <!-- header -->
     <%@ include file="../commons/header.jsp" %>
     
+    
     <main>
         
         <div id="store-name-container">
             <div id="store-name">
-                <h1>${spd.storeName}</h1>
+                <a href="sellersStore.st?sellerPageNo=${spd.sellerPageNo}&order=1&cpage=1">
+                    <h1>${spd.storeName}</h1>
+                </a>
             </div>
             <button type="button" class="btn btn-danger">상품신고</button>
         </div>
@@ -62,10 +65,10 @@
                 </div>
                 <div class="product-grade-area">
                     <div>
-                        <span class="product-grade">평점</span><span>4.7</span>
+                        <span class="product-grade">평점</span><span>${spd.pdStar}</span>
                     </div>
                     <div>
-                        <span class="product-review-quantity">리뷰</span><span class="review-quantity">100개</span>
+                        <span class="product-review-quantity">리뷰</span><span class="review-quantity">${spd.reviewCount}</span>
                     </div>
                 </div>
               
@@ -136,14 +139,14 @@
                 <div class="go" id="go-product-detail"></div>
 
                 <!-- 상품 정보-->
-                 <div>
+                 <div class="product-detail-container">
                     <section class="product-detail" id="product-detail">
                         <div id="area-left">
                             <h1>
                                 상품정보
                             </h1>
-                            <div id="product-description-area">
-
+                            <div class="product-description-area">
+                                ${spd.pdContent}
                             </div>
 
                         </div>

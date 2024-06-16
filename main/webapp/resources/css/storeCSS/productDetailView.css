@@ -7,17 +7,24 @@ main {
 h1{
     font-size: 25px;
     font-weight: bolder;
+    margin-bottom: 20px;
 }
 
 #store-name-container{
     min-height: 100%;
     width: 100%;
-    padding: 50px 350px ;
+    padding: 50px 350px 0px 350px ;
     display: flex;
     justify-content: space-between;
 }
 
+#store-name a{
+    text-decoration: none;   
+}
+
 #store-name h1{
+    font-size: 35px;
+    margin: 0px;
     color: #0089FF;
 }
 
@@ -65,8 +72,24 @@ h1{
     font-weight: 500;
 }
 
-.bottom-product-buy-area{
-    
+.product-buy-btn-container button{
+    width: 220px;
+    height: 65px;
+    margin-right: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.product-buy-btn-container .cart-btn{
+    background-color: white;
+    color: #0089FF;
+}
+
+.product-buy-btn-container .buy-btn{
+    background-color: #0089FF;
+    color: white;
 }
 
 /* 네비 */
@@ -95,7 +118,6 @@ h1{
 
 .about-product{
     width: 60%;
-    border: 1px solid black;
 }
 
 .go{
@@ -103,9 +125,20 @@ h1{
 }
 
 /* 상품 설명 */
+
 .product-detail{
     width: 100%;
-    height: 500px;
+}
+
+.product-description-area{
+    width: 100%;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.product-description-area p img {
+    width: 100% !important;   
+    height: auto;  
 }
 
 /* 상품 리뷰 */

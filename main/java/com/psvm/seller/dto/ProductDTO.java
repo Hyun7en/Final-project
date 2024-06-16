@@ -82,4 +82,5 @@ public class ProductDTO {
 	private Date reviewDate;
 	private int reviewDibs;
 	private String reviewContents;
+	private int reviewCount;
 }

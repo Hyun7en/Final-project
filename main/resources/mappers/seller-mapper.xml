@@ -109,9 +109,13 @@
 		<result column="P_STATUS" property="pdStatus"/>	
 		<result column="P_COUNT" property="pdCount"/>
 		<result column="PO_STATUS" property="poStatus"/>	
-		<result column="P_NO" property="pdNo"/>
 		<result column="P_OPTION_NAME" property="optionName"/>
 		<result column="P_OPTION_NO" property="pdOptionNo"/>
+		<result column="REPLY_NO" property="pdOptionNo"/>
+		<result column="REVIEW_DATE" property="reviewDate"/>
+		<result column="REVIEW_DIBS" property="reviewDibs"/>
+		<result column="REVIEW_CONTENTS" property="reviewContents"/>
+		<result column="REVIEW_COUNT" property="reviewCount"/>
 	</resultMap>
 	
 	<select id="selectSeller" resultMap="sellerInfoResult">
@@ -370,13 +374,20 @@
 	</select>
 	
 	<select id="selectSalesProduct" resultMap="ProductDTOResult">
-		SELECT *
-		  FROM PRODUCT
-		  JOIN PRODUCT_CATEGORY USING(C_NO)
-		  JOIN SELLER_PAGE USING(SELLER_PAGE_NO)
-		  JOIN SELLER_INFO USING(BUSINESS_NO)
-		  JOIN MEMBER USING(USER_NO)
-		 WHERE P_NO = #{pno}
+		SELECT EMAIL, PHONE, BUSINESS_NO,BUSINESS_NAME, STORE_NAME, SELLER_PAGE_NO,
+			   MAIN_BUSINESS_NAME,BUSINESS_ADDRESS, P_NO, P_TITLE, 
+			   P_PRICE, P_CONTENT, P_STAR, P_CHANGE_NAME, 
+		       COUNT(REVIEW.REPLY_NO) AS REVIEW_COUNT
+		  FROM MEMBER
+		  JOIN SELLER_INFO USING(USER_NO)
+		  JOIN SELLER_PAGE USING(BUSINESS_NO)
+		  JOIN PRODUCT_CATEGORY USING(SELLER_PAGE_NO)
+		  JOIN PRODUCT USING(C_NO)
+		  LEFT JOIN REVIEW USING(P_NO)
+		 WHERE P_STATUS = 'Y' AND P_NO = 55
+		 GROUP BY EMAIL, PHONE, BUSINESS_NO,BUSINESS_NAME, STORE_NAME, SELLER_PAGE_NO,
+				MAIN_BUSINESS_NAME,BUSINESS_ADDRESS, P_NO, P_TITLE, 
+				P_PRICE, P_CONTENT, P_STAR, P_CHANGE_NAME ;
 	</select>
 	
 	<select id="selectAllProduct" resultMap="StoreMainDTOResult">
