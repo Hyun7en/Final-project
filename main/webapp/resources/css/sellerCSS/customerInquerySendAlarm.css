@@ -31,3 +31,33 @@ section {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
     height: 50px; /* 각 아이템의 높이를 고정 */
 }
+
+#alarm-input-div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* 입력 필드와 버튼 사이의 간격 */
+    margin-top: 20px; /* 폼 위에 약간의 여백 추가 */
+}
+
+input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#sendAlarmInfo {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #0088ffa2; /* 버튼 색상 */
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#sendAlarmInfo:hover {
+    background-color: #0089ff; /* 마우스를 올렸을 때 버튼 색상 */
+}

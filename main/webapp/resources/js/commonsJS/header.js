@@ -1,5 +1,6 @@
 let path; 
 
+//모든 세팅함수
 function init(pageType, contextPath, data){
     path = contextPath;
   switch(pageType){ 
@@ -103,27 +104,33 @@ function drawNotification(alarmList){
   }
 }
 
-//알람들을 div에 채워넣는 함수
+// 알람들을 div에 채워넣는 함수
 function drawAlarmList(data) {
   const aDiv = document.getElementById("notification-div");
   let str = "";
+
   for (const b of data) {
-    if(b.alarmCheck == false){
+    const href = `checkAlarm.al?userNo=${b.userNo}&sellerPageNo=${b.sellerPageNo}&alarmNo=${b.alarmNo}`;
+    if (b.alarmCheck == false) {
       str += `
-              <a href="checkAlarm.al?sellerPageNo=${b.sellerPageNo}&userNo=${b.userNo}" class="notification-false">
-                ${b.storeName}에서 ${b.alarmContents}.
-              </a>
-            `;
+        <a href="${href}" class="notification-false">
+          ${b.storeName}에서 ${b.alarmContents}.
+        </a>
+      `;
     } else {
       str += `
-              <a href="checkAlarm.al?sellerPageNo=${b.sellerPageNo}&userNo=${b.userNo}" class="notification-true">
-                ${b.storeName}에서 ${b.alarmContents}.
-              </a>
-            `;
+        <a href="${href}" class="notification-true">
+          ${b.storeName}에서 ${b.alarmContents}.
+        </a>
+      `;
     }
   }
   aDiv.innerHTML = str;
 }
+
+
+
+
 
 
 

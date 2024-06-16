@@ -26,6 +26,6 @@ public class NotificationController {
 
     @PostMapping("send-data.pr/{userNo}")
     public void sendData(@PathVariable Long userNo) {
-        notificationService.notify(userNo, "상품이 추가되었습니다.");
+        notificationService.notify(userNo, "새로운 알림이 왔습니다");
     }
 }

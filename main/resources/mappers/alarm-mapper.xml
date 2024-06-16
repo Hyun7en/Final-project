@@ -22,6 +22,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="alarm_check" property="alarmCheck"/>
 		<result column="store_name" property="storeName"/>
 	</resultMap>
+		<resultMap type="Alarm" id="AlarmUserNoResult">
+		<result column="user_no" property="userNo"/>
+	</resultMap>
 	
 	<select id="getAlarmList" resultMap="AlarmResult">
 		SELECT alarm_no,
@@ -35,18 +38,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		JOIN seller_page using (seller_page_no)
 		JOIN seller_info using (business_no)
 		WHERE s.user_no = #{userNo}
+		ORDER BY alarm_date DESC
+		LIMIT 10
 	</select>
 	
 	<update id="checkAlarmUpdate" parameterType="hashmap">
 		UPDATE send_alarm
 		   SET alarm_check = true
-		 WHERE user_no = #{userNo}
+		 WHERE alarm_no = #{alarmNo}
 		   AND seller_page_no = #{sellerPageNo}
 	</update>
 	
 	<select id="loadAlarm" resultMap="SubscribeResult">
 		SELECT NICKNAME,
-			   sub_date
+			   sub_date,
+			   seller_page_no,
+			   user_no,
+			   alarm
 		FROM user_alarm
 		JOIN member using(user_no)
 		WHERE seller_page_no = (SELECT s.seller_page_no
@@ -56,6 +64,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 								);
 			   
 	</select>
+	
+	<select id="getuserNos" resultType="_int">
+		SELECT user_no
+		FROM user_alarm
+		WHERE seller_page_no = #{sellerNo}
+	</select>
+	
+    <insert id="insertAlarm" parameterType="map">
+        <foreach collection="list" item="userNo" separator=";">
+            INSERT INTO send_alarm (alarm_no, alarm_contents, alarm_date, alarm_check, seller_page_no, user_no)
+            VALUES (default, #{alarmContents}, default, default, #{sellerNo}, #{userNo})
+        </foreach>
+    </insert>
 </mapper>
 
 
