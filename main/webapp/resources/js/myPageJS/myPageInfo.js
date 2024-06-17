@@ -174,7 +174,7 @@ function password_check(){
         success: function(res){
             console.log(res);
             if(res === true){
-                document.getElementById("delete-btn").readOnly = false;
+                document.getElementById("delete-btn").disabled = false;
                 document.getElementById("delete-btn").style.color = "black";
         
                 document.getElementById("warning-text").style.color = "green";

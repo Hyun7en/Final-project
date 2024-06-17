@@ -160,7 +160,7 @@
 	<update id="deleteMember">
 	UPDATE member
 	SET activated = 'N',
-		drop_date = now
+		drop_date = now()
 	WHERE user_no = #{userNo}
 	</update>
 

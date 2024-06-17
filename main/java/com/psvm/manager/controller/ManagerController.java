@@ -286,7 +286,6 @@ public class ManagerController {
 		PageInfo pi = Pagination.getPageInfo(customerOutCount, currentPage, 5 , 5);
 		
 		ArrayList<Member> outList = managerService.customerOutList(pi);
-		System.out.println(outList);
 		model.addAttribute("pi", pi);
 		model.addAttribute("outCount", customerOutCount);
 		model.addAttribute("olist", outList);
@@ -312,6 +311,6 @@ public class ManagerController {
 		model.addAttribute("condition", condition);
 		model.addAttribute("keyword", keyword);
 		session.setAttribute("categoryName", categoryName);
-		return "manager/managerCustomerOutlist";
+		return "manager/managerSearchedOutlist";
 	}
 }
