@@ -1,15 +1,21 @@
 $(document).ready(function(){
 
-    // 판매자 신규신청을 승인하기 위해 버튼 눌렀을 때
+    // 판매자 신규신청을 승인하기 위해 승인 버튼 눌렀을 때
     $(".application-approve-btn").click(function(){
         var index = $(this).closest("tr").index(); // 클릭된 버튼이 있는 행의 인덱스 가져오기
         var modal = $(".seller-info-modal").eq(index); // 해당 인덱스의 모달 찾기
         modal.css("display", "flex"); // 모달 표시
 
-        // 승인하기 버튼 눌렀을 때
+        // 신청승인 버튼 눌렀을 때
         modal.find(".approve-btn").click(function(){
             var userNo = modal.find(".userNo").text(); // 해당 모달안의 class이름이 userNo인 태그안의 text 가져옴
             location.href="sellerNewApplicationApprove.ma?userNo=" + userNo;
+        })
+
+        // 신청거부 버튼 눌렀을 때
+        modal.find(".reject-btn").click(function(){
+            var userNo = modal.find(".userNo").text(); // 해당 모달안의 class이름이 userNo인 태그안의 text 가져옴
+            location.href="sellerNewApplicationReject.ma?userNo=" + userNo;
         })
 
         // 닫기 버튼 눌렀을 때
@@ -46,13 +52,24 @@ function clickAllCheckboxes() {
     });
 }
 
-// 선택승인 버튼 눌렀을 때
-function selectApprove(){
+// 선택 신청승인 버튼 눌렀을 때
+function selectApplicationApprove(){
     var checkboxes = document.querySelectorAll('.checkbox:checked');  // 체크된 체크박스들 가져오기
     checkboxes.forEach(function(checkbox) {     // 체크된 체크박스 하나씩 기능 수행시키기
         var index = $(checkbox).closest("tr").index();  // 체크된 체크박스 행의 인덱스 가져오기
         var modal = $(".seller-info-modal").eq(index);  // 해당 인덱스의 모달 가져오기(리스트(행)에는 userNo이 없고 모달에 userNo이 있어 모달 가져옴)
         var userNo = modal.find(".userNo").text();      // 해당 모달안의 class이름이 userNo인 태그안의 값 가져옴
         location.href="sellerNewApplicationApprove.ma?userNo=" + userNo;
+    });
+}
+
+// 선택 신청거부 버튼 눌렀을 때
+function selectApplicationReject(){
+    var checkboxes = document.querySelectorAll('.checkbox:checked');  // 체크된 체크박스들 가져오기
+    checkboxes.forEach(function(checkbox) {     // 체크된 체크박스 하나씩 기능 수행시키기
+        var index = $(checkbox).closest("tr").index();  // 체크된 체크박스 행의 인덱스 가져오기
+        var modal = $(".seller-info-modal").eq(index);  // 해당 인덱스의 모달 가져오기(리스트(행)에는 userNo이 없고 모달에 userNo이 있어 모달 가져옴)
+        var userNo = modal.find(".userNo").text();      // 해당 모달안의 class이름이 userNo인 태그안의 값 가져옴
+        location.href="sellerNewApplicationReject.ma?userNo=" + userNo;
     });
 }

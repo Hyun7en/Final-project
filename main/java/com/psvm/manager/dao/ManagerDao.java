@@ -8,7 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.psvm.commons.vo.PageInfo;
-import com.psvm.manager.vo.ApplicationProduct;
+import com.psvm.manager.vo.ReportProduct;
 import com.psvm.manager.vo.Search;
 import com.psvm.manager.vo.Seller;
 import com.psvm.member.vo.Member;
@@ -110,36 +110,46 @@ public class ManagerDao {
 		return sqlSession.update("managerMapper.sellerNewApplicationApprove", userNo);
 	}
 	
-	// 판매자가 신청한 상품 수 조회
+	// 판매자 신규신청 거부
+	public int sellerNewApplicationReject(SqlSessionTemplate sqlSession, int userNo) {
+		return sqlSession.update("managerMapper.sellerNewApplicationReject", userNo);
+	}
+	
+	// 신고상품 수 조회
 	public int reportProductListCount(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("managerMapper.reportProductListCount");
 	}
 	
-	// 판매자가 신청한 상품 조회
-	public ArrayList<ApplicationProduct> reportProductList(SqlSessionTemplate sqlSession, PageInfo pi){
+	// 신고상품 조회
+	public ArrayList<ReportProduct> reportProductList(SqlSessionTemplate sqlSession, PageInfo pi){
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("managerMapper.reportProductList", null, rowBounds);
 	}
 	
-	// 검새한 판매자 상품신청 수 조회
-	public int searchSellerProductApplicationCount(SqlSessionTemplate sqlSession, Search s) {
-		return sqlSession.selectOne("managerMapper.searchSellerProductApplicationCount", s);
+	// 검색한 신고상품 수 조회
+	public int searchReportProductListCount(SqlSessionTemplate sqlSession, Search s) {
+		return sqlSession.selectOne("managerMapper.searchReportProductListCount", s);
 	}
 	
-	// 검색한 판매자 상품신청 조회
-	public ArrayList<ApplicationProduct> searchSellerProductApplicationList(SqlSessionTemplate sqlSession, Search s, PageInfo pi){
+	// 검색한 신고상품 조회
+	public ArrayList<ReportProduct> searchReportProductList(SqlSessionTemplate sqlSession, Search s, PageInfo pi){
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("managerMapper.searchSellerProductApplicationList", s, rowBounds);
+		return (ArrayList)sqlSession.selectList("managerMapper.searchReportProductList", s, rowBounds);
 	}
 	
-	// 판매자 상품신청 승인
-	public int sellerProductApplicationApprove(SqlSessionTemplate sqlSession, int pdOptionNo) {
-		return sqlSession.update("managerMapper.sellerProductApplicationApprove", pdOptionNo);
+	// 신고상품 삭제
+	public int reportProductRemove(SqlSessionTemplate sqlSession, int pdNo) {
+		return sqlSession.update("managerMapper.reportProductRemove", pdNo);
 		
+	}
+	
+	// 신고상품 문제없음
+	public int reportProductIgnore(SqlSessionTemplate sqlSession, int pdNo) {
+		return sqlSession.update("managerMapper.reportProductNoProblem", pdNo);
 	}
 	
 	

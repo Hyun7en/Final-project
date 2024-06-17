@@ -157,7 +157,8 @@
                                 </table>
 
                                 <div class="approve-btn-area">
-                                    <button type="button" class="approve-btn">승인</button>
+                                    <button type="button" class="approve-btn">신청 승인</button>
+                                    <button type="button" class="reject-btn">신청 거부</button>
                                     <button type="button" class="close-btn">닫기</button>
                                 </div>
                                 
@@ -166,8 +167,8 @@
                     </c:forEach>
 
                     <div id="select-btn-area">
-                        <button>선택삭제</button>
-                        <button onclick="selectApprove()">선택승인</button>
+                        <button onclick="selectApplicationReject()">선택 신청거부</button>
+                        <button onclick="selectApplicationApprove()">선택 신청승인</button>
                     </div>
                     
                     <!-- 페이징 처리 -->

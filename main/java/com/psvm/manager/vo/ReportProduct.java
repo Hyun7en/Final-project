@@ -13,20 +13,17 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class ApplicationProduct {
-	private String userName;
-	private String storeName;
+public class ReportProduct {
 	private int pdNo;
-	private int caNo;
-	private String pdCategory;
+	private String sellerUserId;
+	private String storeName;
 	private String pdTitle;
-	private int pdPrice;
 	private String pdContent;
+	private int pdPrice;
 	private Date pdEnrollDate;
-	private int pdStar;
-	private String pdOriginName;
-	private String pdChangeName;
-	private int pdCount;
-	private String pdOptionName;
-	private int pdOptionNo;
+	private String pdCategory;
+	private String reporterUserId;
+	private String inquiryTitle;
+	private String inquiryContent;
+	private String inquiryDate;
 }

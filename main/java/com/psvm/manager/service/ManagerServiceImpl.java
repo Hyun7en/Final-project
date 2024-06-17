@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.manager.dao.ManagerDao;
-import com.psvm.manager.vo.ApplicationProduct;
+import com.psvm.manager.vo.ReportProduct;
 import com.psvm.manager.vo.Search;
 import com.psvm.manager.vo.Seller;
 import com.psvm.member.vo.Member;
@@ -98,32 +98,39 @@ public class ManagerServiceImpl implements ManagerService{
 		return managerDao.sellerNewApplicationApprove(sqlSession, userNo);
 	}
 	
-	// 판매자가 신청한 상품 수 조회
+	// 판매자 신규신청 거부
+	public int sellerNewApplicationReject(int userNo) {
+		return managerDao.sellerNewApplicationReject(sqlSession, userNo);
+	}
+	
+	// 신고상품 수 조회
 	public int reportProductListCount() {
 		return managerDao.reportProductListCount(sqlSession);
 	}
 	
-	// 판매자가 신청한 상품 조회
-	public ArrayList<ApplicationProduct> reportProductList(PageInfo pi){
+	// 신고상품 조회
+	public ArrayList<ReportProduct> reportProductList(PageInfo pi){
 		return managerDao.reportProductList(sqlSession, pi);
 	}
 	
-	// 검색한 판매자 상품신청 수 조회
-	public int searchSellerProductApplicationCount(Search s) {
-		return managerDao.searchSellerProductApplicationCount(sqlSession, s);
+	// 검색한 신고상품 수 조회
+	public int searchReportProductListCount(Search s) {
+		return managerDao.searchReportProductListCount(sqlSession, s);
 	}
 	
-	// 검색한 판매자 상품신청 조회
-	public ArrayList<ApplicationProduct> searchSellerProductApplicationList(Search s, PageInfo pi){
-		return managerDao.searchSellerProductApplicationList(sqlSession, s, pi);
+	// 검색한 신고상품 조회
+	public ArrayList<ReportProduct> searchReportProductList(Search s, PageInfo pi){
+		return managerDao.searchReportProductList(sqlSession, s, pi);
 	}
 	
-	// 판매자 상품신청 승인
-	public int sellerProductApplicationApprove(int pdOptionNo) {
-		
-		int result = managerDao.sellerProductApplicationApprove(sqlSession, pdOptionNo);
-//		int result2 = managerDao.sellerProductApplicationApprove(sqlSession, pdOptionNo);
-		return result;
+	// 신고상품 삭제
+	public int reportProductRemove(int pdNo) {
+		return managerDao.reportProductRemove(sqlSession, pdNo);
+	}
+	
+	// 신고상품 문제없음
+	public int reportProductIgnore(int pdNo) {
+		return managerDao.reportProductIgnore(sqlSession, pdNo);
 	}
 	
 }
