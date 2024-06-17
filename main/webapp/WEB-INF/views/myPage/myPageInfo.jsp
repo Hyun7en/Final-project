@@ -55,7 +55,7 @@
                     </div>
                     <div id="myPage-category-area"> 
                         <div class="myPage-category"><a style="color: #0089FF;" href="myPage.me?userNo=${loginUser.userNo}">내 정보</a></div>
-                        <div class="myPage-category"><a href="interestProduct.my?userNo=${loginUser.userNo}">관심상품</a></div>
+                        <div class="myPage-category"><a href="interestProduct.my?userNo=${loginUser.userNo}&cpage=1">관심상품</a></div>
                         <div class="myPage-category"><a href="cart.my?userNo=${loginUser.userNo}">장바구니</a></div>
                         <div class="myPage-category"><a href="orderHistory.my?userNo=${loginUser.userNo}">주문내역</a></div>
                         <div class="myPage-category"><a href="writePost.my?userNo=${loginUser.userNo}">작성한 글</a></div>
@@ -191,7 +191,7 @@
                             </div>
                             <div id="modal-btn-area">
                                 <!-- <form id="form-area" action="deleteMember.my?userNo=${loginUser.userNo}"></form> -->
-                                    <button type="button" id="delete-btn" onclick="delete_member('${loginUser.userNo}')" readonly style="color: #d0d0d0;">탈퇴하기</button>
+                                    <button type="button" id="delete-btn" onclick="delete_member('${loginUser.userNo}')" disabled style="color: #d0d0d0;">탈퇴하기</button>
                                 <!-- </form> -->
                                 <button type="button" id="close-modal" onclick="close_modal()">닫기</button>
                             </div>
@@ -205,14 +205,15 @@
                                 <div>
                                     <span>새 비밀번호 입력</span>
                                     <div>
-                                        <input type="pwd" id="inputNewPwd" name="inputPwd">
-                                        <button  id="confirm-btn" type="button" onclick="new_password_check()">결정</button>
+                                        <input type="password" id="inputNewPwd" placeholder="새 비밀번호">
+                                        <input type="password" id="inputChkPwd" placeholder="새 비밀번호 확인">
+                                        <button type="button" id="confirm-btn" type="button" onclick="new_password_check()">결정</button>
                                     </div>
                                 </div>
                                 <span id="notice-text"></span>
                             </div>
                             <div id="modal-btn-area">
-                                <button type="button" id="changePwd-btn" onclick="change_pwd('${loginUser.userNo}')" readonly style="color: #d0d0d0;">변경하기</button>
+                                <button type="button" id="changePwd-btn" onclick="change_pwd('${loginUser.userNo}')" disabled style="color: #d0d0d0;">변경하기</button>
                                 <button type="button" id="close-modal" onclick="close_pwd_modal()">닫기</button>
                             </div>
                         </div>

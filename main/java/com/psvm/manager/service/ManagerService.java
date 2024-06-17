@@ -1,6 +1,7 @@
 package com.psvm.manager.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.psvm.commons.vo.PageInfo;
@@ -77,4 +78,15 @@ public interface ManagerService {
 	// 신고상품 문제없음
 	int reportProductIgnore(int pdNo);
 	
+	// 탈퇴 회원 수 조회
+	int customerOutCount();
+	
+	// 탈퇴 회원 조회
+	ArrayList<Member> customerOutList(PageInfo pi);
+	
+	// 탈퇴 회원 수 조회(검색)
+	int searchedOutCount(HashMap<String, String> map);
+	
+	// 탈퇴 회원 조회(검색)
+	ArrayList<Member> searchedOutlist(PageInfo pi, HashMap<String, String> map);
 }

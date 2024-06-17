@@ -1,0 +1,63 @@
+section {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 40px 200px;
+    height: calc(100vh - 40px);
+    overflow-y: hidden; /* 전체 섹션에서 스크롤을 없애기 위해 변경 */
+}
+
+.subscriber-count {
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: left; /* 왼쪽 정렬 */
+}
+
+.subscriber-list-container {
+    padding: 20px;
+    margin: 0;
+    max-height: 250px; /* 리스트의 최대 높이를 5개의 아이템에 맞게 설정 (5 * 50px) */
+    overflow-y: auto; /* 컨테이너 내부에서 스크롤이 가능하게 합니다. */
+}
+
+.subscriber-item {
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    font-size: 1em;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    height: 50px; /* 각 아이템의 높이를 고정 */
+}
+
+#alarm-input-div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* 입력 필드와 버튼 사이의 간격 */
+    margin-top: 20px; /* 폼 위에 약간의 여백 추가 */
+}
+
+input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#sendAlarmInfo {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #0088ffa2; /* 버튼 색상 */
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#sendAlarmInfo:hover {
+    background-color: #0089ff; /* 마우스를 올렸을 때 버튼 색상 */
+}

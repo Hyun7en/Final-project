@@ -174,7 +174,7 @@ function password_check(){
         success: function(res){
             console.log(res);
             if(res === true){
-                document.getElementById("delete-btn").readOnly = false;
+                document.getElementById("delete-btn").disabled = false;
                 document.getElementById("delete-btn").style.color = "black";
         
                 document.getElementById("warning-text").style.color = "green";
@@ -198,11 +198,11 @@ function close_modal(){
     document.getElementById("delete-member-modal").style.display = "none";
     document.getElementById("warning-text").style.color = "red";
     document.getElementById("warning-text").innerText = "* 회원 탈퇴 시, 복구가 불가능합니다.";
-    document.getElementById("delete-btn").readOnly = true;
+    document.getElementById("delete-btn").disabled = true;
     document.getElementById("delete-btn").style.color = "#d0d0d0";
 }
 
-// 비밀번호 변경 모달창 띄우기 전 기존 비밀번호 확인(ajax)
+// 비밀번호 변경 모달창 띄우기 위한 기존 비밀번호 확인(ajax)
 function change_pwd_modal(){
     const inputPwd = document.getElementById("userPwd").value;
     const loginUserPwd = document.getElementById("loginUserPwd").value;
@@ -225,18 +225,23 @@ function change_pwd_modal(){
     });
 }
 
-// 비밀번호 변경 모달창에서 새 비밀번호 입력 여부 체크
+// 비밀번호 변경 모달창에서 결정 버튼 누름
 function new_password_check(){
     const inputNewPwd = document.getElementById('inputNewPwd');
+    const inputChkPwd = document.getElementById('inputChkPwd');
     if(inputNewPwd.value == ""){ //비밀번호 누락
         document.getElementById("notice-text").style.color = "red";
         document.getElementById("notice-text").innerText = "비밀번호를 입력하세요.";
+    } else if (inputNewPwd.value != inputChkPwd.value){
+        document.getElementById("notice-text").style.color = "red";
+        document.getElementById("notice-text").innerText = "비밀번호가 일치하지 않습니다.";
     } else{
         inputNewPwd.readOnly = true;
+        inputChkPwd.readOnly = true;
         document.getElementById("confirm-btn").innerText = "취소"
-        document.getElementById("confirm-btn").onclick = password_reset();
+        document.getElementById("confirm-btn").setAttribute("onclick", "password_reset()");
 
-        document.getElementById("changePwd-btn").readOnly = false;
+        document.getElementById("changePwd-btn").disabled = false;
         document.getElementById("changePwd-btn").style.color = "black";
 
         document.getElementById("notice-text").style.color = "green";
@@ -249,13 +254,16 @@ function password_reset(){
     document.getElementById('inputNewPwd').value = "";
     document.getElementById('inputNewPwd').readOnly = false;
 
+    document.getElementById('inputChkPwd').value = "";
+    document.getElementById('inputChkPwd').readOnly = false;
+
     document.getElementById("confirm-btn").innerHTML = "결정"
-    document.getElementById("confirm-btn").onclick = new_password_check();
+    document.getElementById("confirm-btn").setAttribute("onclick", "new_password_check()");
 
     document.getElementById("notice-text").style.color = "black";
     document.getElementById("notice-text").innerText = "";
 
-    document.getElementById("changePwd-btn").readOnly = true;
+    document.getElementById("changePwd-btn").disabled = true;
     document.getElementById("changePwd-btn").style.color = "#d0d0d0";
 }
 
@@ -268,17 +276,21 @@ function change_pwd(userNo){
 
 // 비밀번호 변경에서 닫기 버튼 눌렀을때
 function close_pwd_modal(){
+    document.getElementById("change-pwd-modal").style.display = "none";
+    
     document.getElementById("inputNewPwd").value = "";
+    document.getElementById("inputNewPwd").readOnly = false;
 
-    document.getElementById("delete-member-modal").style.display = "none";
+    document.getElementById('inputChkPwd').value = "";
+    document.getElementById('inputChkPwd').readOnly = false;
 
     document.getElementById("confirm-btn").innerHTML = "결정"
-    document.getElementById("confirm-btn").onclick = new_password_check();
+    document.getElementById("confirm-btn").setAttribute("onclick", "new_password_check()");
 
-    document.getElementById("warning-text").style.color = "black";
-    document.getElementById("warning-text").innerText = "";
+    document.getElementById("notice-text").style.color = "black";
+    document.getElementById("notice-text").innerText = "";
 
-    document.getElementById("changePwd-btn").readOnly = true;
+    document.getElementById("changePwd-btn").disabled = true;
     document.getElementById("changePwd-btn").style.color = "#d0d0d0";
 }
 

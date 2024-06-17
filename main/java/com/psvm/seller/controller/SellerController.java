@@ -5,10 +5,13 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -262,39 +265,74 @@ public class SellerController {
   	}
     
     // 판매자 상품 등록
-    @RequestMapping("insert.pd")
-  	public String insertProduct(Product product, MultipartFile productImage, @RequestParam("optionsJson") String optionsJson,
-    HttpSession session, RedirectAttributes redirectAttributes) {
-    	
-    	
-    	System.out.println("Product: " + product.getCaNo());
-    	System.out.println("Options JSON: " + optionsJson);
-    	
-         if (!productImage.getOriginalFilename().isEmpty()) {
-             String changeName = saveFile(productImage, session);
-             product.setPdOriginName(productImage.getOriginalFilename());
-             product.setPdChangeName("resources/upFiles/productImg/" + changeName);
-         }
-
-      
-             Type listType = new TypeToken<List<ProductOption>>() {}.getType();
-             List<ProductOption> options = gson.fromJson(optionsJson, listType);
-
-         	 int result = sellerService.insertProduct(product, options);
-         	 
-             if (result > 0 ) { // 성공
-            	 
-                 redirectAttributes.addFlashAttribute("message", "등록이 완료되었습니다.");
-                 
-                 return "redirect:list.pd";
-                 
-             }else { // 실패
-             	redirectAttributes.addFlashAttribute("message", "등록 실패하셨습니다.");
-                 return "redirect:list.pd"; // 등록 페이지로 리다이렉트
-                 
-             }
+//    @RequestMapping("insert.pd")
+//  	public String insertProduct(Product product, MultipartFile productImage, @RequestParam("optionsJson") String optionsJson,
+//    HttpSession session, RedirectAttributes redirectAttributes) {
+//    	
+//    	
+//    	System.out.println("Product: " + product.getCaNo());
+//    	System.out.println("Options JSON: " + optionsJson);
+//    	
+//         if (!productImage.getOriginalFilename().isEmpty()) {
+//             String changeName = saveFile(productImage, session);
+//             product.setPdOriginName(productImage.getOriginalFilename());
+//             product.setPdChangeName("resources/upFiles/productImg/" + changeName);
+//         }
+//
+//      
+//             Type listType = new TypeToken<List<ProductOption>>() {}.getType();
+//             List<ProductOption> options = gson.fromJson(optionsJson, listType);
+//
+//         	 int result = sellerService.insertProduct(product, options);
+//         	 
+//             if (result > 0 ) { // 성공
+//            	 
+//                 redirectAttributes.addFlashAttribute("message", "등록이 완료되었습니다.");
+//                 
+//                 return "redirect:list.pd";
+//                 
+//             }else { // 실패
+//             	redirectAttributes.addFlashAttribute("message", "등록 실패하셨습니다.");
+//                 return "redirect:list.pd"; // 등록 페이지로 리다이렉트
+//                 
+//             }
+//    
+//     }
     
-     }
+ // 판매자 상품 등록
+    @RequestMapping("insert.pd")
+    public String insertProduct(Product product, MultipartFile productImage,
+                                @RequestParam("optionNames[]") String[] optionNames,
+                                @RequestParam("optionQuantities[]") String[] optionQuantities,
+                                HttpSession session, RedirectAttributes redirectAttributes) {
+        
+
+        // 파일이 제출되었는지 확인
+        if (!productImage.getOriginalFilename().isEmpty()) {
+            String changeName = saveFile(productImage, session);
+            product.setPdOriginName(productImage.getOriginalFilename());
+            product.setPdChangeName("resources/upFiles/productImg/" + changeName);
+        }
+
+        // 옵션명과 수량을 ProductOption 객체 리스트로 변환
+        List<ProductOption> options = new ArrayList<>();
+        for (int i = 0; i < optionNames.length; i++) {
+            ProductOption option = new ProductOption();
+            option.setOptionName(optionNames[i]);
+            option.setPdCount(Integer.parseInt(optionQuantities[i]));
+            options.add(option);
+        }
+
+        int result = sellerService.insertProduct(product, options);
+
+        if (result > 0) { // 성공
+            redirectAttributes.addFlashAttribute("message", "등록이 완료되었습니다.");
+            return "redirect:list.pd";
+        } else { // 실패
+            redirectAttributes.addFlashAttribute("message", "등록 실패하셨습니다.");
+            return "redirect:list.pd"; // 등록 페이지로 리다이렉트
+        }
+    }
     
     /*
      * summernote 처리 
@@ -418,44 +456,99 @@ public class SellerController {
   	}
     
     //상품 정보 수정
+//    @RequestMapping("update.pd")
+//  	public String updateProduct(Product product, MultipartFile productImage, @RequestParam("optionsJson") String optionsJson,
+//  		    HttpSession session, RedirectAttributes redirectAttributes) {
+//    	
+//    	//새로운 첨부파일이 넘어온 경우
+//		if(!productImage.getOriginalFilename().equals("")) {
+//			//기존의 첨부파일이 있다 => 기존의 파일을 삭제
+//			if(product.getPdOriginName() != null) {
+//				new File(session.getServletContext().getRealPath(product.getPdChangeName())).delete();
+//			}
+//			
+//			//새로 넘어온 첨부파일을 서버에 업로드 시키기
+//			String changeName = saveFile(productImage, session);
+//			
+//			product.setPdOriginName(productImage.getOriginalFilename());
+//			product.setPdChangeName("/resources/upFiles/productImg/" + changeName);
+//		}
+//    			
+//	
+//            Type listType = new TypeToken<List<ProductOption>>() {}.getType();
+//            List<ProductOption> options = gson.fromJson(optionsJson, listType);
+//
+//        	 int result = sellerService.updateProduct(product, options);
+//        	 
+//            if (result > 0 ) { // 성공
+//           	 
+//                redirectAttributes.addFlashAttribute("message", "등록이 완료되었습니다.");
+//                
+//                return "redirect:list.pd";
+//                
+//            }else { // 실패
+//            	redirectAttributes.addFlashAttribute("message", "등록 실패하셨습니다.");
+//                return "redirect:list.pd"; // 등록 페이지로 리다이렉트
+//                
+//            }
+//     	
+//    			
+//  	}
+    
     @RequestMapping("update.pd")
-  	public String updateProduct(Product product, MultipartFile productImage, @RequestParam("optionsJson") String optionsJson,
-  		    HttpSession session, RedirectAttributes redirectAttributes) {
+    public String updateProduct(Product product,
+                                MultipartFile productImage,
+                                @RequestParam("optionNames[]") String[] optionNames,
+                                @RequestParam("optionQuantities[]") Integer[] optionQuantities,
+                                @RequestParam("optionStatus[]") String[] optionStatus,
+                                @RequestParam(value = "pdOptionNo[]", required = false) Integer[] pdOptionNos,
+                                int pno,
+                                HttpSession session,
+                                RedirectAttributes redirectAttributes) {
     	
-    	//새로운 첨부파일이 넘어온 경우
-		if(!productImage.getOriginalFilename().equals("")) {
-			//기존의 첨부파일이 있다 => 기존의 파일을 삭제
-			if(product.getPdOriginName() != null) {
-				new File(session.getServletContext().getRealPath(product.getPdChangeName())).delete();
-			}
-			
-			//새로 넘어온 첨부파일을 서버에 업로드 시키기
-			String changeName = saveFile(productImage, session);
-			
-			product.setPdOriginName(productImage.getOriginalFilename());
-			product.setPdChangeName("/resources/upFiles/productImg/" + changeName);
-		}
-    			
-	
-            Type listType = new TypeToken<List<ProductOption>>() {}.getType();
-            List<ProductOption> options = gson.fromJson(optionsJson, listType);
-
-        	 int result = sellerService.updateProduct(product, options);
-        	 
-            if (result > 0 ) { // 성공
-           	 
-                redirectAttributes.addFlashAttribute("message", "등록이 완료되었습니다.");
-                
-                return "redirect:list.pd";
-                
-            }else { // 실패
-            	redirectAttributes.addFlashAttribute("message", "등록 실패하셨습니다.");
-                return "redirect:list.pd"; // 등록 페이지로 리다이렉트
-                
+    	 
+        // 새로운 첨부파일이 넘어온 경우
+        if (!productImage.getOriginalFilename().isEmpty()) {
+            // 기존의 첨부파일이 있다면 삭제
+            if (product.getPdOriginName() != null) {
+                new File(session.getServletContext().getRealPath(product.getPdChangeName())).delete();
             }
-     	
-    			
-  	}
+
+            // 새로 넘어온 첨부파일을 서버에 업로드
+            String changeName = saveFile(productImage, session);
+
+            product.setPdOriginName(productImage.getOriginalFilename());
+            product.setPdChangeName("/resources/upFiles/productImg/" + changeName);
+        }
+        
+        Product po = new Product();
+        
+        po.setPdNo(pno);
+        
+        List<ProductOption> options = new ArrayList<>();
+        for (int i = 0; i < optionNames.length; i++) {
+            if (optionNames[i] != null && !optionNames[i].isEmpty() && optionQuantities[i] != null && optionStatus[i] != null) {
+                ProductOption option = new ProductOption();
+                option.setOptionName(optionNames[i]);
+                option.setPdCount(optionQuantities[i]);
+                option.setOptionStatus(optionStatus[i]);
+                option.setPdOptionNo(pdOptionNos != null && pdOptionNos.length > i ? pdOptionNos[i] : null); // 이 부분입니다.
+                option.setPno(pno);
+                options.add(option);
+            }
+        }
+
+        int result = sellerService.updateProduct(product, options);
+        
+        if(result > 0) {
+            redirectAttributes.addFlashAttribute("message", "등록이 완료되었습니다.");
+            return "redirect:list.pd";
+        } else {
+        	
+            redirectAttributes.addFlashAttribute("message", "등록 실패하셨습니다.");
+            return "redirect:list.pd"; // 등록 페이지로 리다이렉트
+        }
+    }
     
     //상품 삭제
     @RequestMapping("delete.pd")
@@ -523,14 +616,6 @@ public class SellerController {
     public String selectCustomerInqueryManagement() {
     	
     	return "seller/customerInqueryManagement";
-    }
-    
-    // 고객 리뷰 관리
-    
-    @RequestMapping("manage.cr")
-    public String selectCustomerReviewManagement() {
-    	
-    	return "seller/customerReviewManagement";
     }
     
     // 구매 페이지

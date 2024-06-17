@@ -1,6 +1,7 @@
 package com.psvm.seller.service;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.psvm.commons.vo.PageInfo;
@@ -66,5 +67,4 @@ public interface SellerService {
 	
 	// 무한 스크롤로 전체 상품 가져오기
 	public List<StoreMainDTO> selectAllProduct(int page, int size);
-	
 }

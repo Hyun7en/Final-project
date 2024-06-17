@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="alarmMapper">
+
+	<resultMap type="Subscribe" id="SubscribeResult">
+		<result column="user_no" property="userNo"/>
+		<result column="seller_page_no" property="sellerPageNo"/>
+		<result column="alarm" property="alarm"/>
+		<result column="sub_date" property="subDate"/>
+		<result column="nickname" property="nickName"/>
+	</resultMap>
+	
+	<resultMap type="Alarm" id="AlarmResult">
+		<result column="alarm_no" property="alarmNo"/>
+		<result column="user_no" property="userNo"/>
+		<result column="SELLER_PAGE_NO" property="sellerPageNo"/>
+		<result column="alarm_contents" property="alarmContents"/>
+		<result column="alarm_date" property="alarmDate"/>
+		<result column="alarm_check" property="alarmCheck"/>
+		<result column="store_name" property="storeName"/>
+	</resultMap>
+		<resultMap type="Alarm" id="AlarmUserNoResult">
+		<result column="user_no" property="userNo"/>
+	</resultMap>
+	
+	<select id="getAlarmList" resultMap="AlarmResult">
+		SELECT alarm_no,
+		 	   s.user_no,
+		 	   seller_page_no,
+		 	   alarm_contents,
+		   	   alarm_date,
+		       alarm_check,
+		       store_name
+		FROM send_alarm s
+		JOIN seller_page using (seller_page_no)
+		JOIN seller_info using (business_no)
+		WHERE s.user_no = #{userNo}
+		ORDER BY alarm_date DESC
+		LIMIT 10
+	</select>
+	
+	<update id="checkAlarmUpdate" parameterType="hashmap">
+		UPDATE send_alarm
+		   SET alarm_check = true
+		 WHERE alarm_no = #{alarmNo}
+		   AND seller_page_no = #{sellerPageNo}
+	</update>
+	
+	<select id="loadAlarm" resultMap="SubscribeResult">
+		SELECT NICKNAME,
+			   sub_date,
+			   seller_page_no,
+			   user_no,
+			   alarm
+		FROM user_alarm
+		JOIN member using(user_no)
+		WHERE seller_page_no = (SELECT s.seller_page_no
+							    FROM seller_page s
+								JOIN seller_info i using(business_no)
+								WHERE i.user_no = #{userNo}
+								);
+			   
+	</select>
+	
+	<select id="getuserNos" resultType="_int">
+		SELECT user_no
+		FROM user_alarm
+		WHERE seller_page_no = #{sellerNo}
+	</select>
+	
+    <insert id="insertAlarm" parameterType="map">
+        <foreach collection="list" item="userNo" separator=";">
+            INSERT INTO send_alarm (alarm_no, alarm_contents, alarm_date, alarm_check, seller_page_no, user_no)
+            VALUES (default, #{alarmContents}, default, default, #{sellerNo}, #{userNo})
+        </foreach>
+    </insert>
+</mapper>
+
+
+
+
+
+
+
+
+	

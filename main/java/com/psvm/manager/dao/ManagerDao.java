@@ -1,7 +1,7 @@
 package com.psvm.manager.dao;
 
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -147,10 +147,34 @@ public class ManagerDao {
 		
 	}
 	
-	// 신고상품 문제없음
+	// 신고상품 무시
 	public int reportProductIgnore(SqlSessionTemplate sqlSession, int pdNo) {
 		return sqlSession.update("managerMapper.reportProductNoProblem", pdNo);
 	}
 	
+	// 탈퇴 회원 수 조회
+	public int customerOutCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("managerMapper.customerOutCount");
+	}
 	
+	// 탈퇴 회원 조회
+	public ArrayList<Member> customerOutList(SqlSessionTemplate sqlSession, PageInfo pi){
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("managerMapper.customerOutList", null, rowBounds);
+	}
+	
+	// 탈퇴 회원 수 조회
+	public int searchedOutCount(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
+		return sqlSession.selectOne("managerMapper.searchedOutCount", map);
+	}
+	
+	// 탈퇴 회원 조회
+	public ArrayList<Member> searchedOutlist(SqlSessionTemplate sqlSession, PageInfo pi, HashMap<String, String> map){
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("managerMapper.searchedOutlist", map, rowBounds);
+	}
 }

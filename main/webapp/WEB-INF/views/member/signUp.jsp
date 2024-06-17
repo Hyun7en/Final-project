@@ -46,14 +46,19 @@
                 <input type="text" id="signup-id" name="userId" placeholder="아이디" style="border-top: 2px solid #0089FF; border-bottom: 2px solid #0089FF;" maxlength="20">
                 <div id="checkResult" style="color: #0089FF; height: 25px;">5자 이상 입력해야 합니다.</div>
                 <input type="password" id="signup-pwd" name="userPwd" placeholder="비밀번호">
+                <input type="password" id="check-pwd" placeholder="비밀번호 확인">
                 <input type="text" id="signup-email" name="email" placeholder="이메일" title="'@naver.com', '@gmail.com', '@hanmail.net', '@daum.net', '@nate.com', '@hotmail.com', '@icloud.com', '@outlook.com'">
-                <input type="text" id="signup-name" name="userName" placeholder="이름" maxlength="21">
-                <input type="text" id="signup-nickname" name="nickname" placeholder="닉네임" maxlength="18">
-                <input type="text" id="signup-birthday" name="birthday" placeholder="생년월일 8자리" maxlength="8" title="YYYYMMDD">
-                <select name="gender" id="signup-gender">
-                    <option value="M">성별 : 남성</option>
-                    <option value="F">성별 : 여성</option>
-                </select>
+                <div style="height: 50px; display: flex;">
+                    <input type="text" id="signup-name" name="userName" placeholder="이름" maxlength="21">
+                    <input type="text" id="signup-nickname" name="nickname" placeholder="닉네임" maxlength="18">
+                </div>
+                <div style="height: 50px; display: flex">
+                    <input type="text" id="signup-birthday" name="birthday" placeholder="생년월일 8자리" maxlength="8" title="YYYYMMDD">
+                    <select name="gender" id="signup-gender">
+                        <option value="M">성별 : 남성</option>
+                        <option value="F">성별 : 여성</option>
+                    </select>
+                </div>
                 <div id="callDaumService" onclick="callDaumService()">
                     <input type="text" placeholder="우편번호 및 주소" id="signup-address" name="address" maxlength="50">
                 </div>

@@ -1,8 +1,3 @@
-let path;
-function InfoInit(contextPath){
-    path = contextPath;
-}
-
 
 var playlist = 'LtL4BLlLNko';
         //https://www.youtube.com/watch?v=유튜브 영상 고유번호

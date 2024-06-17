@@ -21,6 +21,7 @@
 <!-- JS -->
 <script src="${pageContext.request.contextPath}/resources/js/sellerJS/showCategory.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/sellerJS/addOption.js"></script>
+    
 
 </head>
 <body>
@@ -28,7 +29,7 @@
 
     <!-- header -->
     <%@ include file="../commons/header.jsp" %>
-
+  
     <main>
         
         <!-- aside -->
@@ -64,13 +65,11 @@
                         <div id="div-enroll-option">
                             <div>
                                 <h4>옵션 등록</h4>
-                                <input id="enroll-option" type="text" placeholder="옵션 입력" >
-                                <input id="enroll-pdCount" type="number" min="0" placeholder="수량" >
-                                <button type="button" id="add-optionBtn">추가</button>
+                                <button type="button" id="add-optionBtn">옵션 추가</button> 
                             </div>
-                            <div>
-                                <ul id="optionList"></ul>
-                            </div>
+                            <table >
+                              
+                            </table>                           
                         </div>
                     </div>
                 </div>
@@ -82,7 +81,7 @@
                     <input type="file" id="productImage" name="productImage" required>
                 </div>
                 <div class="image-container">
-                    <img id="preview-image" src="getImage?id=1" alt="상품 이미지">
+                    <img id="preview-image" src="" alt="상품 이미지">
                 </div>
                 <div class="form-group">
                     <label for="summernote">
@@ -94,7 +93,7 @@
                 </div>
                 <div class="form-actions">
                     <button type="submit" >
-                        검수 요청
+                        등록
                     </button>
                     <button type="reset" onclick="sendMessage(4)"> 
                         초기화

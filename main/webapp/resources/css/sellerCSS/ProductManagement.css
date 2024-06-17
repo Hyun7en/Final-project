@@ -44,6 +44,7 @@
         padding: 5px;
         font-size: 14px;
     }
+
     section .form-control{
         border: 1px solid #ccc;
         border-radius: 5px;
@@ -67,21 +68,27 @@
     }
 
     #div-enroll-option  div h4{
-        margin-right: 85px;
+        text-align: center;
+        line-height: 26px;
     }
 
-    #div-enroll-option  div input {
+    #div-enroll-option table input{
+        width: 150px; 
+        height: 40px;
+        padding-left: 10px;
         border: 1px solid #ccc;
-        border-radius: 5px;
-        height: 25px;
-        padding-left: 5px;
-        line-height: 25px;
-        margin-right: 10px;
     }
+
+    .remove-btn {
+        padding: 11px 10px;
+        background-color: #0089FF;
+        color: white;
+        cursor: pointer;
+    }
+    
 
     #add-optionBtn {
-        width: 40px;
-        height: 25px;
+        padding: 4px;
         background-color: #0089FF;
         color: white;
         border-radius: 5px;

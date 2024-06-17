@@ -1,59 +1,92 @@
-$(document).ready(function() {
-    let options = [];
-
-    // 엔터 키 이벤트를 처리하는 함수
-    function addOption() {
-        let optionName = $('#enroll-option').val().trim();
-        let pdCount = parseInt($('#enroll-pdCount').val().trim(), 10);
-
-        if (optionName && !isNaN(pdCount) && pdCount >= 0) {
-            let option = { optionName: optionName, pdCount: pdCount };
-            
-            if (options.some(opt => opt.optionName.toLowerCase() === optionName.toLowerCase())) {
-                alert('이미 추가된 옵션입니다.');
-            } else {
-                options.push(option);
-                $('#optionList').append('<div data-option="' + optionName + '"><li>' + optionName + ' - ' + pdCount + '</li><button class="removeBtn">x</button></div>');
-                $('#enroll-option').val('');
-                $('#enroll-pdCount').val(''); // 입력 필드 초기화
-                console.log(options);
-                alert('옵션이 성공적으로 추가되었습니다.');
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('enrollForm');
+        const table = document.querySelector('#div-enroll-option table');
+        const addOptionBtn = document.getElementById('add-optionBtn');
+    
+        addOptionBtn.addEventListener('click', function() {
+            addOption();
+        });
+    
+        // 폼 제출 이벤트 핸들러
+        form.addEventListener('submit', function(event) {
+            if (!validateOptions()) {
+                event.preventDefault(); // 중복이 발견되면 폼 제출 방지
+                alert("중복된 옵션이 존재합니다. 중복된 옵션을 제거하거나 수정해 주세요.");
             }
-        } else {
-            alert('옵션과 수량을 모두 올바르게 입력하세요.');
+        });
+    
+        function addOption() {
+            let optionInputs = table.querySelectorAll('input[type="text"]');
+            let lastInputValue = optionInputs.length > 0 ? optionInputs[optionInputs.length - 1].value.trim() : "";
+    
+            if (optionInputs.length > 0 && lastInputValue === "") {
+                alert("옵션명을 입력해주세요.");
+                return;
+            }
+    
+            if (optionInputs.length > 0) {
+                let isDuplicate = Array.from(optionInputs, input => input.value.trim()).slice(0, -1).includes(lastInputValue);
+                if (isDuplicate) {
+                    alert("중복된 옵션이 존재합니다. 중복된 옵션을 제거하거나 수정해 주세요.");
+                    return;
+                }
+            }
+    
+            addNewOptionRow();
         }
-    }
-
-    // 클릭 이벤트에 addOption 함수를 연결
-    $('#add-optionBtn').click(addOption);
-
-    // 입력 필드에서 엔터 키 입력 처리
-    $('#enroll-option, #enroll-pdCount').keypress(function(event) {
-        if (event.which == 13) {  // 엔터 키의 키 코드는 13
-            event.preventDefault();  // 폼 제출을 방지
-            addOption();  // 옵션 추가 함수 실행
+    
+        function addNewOptionRow() {
+            let newTr = document.createElement('tr');
+    
+            let td1 = document.createElement('td');
+            let input1 = document.createElement('input');
+            input1.type = 'text';
+            input1.name = 'optionNames[]';
+            input1.placeholder = '옵션명 입력';
+            td1.appendChild(input1);
+            newTr.appendChild(td1);
+    
+            let td2 = document.createElement('td');
+            let input2 = document.createElement('input');
+            input2.type = 'number';
+            input2.name = 'optionQuantities[]';
+            input2.min = '0';
+            input2.placeholder = '수량';
+            td2.appendChild(input2);
+            newTr.appendChild(td2);
+    
+            let td3 = document.createElement('td');
+            let removeBtn = document.createElement('button');
+            removeBtn.textContent = '제거';
+            removeBtn.className = 'remove-btn';
+            removeBtn.onclick = function(event) {
+                let tr = event.target.closest('tr');
+                tr.remove(); // 해당 행 제거
+            };
+            td3.appendChild(removeBtn);
+            newTr.appendChild(td3);
+    
+            table.appendChild(newTr);
         }
-    });
+    
+        function validateOptions() {
+            let optionInputs = table.querySelectorAll('input[type="text"]');
+            let values = Array.from(optionInputs, input => input.value.trim());
+            let uniqueValues = new Set(values);
+            return values.length === uniqueValues.size; // 중복이 없으면 true 반환
+        }
 
-    $(document).on('click', '.removeBtn', function() {
-        let optionDiv = $(this).parent();
-        let optionName = optionDiv.data('option');
-        options = options.filter(opt => opt.optionName !== optionName);
-        optionDiv.remove();
-        console.log(options);
-        alert('옵션이 성공적으로 제거되었습니다.');
+        // 이미지 미리보기 기능
+        document.getElementById('productImage').addEventListener('change', function() {
+            let file = this.files[0];
+            if (file) {
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    let previewImage = document.getElementById('preview-image');
+                    previewImage.src = e.target.result; // 미리보기 이미지 설정
+                    previewImage.style.display = 'block'; // 이미지가 보이도록 설정
+                };
+                reader.readAsDataURL(file);
+            }
+        });
     });
-
-    $('#enrollForm').submit(function(event) {
-        let optionsInput = $('<input>').attr('type', 'hidden').attr('name', 'optionsJson').val(JSON.stringify(options));
-        $(this).append(optionsInput);
-    });
-
-    $('#productImage').change(function(event) {
-        let reader = new FileReader();
-        reader.onload = function(e) {
-            $('#preview-image').attr('src', e.target.result);
-        };
-        reader.readAsDataURL(event.target.files[0]);
-    });
-});

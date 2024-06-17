@@ -1,11 +1,7 @@
-let path;
 let saveData;
-function fishInfoInit(contextPath) {
-    path = contextPath;
-}
+
 let count = 0;
 let allData;
-let ajaxSetupDone = false; // Ajax 설정 완료 여부
 
 // 중복 호출 방지용 플래그 변수
 let isRequestInProgress = false;
@@ -33,15 +29,22 @@ function getQuestionList(callback) {
     $.ajax({
         url: "getQuestionList.cu",
         type: "post",
+        beforeSend: function() {
+            $("#main-div").empty();
+            $('#loading_spinner').show();
+        },
         success: function(data) {
             saveData = data;
             console.log("ajax실행됨");
             callback(saveData);
         },
         error: function() {
-            console.log("ajax요청실패")
+            console.log("ajax요청실패");
+        },
+        complete: function() {
+            $('#loading_spinner').hide();
         }
-    })
+    });
 }
 
 function getListDetail(saveData, callback) {
@@ -144,16 +147,3 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.getElementById("main-div").addEventListener("click", clickListener);
 });
-
-// 로딩중 js
-
-$.ajaxSetup({
-    beforeSend: function () {
-        $("#main-div").empty(); // 또는 .html("") 사용
-        $('#loading_spinner').show();
-    },
-    complete: function () {
-        $('#loading_spinner').hide();
-    }
-});
-ajaxSetupDone = true; // 설정 완료 플래그를 true로 변경

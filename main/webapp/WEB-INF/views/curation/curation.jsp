@@ -16,7 +16,7 @@
     <!-- 애니메이션 cdn -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 </head>
-<body onload="fishInfoInit('${pageContext.request.contextPath}')">
+<body>
 	<div class="wrap">
 	
 		<!-- header -->

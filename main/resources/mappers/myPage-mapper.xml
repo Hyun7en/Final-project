@@ -35,6 +35,7 @@
 		<result column="JOIN_DATE" property="joinDate"/>
 		<result column="MEMBER_FILE_NO" property="memberFileNo"/>
 		<result column="USER_INTRO" property="userIntro"/>
+		<result column="DROP_DATE" property="dropDate"/>
 	</resultMap>
 	
 	<!-- 작성한 게시글 resultMapper -->
@@ -158,7 +159,8 @@
 	<!-- 회원 탈퇴  -->
 	<update id="deleteMember">
 	UPDATE member
-	SET activated = 'N'
+	SET activated = 'N',
+		drop_date = now()
 	WHERE user_no = #{userNo}
 	</update>
 

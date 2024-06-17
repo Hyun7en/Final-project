@@ -27,7 +27,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/storeJS/infineteScroll.js"></script>
 
 </head>
-<body onload="starImgInit('${pageContext.request.contextPath}')">
+<body onload="init('storeMain', `${pageContext.request.contextPath}`, {userNo : `${loginUser.userNo}`})">
 <div class="wrap">
 
     <!-- header -->

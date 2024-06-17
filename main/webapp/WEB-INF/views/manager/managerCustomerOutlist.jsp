@@ -25,73 +25,57 @@
             <div id="managerOutlist">
                 <div id="managerOutlist-title"><h3>1:1문의</h3></div>
                 <div id="managerOutlist-subtitle"><b>검색</b></div>
-                <form id="search-form" action="">
+                <form id="search-form" action="searchedOutlist.ma?" method="get">
                     <div id="managerOutlist-1sttable">
+                        <input type="hidden" name="categoryName" value="customer">
                         <table>
                             <tr>
                                 <th>검색어</th>
-                                <td>
-                                    <select name="category" id="admin-board-category">
+                                <td>    
+                                    <select name="condition" id="admin-board-category">
                                         <option value="id">아이디</option>
                                         <option value="name">회원명</option>
                                     </select>
-                                    <input type="text">
+                                    <input type="text" name="keyword">
                                 </td>
                             </tr>
                         </table>
                         <div>
-                            <button style="width: 60px;">검색</button>
-                            <button style="width: 75px;">초기화</button>
+                            <button type="submit" style="width: 60px;">검색</button>
+                            <button type="reset" style="width: 75px;">초기화</button>
                         </div>
                     </div>
                 </form>
 
                 <div id="managerOutlist-2nd">
-                    <div id="total-Outlist"><b>총 탈퇴회원 수 : 5</b></div>
+                    <div id="total-Outlist"><b>총 탈퇴회원 수 : ${outCount}</b></div>
                     <div id="managerOutlist-2ndtable">
                         <table>
                             <tr id="admin-2ndtable-head">
-                                <th><input type="checkbox"></th>
-                                <th>번호</th>
-                                <th>회원명</th>
-                                <th>아이디</th>
-                                <th>탈퇴일시</th>
+                                <th style="width: 10%;">번호</th>
+                                <th style="width: 20%;">회원명</th>
+                                <th style="width: 20%;">아이디</th>
+                                <th style="width: 30%;">이메일</th>
+                                <th style="width: 20%;">탈퇴일시</th>
                             </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>5</td>
-                                <td>홍길동</td>
-                                <td>qwqw11</td>
-                                <td>2024-05-14</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>4</td>
-                                <td>고길동</td>
-                                <td>qwqw22</td>
-                                <td>2024-05-14</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>3</td>
-                                <td>최길동</td>
-                                <td>qwqw33</td>
-                                <td>2024-05-14</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>2</td>
-                                <td>나길동</td>
-                                <td>qwqw44</td>
-                                <td>2024-05-14</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>1</td>
-                                <td>조길동</td>
-                                <td>qwqw55</td>
-                                <td>2024-05-14</td>
-                            </tr>
+                            <c:choose>
+                                <c:when test="${empty olist}">
+                                    <tr>
+                                        <td colspan="5">검색 결과가 존재하지 않습니다.</td>
+                                    </tr>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:forEach var="ol" items="${olist}">
+                                        <tr>
+                                            <td>${ol.userNo}</td>
+                                            <td>${ol.userName}</td>
+                                            <td>${ol.userId}</td>
+                                            <td>${ol.email}</td>
+                                            <td>${ol.dropDate}</td>
+                                        </tr>
+                                    </c:forEach>
+                                </c:otherwise>
+                            </c:choose>
                         </table>
                     </div>
                     <div id="managerOutlist-2ndbottom">
