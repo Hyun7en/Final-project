@@ -24,8 +24,8 @@ public class NotificationController {
         return notificationService.subscribe(userNo);
     }
 
-    @PostMapping("send-data.pr/{userNo}")
+    @PostMapping(value = "send-data.pr/{userNo}" ,produces = "application/json; charset=UTF-8")
     public void sendData(@PathVariable Long userNo) {
-        notificationService.notify(userNo, "새로운 알림이 왔습니다");
+        notificationService.notify(userNo, "new");
     }
 }

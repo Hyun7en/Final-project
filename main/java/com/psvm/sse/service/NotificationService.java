@@ -26,7 +26,7 @@ public class NotificationService {
     public SseEmitter subscribe(Long userId) {
         SseEmitter emitter = createEmitter(userId);
 
-        sendToClient(userId, "EventStream Created. [userId=" + userId + "]");
+        
         return emitter;
     }
 
@@ -48,6 +48,7 @@ public class NotificationService {
      * @param data - 전송할 데이터.
      */
     private void sendToClient(Long id, Object data) {
+    	System.out.println(data);
         SseEmitter emitter = emitterRepository.get(id);
         if (emitter != null) {
             try {

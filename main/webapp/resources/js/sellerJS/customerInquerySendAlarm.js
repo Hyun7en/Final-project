@@ -8,7 +8,7 @@ function insertAlarm(sellerNo){
         data: {sellerNo : sellerNo, alarmContents : alarmContents},
         success: function(data){
             SswalMessage(data);
-            // sendAlarmData(data);
+            sendAlarmData(data);
             console.log("ajax 성공")
         },
         error: function(){
@@ -40,22 +40,22 @@ function EswalMessage(data){
 }
 
 
-//보류
-// //구독자들에게 알람 날리는 함수
-// function sendAlarmData(data){
-//     data.list.forEach(element => {
-//         $.ajax({
-//             url: `send-data.pr/${element}`,
-//             type: 'get',
-//             success: function(response) {
-//                 console.log(`Data for ${element} sent successfully.`);
-//             },
-//             error: function(jqXHR, textStatus, errorThrown) {
-//                 console.log(`Failed to send data for ${element}.`);
-//                 console.log("Status: " + textStatus);
-//                 console.log("Error: " + errorThrown);
-//                 console.log("Response Text: " + jqXHR.responseText);
-//             }
-//         });
-//     });
-// }
+
+//구독자들에게 알람 날리는 함수
+function sendAlarmData(data){
+    data.list.forEach(element => {
+        $.ajax({
+            url: `notifications/send-data.pr/${element}`,
+            type: 'post',
+            success: function(response) {
+                console.log(`Data for ${element} sent successfully.`);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(`Failed to send data for ${element}.`);
+                console.log("Status: " + textStatus);
+                console.log("Error: " + errorThrown);
+                console.log("Response Text: " + jqXHR.responseText);
+            }
+        });
+    });
+}
