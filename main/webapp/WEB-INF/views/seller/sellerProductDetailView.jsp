@@ -62,7 +62,7 @@
                 
                 <div class="form-group">
                     <h4>옵션</h4>
-                    <select class="form-control" id="select-option" name="optionName" required>
+                    <select class="form-control" id="select-option" name="optionName">
                         
                     </select>
                 </div>

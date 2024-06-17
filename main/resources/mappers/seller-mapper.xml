@@ -291,13 +291,17 @@
 	
 	<!-- 상품 정보 수정  -->
 	<update id="updateProduct">
-		UPDATE PRODUCT
-		   SET P_TITLE = #{pdTitle},
-		   	   P_ORIGIN_NAME = #{pdOriginName},
-		   	   P_CHANGE_NAME = #{pdChangeName},
-		   	   P_CONTENT = #{pdContent}
-		 WHERE P_NO = #{pno}
+	    UPDATE PRODUCT
+	    SET 
+	        P_TITLE = #{pdTitle},
+	        <if test="pdOriginName != null">
+	            P_ORIGIN_NAME = #{pdOriginName},
+	            P_CHANGE_NAME = #{pdChangeName},
+	        </if>
+	        P_CONTENT = #{pdContent}
+	    WHERE P_NO = #{pno}
 	</update>
+
 	
 	<insert id="insertNewProductOption">
 		INSERT INTO 
@@ -316,11 +320,18 @@
 	</insert>
 	
 	<update id="updateProductOption">
-		UPDATE PRODUCT_OPTION
-		   SET P_COUNT = #{pdCount},
-		   	   P_OPTION_NAME = #{optionName}
-		 WHERE P_OPTION_NO = #{pdOptionNo}
+	    UPDATE PRODUCT_OPTION
+	    <set>
+	        <if test="pdCount != null">
+	            P_COUNT = #{pdCount},
+	        </if>
+	        <if test="optionName != null">
+	            P_OPTION_NAME = #{optionName},
+	        </if>
+	    </set>
+	    WHERE P_OPTION_NO = #{pdOptionNo}
 	</update>
+
 	
 	<delete id="deleteProductOption">
 		DELETE FROM PRODUCT_OPTION

@@ -25,7 +25,13 @@
 
 <script src="https://kit.fontawesome.com/67d7db2dea.js" crossorigin="anonymous"></script>
 
+<script>
+    // JSP에서 JavaScript로 변수 전달
+    const pno = '${param.pno}'; // JSP 변수를 JavaScript 변수로 할당
+</script>
+
 <script src="${pageContext.request.contextPath}/resources/js/storeJS/productDetailView.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/sellerJS/showOption.js"></script>
     
 </head>
 <body>
@@ -87,17 +93,21 @@
                                 <div class="product-opts">
                                     <div class="product-opt-select">
                                         <div><span>옵션을 선택해주세요</span></div>
-                                        <ul class="product-opt-list">
-
-                                        </ul>
+                                        <select class="form-control" id="select-option" name="optionName">
+                        
+                                        </select>
                                     </div>
                                 </div>
-                                <div id="product-quantity-area">
+                                <!-- 선택된 옵션과 수량 입력을 위한 컨테이너 -->
+                                <div id="selected-options-container">
+
+
                                 </div>
+                        
                                 <div id="price-area">
                                     <div >주문금액</div>
                                     <div >
-                                        <span class="product-price"></span>원
+                                        <span class="order-price">원</span>
                                     </div>
                                 </div>
                                 <div id="product-price-btn-wrapper">
@@ -141,18 +151,14 @@
                 <!-- 상품 정보-->
                  <div class="product-detail-container">
                     <section class="product-detail" id="product-detail">
-                        <div id="area-left">
+
                             <h1>
                                 상품정보
                             </h1>
                             <div class="product-description-area">
                                 ${spd.pdContent}
                             </div>
-
-                        </div>
-
-                        <div id="area-right">
-                        </div>
+                        
                     </section>
                 </div>   
                 

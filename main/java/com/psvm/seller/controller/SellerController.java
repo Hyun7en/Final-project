@@ -300,7 +300,7 @@ public class SellerController {
 //    
 //     }
     
- // 판매자 상품 등록
+    // 판매자 상품 등록
     @RequestMapping("insert.pd")
     public String insertProduct(Product product, MultipartFile productImage,
                                 @RequestParam("optionNames[]") String[] optionNames,
@@ -429,6 +429,8 @@ public class SellerController {
     @RequestMapping(value = "options.ax", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
     @ResponseBody
     public String ajaxGetOptions(@RequestParam("pno") int pno) {
+    	
+    	log.info("option-pno" + pno);
 
     	List<ProductOption> options = sellerService.selectOptions(pno);
         return new Gson().toJson(options);
@@ -499,9 +501,9 @@ public class SellerController {
     @RequestMapping("update.pd")
     public String updateProduct(Product product,
                                 MultipartFile productImage,
-                                @RequestParam("optionNames[]") String[] optionNames,
-                                @RequestParam("optionQuantities[]") Integer[] optionQuantities,
-                                @RequestParam("optionStatus[]") String[] optionStatus,
+                                @RequestParam(value = "optionNames[]", required = false) String[] optionNames,
+                                @RequestParam(value = "optionQuantities[]", required = false) Integer[] optionQuantities,
+                                @RequestParam(value = "optionStatus[]", required = false) String[] optionStatus,
                                 @RequestParam(value = "pdOptionNo[]", required = false) Integer[] pdOptionNos,
                                 int pno,
                                 HttpSession session,
@@ -519,7 +521,7 @@ public class SellerController {
             String changeName = saveFile(productImage, session);
 
             product.setPdOriginName(productImage.getOriginalFilename());
-            product.setPdChangeName("/resources/upFiles/productImg/" + changeName);
+            product.setPdChangeName("resources/upFiles/productImg/" + changeName);
         }
         
         Product po = new Product();
@@ -586,7 +588,13 @@ public class SellerController {
     
     // 판매 상품 상세 정보
     @RequestMapping("detail.spd")
-    public String selectSalesProduct(int pno, Model model) {
+    public String selectSalesProduct(@RequestParam(value = "pno", required = false) Integer pno, Model model) {
+    	
+	   if (pno == null) {
+	        // pno가 제공되지 않은 경우, 적절한 처리를 합니다.
+	      
+	        return "redirect: list.spd";
+	    }
     	
     	log.info("pno" + pno);
     	
