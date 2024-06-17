@@ -444,6 +444,7 @@
 				DROP_DATE
 		FROM	MEMBER
 		WHERE	ACTIVATED = 'N'
+		ORDER BY DROP_DATE DESC
 	</select>
 	
 	<!-- 탈퇴 회원 수 조회(검색) -->
@@ -476,5 +477,6 @@
 		 	AND	USER_NAME
 		</if>
 		LIKE '%' || #{keyword} || '%'
+		ORDER BY DROP_DATE DESC
 	</select>
 </mapper>

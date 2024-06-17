@@ -1,0 +1,140 @@
+main{
+    font-size: 15px;
+    display: flex;
+}
+#managerOutlist{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 25px;
+    border-left: 1px solid black;
+}
+#managerOutlist-title{
+    width: 100%;
+    border-bottom: 1px solid black;
+    padding-bottom: 5px;
+}
+#managerOutlist-subtitle{
+    width: 100%;
+    margin-top: 25px;
+    padding-bottom: 5px;
+}
+#managerOutlist-1sttable{
+    width: 100%;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    margin-bottom: 40px;
+}
+#search-form{
+    width: 100%;
+}
+#managerOutlist-1sttable table{
+    width: 100%;
+}
+#managerOutlist-1sttable tr{
+    width: 100%;
+    height: 50px;
+    border-bottom: 1px solid #AFA8A8;
+}
+#managerOutlist-1sttable th{
+    width: 7%;
+    background-color: #eeeeee;
+    text-align: left;
+    padding-left: 5px;
+}
+#managerOutlist-1sttable td{
+    width: 93%;
+    text-align: left;
+    padding-left: 5px;
+}
+#managerOutlist-1sttable td select{
+    border: 1px solid black;
+    width: 90px;
+    height: 30px;
+}
+#managerOutlist-1sttable td input{
+    width: 250px;
+    height: 30px;
+    border: 1px solid black;
+    margin-left: 5px;
+
+}
+#managerOutlist-1sttable div{
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#managerOutlist-1sttable div button{
+    width: 70px;
+    height: 40px;
+    border: 1px solid black;
+    background-color: white;
+    margin-right: 5px;
+    cursor: pointer;
+}
+#managerOutlist-2nd{
+    width: 100%;
+    border-top: 1px solid black;
+}
+
+#total-Outlist{
+    padding: 5px;
+    border-bottom: 1px solid black;
+}
+
+#managerOutlist-2ndtable table{
+    width: 100%;
+    border-left: 1px solid #afa8a8;
+}
+
+#managerOutlist-2ndtable table tr{
+    height: 40px;
+    border-bottom: 1px solid #afa8a8;
+    text-align: center;
+}
+#managerOutlist-2ndtable table th{
+    background-color: #eeeeee;
+    border-right: 1px solid #afa8a8;
+}
+
+#managerOutlist-2ndtable td{
+    border-right: 1px solid #afa8a8;
+}
+#managerOutlist-2nd button{
+    width: 70px;
+    height: 35px;
+    border: 1px solid black;
+    background-color: white;
+    cursor: pointer;
+}
+#managerOutlist-2ndbottom{
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+#managerOutlist-2ndbottom button{
+    width: 75px;
+    height: 30px;
+    margin-right: 5px;
+}
+#pageList-area{
+    margin-top: 20px;
+}
+
+#pageList-area a{
+    font-size: 20px;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+#side-list-selected2{
+    background-color: #EEEEEE;
+}
+
+#side-list-selected2 a{
+    color: #0089FF;
+}
