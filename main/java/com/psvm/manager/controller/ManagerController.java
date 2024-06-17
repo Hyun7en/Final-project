@@ -2,7 +2,6 @@ package com.psvm.manager.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -27,8 +26,23 @@ public class ManagerController {
 	@Autowired
 	private ManagerServiceImpl managerService;
 	
+	// 관리지 메인페이지
 	@RequestMapping("main.ma")
-	public String managerMainView() {
+	public String managerMainView(Model model) {
+		
+		// 탈퇴되어있지 않은 회원 수
+		int currentMemberCount = managerService.currentMemberCount();
+		
+		// 탈퇴되어있는 회원 수
+		int deleteMemberCount = managerService.deleteMemberCount();
+		
+		// 최근 회원가입한 회원 3명 조회
+		ArrayList<Member> recentMemberList = managerService.recentMemberList();
+		
+		model.addAttribute("currentMemberCount", currentMemberCount);
+		model.addAttribute("deleteMemberCount", deleteMemberCount);
+		model.addAttribute("recentMemberList", recentMemberList);
+		
 		return "manager/managerMain";
 	}
 	
@@ -287,7 +301,7 @@ public class ManagerController {
 		}
 	}
 	
-	// 신고무시 메서드
+	// 신고상품 무시 메서드
 	@RequestMapping("reportProductIgnore.ma")
 	public String reportProductIgnore(HttpSession session, int pdNo, Model model) {
 		

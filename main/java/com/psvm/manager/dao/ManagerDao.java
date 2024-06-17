@@ -16,6 +16,21 @@ import com.psvm.member.vo.Member;
 @Repository
 public class ManagerDao {
 	
+	// 탈퇴되어있지 않은 회원 수
+	public int currentMemberCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("managerMapper.currentMemberCount");
+	}
+	
+	// 탈퇴되어있는 회원 수 조회
+	public int deleteMemberCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("managerMapper.deleteMemberCount");
+	}
+	
+	// 최근 회원가입한 회원 3명 조회
+	public ArrayList<Member> recentMemberList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("managerMapper.recentMemberList");
+	}
+	
 	// 관리자를 제외한 모든 회원 수 조회
 	public int memberListCount(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("managerMapper.memberListCount");
@@ -42,15 +57,10 @@ public class ManagerDao {
 		return (ArrayList)sqlSession.selectList("managerMapper.searchMemberList", s, rowBounds);
 	}
 	
-	
-	
 	// 관리자가 회원 강제 탈퇴
 	public int deleteMember(SqlSessionTemplate sqlSession, int userNo) {
 		return sqlSession.update("managerMapper.deleteMember", userNo);
 	}
-	
-	
-	
 	
 	// 판매자 수 조회
 	public int sellerListCount(SqlSessionTemplate sqlSession) {

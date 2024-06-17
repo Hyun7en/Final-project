@@ -48,39 +48,45 @@
                         <thead>
                             <th width="5%"><input type="checkbox"></th>
                             <th width="30%">상품정보</th>
+                            <!-- <th width="15%">옵션</th> -->
                             <th width="15%">수량</th>
                             <th width="15%">상품금액</th>
-                            <th width="15%">배송비용</th>
                             <th width="20%">선택</th>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td width="5%"><input type="checkbox"></td>
-                                <td id="product-info" width="30%">
-                                    <div id="product-info-img"><img src="https://i.namu.wiki/i/N3gQsM4taoIPfKiZuNnJUvDARi1QbgYR4TfRMhkSby12H0fJLHrPxh9daOI45qakLWnVAx67MU2Kn4M0UWLFkQ.webp" alt=""></div>
-                                    <div id="product-info-name">비단잉어</div>
-                                </td>
-                                <td width="15%">
-                                    <div id="count-btn">
-                                        <button onclick="count('minus')">-</button>
-                                        <p id="product-count">1</p>
-                                        <button onclick="count('plus')">+</button>
-                                    </div>
-                                </td>
-                                <td width="15%"><p>amount</p></td>
-                                <td width="15%">delivery-cost</td>
-                                <td width="20%">
-                                    <div id="product-btn">
-                                        <button>주문하기</button>
-                                        <button>삭제</button>
-                                    </div>
-                                </td>
-                            </tr>
+                            <c:forEach var="cp" items="${CartProductList}">
+                                <tr>
+                                    <td style="display: none;">${cp.pdNo}</td>
+                                    <td width="5%"><input type="checkbox"></td>
+                                    <td id="product-info" width="45%">
+                                        <div id="product-info-img"><img src="https://i.namu.wiki/i/N3gQsM4taoIPfKiZuNnJUvDARi1QbgYR4TfRMhkSby12H0fJLHrPxh9daOI45qakLWnVAx67MU2Kn4M0UWLFkQ.webp" alt=""></div>
+                                        <div id="product-info-name">
+                                            <p>${cp.pdName}</p>
+                                            <span>${cp.optionName}</span>
+                                            
+                                        </div>
+                                    </td>
+                                    <!-- <td width="15%">
+                                        <div id="product-option">
+                                            ${cp.option}
+                                        </div>
+                                    </td> -->
+                                    <td width="15%">수량${cp.count}</td>
+                                    <td width="15%" class="product-amount">${cp.pdAmount}</td>
+                                    <td width="20%">
+                                        <div id="product-btn">
+                                            <button>주문하기</button>
+                                            <button>삭제</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+
                         </tbody>
                     </table>
                     <div id="myPageCart-product-list-amount-area">
                         <div id="myPageCart-product-list-amount">
-                            <div class="product-list-amount">
+                            <div class="product-list-amount" id="product-list-total-count">
                                 <b>총 주문 갯수</b>
                                 <p>total-count</p>
                             </div>
@@ -108,12 +114,12 @@
                     <div id="select-btn-area">
                         <div id="select-btn">
                             <div id="delete-btn-area">
-                                <button>전체삭제</button>
-                                <button>선택상품 삭제</button>
+                                <button onclick="">전체삭제</button>
+                                <button onclick="">선택상품 삭제</button>
                             </div>
                             <div id="order-btn-area">
-                                <button>선택상품 주문</button>
-                                <button>전체 주문</button>
+                                <button onclick="">선택상품 주문</button>
+                                <button onclick="">전체 주문</button>
                             </div>
                         </div>
                     </div>
