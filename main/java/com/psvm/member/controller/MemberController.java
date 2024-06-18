@@ -29,16 +29,17 @@ public class MemberController {
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
 	@RequestMapping("loginForm.me") //로그인 페이지 이동
-	public String loginFormMember(@RequestParam(value="recentLink") String recentLink, Model model) {
+	public String loginFormMember(@RequestParam(value="recentLink") String recentLink, HttpSession session) {
+		System.out.println(recentLink);
 		if (recentLink != "") {
-			model.addAttribute("recentLink", recentLink);
+			session.setAttribute("recentLink", recentLink);
 		}
 		return "member/login";
 	}
 	
 	@RequestMapping("login.me") //로그인
-	public ModelAndView loginMember(Member m, @RequestParam(value="recentLink", defaultValue="/") String recentLink, ModelAndView mv, HttpSession session, String saveId, HttpServletResponse response) {
-	    Member loginUser = memberService.loginMember(m);	
+	public ModelAndView loginMember(Member m, ModelAndView mv, HttpSession session, String saveId, HttpServletResponse response) {
+	    Member loginUser = memberService.loginMember(m);
 	    if (loginUser == null) { // 아이디가 없는 경우
 	        mv.addObject("errorMessage", "일치하는 아이디를 찾을 수 없습니다.");
 	        mv.setViewName("member/login");
@@ -54,6 +55,7 @@ public class MemberController {
 	        response.addCookie(ck);
 	        session.setAttribute("successMessage", "로그인에 성공했습니다!");
 	        session.setAttribute("loginUser", loginUser);
+	        String recentLink = session.getAttribute("recentLink").toString();
 	        mv.setViewName("redirect:" + recentLink);
 	    }
 	    
