@@ -39,7 +39,7 @@ public class MyPageController {
 	BCryptPasswordEncoder bcryptPasswordEncoder;
 
 	// 내 정보 페이지로  보내는 메서드
-	@RequestMapping("myPage.me")
+	@RequestMapping("myPage.my")
 	public String selectMyInfo(HttpSession session, int userNo) {
 		// 내정보 페이지 가기전에 이미지 파일 첨부했는지 조회 
 		MemberAttachment ma = myPageService.selectMemberAttachment(userNo);
