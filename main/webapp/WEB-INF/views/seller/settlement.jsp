@@ -11,21 +11,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sellerCSS/productListView.css">
 
-<style>
-    
-section {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    padding: 40px 200px;
-    height: calc(100vh - 40px);
-}
-
-section h1 {
-    margin-bottom: 20px;
-}
-</style>
 
 </head>
 <body>
@@ -40,9 +27,8 @@ section h1 {
         <%@ include file="../commons/aside.jsp" %>
 
         <section>
-            <h1>고객 관리 &gt; 고객 문의</h1>
-
-            
+            <h1>정산 관리 &gt; 정산 </h1>
+          
         </section>
     </main>
 

@@ -31,12 +31,21 @@ function init(pageType, contextPath, data){
   }
   //기본 헤더 세팅
   headerSet(data.userNo);
+  requestNotificationPermission();
 }
 
 
 //헤더 로딩 시 작동하는 함수
 function headerSet(userNo){
   notification(userNo); //구독
+  getAlarmList(userNo, function(alarmList){ //알람리스트 가져오기
+    drawNotification(alarmList); //종모양선택
+    drawAlarmList(alarmList); //알람리스트 div에 넣기
+  })
+}
+
+//알람리스트 div에 다시 그리는 함수셋
+function alarmListReset(userNo){
   getAlarmList(userNo, function(alarmList){ //알람리스트 가져오기
     drawNotification(alarmList); //종모양선택
     drawAlarmList(alarmList); //알람리스트 div에 넣기
@@ -66,15 +75,55 @@ function onNotification(){
     }
 }
 
-//구독알람 설정=이벤트 대기
-function notification(userNo){
+// 알람 수락, 거부 위해 만든 함수
+async function requestNotificationPermission() {
+  let permission = await Notification.requestPermission();
+  // if (permission === 'granted') {
+  //     console.log('Notification permission granted.');
+  // } else if (permission === 'denied') {
+  //     console.log('Notification permission denied.');
+  // } else {
+  //     console.log('Notification permission default.');
+  // }
+}
+
+//구독설정 -> 알람 허용까지 되어있으면 알람 메세지 실행
+function notification(userNo) {
   const eventSource = new EventSource(`http://localhost:8888/psvm/notifications/subscribe.pr/${userNo}`);
 
   eventSource.addEventListener('sse', event => {
-      console.log('구독대기중');
-      //새로운 알람 추가하는 함수 들어와야 할 자리
+      (async () => {
+          const data = event.data; // Assuming event.data is a JSON string
+          const showNotification = () => {
+              const notification = new Notification('새로운 알림 도착', {
+                  body: data.content
+              });
+
+              setTimeout(() => {
+                  notification.close();
+              }, 10 * 1000);
+
+
+              // 클릭 시 이벤트는 딱히 생각한게 없어서 보류
+              notification.addEventListener('click', () => {
+                  window.open(data, '_blank');
+              });
+          };
+
+          if (Notification.permission === 'granted') {
+              showNotification();
+          } else if (Notification.permission !== 'denied') {
+              let permission = await Notification.requestPermission();
+              if (permission === 'granted') {
+                  showNotification();
+              }
+          }
+      })();
   });
 }
+
+
+
 
 //알람 리스트 가져오는 함수
 function getAlarmList(userNo, callback){
@@ -126,6 +175,12 @@ function drawAlarmList(data) {
     }
   }
   aDiv.innerHTML = str;
+}
+//로그인 했을 시 이전 url을 보내는 함수
+function getRecentURL(){
+  const recentLink = document.querySelector('#recentLink');
+  recentLink.value = (window.location.href);
+  recentLink.form.submit();
 }
 
 

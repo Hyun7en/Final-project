@@ -10,6 +10,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.psvm.commons.vo.PageInfo;
+import com.psvm.seller.dto.ProductDTO;
 import com.psvm.seller.dto.StoreMainDTO;
 import com.psvm.seller.vo.Product;
 import com.psvm.seller.vo.ProductCategory;
@@ -164,7 +165,10 @@ public class SellerDao {
 	}
 	
 	// 판매 상품 상세 정보
-	
+	public ProductDTO selectSalesProduct( SqlSessionTemplate sqlSession,int pno) {
+		
+		return sqlSession.selectOne("sellerMapper.selectSalesProduct", pno);
+	}
 	
 	// 무한 스크롤로 전체 상품 가져오기
 	public List<StoreMainDTO> selectAllProduct(SqlSessionTemplate sqlSession,int page, int size) {

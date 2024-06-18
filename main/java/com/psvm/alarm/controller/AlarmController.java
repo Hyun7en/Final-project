@@ -77,7 +77,7 @@ public class AlarmController {
 		
 		HashMap<String, Object> ajaxMap = new HashMap<>(); //매퍼로 데이터 담아서 ajax전송
 		ajaxMap.put("list", list);
-		System.out.println(result);
+		
 		if(result == 1) {
 			String success = "알람보내기에 성공했습니다!";
 			ajaxMap.put("success", success);
