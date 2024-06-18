@@ -567,11 +567,43 @@ public class SellerController {
     	return "redirect:list.pd";
     }
     
+    // 주문 관리
+    
+    @RequestMapping("customerOrder.sr")
+    public String selectCustomerOrderManagement() {
+    	
+    	return "seller/customerOrderManagement";
+    }
+    
+    // 배송 관리
+    
+    @RequestMapping("customerShipment.sr")
+    public String selectCustomerShipmentManagement() {
+    	
+    	return "seller/customerShipmentManagement";
+    }
+    
+    // 고객 문의 관리
+    
+    @RequestMapping("customerInquery.sr")
+    public String selectCustomerInqueryManagement() {
+    	
+    	return "seller/customerInqueryManagement";
+    }
+    
+    // 정산 관리
+    
+    @RequestMapping("settlement.sr")
+    public String selectSettleMent() {
+    	
+    	return "seller/settlement";
+    }
+    
     /*
      * storeMain
      */
     
-    // 스토어 상품 리스트
+    // 스토어 메인
     @RequestMapping("list.spd")
   	public String storeMain(HttpSession session, Model model) {
 		
@@ -584,6 +616,22 @@ public class SellerController {
 		
 		return "store/storeMain";
 	}
+    
+    // 무한 스크롤로 전체 상품 가져오기
+    
+    @RequestMapping(value = "/allProduct.ax", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public String selectAllProduct(@RequestParam("page") int page, @RequestParam("size") int size) {
+    	
+        List<StoreMainDTO> products = sellerService.selectAllProduct(page, size);
+        boolean hasMore = products.size() == size; // 더 불러올 데이터가 있는지 확인
+        HashMap<String, Object> response = new HashMap<>();
+        
+        response.put("products", products);
+        response.put("hasMore", hasMore);
+        
+        return new Gson().toJson(response);
+    }
     
     // 판매 상품 상세 정보
     @RequestMapping("detail.spd")
@@ -620,55 +668,21 @@ public class SellerController {
         return null;
     }
     
-    // 무한 스크롤로 전체 상품 가져오기
-  
-    @RequestMapping(value = "/allProduct.ax", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
-    @ResponseBody
-    public String selectAllProduct(@RequestParam("page") int page, @RequestParam("size") int size) {
-    	
-        List<StoreMainDTO> products = sellerService.selectAllProduct(page, size);
-        boolean hasMore = products.size() == size; // 더 불러올 데이터가 있는지 확인
-        HashMap<String, Object> response = new HashMap<>();
-        
-        response.put("products", products);
-        response.put("hasMore", hasMore);
-        
-        return new Gson().toJson(response);
-    }
-    
-    // 고객 문의 관리
-    
-    @RequestMapping("manage.ci")
-    public String selectCustomerInqueryManagement() {
-    	
-    	return "seller/customerInqueryManagement";
-    }
-    
     // 구매 페이지
     
-    @RequestMapping("order.pd")
+    @RequestMapping("order.spd")
     public String insertBuyingProduct() {
     	
     	return "store/order";
     }
     
-    @RequestMapping("settlement.pd")
-    public String selectSettleMent() {
+    //상품 구매시 로그인 안 돼있을 때
+    @RequestMapping("orderlogin.me")
+    public String loginForm() {
     	
-    	return "seller/settlement";
+    	return "member/login";
     }
     
-    @RequestMapping("manage.cs")
-    public String selectCustomerShipmentManagement() {
-    	
-    	return "seller/customerShipmentManagement";
-    }
-    
-    @RequestMapping("manage.co")
-    public String selectCustomerOrderManagement() {
-    	
-    	return "seller/customerOrderManagement";
-    }
     
    
 }
