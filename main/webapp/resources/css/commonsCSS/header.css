@@ -131,7 +131,6 @@ header nav a:hover{
 
 #notification-div{
     width: 240px;
-    height: 120px;
     position: absolute;
     background-color: white;
     top: 39px;
@@ -145,7 +144,7 @@ header nav a:hover{
     z-index: 900;
 }
 
-#notification-div a{
+.notification-false{
     text-decoration: none;
     color: rgb(47, 52, 56);
     padding: 10px;
@@ -157,9 +156,13 @@ header nav a:hover{
     position: relative;
 }
 
-.notification-link.clicked {
+.notification-true {
+    text-decoration: none;
+    padding: 10px;
     color: gray;
     opacity: 0.6;
-  }
+}
+
+
   
 

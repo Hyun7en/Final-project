@@ -44,6 +44,7 @@
 		<result column="JOIN_DATE" property="joinDate"/>
 		<result column="MEMBER_FILE_NO" property="memberFileNo"/>
 		<result column="USER_INTRO" property="userIntro"/>
+		<result column="DROP_DATE" property="dropDate"/>
 	</resultMap>
 	
 	<!-- 판매 상품 resultMap -->
@@ -429,16 +430,53 @@
 	
 	<!-- 탈퇴 회원 수 조회 -->
 	<select id="customerOutCount" resultType="_int">
-		SELECT COUNT(*)
-		FROM MEMBER
-		WHERE ACTIVATED = 'N'
+		SELECT	COUNT(*)
+		FROM	MEMBER
+		WHERE	ACTIVATED = 'N'
 	</select>
 	
 	<!-- 탈퇴 회원 조회 -->
-	<select id="" resultMap="memberListResult">
+	<select id="customerOutList" resultMap="memberListResult">
 		SELECT	USER_NO,
 				USER_ID,
-				USER_NAME
+				USER_NAME,
+				EMAIL,
+				DROP_DATE
+		FROM	MEMBER
+		WHERE	ACTIVATED = 'N'
+		ORDER BY DROP_DATE DESC
 	</select>
-
+	
+	<!-- 탈퇴 회원 수 조회(검색) -->
+	<select id="searchedOutCount" resultType="_int">
+		SELECT	COUNT(*)
+		FROM	MEMBER
+		WHERE	ACTIVATED = 'N'
+		<if test="condition == 'id'">
+		 	AND	USER_ID
+		</if>
+		<if test="condition == 'name'">
+		 	AND	USER_NAME
+		</if>
+		LIKE '%' || #{keyword} || '%'
+	</select>
+	
+	<!-- 탈퇴 회원 조회(검색) -->
+	<select id="searchedOutlist" resultMap="memberListResult">
+		SELECT	USER_NO,
+				USER_ID,
+				USER_NAME,
+				EMAIL,
+				DROP_DATE
+		FROM	MEMBER
+		WHERE	ACTIVATED = 'N'
+		<if test="condition == 'id'">
+		 	AND	USER_ID
+		</if>
+		<if test="condition == 'name'">
+		 	AND	USER_NAME
+		</if>
+		LIKE '%' || #{keyword} || '%'
+		ORDER BY DROP_DATE DESC
+	</select>
 </mapper>

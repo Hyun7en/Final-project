@@ -24,12 +24,11 @@
 
 <!-- JS -->
 <script src="${pageContext.request.contextPath}/resources/js/storeJS/slick.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/storeJS/storeMain.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/storeJS/infineteScroll.js"></script>
 
 
 </head>
-<body >
-
+<body onload="init('storeMain', `${pageContext.request.contextPath}`, {userNo : `${loginUser.userNo}`})">
 <div class="wrap">
 
     <!-- header -->

@@ -27,7 +27,7 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/communityJS/communityDetail.js"></script>
 
 </head>
-<body onload="callReply(`${c.boardNo}`, `${pageContext.request.contextPath}/resources/image/Cancel.png`, `${c.boardLevel}`); callThumbup(`${c.boardNo}`, `${loginUser.userNo}`); categorySelectedsc(`${c.boardLevel}`); conditionSelected(`${condition}`);">
+<body onload=" init('communityDetail', `${pageContext.request.contextPath}`, {boardNo : `${c.boardNo}`, userNo : `${loginUser.userNo}`, boardLevel : `${c.boardLevel}`, condition : `${condition}` });">
     <c:if test="${ not empty errorMessage}">
 		<script>
 			var errorMessage = '${errorMessage}';
@@ -131,7 +131,7 @@
                                     </th>
                                     <th colspan="2" style="vertical-align:middle; width: 180px !important;">
                                         <button id="com-reply-button" class="btn btn-secondary"
-                                        onclick="addReply('${pageContext.request.contextPath}/resources/image/Cancel.png', '${c.boardLevel}', '${c.boardNo}')">
+                                        onclick="addReply('${pageContext.request.contextPath}/resources/image/Cancel.png', '${c.boardLevel}', '${c.boardNo}', '${loginUser.userNo}')">
                                             등록하기
                                         </button>
                                     </th>

@@ -286,12 +286,31 @@ public class ManagerController {
 		PageInfo pi = Pagination.getPageInfo(customerOutCount, currentPage, 5 , 5);
 		
 		ArrayList<Member> outList = managerService.customerOutList(pi);
-		
 		model.addAttribute("pi", pi);
 		model.addAttribute("outCount", customerOutCount);
-		model.addAttribute("oL", outList);
+		model.addAttribute("olist", outList);
 		session.setAttribute("categoryName", categoryName);
 		return "manager/managerCustomerOutlist";
+	}
+	
+	@RequestMapping("searchedOutlist.ma")
+	public String searchedOutlist(HttpSession session, String categoryName, @RequestParam(value="cpage", defaultValue="1") int currentPage, Model model, String condition, String keyword) {
+		HashMap<String, String> map = new HashMap<>();
+		map.put("condition", condition);
+		map.put("keyword", keyword);
 		
+		int searchedOutCount = managerService.searchedOutCount(map);
+		
+		PageInfo pi = Pagination.getPageInfo(searchedOutCount, currentPage, 5 , 5);
+		
+		ArrayList<Member> outList = managerService.searchedOutlist(pi, map);
+		System.out.println(outList);
+		model.addAttribute("pi", pi);
+		model.addAttribute("outCount", searchedOutCount);
+		model.addAttribute("olist", outList);
+		model.addAttribute("condition", condition);
+		model.addAttribute("keyword", keyword);
+		session.setAttribute("categoryName", categoryName);
+		return "manager/managerSearchedOutlist";
 	}
 }

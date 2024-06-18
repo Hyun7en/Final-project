@@ -247,11 +247,17 @@ public class SellerServiceImpl implements SellerService {
 		
 		return sellerDao.selectAllProduct(sqlSession, page, size);
 	}
-	
-	//알람 ajax
+
 	@Override
-	public ArrayList<String> getAlarmList(int userNo) {
-		return sellerDao.getAlarmList(sqlSession, userNo);
+	public int searchListCount(HashMap<String, String> map) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public ArrayList<Product> searchList(PageInfo pi, HashMap<String, String> map) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

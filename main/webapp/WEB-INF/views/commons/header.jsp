@@ -14,7 +14,7 @@
     <script src="${pageContext.request.contextPath}/resources/js/commonsJS/header.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
 </head>
-<body onload="contextPath(`${pageContext.request.contextPath}`); notification(`${loginUser.userNo}`);">
+<body onload="init('startHeader', `${pageContext.request.contextPath}`, {userNo : `${loginUser.userNo}`}) ">
 	 <header>
             <div id="Header" style="background-color: white">
                 <div id="logo">
@@ -38,13 +38,6 @@
                             <a href="javascript:void(0)" onclick="getRecentURL()" >로그인</a>
                             <a href="signUpForm.me">회원가입</a>
                             
-                            <script>
-                                function getRecentURL(){
-                                    const recentLink = document.querySelector('#recentLink');
-                                    recentLink.value = (window.location.href);
-                                    recentLink.form.submit();
-                                }
-                            </script>
                         </c:when>
                         <c:otherwise>
                             <c:choose>
@@ -83,6 +76,13 @@
                                     <!-- 판매자일 경우 로그인 후  -->
     
                                         <div id="myPageInfo-profile-imgs">
+                                            <div id="notifi-bell">
+                                                <img id="notification-img" src="${pageContext.request.contextPath}/resources/image/notification.png" onclick="onNotification()" alt="">
+                                            </div>
+                                            
+                                            <div id="notification-div">
+                                                
+                                            </div>
                                             <a href="interestProduct.my?userNo=${loginUser.userNo}"><img style="margin-right: 15px;" src="${pageContext.request.contextPath}/resources/image/loveit.png" alt=""></a>
                                             <a href="cart.my?userNo=${loginUser.userNo}"><img style="margin-right: 15px;" src="${pageContext.request.contextPath}/resources/image/shopping.png" alt=""></a>
 
@@ -106,8 +106,15 @@
                                     <!-- 관리자일 경우 로그인 후  -->
 
                                     <div id="myPageInfo-profile-imgs">
+                                        <div id="notifi-bell">
+                                            <img id="notification-img" src="${pageContext.request.contextPath}/resources/image/notification.png" onclick="onNotification()" alt="">
+                                        </div>
+                                        
+                                        <div id="notification-div">
+                                            
+                                        </div>
                                         <a href="interestProduct.my?userNo=${loginUser.userNo}"><img style="margin-right: 15px;" src="${pageContext.request.contextPath}/resources/image/loveit.png" alt=""></a>
-                                            <a href="cart.my?userNo=${loginUser.userNo}"><img style="margin-right: 15px;" src="${pageContext.request.contextPath}/resources/image/shopping.png" alt=""></a>
+                                        <a href="cart.my?userNo=${loginUser.userNo}"><img style="margin-right: 15px;" src="${pageContext.request.contextPath}/resources/image/shopping.png" alt=""></a>
 
                                         <c:choose>
                                             <c:when test="${empty loginUser.changeName}">

@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -671,13 +670,5 @@ public class SellerController {
     	return "seller/customerOrderManagement";
     }
     
-	@ResponseBody
-	@RequestMapping(value="getAlarmList.se", produces = "application/json; charset=UTF-8")
-	public String getAlarmList(@RequestParam("userNo") int userNo) {
-		ArrayList<String> list = sellerService.getAlarmList(userNo);
-		System.out.println(userNo);
-		
-		return new Gson().toJson(list);
-	}
    
 }
