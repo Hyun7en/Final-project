@@ -74,6 +74,17 @@
 		<result column="LOVE_DATE" property="loveDate"/>
 	</resultMap>
 	
+	<!-- 장바구니 resultMapper -->
+	<resultMap type="Cart" id="CartResult">
+		<result column="P_NO" property="pdNo"/>
+		<result column="P_OPTION_NO" property="poNo"/>
+		<result column="P_CHANGE_NAME" property="pdChangeName"/>
+		<result column="P_TITLE" property="pdTitle"/>
+		<result column="P_OPTION_NAME" property="pdOptionName"/>
+		<result column="BUY_COUNT" property="buyCount"/>
+		<result column="P_PRICE" property="pdPrice"/>
+	</resultMap>
+	
 	<!-- 내 정보로 이동할 때 이미지 파일 가지고있는지 확인하기 위한 select -->
 	<select id="selectMemberAttachment" resultMap="selectMemberAttachmentResult">
 		SELECT member_file_no,
@@ -170,6 +181,44 @@
 	SET USER_PWD = #{userPwd}
 	WHERE user_no = #{userNo}
 	</update>
+	
+	<!-- 장바구니에 담긴 상품 수 조회 -->
+	<select id="cartProductListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM BUY b
+		JOIN PRODUCT_OPTION po USING (P_OPTION_NO)
+		JOIN PRODUCT p USING (P_NO)
+		WHERE po.PO_STATUS = 'Y'
+		AND p.P_STATUS = 'Y'
+		AND b.USER_NO = #{userNo}
+		AND b.BUY_STATUS = false
+	</select>
+	
+	<!-- 장바구니에 담긴 상품 조회 -->
+	<select id="cartProductList" resultMap="CartResult">
+		SELECT P_NO,
+			   P_OPTION_NO,
+			   P_CHANGE_NAME,
+			   P_TITLE,
+			   P_OPTION_NAME,
+			   BUY_COUNT,
+			   P_PRICE
+		FROM BUY b
+		JOIN PRODUCT_OPTION po USING (P_OPTION_NO)
+		JOIN PRODUCT p USING (P_NO)
+		WHERE po.PO_STATUS = 'Y'
+		AND p.P_STATUS = 'Y'
+		AND b.USER_NO = #{userNo}
+		AND b.BUY_STATUS = false
+	</select>
+	
+	<!-- 장바구니에 담은 상품 삭제 -->
+	<select id="deleteCartProduct">
+		DELETE FROM BUY
+		WHERE	USER_NO = #{userNo}
+		AND		P_OPTiON_NO = #{poNo}
+	</select>
+	
 
 	<!-- 회원이 작성한 게시글 수 조회 -->
 	<select id="writePostListCount" resultType="_int">

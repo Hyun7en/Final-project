@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -25,6 +27,7 @@ import com.psvm.community.vo.Community;
 import com.psvm.member.vo.Member;
 import com.psvm.member.vo.MemberAttachment;
 import com.psvm.myPage.service.MyPageServiceImpl;
+import com.psvm.myPage.vo.Cart;
 import com.psvm.myPage.vo.Inquiry;
 import com.psvm.seller.vo.SellerInfo;
 import com.psvm.store.vo.StoreInfo;
@@ -39,7 +42,7 @@ public class MyPageController {
 	BCryptPasswordEncoder bcryptPasswordEncoder;
 
 	// 내 정보 페이지로  보내는 메서드
-	@RequestMapping("myPage.me")
+	@RequestMapping("myPage.my")
 	public String selectMyInfo(HttpSession session, int userNo) {
 		// 내정보 페이지 가기전에 이미지 파일 첨부했는지 조회 
 		MemberAttachment ma = myPageService.selectMemberAttachment(userNo);
@@ -224,10 +227,42 @@ public class MyPageController {
 		return mv;
 	}
 	
+	// 회원이 장바구니에 담은 상품 조회하는 메서드
 	@RequestMapping("cart.my")
-	public String cart() {
+	public String cart(int userNo, Model model) {
+		
+		// 장바구니에 담긴 상품 수 조회
+		int cartProductListCount = myPageService.cartProductListCount(userNo);
+		
+		// 장바구니에 담긴 상품 조회
+		ArrayList<Cart> cartProductList = myPageService.cartProductList(userNo);
+		
+		model.addAttribute("cartProductListCount", cartProductListCount);
+		model.addAttribute("cartProductList", cartProductList);
 
 		return "myPage/myPageCart";
+	}
+	
+	// 회원이 장바구니에 담은 상품 삭제하는 메서드
+	@RequestMapping("deleteCartProduct.my")
+	public ModelAndView deleteCartProduct(HttpSession session, int userNo, int poNo, ModelAndView mv) {
+		
+		// 회원 번호와 상품옵션 번호를 하나로 묶기
+		Map<String, Integer> params = new HashMap<>();
+	    params.put("userNo", userNo);
+	    params.put("poNo", poNo);
+		
+		// 장바구니에 담은 상품 삭제
+		int result = myPageService.deleteCartProduct(params);
+		
+		if (result > 0) {	// 성공
+			session.setAttribute("successMessage", "장바구니에서 제외되었습니다.");
+		} else {			// 실패
+			session.setAttribute("errorMessage", "장바구니 제외에 실패하였습니다.");
+		}
+		
+		mv.setViewName("redirect:cart.my?userNo=" + userNo);
+		return mv;
 	}
 
 	@RequestMapping("orderHistory.my")

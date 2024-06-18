@@ -33,7 +33,7 @@
                         <div id="myPage-sidebar-profile-nickName"><b>${loginUser.nickname}</b>님 환영합니다.</div>
                     </div>
                     <div id="myPage-category-area">
-                        <div class="myPage-category"><a href="myPage.me?userNo=${loginUser.userNo}">내 정보</a></div>
+                        <div class="myPage-category"><a href="myPage.my?userNo=${loginUser.userNo}">내 정보</a></div>
                         <div class="myPage-category"><a href="interestProduct.my?userNo=${loginUser.userNo}&cpage=1">관심상품</a></div>
                         <div class="myPage-category"><a style="color: #0089FF;" href="cart.my?userNo=${loginUser.userNo}">장바구니</a></div>
                         <div class="myPage-category"><a href="orderHistory.my?userNo=${loginUser.userNo}">주문내역</a></div>
@@ -54,29 +54,29 @@
                             <th width="20%">선택</th>
                         </thead>
                         <tbody>
-                            <c:forEach var="cp" items="${CartProductList}">
-                                <tr>
-                                    <td style="display: none;">${cp.pdNo}</td>
-                                    <td width="5%"><input type="checkbox"></td>
-                                    <td id="product-info" width="45%">
-                                        <div id="product-info-img"><img src="https://i.namu.wiki/i/N3gQsM4taoIPfKiZuNnJUvDARi1QbgYR4TfRMhkSby12H0fJLHrPxh9daOI45qakLWnVAx67MU2Kn4M0UWLFkQ.webp" alt=""></div>
-                                        <div id="product-info-name">
-                                            <p>${cp.pdName}</p>
-                                            <span>${cp.optionName}</span>
-                                            
+                            <c:forEach var="cp" items="${cartProductList}">
+                                <tr class="product">
+                                    <td class="userNo" style="display: none;">${loginUser.userNo}</td>
+                                    <td class="poNo" style="display: none;">${cp.poNo}</td>
+                                    <td width="5%"><input class="checkbox" type="checkbox"></td>
+                                    <td class="product-info" width="45%">
+                                        <div class="product-info-img"><img src="${cp.pdChangeName}" alt=""></div>
+                                        <div class="product-info-name">
+                                            <b>${cp.pdTitle}</b>
+                                            <span class="product-option">옵션: ${cp.pdOptionName}</span>
                                         </div>
                                     </td>
                                     <!-- <td width="15%">
                                         <div id="product-option">
-                                            ${cp.option}
+                                            
                                         </div>
                                     </td> -->
-                                    <td width="15%">수량${cp.count}</td>
-                                    <td width="15%" class="product-amount">${cp.pdAmount}</td>
+                                    <td width="15%">${cp.buyCount}</td>
+                                    <td width="15%" class="product-amount">${cp.pdPrice}</td>
                                     <td width="20%">
-                                        <div id="product-btn">
+                                        <div class="product-btn">
                                             <button>주문하기</button>
-                                            <button>삭제</button>
+                                            <button onclick="location.href='deleteCartProduct.my?userNo=${loginUser.userNo}&poNo=${cp.poNo}'">삭제</button>
                                         </div>
                                     </td>
                                 </tr>
@@ -88,33 +88,33 @@
                         <div id="myPageCart-product-list-amount">
                             <div class="product-list-amount" id="product-list-total-count">
                                 <b>총 주문 갯수</b>
-                                <p>total-count</p>
+                                <p><!-- total-count --></p>
                             </div>
                             <div class="product-list-amount">
                                 <b>상품금액</b>
-                                <p>total-amount</p>
+                                <p><!--total-amount--></p>
                             </div>
                             <div class="operator">+</div>
                             <div class="product-list-amount">
                                 <b>배송비용</b>
-                                <p>total-delivery-cost</p>
+                                <p><!--total-delivery-cost--></p>
                             </div>
                             <div class="operator">-</div>
                             <div class="product-list-amount">
                                 <b>할인금액</b>
-                                <p>total-discount-amount</p>
+                                <p><!--total-discount-amount--></p>
                             </div>
                             <div class="operator">=</div>
                             <div class="product-list-amount">
                                 <b>총 주문 금액</b>
-                                <p>total-order-amount</p>
+                                <p><!--total-order-amount--></p>
                             </div>
                         </div>
                     </div>
                     <div id="select-btn-area">
                         <div id="select-btn">
                             <div id="delete-btn-area">
-                                <button onclick="">전체삭제</button>
+                                <button onclick="allProductRemove()">전체삭제</button>
                                 <button onclick="">선택상품 삭제</button>
                             </div>
                             <div id="order-btn-area">

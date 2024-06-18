@@ -21,34 +21,48 @@ function numberWithCommas(x){
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
-// 전체삭제 버튼 눌렀을 때
+// 전체삭제 버튼 눌렀을 때 (수정필요)
+function allProductRemove(){
+    const allProduct = document.querySelectorAll(".product");
+    console.log(allProduct);
 
-// 선택상품 삭제 버튼 눌렀을 때
+    allProduct.forEach(function(product) {
+        const userNo = $(product).find(".userNo").text();
+        const poNo = $(product).find(".poNo").text();
+        console.log(userNo);
+        console.log(poNo);
+
+        // location.href="deleteCartProduct.my?userNo=" + userNo + "&poNo=" + poNo;
+    })
+}
+
+// 선택상품 삭제 버튼 눌렀을 때 (확인필요)
 function selectProductRemove(){
-    var checkboxes = document.querySelectorAll('.checkbox:checked');  // 체크된 체크박스들 가져오기
+    const checkboxes = document.querySelectorAll(".checkbox:checked");  // 체크된 체크박스들 가져오기
     checkboxes.forEach(function(checkbox) {     // 체크된 체크박스 하나씩 기능 수행시키기
-        const pdNo = $(checkbox).closest("tr").find(".pdNo").text();
+        const userNo = $(checkbox).closest("tr").find(".userNo").text();
+        const poNo = $(checkbox).closest("tr").find(".poNo").text();  // 체크된 체크박스 행의 product-option-no클래스의 text가져오기
 
         // var index = $(checkbox).closest("tr").index();  // 체크된 체크박스 행의 인덱스 가져오기
         // var modal = $(".seller-info-modal").eq(index);  // 해당 인덱스의 모달 가져오기(리스트(행)에는 userNo이 없고 모달에 userNo이 있어 모달 가져옴)
         // var pdNo = modal.find(".pdNo").text();      // 해당 모달안의 class이름이 userNo인 태그안의 값 가져옴
         
-        location.href="myPageCartProductRemove.my?pdNo=" + pdNo;
+        location.href="deleteCartProduct.my?userNo=" + userNo + "&poNo=" + poNo;
     });
 }
 
 // 전체 주문 눌렀을 때
 
-// 선택상품 주문 버튼 눌렀을 때
+// 선택상품 주문 버튼 눌렀을 때 (확인필요)
 function selectProductOrder(){
-    var checkboxes = document.querySelectorAll('.checkbox:checked');  // 체크된 체크박스들 가져오기
+    const checkboxes = document.querySelectorAll('.checkbox:checked');  // 체크된 체크박스들 가져오기
     checkboxes.forEach(function(checkbox) {     // 체크된 체크박스 하나씩 기능 수행시키기
-        const pdNo = $(checkbox).closest("tr").find(".pdNo").text();
+        const poNo = $(checkbox).closest("tr").find(".product-option-no").text();
 
         // var index = $(checkbox).closest("tr").index();  // 체크된 체크박스 행의 인덱스 가져오기
         // var modal = $(".seller-info-modal").eq(index);  // 해당 인덱스의 모달 가져오기(리스트(행)에는 userNo이 없고 모달에 userNo이 있어 모달 가져옴)
         // var pdNo = modal.find(".pdNo").text();      // 해당 모달안의 class이름이 userNo인 태그안의 값 가져옴
         
-        location.href="myPageCartProductOrder.my?pdNo=" + pdNo;
+        location.href="deleteCartProduct.my?pdNo=" + poNo;
     });
 }

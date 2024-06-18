@@ -1,6 +1,7 @@
 package com.psvm.myPage.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import com.psvm.community.vo.Community;
 import com.psvm.member.vo.Member;
 import com.psvm.member.vo.MemberAttachment;
 import com.psvm.myPage.dao.MyPageDao;
+import com.psvm.myPage.vo.Cart;
 import com.psvm.myPage.vo.Inquiry;
 import com.psvm.seller.vo.SellerInfo;
 import com.psvm.store.vo.StoreInfo;
@@ -82,6 +84,23 @@ public class MyPageServiceImpl implements MyPageService {
 	@Override
 	public int interestCancle(StoreInfo si) {
 		return myPageDao.interestCancle(sqlSession, si);
+	}
+	
+	// 장바구니에 담긴 상품 수 조회
+	@Override
+	public int cartProductListCount(int userNo) {
+		return myPageDao.cartProductListCount(sqlSession, userNo);
+	}
+	
+	// 장바구니에 담긴 상품 조회
+	@Override
+	public ArrayList<Cart> cartProductList(int userNo){
+		return myPageDao.cartProductList(sqlSession, userNo);
+	}
+	
+	// 장바구니에 담은 상품 삭제
+	public int deleteCartProduct(Map<String, Integer> params) {
+		return myPageDao.deleteCartProduct(sqlSession, params);
 	}
 	
 	// 회원이 작성한 게시글 수 조회
