@@ -143,22 +143,22 @@
                             <c:otherwise>
                                 <li class="page-item"><a class="page-link" href="list.co?category=${boardLevel}&cpage=${pi.currentPage - 1}">&laquo;</a></li>
                             </c:otherwise>
-                    </c:choose>
+                        </c:choose>
                 
-                <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-                    <c:set var="b" value="${boardLevel}"/>
-                    <li class="page-item ${p == pi.currentPage ? 'active' : ''}"><a class="page-link" href="list.co?category=${b}&cpage=${p}">${p}</a></li>
-                </c:forEach>
+                        <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+                            <c:set var="b" value="${boardLevel}"/>
+                            <li class="page-item ${p == pi.currentPage ? 'active' : ''}"><a class="page-link" href="list.co?category=${b}&cpage=${p}">${p}</a></li>
+                        </c:forEach>
                     
-                  <c:choose>
-                        <c:when test="${ pi.currentPage eq pi.maxPage }">
-                            <li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
-                        </c:when>
-                        <c:otherwise>
-                            <li class="page-item"><a class="page-link" href="list.co?category=${boardLevel}&cpage=${pi.currentPage + 1}">&raquo;</a></li>
-                        </c:otherwise>
-                    </c:choose>
-                     </ul>
+                        <c:choose>
+                            <c:when test="${ pi.currentPage eq pi.maxPage }">
+                                <li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="page-item"><a class="page-link" href="list.co?category=${boardLevel}&cpage=${pi.currentPage + 1}">&raquo;</a></li>
+                            </c:otherwise>
+                        </c:choose>
+                    </ul>
                 </div>
             </div>
         </main>
