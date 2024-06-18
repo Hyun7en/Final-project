@@ -27,6 +27,9 @@ function init(pageType, contextPath, data){
       break;
     case 'storeMain':
       break;
+    case 'anotherFishAjax':
+      anotherFishAjax(data);
+      break;
       
   }
   //기본 헤더 세팅

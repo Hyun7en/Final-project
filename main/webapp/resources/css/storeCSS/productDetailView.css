@@ -160,6 +160,9 @@ h1{
     height: 150px;
 }
 
+.close{
+    height: 50px;
+}
 /* 상품 설명 */
 
 .product-detail{

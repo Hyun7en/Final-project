@@ -48,10 +48,8 @@ public class SellerController {
     
     private final Gson gson = new Gson();
     
-    
-	/*
-	 * seller
-	 */
+//mapping 끝 sr,srh, pd, me    
+//######################################################### 판매자 ######################################################################
     
     // 판매자 정보 불러오기
     @RequestMapping("info.sr")
@@ -91,13 +89,14 @@ public class SellerController {
         
     }
     
+    // sellerPageNo 가져오기
     public int getSellerPageNo(HttpSession session) {
     	int businessNo = getBusinessNo(session);
     	
     	return sellerService.getSellerPageNo(businessNo);
     }
     
-    // 판매자 홈
+    // 판매자 홈 양식
     @RequestMapping("enrollForm.srh")
 	public String sellerHomeEnrollForm() {
 		return "seller/sellerHomeEnrollForm";
@@ -178,7 +177,7 @@ public class SellerController {
         return gson.toJson(sellerService.selectCategories(businessNo));
     }
   	
-    // 판매자 홈 불러오기
+    // 판매자 홈 상세
   	@RequestMapping("detail.srh")
   	public String selectSellerHomeDetail(HttpSession session, Model model) {
   		
@@ -196,7 +195,7 @@ public class SellerController {
   	    return "seller/sellerHomeDetailView";
   	}
     
-  	// 판매자 홈 수정 페이지
+  	// 판매자 홈 수정 양식
     @RequestMapping("updateForm.srh")
   	public String sellerHomeUpdateForm(HttpSession session, Model model) {
     	int businessNo = getBusinessNo(session);
@@ -258,7 +257,7 @@ public class SellerController {
       
     }
    
-    // 판매자 상품
+    // 판매자 상품 등록 양식
     @RequestMapping("enrollForm.pd")
   	public String productEnrollForm() {
   		return "seller/productEnrollForm";
@@ -386,7 +385,7 @@ public class SellerController {
   		return changeName;
   	}
     
-  	//상품 리스트
+  	//등록한 상품 리스트
     @RequestMapping("list.pd")
   	public String selectProductList(@RequestParam(value="cpage", defaultValue="1") int currentPage,HttpSession session, Model model) {
     	
@@ -404,7 +403,7 @@ public class SellerController {
 		return "seller/productListView";
 	}
     
-    //상품 카테고리 검색
+    //상품(카테고리,상품명으로)  검색
     @RequestMapping("search.pd")//게시글 목록 띄우기
 	public String searchProduct(@RequestParam(value="cpage", defaultValue="1") int currentPage, @RequestParam(value="condition", defaultValue="category") String condition, @RequestParam(value="keyword", defaultValue="") String keyword, Model model) {
 		
@@ -446,7 +445,7 @@ public class SellerController {
 			return "seller/sellerProductDetailView";
 	}
     
-    // 상품 정보 수정 페이지
+    // 상품 정보 수정 양식
     @RequestMapping("updateForm.pd")
   	public String productUpdateForm(int pno, Model model) {
     	
@@ -497,6 +496,7 @@ public class SellerController {
 //    			
 //  	}
     
+    // 상품 정보 수정
     @RequestMapping("update.pd")
     public String updateProduct(Product product,
                                 MultipartFile productImage,
@@ -567,11 +567,37 @@ public class SellerController {
     	return "redirect:list.pd";
     }
     
-    /*
-     * storeMain
-     */
+    // 주문 관리   
+    @RequestMapping("customerOrder.sr")
+    public String selectCustomerOrderManagement() {
+    	
+    	return "seller/customerOrderManagement";
+    }
     
-    // 스토어 상품 리스트
+    // 배송 관리  
+    @RequestMapping("customerShipment.sr")
+    public String selectCustomerShipmentManagement() {
+    	
+    	return "seller/customerShipmentManagement";
+    }
+    
+    // 고객 문의 관리  
+    @RequestMapping("customerInquery.sr")
+    public String selectCustomerInqueryManagement() {
+    	
+    	return "seller/customerInqueryManagement";
+    }
+    
+    // 정산 관리 
+    @RequestMapping("settlement.sr")
+    public String selectSettleMent() {
+    	
+    	return "seller/settlement";
+    }
+    
+//############################################################## 스토어 메인 #########################################################################
+    
+    // 스토어 메인
     @RequestMapping("list.spd")
   	public String storeMain(HttpSession session, Model model) {
 		
@@ -584,6 +610,22 @@ public class SellerController {
 		
 		return "store/storeMain";
 	}
+    
+    // 무한 스크롤로 전체 상품 가져오기
+    
+    @RequestMapping(value = "/allProduct.ax", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public String selectAllProduct(@RequestParam("page") int page, @RequestParam("size") int size) {
+    	
+        List<StoreMainDTO> products = sellerService.selectAllProduct(page, size);
+        boolean hasMore = products.size() == size; // 더 불러올 데이터가 있는지 확인
+        HashMap<String, Object> response = new HashMap<>();
+        
+        response.put("products", products);
+        response.put("hasMore", hasMore);
+        
+        return new Gson().toJson(response);
+    }
     
     // 판매 상품 상세 정보
     @RequestMapping("detail.spd")
@@ -620,55 +662,21 @@ public class SellerController {
         return null;
     }
     
-    // 무한 스크롤로 전체 상품 가져오기
-  
-    @RequestMapping(value = "/allProduct.ax", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
-    @ResponseBody
-    public String selectAllProduct(@RequestParam("page") int page, @RequestParam("size") int size) {
-    	
-        List<StoreMainDTO> products = sellerService.selectAllProduct(page, size);
-        boolean hasMore = products.size() == size; // 더 불러올 데이터가 있는지 확인
-        HashMap<String, Object> response = new HashMap<>();
-        
-        response.put("products", products);
-        response.put("hasMore", hasMore);
-        
-        return new Gson().toJson(response);
-    }
-    
-    // 고객 문의 관리
-    
-    @RequestMapping("manage.ci")
-    public String selectCustomerInqueryManagement() {
-    	
-    	return "seller/customerInqueryManagement";
-    }
-    
     // 구매 페이지
     
-    @RequestMapping("order.pd")
+    @RequestMapping("order.spd")
     public String insertBuyingProduct() {
     	
     	return "store/order";
     }
     
-    @RequestMapping("settlement.pd")
-    public String selectSettleMent() {
+    //상품 구매시 로그인 안 돼있을 때
+    @RequestMapping("orderlogin.me")
+    public String loginForm() {
     	
-    	return "seller/settlement";
+    	return "member/login";
     }
     
-    @RequestMapping("manage.cs")
-    public String selectCustomerShipmentManagement() {
-    	
-    	return "seller/customerShipmentManagement";
-    }
-    
-    @RequestMapping("manage.co")
-    public String selectCustomerOrderManagement() {
-    	
-    	return "seller/customerOrderManagement";
-    }
     
    
 }
