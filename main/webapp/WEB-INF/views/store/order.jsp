@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/storeCSS/order.css">
 
 <script src="${pageContext.request.contextPath}/resources/js/storeJS/order.js"></script>
-
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
 <div class="wrap">
@@ -90,22 +90,31 @@
                         <div class="address-input-container">
                             <div class="find_address_area">
                                 <div>
-                                    <button id="find-address-btn" onclick="searchAddress()">주소찾기</button>
+                                    <button id="find-address-btn" onclick="sample6_execDaumPostcode()">주소찾기</button>
                                 </div>
                                 <div class="input-container" id="zonecode">
+                                    <input type="text" id="sample6_postcode" placeholder="우편번호">
                                 </div>
                             </div>
                             <div class="input-container large" id="address">
+                                <input type="text" id="sample6_address" placeholder="주소"><br>
                             </div>
                             <div class="input-container large">
                                 <input type="text" placeholder="상세주소 입력" style="padding-left: 10px;"
-                                    id="input-delivery-detailAddress">
+                                    id="sample6_detailAddress">
+                            </div>
+                            <div class="input-container large">
+                                <input type="text" id="sample6_extraAddress"  style="padding-left: 10px;" placeholder="참고항목">
                             </div>
                         </div>
                     </div>
-
+                    
+                    
+                    
                     <div id="buyer-requirement-area" class="information-div">
-                        <div class="information-title">요청사항</div>
+                        <div class="information-title">
+                            요청사항
+                        </div>
                         <div class="input-container wd-576">
                             <select name="" id="requirement-select">
                                 <option value="부재시 문앞에 놓아주세요">부재시 문앞에 놓아주세요</option>
