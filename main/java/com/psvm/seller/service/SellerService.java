@@ -2,9 +2,11 @@ package com.psvm.seller.service;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.psvm.commons.vo.PageInfo;
+import com.psvm.seller.dto.ProductDTO;
 import com.psvm.seller.dto.StoreMainDTO;
 import com.psvm.seller.vo.Product;
 import com.psvm.seller.vo.ProductCategory;
@@ -44,6 +46,11 @@ public interface SellerService {
 	// 상품 리스트 불러오기 
 	public List<Product> selectProductList(PageInfo pi,int businessNo);
 	
+	 //상품 카테고리 검색
+	public int searchListCount(HashMap<String, String> map);
+	
+	public ArrayList<Product> searchList(PageInfo pi, HashMap<String, String> map);
+	
 	// 상품 옵션 불러오기
 	public List<ProductOption> selectOptions(int pno);
 	
@@ -63,7 +70,7 @@ public interface SellerService {
 	public List<StoreMainDTO> selectRecentList();
 	
 	// 판매 상품 상세 정보
-	public StoreMainDTO selectSalesProduct(int pno);
+	public ProductDTO selectSalesProduct(int pno);
 	
 	// 무한 스크롤로 전체 상품 가져오기
 	public List<StoreMainDTO> selectAllProduct(int page, int size);
