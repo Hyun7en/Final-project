@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/fishInfoCSS/fishInfoDetail.css">
 	<script src="${pageContext.request.contextPath}/resources/js/fishInfoJS/fishInfoDetail.js"></script>
    
-<body onload="anotherFishAjax({fishType: '${fish.fishType}', tendency: '${fish.tendency}', tasteType: '${fish.tasteType}'});">
+<body onload="init('anotherFishAjax', `${pageContext.request.contextPath}` ,{fishType: `${fish.fishType}`, tendency: `${fish.tendency}`, tasteType: `${fish.tasteType}`, userNo: `${loginUser.userNo}` });">
 	<div class="wrap">
 	
 		<!-- header -->
