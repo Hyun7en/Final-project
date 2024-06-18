@@ -649,12 +649,6 @@ public class SellerController {
     @ResponseBody
     public String insertCart(@RequestBody List<Map<String, Object>> data) {
     	
-    	
-        System.out.println(data);
-        int userNo = (int)(data.get(0).get("userNo"));
-
-        
-
         // 데이터베이스에 저장하는 로직을 추가합니다.
          int result = sellerService.insertCart(data);
 

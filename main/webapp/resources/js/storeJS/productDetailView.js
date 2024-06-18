@@ -73,15 +73,15 @@ function productDetail(userNo){
             let options = [];
             for (let id in selectedOptions) {
                 options.push({
-                    pdOptionNo: id,
+                    pdOptionNo: parseInt(id),
                     buyCount: selectedOptions[id].buyCount,
                     optionPrice: selectedOptions[id].optionPrice, // 옵션별 가격 추가
-                    userNo:userNo
+                    userNo: parseInt(userNo)
                 });
             }
             console.log(options);
 
-            if(options = []){
+            if(options.length != 0){
         
                 // AJAX 요청으로 서버에 데이터 전송
                 $.ajax({
@@ -95,6 +95,7 @@ function productDetail(userNo){
                         console.log(response);
                     },
                     error: function(error) {
+                        alert('로그인을 부탁드립니다');
                         console.error('장바구니 담기 실패');
                         console.error(error);
                     }

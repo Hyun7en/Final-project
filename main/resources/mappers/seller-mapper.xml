@@ -405,20 +405,16 @@
         INSERT INTO BUY (
             user_no, 
             p_option_no, 
-            buy_date, 
             buy_count, 
-            buy_money, 
-            buy_status
+            buy_money
         )
         VALUES 
         <foreach collection="list" item="item" separator=",">
             (
                 #{item.userNo}, 
                 #{item.pdOptionNo}, 
-                NOW(), 
                 #{item.buyCount}, 
-                #{item.optionPrice}, 
-                default
+                #{item.optionPrice}
             )
         </foreach>
     </insert>
