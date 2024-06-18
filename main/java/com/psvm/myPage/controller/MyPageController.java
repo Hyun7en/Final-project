@@ -41,6 +41,10 @@ public class MyPageController {
 	// 내 정보 페이지로  보내는 메서드
 	@RequestMapping("myPage.my")
 	public String selectMyInfo(HttpSession session, int userNo) {
+		Member LoginUser = (Member)session.getAttribute("loginUser");
+		if (LoginUser.getUserNo() != userNo) {
+			return "redirect:home.ma";
+		}
 		// 내정보 페이지 가기전에 이미지 파일 첨부했는지 조회 
 		MemberAttachment ma = myPageService.selectMemberAttachment(userNo);
 

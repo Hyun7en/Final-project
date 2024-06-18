@@ -32,6 +32,7 @@ import com.psvm.community.service.CommunityService;
 import com.psvm.community.vo.Community;
 import com.psvm.community.vo.Reply;
 import com.psvm.community.vo.ThumbUp;
+import com.psvm.member.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -262,10 +263,15 @@ public class CommunityController {
 	}
 
 	@RequestMapping("updateForm.co")
-	public String updateForm(int boardNo, Model model) {
+	public String updateForm(int boardNo, Model model, HttpSession session) {
 		model.addAttribute("c", communityService.selectBoard(boardNo));
-
-		return "community/CommunityEdit";
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		Community c = (Community)model.getAttribute("c");
+		if(loginUser.getUserNo() == c.getUserNo()) {
+			return "community/CommunityEdit";
+		}else {
+			return "redirect:/list.co?category=0&cpage=1";
+		}
 	}
 	
 	@RequestMapping("update.co")
@@ -277,7 +283,7 @@ public class CommunityController {
 			session.setAttribute("successMessage", "게시글이 수정되었습니다!");
 			mv.setViewName("redirect:detail.co?category=" + c.getBoardLevel() + "&cpage=1&boardNo=" + c.getBoardNo());
 		} else { //실패 => 에러페이지
-			mv.addObject("errorMessage", "오류가 발생했습니다.");
+			session.setAttribute("errorMessage", "오류가 발생했습니다.");
 			mv.setViewName("redirect:updateForm.co?boardNo=" + c.getBoardNo());
 		}
 		

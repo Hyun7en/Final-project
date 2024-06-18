@@ -44,6 +44,19 @@
 		</script>
 		<c:remove var="errorMessage" scope="session"/>
 	</c:if>
+    <c:if test="${ not empty warningMessage}">
+		<script>
+			var warningMessage = "${warningMessage}";
+		    if (warningMessage) {
+		        Swal.fire({
+		            icon: 'warning',
+		            title: '로그인',
+		            html: warningMessage
+		        });
+		    }
+		</script>
+		<c:remove var="warningMessage" scope="session"/>
+	</c:if>
     <div id="wrap">
         <div id="login-logo">Aquaqu</div>
         <form action="login.me" id="login-input" method="POST">
