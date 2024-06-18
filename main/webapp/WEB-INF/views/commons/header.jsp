@@ -14,7 +14,7 @@
     <script src="${pageContext.request.contextPath}/resources/js/commonsJS/header.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
 </head>
-<body onload="init('startHeader', `${pageContext.request.contextPath}`, {userNo : `${loginUser.userNo}`}) ">
+<body onload="init('startHeader', `${pageContext.request.contextPath}`, {userNo : `${loginUser.userNo}`}); ">
 	 <header>
             <div id="Header" style="background-color: white">
                 <div id="logo">

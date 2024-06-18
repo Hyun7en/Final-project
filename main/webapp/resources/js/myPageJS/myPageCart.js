@@ -1,19 +1,27 @@
 $(document).ready(function(){
-    calculateTotalAmount();
+    calculateTotalOrder();
 });
 
-// 총 상품금액 계산 함수
-function calculateTotalAmount(){
-    let totalAmount = 0;
-    $(".product-amount").each(function() {      // 상품금액 반복 추출
-        let amount = parseInt($(this).text().replace(',', '')); // 상품금액 텍스트 추출
-        totalAmount += amount;      // 상품금액 총합 구하기
+// 총 주문 가격 계산 결과 함수
+function calculateTotalOrder(){
+    let totalPrice = 0;            // 총 상품 가격
+    $(".product-price").each(function() {      // 상품 가격 반복 추출
+        let price = parseInt($(this).text().replace(',', '')); // 상품 가격 텍스트 추출
+        totalPrice += price;      // 상품 가격 총합 구하기
     });
+    const formattedPrice = numberWithCommas(totalPrice);        // 총 상품 가격에 3자리마다 콤마 추가
+    $("#product-list-total-price span").text(formattedPrice);            // 총 상품 가격 업데이트
 
-    const formattedAmount = numberWithCommas(totalAmount);      // 총 상품금액에 3자리마다 콤마 추가
-    $("$product-list-total-count p").text($('.product-amount'.length));   // 총 주문갯수 업데이트
-    $("$product-list-total-amount p").text(formattedAmount);            // 총 상품금액 업데이트
+    let totalSale = 0;                          // 총 상품 할인 가격
+    $(".product-price").each(function() {      // 상품 가격 반복 추출
+        let sale = parseInt($(this).text().replace(',', '')) * 0.1; // 상품 가격 10%할인 텍스트 추출
+        totalSale += sale;      // 상품 할인 가격 총합 구하기
+    });
+    const formattedSale = numberWithCommas(totalSale);        // 총 상품 가격 3자리마다 콤마 추가
+    $("#product-list-total-sale span").text(formattedSale);            // 총 상품 가격 업데이트
 
+    const totalOrderAmount = numberWithCommas(totalPrice - totalSale); // 총 주문 금액 3자리마다 콤마 추가
+    $("#product-list-total-order-amount span").text(totalOrderAmount);         // 총 주문 금액 업데이트
 }
 
 // 숫자 3자리마다 콤마(,) 추가하는 함수

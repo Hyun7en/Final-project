@@ -152,20 +152,20 @@ main{
 
 }
 
-#myPageCart-product-list-amount-area{
+#myPageCart-product-list-price-area{
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
 
-#myPageCart-product-list-amount{
+#myPageCart-product-list-price{
     width: 95%;
     display: flex;
     border: 1px solid #afa8a8;
     margin: 15px 0; 
 }
 
-.product-list-amount{
+.product-list-price{
     width: 17%;
     height: 100px;
     display: flex;

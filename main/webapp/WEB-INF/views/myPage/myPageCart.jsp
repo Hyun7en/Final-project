@@ -50,7 +50,7 @@
                             <th width="30%">상품정보</th>
                             <!-- <th width="15%">옵션</th> -->
                             <th width="15%">수량</th>
-                            <th width="15%">상품금액</th>
+                            <th width="15%">상품가격</th>
                             <th width="20%">선택</th>
                         </thead>
                         <tbody>
@@ -72,7 +72,7 @@
                                         </div>
                                     </td> -->
                                     <td width="15%">${cp.buyCount}</td>
-                                    <td width="15%" class="product-amount">${cp.pdPrice}</td>
+                                    <td width="15%" class="product-price">${cp.pdPrice}</td>
                                     <td width="20%">
                                         <div class="product-btn">
                                             <button>주문하기</button>
@@ -84,30 +84,30 @@
 
                         </tbody>
                     </table>
-                    <div id="myPageCart-product-list-amount-area">
-                        <div id="myPageCart-product-list-amount">
-                            <div class="product-list-amount" id="product-list-total-count">
+                    <div id="myPageCart-product-list-price-area">
+                        <div id="myPageCart-product-list-price">
+                            <div class="product-list-price" id="product-list-total-count">
                                 <b>총 주문 갯수</b>
-                                <p><!-- total-count --></p>
+                                <span>${cartProductListCount}</span>
                             </div>
-                            <div class="product-list-amount">
-                                <b>상품금액</b>
-                                <p><!--total-amount--></p>
+                            <div class="product-list-price" id="product-list-total-price">
+                                <b>상품가격</b>
+                                <span></span>
                             </div>
                             <div class="operator">+</div>
-                            <div class="product-list-amount">
+                            <div class="product-list-price">
                                 <b>배송비용</b>
-                                <p><!--total-delivery-cost--></p>
+                                <span>0</span>
                             </div>
                             <div class="operator">-</div>
-                            <div class="product-list-amount">
+                            <div class="product-list-price" id="product-list-total-sale">
                                 <b>할인금액</b>
-                                <p><!--total-discount-amount--></p>
+                                <span></span>
                             </div>
                             <div class="operator">=</div>
-                            <div class="product-list-amount">
+                            <div class="product-list-price" id="product-list-total-order-amount">
                                 <b>총 주문 금액</b>
-                                <p><!--total-order-amount--></p>
+                                <span></span>
                             </div>
                         </div>
                     </div>
