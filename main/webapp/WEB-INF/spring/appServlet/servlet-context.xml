@@ -26,9 +26,19 @@
 	
 	<interceptors>
 	 	<interceptor>
-	 		<mapping path="/*.ma"/>
-	 		<mapping path="/*.me"/>
-	 		<mapping path="/*.my"/>
+	 		<!-- 로그인 인터셉터 적용 대상 -->
+	 		<mapping path="/*.ma"/> <!-- manager -->
+	 		<mapping path="/*.my"/> <!-- myPage -->
+	 		<mapping path="/*.srh"/> <!-- sellerHome -->
+	 		<mapping path="/*.pd"/> <!-- product -->
+	 		<mapping path="/enrollForm.co"/> <!-- 게시글 작성 -->
+	 		<mapping path="/updateForm.co"/> <!-- 게시글 수정 -->
+	 		
+	 		
+	 		<!-- 예외처리 인터셉터 적용 대상 -->
+	 		<exclude-mapping path="/home.ma"/> <!-- 메인 화면 -->
+	 		<exclude-mapping path="/quration.ma"/> <!-- 큐레이션 메인 화면 -->
+	 		<exclude-mapping path="/fishInfo.ma"/> <!-- 물고기정보 메인 화면  -->
 	 		<beans:bean class="com.psvm.commons.intercepter.LoginIntercepter" id="LoginIntercepter"/>
 	 	</interceptor>
 	 </interceptors>
