@@ -28,6 +28,7 @@
 <script>
     // JSP에서 JavaScript로 변수 전달
     const pno = '${param.pno}'; // JSP 변수를 JavaScript 변수로 할당
+
 </script>
 
 <script src="${pageContext.request.contextPath}/resources/js/storeJS/productDetailView.js"></script>
@@ -40,6 +41,7 @@
         <input type="hidden" name="pno" value="${param.pno}">
     </form>    
 
+    <input type="hidden" id="login-user" value="${loginUser.userNo}">
     <!-- header -->
     <%@ include file="../commons/header.jsp" %>
     
@@ -100,7 +102,6 @@
                                 </div>
                                 <!-- 선택된 옵션과 수량 입력을 위한 컨테이너 -->
                                 <div id="selected-options-container">
-
 
                                 </div>
                         

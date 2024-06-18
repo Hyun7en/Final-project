@@ -406,24 +406,24 @@ public class SellerController {
 	}
     
     //상품 카테고리 검색
-//    @RequestMapping("search.pd")//게시글 목록 띄우기
-//	public String searchProduct(@RequestParam(value="cpage", defaultValue="1") int currentPage, @RequestParam(value="condition", defaultValue="category") String condition, @RequestParam(value="keyword", defaultValue="") String keyword, Model model) {
-//		
-//		HashMap<String, String>map = new HashMap<>();
-//		map.put("condition", condition);
-//		map.put("keyword", keyword);
-//		
-//		int boardCount = sellerService.searchListCount(map);
-//		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 10);
-//		ArrayList<Product> list = sellerService.searchList(pi, map);
-//		
-//		model.addAttribute("list", list);
-//		model.addAttribute("pi", pi);
-//		model.addAttribute("keyword", keyword);
-//		model.addAttribute("condition", condition);
-//		
-//		return "seller/productListView";
-//	}
+    @RequestMapping("search.pd")//게시글 목록 띄우기
+	public String searchProduct(@RequestParam(value="cpage", defaultValue="1") int currentPage, @RequestParam(value="condition", defaultValue="category") String condition, @RequestParam(value="keyword", defaultValue="") String keyword, Model model) {
+		
+		HashMap<String, String> map = new HashMap<>();
+		map.put("condition", condition);
+		map.put("keyword", keyword);
+		
+		int boardCount = sellerService.searchListCount(map);
+		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 10);
+		ArrayList<Product> list = sellerService.searchList(pi, map);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("condition", condition);
+		
+		return "seller/productListView";
+	}
     
     // 옵션 불러오는 ajax
     @RequestMapping(value = "options.ax", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
@@ -603,6 +603,22 @@ public class SellerController {
     	model.addAttribute("spd",spd);
     	
     	return "seller/productDetailView";
+    }
+    
+    @RequestMapping(value = "/insertCart.ax", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public String insertCart() {
+    	
+        
+        return null;
+    }
+    
+    @RequestMapping(value = "/insertOrder.ax", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public String insertOrder() {
+    	
+        
+        return null;
     }
     
     // 무한 스크롤로 전체 상품 가져오기

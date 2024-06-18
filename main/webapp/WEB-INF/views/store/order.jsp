@@ -32,8 +32,9 @@
                 <div class="area-top">
                     구매자 정보
                     <button id="put-myInfo">내 정보 넣기</button>
-                    <input type="hidden" id="information-loginUser-email" value="${loginUser.memberEmail}">
-                    <input type="hidden" id="information-loginUser-phone" value="${loginUser.memberPhone}">
+                    <input type="hidden" id="information-loginUSer-name" value="${loginUser.userName}">
+                    <input type="hidden" id="information-loginUser-email" value="${loginUser.email}">
+                    <input type="hidden" id="information-loginUser-phone" value="${loginUser.phone}">
                 </div>
                 <div id="buyer-information" class="information-area">
                     <div id="buyer-name-area" class="information-div">
@@ -203,20 +204,6 @@
                             <div>무통장입급</div>
                             <div>
                                 <img src="${contextPath }/resources/dummyImg/shopping/payment/bank_transfer.png"
-                                    alt="">
-                            </div>
-                        </div>
-                        <div class="payment" id="payment-kakaopay" onclick="clickPayment(this,'kakaopay')">
-                            <div>카카오페이</div>
-                            <div>
-                                <img src="${contextPath }/resources/dummyImg/shopping/payment/img_kakaopay.png"
-                                    alt="">
-                            </div>
-                        </div>
-                        <div class="payment" id="payment-naverpay" onclick="clickPayment(this,'naverpay')">
-                            <div>네이버페이</div>
-                            <div>
-                                <img src="${contextPath }/resources/dummyImg/shopping/payment/img_naver.png"
                                     alt="">
                             </div>
                         </div>

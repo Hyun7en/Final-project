@@ -4,6 +4,7 @@
 document.addEventListener("DOMContentLoaded", function(){
     // 로그인 유저 정보 넣는 이벤트
     document.querySelector("#put-myInfo").addEventListener("click", function(){
+      document.querySelector("#input-buyer-name").value = document.querySelector("#information-loginUser-name").value;
       document.querySelector("#input-buyer-email").value = document.querySelector("#information-loginUser-email").value;
       document.querySelector("#input-buyer-phone").value = document.querySelector("#information-loginUser-phone").value;
     });

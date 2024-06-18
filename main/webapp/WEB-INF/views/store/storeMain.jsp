@@ -72,14 +72,10 @@
                     </div>
                 </div>
 
-                <div id="quick-move">
+                <!-- <div id="quick-move">
                     <ul>
                         <li class="quick-move-li-title">
                             <p>빠른이동</p>
-                        </li>
-
-                        <li class="quick-move-li">
-                            <a href="interestProduct.my">관심상품</a>
                         </li>
 
                         <li class="quick-move-li">
@@ -90,11 +86,8 @@
                             <a href="cart.my">장바구니</a>
                         </li>
 
-                        <li class="quick-move-li">
-                            <a href="#">최근검색</a>
-                        </li>
                     </ul>
-                </div>
+                </div> -->
             </div>
 
             

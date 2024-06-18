@@ -2,6 +2,7 @@ package com.psvm.seller.service;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.psvm.commons.vo.PageInfo;
@@ -44,6 +45,11 @@ public interface SellerService {
 	
 	// 상품 리스트 불러오기 
 	public List<Product> selectProductList(PageInfo pi,int businessNo);
+	
+	 //상품 카테고리 검색
+	public int searchListCount(HashMap<String, String> map);
+	
+	public ArrayList<Product> searchList(PageInfo pi, HashMap<String, String> map);
 	
 	// 상품 옵션 불러오기
 	public List<ProductOption> selectOptions(int pno);
