@@ -78,13 +78,13 @@ function onNotification(){
 // 알람 수락, 거부 위해 만든 함수
 async function requestNotificationPermission() {
   let permission = await Notification.requestPermission();
-  if (permission === 'granted') {
-      console.log('Notification permission granted.');
-  } else if (permission === 'denied') {
-      console.log('Notification permission denied.');
-  } else {
-      console.log('Notification permission default.');
-  }
+  // if (permission === 'granted') {
+  //     console.log('Notification permission granted.');
+  // } else if (permission === 'denied') {
+  //     console.log('Notification permission denied.');
+  // } else {
+  //     console.log('Notification permission default.');
+  // }
 }
 
 //구독설정 -> 알람 허용까지 되어있으면 알람 메세지 실행
@@ -93,7 +93,6 @@ function notification(userNo) {
 
   eventSource.addEventListener('sse', event => {
       (async () => {
-        console.log(event)
           const data = event.data; // Assuming event.data is a JSON string
           const showNotification = () => {
               const notification = new Notification('새로운 알림 도착', {
@@ -104,8 +103,10 @@ function notification(userNo) {
                   notification.close();
               }, 10 * 1000);
 
+
+              // 클릭 시 이벤트는 딱히 생각한게 없어서 보류
               notification.addEventListener('click', () => {
-                  window.open(data.url, '_blank');
+                  window.open(data, '_blank');
               });
           };
 
@@ -174,6 +175,12 @@ function drawAlarmList(data) {
     }
   }
   aDiv.innerHTML = str;
+}
+//로그인 했을 시 이전 url을 보내는 함수
+function getRecentURL(){
+  const recentLink = document.querySelector('#recentLink');
+  recentLink.value = (window.location.href);
+  recentLink.form.submit();
 }
 
 
