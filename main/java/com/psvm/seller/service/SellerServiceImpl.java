@@ -4,7 +4,9 @@ package com.psvm.seller.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import com.psvm.commons.vo.PageInfo;
 import com.psvm.seller.dao.SellerDao;
 import com.psvm.seller.dto.ProductDTO;
 import com.psvm.seller.dto.StoreMainDTO;
+import com.psvm.seller.vo.Buy;
 import com.psvm.seller.vo.Product;
 import com.psvm.seller.vo.ProductCategory;
 import com.psvm.seller.vo.ProductOption;
@@ -240,6 +243,13 @@ public class SellerServiceImpl implements SellerService {
 		
 		return sellerDao.selectSalesProduct(sqlSession, pno);
 	}
+	
+	// 장바구니 담기
+	@Override
+    public int insertCart(List<Map<String, Object>> data) {
+        
+        return sellerDao.insertCart(sqlSession,data);
+    }
 	
 	// 무한 스크롤로 전체 상품 가져오기
 	@Override

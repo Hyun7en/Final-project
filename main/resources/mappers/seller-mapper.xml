@@ -362,7 +362,7 @@
 		    JOIN SELLER_INFO USING(BUSINESS_NO)
 		    LEFT JOIN REVIEW USING(P_NO)
 		    WHERE P_STATUS = 'Y'
-		    GROUP BY P_NO, SELLER_PAGE_NO, STORE_NAME, P_TITLE, P_PRICE, P_STAR
+		    GROUP BY P_NO ,STORE_NAME,SELLER_PAGE_NO, P_TITLE, P_PRICE, P_CHANGE_NAME, P_STAR
 		    ORDER BY P_STAR DESC
 		    )
 	 LIMIT 10;
@@ -378,7 +378,7 @@
 			    JOIN SELLER_INFO USING(BUSINESS_NO)
 			    LEFT JOIN REVIEW USING(P_NO)
 			    WHERE P_STATUS = 'Y'
-			    GROUP BY P_NO, SELLER_PAGE_NO, STORE_NAME, P_TITLE, P_PRICE, P_STAR
+			    GROUP BY P_NO, STORE_NAME,SELLER_PAGE_NO, P_TITLE, P_PRICE, P_CHANGE_NAME, P_STAR, P_ENROLL_DATE
 			    ORDER BY P_ENROLL_DATE DESC
 			    )
 		 LIMIT 10;
@@ -395,11 +395,33 @@
 		  JOIN PRODUCT_CATEGORY USING(SELLER_PAGE_NO)
 		  JOIN PRODUCT USING(C_NO)
 		  LEFT JOIN REVIEW USING(P_NO)
-		 WHERE P_STATUS = 'Y' AND P_NO = 55
+		 WHERE P_STATUS = 'Y' AND P_NO = #{pno}
 		 GROUP BY EMAIL, PHONE, BUSINESS_NO,BUSINESS_NAME, STORE_NAME, SELLER_PAGE_NO,
 				MAIN_BUSINESS_NAME,BUSINESS_ADDRESS, P_NO, P_TITLE, 
 				P_PRICE, P_CONTENT, P_STAR, P_CHANGE_NAME ;
 	</select>
+	
+	 <insert id="insertCart" parameterType="list">
+        INSERT INTO BUY (
+            user_no, 
+            p_option_no, 
+            buy_date, 
+            buy_count, 
+            buy_money, 
+            buy_status
+        )
+        VALUES 
+        <foreach collection="list" item="item" separator=",">
+            (
+                #{item.userNo}, 
+                #{item.pdOptionNo}, 
+                NOW(), 
+                #{item.buyCount}, 
+                #{item.optionPrice}, 
+                default
+            )
+        </foreach>
+    </insert>
 	
 	<select id="selectAllProduct" resultMap="StoreMainDTOResult">
 		SELECT P_NO, STORE_NAME,SELLER_PAGE_NO, P_TITLE, P_PRICE, P_CHANGE_NAME, P_STAR, COUNT(REVIEW.REPLY_NO) AS REVIEW_COUNT
@@ -409,7 +431,7 @@
 		  JOIN SELLER_INFO USING(BUSINESS_NO)
 		  LEFT JOIN REVIEW USING(P_NO)
 		 WHERE P_STATUS = 'Y'
-		 GROUP BY P_NO, SELLER_PAGE_NO, STORE_NAME, P_TITLE, P_PRICE, P_STAR
+		 GROUP BY P_NO, STORE_NAME,SELLER_PAGE_NO, P_TITLE, P_PRICE, P_CHANGE_NAME, P_STAR, P_ENROLL_DATE
 		 ORDER BY P_ENROLL_DATE DESC
 	</select>
 	

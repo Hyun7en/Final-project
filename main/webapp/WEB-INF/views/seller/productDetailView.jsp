@@ -35,16 +35,11 @@
 <script src="${pageContext.request.contextPath}/resources/js/sellerJS/showOption.js"></script>
     
 </head>
-<body>
-<div class="wrap">
-    <form id="auto-submit-form" action="detail.spd?submitted=true" method="post">
-        <input type="hidden" name="pno" value="${param.pno}">
-    </form>    
+<body onload="init('productDetailView', `${pageContext.request.contextPath}`, {userNo : `${loginUser.userNo}`});">
+<div class="wrap">    
 
-    <input type="hidden" id="login-user" value="${loginUser.userNo}">
     <!-- header -->
     <%@ include file="../commons/header.jsp" %>
-    
     
     <main>
         
@@ -76,7 +71,7 @@
                         <span class="product-grade">평점</span><span>${spd.pdStar}</span>
                     </div>
                     <div>
-                        <span class="product-review-quantity">리뷰</span><span class="review-quantity">${spd.reviewCount}</span>
+                        <span class="product-review-quantity">리뷰</span><span id="review-count">${spd.reviewCount}</span>
                     </div>
                 </div>
               
@@ -85,9 +80,9 @@
                         <span class="product-price">${spd.pdPrice}</span>원
                     </div>
                 </div>
-                <!-- <div class="product-etc">
+                <div class="product-etc">
                     <span>배송</span>
-                </div> -->
+                </div>
                 <div class="top-product-buy-area">
                     <div class="product-buy-info">
                         <div id="product-opt-form-wrapper">
@@ -96,7 +91,6 @@
                                     <div class="product-opt-select">
                                         <div><span>옵션을 선택해주세요</span></div>
                                         <select class="form-control" id="select-option" name="optionName">
-                        
                                         </select>
                                     </div>
                                 </div>
@@ -171,11 +165,17 @@
                         <div class="product-review-area">
                             <div class="review-top">
                                 <h1 class="description-title">
-                                    리뷰
+                                    <span>리뷰</span> <span id="review-count">${spd.reviewCount}</span>
                                 </h1>
-                                <button id="review-btn" class="btn btn-primary" data-toggle="modal" data-target="#review-Modal">
-                                    리뷰쓰기
-                                </button>
+                                <c:choose>
+                                    <c:when test="${loginUser != null}">
+                                        <button id="review-btn" class="btn btn-primary" data-toggle="modal" data-target="#review-Modal">
+                                            리뷰쓰기
+                                        </button>
+                                    </c:when>
+                                    <c:otherwise>
+                                    </c:otherwise>    
+                                </c:choose>
                             </div>
 
                             <div>
@@ -215,6 +215,8 @@
                                     </tr>
                                 </table>
                                 
+                                <hr>
+                            <!-- 반복 구문 끝 -->
                             </div>
                         </div>
 
@@ -320,9 +322,15 @@
                                 <h1 class="description-title">
                                     문의
                                 </h1>
-                                <button id="inquiry-btn" class="btn btn-primary" data-toggle="modal" data-target="#inquiry-Modal">
-                                    문의하기
-                                </button>
+                                <c:choose>
+                                    <c:when test="${loginUser != null}">
+                                        <button id="inquiry-btn" class="btn btn-primary" data-toggle="modal" data-target="#inquiry-Modal">
+                                            문의하기
+                                        </button>
+                                    </c:when>
+                                    <c:otherwise>
+                                    </c:otherwise>    
+                                </c:choose>
                             </div>
 
                             <div>
@@ -337,16 +345,19 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            문의 내용
+                                        <td style="font-weight: bolder; color: #0089FF;">
+                                            Q
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            문의 답변
+                                        <td style="font-weight: bolder; color: #0089FF;">
+                                            A
                                         </td>
                                     </tr>
                                 </table>
+
+                                <hr>
+                                <!--  반복문 끝 -->
                             </div>
                             <!-- 페이징 처리 들어오는 곳-->
                             <div id="pagination-div">

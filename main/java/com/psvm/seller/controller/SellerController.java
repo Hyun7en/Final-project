@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,10 +30,12 @@ import com.google.gson.reflect.TypeToken;
 import com.psvm.commons.template.Pagination;
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.member.vo.Member;
+import com.psvm.seller.dto.CartDTO;
 import com.psvm.seller.dto.ProductCategoryDTO;
 import com.psvm.seller.dto.ProductDTO;
 import com.psvm.seller.dto.StoreMainDTO;
 import com.psvm.seller.service.SellerService;
+import com.psvm.seller.vo.Buy;
 import com.psvm.seller.vo.Product;
 import com.psvm.seller.vo.ProductCategory;
 import com.psvm.seller.vo.ProductOption;
@@ -428,8 +433,6 @@ public class SellerController {
     @ResponseBody
     public String ajaxGetOptions(@RequestParam("pno") int pno) {
     	
-    	log.info("option-pno" + pno);
-
     	List<ProductOption> options = sellerService.selectOptions(pno);
         return new Gson().toJson(options);
     }
@@ -631,14 +634,6 @@ public class SellerController {
     @RequestMapping("detail.spd")
     public String selectSalesProduct(@RequestParam(value = "pno", required = false) Integer pno, Model model) {
     	
-	   if (pno == null) {
-	        // pno가 제공되지 않은 경우, 적절한 처리를 합니다.
-	      
-	        return "redirect: list.spd";
-	    }
-    	
-    	log.info("pno" + pno);
-    	
     	ProductDTO spd = sellerService.selectSalesProduct(pno);
     	
     	model.addAttribute("spd",spd);
@@ -646,21 +641,27 @@ public class SellerController {
     	return "seller/productDetailView";
     }
     
-    @RequestMapping(value = "/insertCart.ax", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+    // 장바구니 담기    
+
+
+
+    @PostMapping(value = "/insertCart.ax", produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public String insertCart() {
+    public String insertCart(@RequestBody List<Map<String, Object>> data) {
     	
+    	
+        System.out.println(data);
+        int userNo = (int)(data.get(0).get("userNo"));
+
         
-        return null;
+
+        // 데이터베이스에 저장하는 로직을 추가합니다.
+         int result = sellerService.insertCart(data);
+
+        // 응답 메시지 반환
+        return new Gson().toJson(result);
     }
     
-    @RequestMapping(value = "/insertOrder.ax", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
-    @ResponseBody
-    public String insertOrder() {
-    	
-        
-        return null;
-    }
     
     // 구매 페이지
     

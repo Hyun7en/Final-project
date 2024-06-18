@@ -4,6 +4,7 @@ package com.psvm.seller.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.seller.dto.ProductDTO;
 import com.psvm.seller.dto.StoreMainDTO;
+import com.psvm.seller.vo.Buy;
 import com.psvm.seller.vo.Product;
 import com.psvm.seller.vo.ProductCategory;
 import com.psvm.seller.vo.ProductOption;
@@ -168,6 +170,12 @@ public class SellerDao {
 	public ProductDTO selectSalesProduct( SqlSessionTemplate sqlSession,int pno) {
 		
 		return sqlSession.selectOne("sellerMapper.selectSalesProduct", pno);
+	}
+	
+	// 장바구니 담기
+	public int insertCart(SqlSessionTemplate sqlSession,List<Map<String, Object>> data) {
+		
+		return sqlSession.insert("sellerMapper.insertCart", data);
 	}
 	
 	// 무한 스크롤로 전체 상품 가져오기

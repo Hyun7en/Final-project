@@ -31,7 +31,7 @@
         // 옵션 목록의 각 항목에 대해 option 요소를 생성하여 추가
         options.forEach(function(option) {
             if (option) {
-                $selectOption.append($('<option>').text(option.optionName).val(option.optionName)); // 값을 옵션 이름으로 사용
+                $selectOption.append($('<option>').text(option.optionName).val(option.pdOptionNo)); // 값을 옵션 이름으로 사용
             } else {
                 console.log('Invalid option data', option);
             }
