@@ -26,7 +26,7 @@ $(document).ready(function() {
                     page++; // 페이지 번호 증가
                 },
                 error: function() {
-                    alert('상품을 불러올 수 없습니다.');
+                   console.log("무한 스크롤 실패")
                 },
                 complete: function() {
                     isLoading = false;

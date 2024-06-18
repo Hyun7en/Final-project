@@ -12,6 +12,16 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
 
+<style>
+        section {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        padding: 40px 200px;
+        height: calc(100vh - 40px);
+        overflow-y: scroll;
+    }
+</style>
 </head>
 <body>
 <div class="wrap">
