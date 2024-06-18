@@ -48,10 +48,8 @@ public class SellerController {
     
     private final Gson gson = new Gson();
     
-    
-	/*
-	 * seller
-	 */
+//mapping 끝 sr,srh, pd, me    
+//######################################################### 판매자 ######################################################################
     
     // 판매자 정보 불러오기
     @RequestMapping("info.sr")
@@ -91,13 +89,14 @@ public class SellerController {
         
     }
     
+    // sellerPageNo 가져오기
     public int getSellerPageNo(HttpSession session) {
     	int businessNo = getBusinessNo(session);
     	
     	return sellerService.getSellerPageNo(businessNo);
     }
     
-    // 판매자 홈
+    // 판매자 홈 양식
     @RequestMapping("enrollForm.srh")
 	public String sellerHomeEnrollForm() {
 		return "seller/sellerHomeEnrollForm";
@@ -178,7 +177,7 @@ public class SellerController {
         return gson.toJson(sellerService.selectCategories(businessNo));
     }
   	
-    // 판매자 홈 불러오기
+    // 판매자 홈 상세
   	@RequestMapping("detail.srh")
   	public String selectSellerHomeDetail(HttpSession session, Model model) {
   		
@@ -196,7 +195,7 @@ public class SellerController {
   	    return "seller/sellerHomeDetailView";
   	}
     
-  	// 판매자 홈 수정 페이지
+  	// 판매자 홈 수정 양식
     @RequestMapping("updateForm.srh")
   	public String sellerHomeUpdateForm(HttpSession session, Model model) {
     	int businessNo = getBusinessNo(session);
@@ -258,7 +257,7 @@ public class SellerController {
       
     }
    
-    // 판매자 상품
+    // 판매자 상품 등록 양식
     @RequestMapping("enrollForm.pd")
   	public String productEnrollForm() {
   		return "seller/productEnrollForm";
@@ -386,7 +385,7 @@ public class SellerController {
   		return changeName;
   	}
     
-  	//상품 리스트
+  	//등록한 상품 리스트
     @RequestMapping("list.pd")
   	public String selectProductList(@RequestParam(value="cpage", defaultValue="1") int currentPage,HttpSession session, Model model) {
     	
@@ -404,7 +403,7 @@ public class SellerController {
 		return "seller/productListView";
 	}
     
-    //상품 카테고리 검색
+    //상품(카테고리,상품명으로)  검색
     @RequestMapping("search.pd")//게시글 목록 띄우기
 	public String searchProduct(@RequestParam(value="cpage", defaultValue="1") int currentPage, @RequestParam(value="condition", defaultValue="category") String condition, @RequestParam(value="keyword", defaultValue="") String keyword, Model model) {
 		
@@ -446,7 +445,7 @@ public class SellerController {
 			return "seller/sellerProductDetailView";
 	}
     
-    // 상품 정보 수정 페이지
+    // 상품 정보 수정 양식
     @RequestMapping("updateForm.pd")
   	public String productUpdateForm(int pno, Model model) {
     	
@@ -497,6 +496,7 @@ public class SellerController {
 //    			
 //  	}
     
+    // 상품 정보 수정
     @RequestMapping("update.pd")
     public String updateProduct(Product product,
                                 MultipartFile productImage,
@@ -567,41 +567,35 @@ public class SellerController {
     	return "redirect:list.pd";
     }
     
-    // 주문 관리
-    
+    // 주문 관리   
     @RequestMapping("customerOrder.sr")
     public String selectCustomerOrderManagement() {
     	
     	return "seller/customerOrderManagement";
     }
     
-    // 배송 관리
-    
+    // 배송 관리  
     @RequestMapping("customerShipment.sr")
     public String selectCustomerShipmentManagement() {
     	
     	return "seller/customerShipmentManagement";
     }
     
-    // 고객 문의 관리
-    
+    // 고객 문의 관리  
     @RequestMapping("customerInquery.sr")
     public String selectCustomerInqueryManagement() {
     	
     	return "seller/customerInqueryManagement";
     }
     
-    // 정산 관리
-    
+    // 정산 관리 
     @RequestMapping("settlement.sr")
     public String selectSettleMent() {
     	
     	return "seller/settlement";
     }
     
-    /*
-     * storeMain
-     */
+//############################################################## 스토어 메인 #########################################################################
     
     // 스토어 메인
     @RequestMapping("list.spd")
