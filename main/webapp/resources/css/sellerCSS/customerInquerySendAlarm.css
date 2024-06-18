@@ -61,3 +61,39 @@ input[type="text"] {
 #sendAlarmInfo:hover {
     background-color: #0089ff; /* 마우스를 올렸을 때 버튼 색상 */
 }
+
+/* 로딩중 표시 css */
+#loading_spinner {
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 99;
+}
+
+.cv_spinner {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: stretch;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.spinner {
+    width: 100px;
+    height: 100px;
+    border: 15px #ddd solid;
+    border-top: 15px #2e93e6 solid;
+    border-radius: 50%;
+    animation: sp-anime 0.8s infinite linear;
+}
+
+@keyframes sp-anime {
+    100% {
+        transform: rotate(360deg);
+    }
+}

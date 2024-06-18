@@ -28,7 +28,7 @@
         <!-- aside -->
         <%@ include file="../commons/aside.jsp" %>
 
-        <section>
+        <section id="main-section">
             <h1>고객 관리 &gt; 고객 알림 </h1>
             <br>
             
@@ -45,7 +45,13 @@
             </div>
                 
         </section>
+        <div id="loading_spinner">
+            알람을 보내는 중 입니다
+            <div class="spinner"></div>
+        </div>
     </main>
+    <!-- 로딩 스피너 -->
+    
 
     <!-- footer -->
     <%@ include file="../commons/footer.jsp" %>
