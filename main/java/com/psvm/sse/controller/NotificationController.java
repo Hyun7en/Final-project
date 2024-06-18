@@ -29,4 +29,6 @@ public class NotificationController {
     public void sendData(@PathVariable Long userNo, @RequestParam("sellerUrl") String url) {
         notificationService.notify(userNo, url);
     }
+    
+    
 }
