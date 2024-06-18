@@ -29,7 +29,7 @@ function init(pageType, contextPath, data){
       break;
       
   }
-  //기본 헤더 세팅
+    //기본 헤더 세팅
   headerSet(data.userNo);
   requestNotificationPermission();
 }
