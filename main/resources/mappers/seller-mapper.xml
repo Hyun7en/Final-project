@@ -85,6 +85,17 @@
 	</resultMap>
 	
 	<resultMap type="ProductDTO" id="ProductDTOResult">
+		<result column="USER_NO" property="userNo"/>
+		<result column="EMAIL" property="email"/>
+		<result column="PHONE" property="phone"/>
+		<result column="BUSINESS_NO" property="businessNo"/>
+		<result column="BUSINESS_NAME" property="businessName"/>
+		<result column="STORE_NAME" property="storeName"/>
+		<result column="MAIN_BUSINESS_NAME" property="mainBusinessName"/>
+		<result column="BUSINESS_ADDRESS" property="businessAddress"/>
+		<result column="SELLER_PAGE_NO" property="sellerPageNo"/>
+		<result column="C_NO" property="caNo"/>
+		<result column="CATEGORY" property="category"/>
 		<result column="P_NO" property="pdNo"/>
 		<result column="C_NO" property="caNo"/>
 		<result column="P_CATEGORY" property="pdCategory"/>
@@ -98,9 +109,13 @@
 		<result column="P_STATUS" property="pdStatus"/>	
 		<result column="P_COUNT" property="pdCount"/>
 		<result column="PO_STATUS" property="poStatus"/>	
-		<result column="P_NO" property="pdNo"/>
 		<result column="P_OPTION_NAME" property="optionName"/>
 		<result column="P_OPTION_NO" property="pdOptionNo"/>
+		<result column="REPLY_NO" property="pdOptionNo"/>
+		<result column="REVIEW_DATE" property="reviewDate"/>
+		<result column="REVIEW_DIBS" property="reviewDibs"/>
+		<result column="REVIEW_CONTENTS" property="reviewContents"/>
+		<result column="REVIEW_COUNT" property="reviewCount"/>
 	</resultMap>
 	
 	<select id="selectSeller" resultMap="sellerInfoResult">
@@ -276,13 +291,17 @@
 	
 	<!-- 상품 정보 수정  -->
 	<update id="updateProduct">
-		UPDATE PRODUCT
-		   SET P_TITLE = #{pdTitle},
-		   	   P_ORIGIN_NAME = #{pdOriginName},
-		   	   P_CHANGE_NAME = #{pdChangeName},
-		   	   P_CONTENT = #{pdContent}
-		 WHERE P_NO = #{pno}
+	    UPDATE PRODUCT
+	    SET 
+	        P_TITLE = #{pdTitle},
+	        <if test="pdOriginName != null">
+	            P_ORIGIN_NAME = #{pdOriginName},
+	            P_CHANGE_NAME = #{pdChangeName},
+	        </if>
+	        P_CONTENT = #{pdContent}
+	    WHERE P_NO = #{pno}
 	</update>
+
 	
 	<insert id="insertNewProductOption">
 		INSERT INTO 
@@ -301,11 +320,18 @@
 	</insert>
 	
 	<update id="updateProductOption">
-		UPDATE PRODUCT_OPTION
-		   SET P_COUNT = #{pdCount},
-		   	   P_OPTION_NAME = #{optionName}
-		 WHERE P_OPTION_NO = #{pdOptionNo}
+	    UPDATE PRODUCT_OPTION
+	    <set>
+	        <if test="pdCount != null">
+	            P_COUNT = #{pdCount},
+	        </if>
+	        <if test="optionName != null">
+	            P_OPTION_NAME = #{optionName},
+	        </if>
+	    </set>
+	    WHERE P_OPTION_NO = #{pdOptionNo}
 	</update>
+
 	
 	<delete id="deleteProductOption">
 		DELETE FROM PRODUCT_OPTION
@@ -356,6 +382,23 @@
 			    ORDER BY P_ENROLL_DATE DESC
 			    )
 		 LIMIT 10;
+	</select>
+	
+	<select id="selectSalesProduct" resultMap="ProductDTOResult">
+		SELECT EMAIL, PHONE, BUSINESS_NO,BUSINESS_NAME, STORE_NAME, SELLER_PAGE_NO,
+			   MAIN_BUSINESS_NAME,BUSINESS_ADDRESS, P_NO, P_TITLE, 
+			   P_PRICE, P_CONTENT, P_STAR, P_CHANGE_NAME, 
+		       COUNT(REVIEW.REPLY_NO) AS REVIEW_COUNT
+		  FROM MEMBER
+		  JOIN SELLER_INFO USING(USER_NO)
+		  JOIN SELLER_PAGE USING(BUSINESS_NO)
+		  JOIN PRODUCT_CATEGORY USING(SELLER_PAGE_NO)
+		  JOIN PRODUCT USING(C_NO)
+		  LEFT JOIN REVIEW USING(P_NO)
+		 WHERE P_STATUS = 'Y' AND P_NO = 55
+		 GROUP BY EMAIL, PHONE, BUSINESS_NO,BUSINESS_NAME, STORE_NAME, SELLER_PAGE_NO,
+				MAIN_BUSINESS_NAME,BUSINESS_ADDRESS, P_NO, P_TITLE, 
+				P_PRICE, P_CONTENT, P_STAR, P_CHANGE_NAME ;
 	</select>
 	
 	<select id="selectAllProduct" resultMap="StoreMainDTOResult">

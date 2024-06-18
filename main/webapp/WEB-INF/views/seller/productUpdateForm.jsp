@@ -85,7 +85,7 @@ const pno = '${pd.pdNo}';
                     <label for="productImage">
                         대표 이미지
                     </label>
-                    <input type="file" id="productImage" name="productImage" required>
+                    <input type="file" id="productImage" name="productImage">
                 </div>
                 <div class="image-container">
                     <img id="preview-image" src="${pd.pdChangeName}" alt="상품 이미지">

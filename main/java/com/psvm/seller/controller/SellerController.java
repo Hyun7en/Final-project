@@ -28,6 +28,7 @@ import com.psvm.commons.template.Pagination;
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.member.vo.Member;
 import com.psvm.seller.dto.ProductCategoryDTO;
+import com.psvm.seller.dto.ProductDTO;
 import com.psvm.seller.dto.StoreMainDTO;
 import com.psvm.seller.service.SellerService;
 import com.psvm.seller.vo.Product;
@@ -298,7 +299,7 @@ public class SellerController {
 //    
 //     }
     
- // 판매자 상품 등록
+    // 판매자 상품 등록
     @RequestMapping("insert.pd")
     public String insertProduct(Product product, MultipartFile productImage,
                                 @RequestParam("optionNames[]") String[] optionNames,
@@ -404,29 +405,31 @@ public class SellerController {
 	}
     
     //상품 카테고리 검색
-//    @RequestMapping("search.pd")//게시글 목록 띄우기
-//	public String searchProduct(@RequestParam(value="cpage", defaultValue="1") int currentPage, @RequestParam(value="condition", defaultValue="category") String condition, @RequestParam(value="keyword", defaultValue="") String keyword, Model model) {
-//		
-//		HashMap<String, String>map = new HashMap<>();
-//		map.put("condition", condition);
-//		map.put("keyword", keyword);
-//		
-//		int boardCount = sellerService.searchListCount(map);
-//		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 10);
-//		ArrayList<Product> list = sellerService.searchList(pi, map);
-//		
-//		model.addAttribute("list", list);
-//		model.addAttribute("pi", pi);
-//		model.addAttribute("keyword", keyword);
-//		model.addAttribute("condition", condition);
-//		
-//		return "seller/productListView";
-//	}
+    @RequestMapping("search.pd")//게시글 목록 띄우기
+	public String searchProduct(@RequestParam(value="cpage", defaultValue="1") int currentPage, @RequestParam(value="condition", defaultValue="category") String condition, @RequestParam(value="keyword", defaultValue="") String keyword, Model model) {
+		
+		HashMap<String, String> map = new HashMap<>();
+		map.put("condition", condition);
+		map.put("keyword", keyword);
+		
+		int boardCount = sellerService.searchListCount(map);
+		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 10);
+		ArrayList<Product> list = sellerService.searchList(pi, map);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("condition", condition);
+		
+		return "seller/productListView";
+	}
     
     // 옵션 불러오는 ajax
     @RequestMapping(value = "options.ax", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
     @ResponseBody
     public String ajaxGetOptions(@RequestParam("pno") int pno) {
+    	
+    	log.info("option-pno" + pno);
 
     	List<ProductOption> options = sellerService.selectOptions(pno);
         return new Gson().toJson(options);
@@ -497,9 +500,9 @@ public class SellerController {
     @RequestMapping("update.pd")
     public String updateProduct(Product product,
                                 MultipartFile productImage,
-                                @RequestParam("optionNames[]") String[] optionNames,
-                                @RequestParam("optionQuantities[]") Integer[] optionQuantities,
-                                @RequestParam("optionStatus[]") String[] optionStatus,
+                                @RequestParam(value = "optionNames[]", required = false) String[] optionNames,
+                                @RequestParam(value = "optionQuantities[]", required = false) Integer[] optionQuantities,
+                                @RequestParam(value = "optionStatus[]", required = false) String[] optionStatus,
                                 @RequestParam(value = "pdOptionNo[]", required = false) Integer[] pdOptionNos,
                                 int pno,
                                 HttpSession session,
@@ -517,7 +520,7 @@ public class SellerController {
             String changeName = saveFile(productImage, session);
 
             product.setPdOriginName(productImage.getOriginalFilename());
-            product.setPdChangeName("/resources/upFiles/productImg/" + changeName);
+            product.setPdChangeName("resources/upFiles/productImg/" + changeName);
         }
         
         Product po = new Product();
@@ -584,20 +587,44 @@ public class SellerController {
     
     // 판매 상품 상세 정보
     @RequestMapping("detail.spd")
-    public String selectSalesProduct(int pno, Model model) {
+    public String selectSalesProduct(@RequestParam(value = "pno", required = false) Integer pno, Model model) {
     	
-    	StoreMainDTO spd = sellerService.selectSalesProduct(pno);
+	   if (pno == null) {
+	        // pno가 제공되지 않은 경우, 적절한 처리를 합니다.
+	      
+	        return "redirect: list.spd";
+	    }
+    	
+    	log.info("pno" + pno);
+    	
+    	ProductDTO spd = sellerService.selectSalesProduct(pno);
     	
     	model.addAttribute("spd",spd);
     	
     	return "seller/productDetailView";
     }
     
+    @RequestMapping(value = "/insertCart.ax", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public String insertCart() {
+    	
+        
+        return null;
+    }
+    
+    @RequestMapping(value = "/insertOrder.ax", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public String insertOrder() {
+    	
+        
+        return null;
+    }
+    
     // 무한 스크롤로 전체 상품 가져오기
   
     @RequestMapping(value = "/allProduct.ax", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public String fetchProducts(@RequestParam("page") int page, @RequestParam("size") int size) {
+    public String selectAllProduct(@RequestParam("page") int page, @RequestParam("size") int size) {
     	
         List<StoreMainDTO> products = sellerService.selectAllProduct(page, size);
         boolean hasMore = products.size() == size; // 더 불러올 데이터가 있는지 확인
@@ -624,5 +651,24 @@ public class SellerController {
     	
     	return "store/order";
     }
+    
+    @RequestMapping("settlement.pd")
+    public String selectSettleMent() {
+    	
+    	return "seller/settlement";
+    }
+    
+    @RequestMapping("manage.cs")
+    public String selectCustomerShipmentManagement() {
+    	
+    	return "seller/customerShipmentManagement";
+    }
+    
+    @RequestMapping("manage.co")
+    public String selectCustomerOrderManagement() {
+    	
+    	return "seller/customerOrderManagement";
+    }
+    
    
 }
