@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.seller.dao.SellerDao;
+import com.psvm.seller.dto.ProductDTO;
 import com.psvm.seller.dto.StoreMainDTO;
 import com.psvm.seller.vo.Product;
 import com.psvm.seller.vo.ProductCategory;
@@ -52,8 +53,8 @@ public class SellerServiceImpl implements SellerService {
 	
 	// 판매자 홈 등록 
 	// 카테고리 등록
-	@Transactional
 	@Override
+	@Transactional
 	public int insertSellerHome(SellerPage sellerPage, List<String> categories) {
 		
 		int t1 = sellerDao.insertSellerHome(sqlSession, sellerPage);
@@ -89,8 +90,8 @@ public class SellerServiceImpl implements SellerService {
 	}
 	
 	//판매자 홈 수정
-	@Transactional
 	@Override
+	@Transactional
 	public int updateSellerHome(SellerPage sellerPage, List<ProductCategory> addCategories, List<ProductCategory> deleteCategories,int sellerPageNo) {
 		
 		int t1 = sellerDao.updateSellerHome(sqlSession, sellerPage);
@@ -133,8 +134,8 @@ public class SellerServiceImpl implements SellerService {
 	
 	// 상품 등록
 	// 옵션 등록
-	@Transactional
 	@Override
+	@Transactional
 	public int insertProduct(Product product, List<ProductOption> options) {
 		
 		int t1 = sellerDao.insertpProduct(sqlSession, product);
@@ -235,9 +236,9 @@ public class SellerServiceImpl implements SellerService {
 
 	// 판매 상품 상세 정보
 	@Override
-	public StoreMainDTO selectSalesProduct(int pno) {
-		// TODO Auto-generated method stub
-		return null;
+	public ProductDTO selectSalesProduct(int pno) {
+		
+		return sellerDao.selectSalesProduct(sqlSession, pno);
 	}
 	
 	// 무한 스크롤로 전체 상품 가져오기
@@ -245,6 +246,18 @@ public class SellerServiceImpl implements SellerService {
 	public List<StoreMainDTO> selectAllProduct(int page, int size) {
 		
 		return sellerDao.selectAllProduct(sqlSession, page, size);
+	}
+
+	@Override
+	public int searchListCount(HashMap<String, String> map) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public ArrayList<Product> searchList(PageInfo pi, HashMap<String, String> map) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

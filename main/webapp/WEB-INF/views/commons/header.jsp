@@ -38,13 +38,6 @@
                             <a href="javascript:void(0)" onclick="getRecentURL()" >로그인</a>
                             <a href="signUpForm.me">회원가입</a>
                             
-                            <script>
-                                function getRecentURL(){
-                                    const recentLink = document.querySelector('#recentLink');
-                                    recentLink.value = (window.location.href);
-                                    recentLink.form.submit();
-                                }
-                            </script>
                         </c:when>
                         <c:otherwise>
                             <c:choose>

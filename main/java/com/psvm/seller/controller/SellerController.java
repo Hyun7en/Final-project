@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +28,7 @@ import com.psvm.commons.template.Pagination;
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.member.vo.Member;
 import com.psvm.seller.dto.ProductCategoryDTO;
+import com.psvm.seller.dto.ProductDTO;
 import com.psvm.seller.dto.StoreMainDTO;
 import com.psvm.seller.service.SellerService;
 import com.psvm.seller.vo.Product;
@@ -48,10 +48,8 @@ public class SellerController {
     
     private final Gson gson = new Gson();
     
-    
-	/*
-	 * seller
-	 */
+//mapping 끝 sr,srh, pd, me    
+//######################################################### 판매자 ######################################################################
     
     // 판매자 정보 불러오기
     @RequestMapping("info.sr")
@@ -91,13 +89,14 @@ public class SellerController {
         
     }
     
+    // sellerPageNo 가져오기
     public int getSellerPageNo(HttpSession session) {
     	int businessNo = getBusinessNo(session);
     	
     	return sellerService.getSellerPageNo(businessNo);
     }
     
-    // 판매자 홈
+    // 판매자 홈 양식
     @RequestMapping("enrollForm.srh")
 	public String sellerHomeEnrollForm() {
 		return "seller/sellerHomeEnrollForm";
@@ -178,7 +177,7 @@ public class SellerController {
         return gson.toJson(sellerService.selectCategories(businessNo));
     }
   	
-    // 판매자 홈 불러오기
+    // 판매자 홈 상세
   	@RequestMapping("detail.srh")
   	public String selectSellerHomeDetail(HttpSession session, Model model) {
   		
@@ -196,7 +195,7 @@ public class SellerController {
   	    return "seller/sellerHomeDetailView";
   	}
     
-  	// 판매자 홈 수정 페이지
+  	// 판매자 홈 수정 양식
     @RequestMapping("updateForm.srh")
   	public String sellerHomeUpdateForm(HttpSession session, Model model) {
     	int businessNo = getBusinessNo(session);
@@ -258,7 +257,7 @@ public class SellerController {
       
     }
    
-    // 판매자 상품
+    // 판매자 상품 등록 양식
     @RequestMapping("enrollForm.pd")
   	public String productEnrollForm() {
   		return "seller/productEnrollForm";
@@ -299,7 +298,7 @@ public class SellerController {
 //    
 //     }
     
- // 판매자 상품 등록
+    // 판매자 상품 등록
     @RequestMapping("insert.pd")
     public String insertProduct(Product product, MultipartFile productImage,
                                 @RequestParam("optionNames[]") String[] optionNames,
@@ -386,7 +385,7 @@ public class SellerController {
   		return changeName;
   	}
     
-  	//상품 리스트
+  	//등록한 상품 리스트
     @RequestMapping("list.pd")
   	public String selectProductList(@RequestParam(value="cpage", defaultValue="1") int currentPage,HttpSession session, Model model) {
     	
@@ -404,30 +403,32 @@ public class SellerController {
 		return "seller/productListView";
 	}
     
-    //상품 카테고리 검색
-//    @RequestMapping("search.pd")//게시글 목록 띄우기
-//	public String searchProduct(@RequestParam(value="cpage", defaultValue="1") int currentPage, @RequestParam(value="condition", defaultValue="category") String condition, @RequestParam(value="keyword", defaultValue="") String keyword, Model model) {
-//		
-//		HashMap<String, String>map = new HashMap<>();
-//		map.put("condition", condition);
-//		map.put("keyword", keyword);
-//		
-//		int boardCount = sellerService.searchListCount(map);
-//		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 10);
-//		ArrayList<Product> list = sellerService.searchList(pi, map);
-//		
-//		model.addAttribute("list", list);
-//		model.addAttribute("pi", pi);
-//		model.addAttribute("keyword", keyword);
-//		model.addAttribute("condition", condition);
-//		
-//		return "seller/productListView";
-//	}
+    //상품(카테고리,상품명으로)  검색
+    @RequestMapping("search.pd")//게시글 목록 띄우기
+	public String searchProduct(@RequestParam(value="cpage", defaultValue="1") int currentPage, @RequestParam(value="condition", defaultValue="category") String condition, @RequestParam(value="keyword", defaultValue="") String keyword, Model model) {
+		
+		HashMap<String, String> map = new HashMap<>();
+		map.put("condition", condition);
+		map.put("keyword", keyword);
+		
+		int boardCount = sellerService.searchListCount(map);
+		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 10);
+		ArrayList<Product> list = sellerService.searchList(pi, map);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("condition", condition);
+		
+		return "seller/productListView";
+	}
     
     // 옵션 불러오는 ajax
     @RequestMapping(value = "options.ax", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
     @ResponseBody
     public String ajaxGetOptions(@RequestParam("pno") int pno) {
+    	
+    	log.info("option-pno" + pno);
 
     	List<ProductOption> options = sellerService.selectOptions(pno);
         return new Gson().toJson(options);
@@ -444,7 +445,7 @@ public class SellerController {
 			return "seller/sellerProductDetailView";
 	}
     
-    // 상품 정보 수정 페이지
+    // 상품 정보 수정 양식
     @RequestMapping("updateForm.pd")
   	public String productUpdateForm(int pno, Model model) {
     	
@@ -495,12 +496,13 @@ public class SellerController {
 //    			
 //  	}
     
+    // 상품 정보 수정
     @RequestMapping("update.pd")
     public String updateProduct(Product product,
                                 MultipartFile productImage,
-                                @RequestParam("optionNames[]") String[] optionNames,
-                                @RequestParam("optionQuantities[]") Integer[] optionQuantities,
-                                @RequestParam("optionStatus[]") String[] optionStatus,
+                                @RequestParam(value = "optionNames[]", required = false) String[] optionNames,
+                                @RequestParam(value = "optionQuantities[]", required = false) Integer[] optionQuantities,
+                                @RequestParam(value = "optionStatus[]", required = false) String[] optionStatus,
                                 @RequestParam(value = "pdOptionNo[]", required = false) Integer[] pdOptionNos,
                                 int pno,
                                 HttpSession session,
@@ -518,7 +520,7 @@ public class SellerController {
             String changeName = saveFile(productImage, session);
 
             product.setPdOriginName(productImage.getOriginalFilename());
-            product.setPdChangeName("/resources/upFiles/productImg/" + changeName);
+            product.setPdChangeName("resources/upFiles/productImg/" + changeName);
         }
         
         Product po = new Product();
@@ -565,11 +567,37 @@ public class SellerController {
     	return "redirect:list.pd";
     }
     
-    /*
-     * storeMain
-     */
+    // 주문 관리   
+    @RequestMapping("customerOrder.sr")
+    public String selectCustomerOrderManagement() {
+    	
+    	return "seller/customerOrderManagement";
+    }
     
-    // 스토어 상품 리스트
+    // 배송 관리  
+    @RequestMapping("customerShipment.sr")
+    public String selectCustomerShipmentManagement() {
+    	
+    	return "seller/customerShipmentManagement";
+    }
+    
+    // 고객 문의 관리  
+    @RequestMapping("customerInquery.sr")
+    public String selectCustomerInqueryManagement() {
+    	
+    	return "seller/customerInqueryManagement";
+    }
+    
+    // 정산 관리 
+    @RequestMapping("settlement.sr")
+    public String selectSettleMent() {
+    	
+    	return "seller/settlement";
+    }
+    
+//############################################################## 스토어 메인 #########################################################################
+    
+    // 스토어 메인
     @RequestMapping("list.spd")
   	public String storeMain(HttpSession session, Model model) {
 		
@@ -583,22 +611,11 @@ public class SellerController {
 		return "store/storeMain";
 	}
     
-    // 판매 상품 상세 정보
-    @RequestMapping("detail.spd")
-    public String selectSalesProduct(int pno, Model model) {
-    	
-    	StoreMainDTO spd = sellerService.selectSalesProduct(pno);
-    	
-    	model.addAttribute("spd",spd);
-    	
-    	return "seller/productDetailView";
-    }
-    
     // 무한 스크롤로 전체 상품 가져오기
-  
+    
     @RequestMapping(value = "/allProduct.ax", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public String fetchProducts(@RequestParam("page") int page, @RequestParam("size") int size) {
+    public String selectAllProduct(@RequestParam("page") int page, @RequestParam("size") int size) {
     	
         List<StoreMainDTO> products = sellerService.selectAllProduct(page, size);
         boolean hasMore = products.size() == size; // 더 불러올 데이터가 있는지 확인
@@ -610,20 +627,56 @@ public class SellerController {
         return new Gson().toJson(response);
     }
     
-    // 고객 문의 관리
-    
-    @RequestMapping("manage.ci")
-    public String selectCustomerInqueryManagement() {
+    // 판매 상품 상세 정보
+    @RequestMapping("detail.spd")
+    public String selectSalesProduct(@RequestParam(value = "pno", required = false) Integer pno, Model model) {
     	
-    	return "seller/customerInqueryManagement";
+	   if (pno == null) {
+	        // pno가 제공되지 않은 경우, 적절한 처리를 합니다.
+	      
+	        return "redirect: list.spd";
+	    }
+    	
+    	log.info("pno" + pno);
+    	
+    	ProductDTO spd = sellerService.selectSalesProduct(pno);
+    	
+    	model.addAttribute("spd",spd);
+    	
+    	return "seller/productDetailView";
+    }
+    
+    @RequestMapping(value = "/insertCart.ax", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public String insertCart() {
+    	
+        
+        return null;
+    }
+    
+    @RequestMapping(value = "/insertOrder.ax", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public String insertOrder() {
+    	
+        
+        return null;
     }
     
     // 구매 페이지
     
-    @RequestMapping("order.pd")
+    @RequestMapping("order.spd")
     public String insertBuyingProduct() {
     	
     	return "store/order";
     }
+    
+    //상품 구매시 로그인 안 돼있을 때
+    @RequestMapping("orderlogin.me")
+    public String loginForm() {
+    	
+    	return "member/login";
+    }
+    
+    
    
 }

@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
@@ -24,8 +25,8 @@ public class NotificationController {
         return notificationService.subscribe(userNo);
     }
 
-    @PostMapping("send-data.pr/{userNo}")
-    public void sendData(@PathVariable Long userNo) {
-        notificationService.notify(userNo, "새로운 알림이 왔습니다");
+    @PostMapping(value = "send-data.pr/{userNo}" ,produces = "application/json; charset=UTF-8")
+    public void sendData(@PathVariable Long userNo, @RequestParam("sellerUrl") String url) {
+        notificationService.notify(userNo, url);
     }
 }

@@ -24,7 +24,8 @@
 
 <!-- JS -->
 <script src="${pageContext.request.contextPath}/resources/js/storeJS/slick.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/storeJS/infineteScroll.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/storeJS/storeMain.js"></script>
+
 
 </head>
 <body onload="init('storeMain', `${pageContext.request.contextPath}`, {userNo : `${loginUser.userNo}`})">
@@ -70,14 +71,10 @@
                     </div>
                 </div>
 
-                <div id="quick-move">
+                <!-- <div id="quick-move">
                     <ul>
                         <li class="quick-move-li-title">
                             <p>빠른이동</p>
-                        </li>
-
-                        <li class="quick-move-li">
-                            <a href="interestProduct.my">관심상품</a>
                         </li>
 
                         <li class="quick-move-li">
@@ -88,11 +85,8 @@
                             <a href="cart.my">장바구니</a>
                         </li>
 
-                        <li class="quick-move-li">
-                            <a href="#">최근검색</a>
-                        </li>
                     </ul>
-                </div>
+                </div> -->
             </div>
 
             

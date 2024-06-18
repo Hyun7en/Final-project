@@ -34,29 +34,21 @@
             <li>
                 <div>주문/배송 <img src="${pageContext.request.contextPath}/resources/image/triangle.png"></div>
                 <ul class="sub-menu">
-                    <li><a href="#">주문 관리</a></li>
-                    <li><a href="#">배송 관리</a></li>
-                </ul>
-            </li>
-            <li>
-                <div>취소/반품/교환 <img src="${pageContext.request.contextPath}/resources/image/triangle.png"></div>
-                <ul class="sub-menu">
-                    <li><a href="#">취소 상품관리</a></li>
-                    <li><a href="#">반품 상품관리</a></li>
-                    <li><a href="#">교환 상품관리</a></li>
+                    <li><a href="customerOrder.sr">주문 관리</a></li>
+                    <li><a href="customerShipment.sr">배송 관리</a></li>
                 </ul>
             </li>
             <li>
                 <div>고객 관리 <img src="${pageContext.request.contextPath}/resources/image/triangle.png"></div>
                 <ul class="sub-menu">
                     <li><a href="loadAlarm.ci?userNo=${loginUser.userNo}">알람 보내기</a></li>
-                    <li><a href="manage.ci">고객 문의</a></li>
+                    <li><a href="customerInquery.sr">고객 문의</a></li>
                 </ul>
             </li>
             <li>
                 <div>정산 관리 <img src="${pageContext.request.contextPath}/resources/image/triangle.png"></div>
                 <ul class="sub-menu">
-                    <li><a href="#">정산</a></li>
+                    <li><a href="settlement.sr">정산</a></li>
                 </ul>
             </li>
         </ul>

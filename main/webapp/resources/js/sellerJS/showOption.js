@@ -38,8 +38,8 @@
         });
 
         // 첫 번째 옵션 항목을 선택
-        if ($selectOption.find('option').length > 0) {
-            $selectOption.val($selectOption.find('option:first').val());
-        }
+        // if ($selectOption.find('option').length > 0) {
+        //     $selectOption.val($selectOption.find('option:first').val());
+        // }
     }
 });

@@ -13,20 +13,15 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
 
 <style>
-    
-section {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    padding: 40px 200px;
-    height: calc(100vh - 40px);
-}
-
-section h1 {
-    margin-bottom: 20px;
-}
+        section {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        padding: 40px 200px;
+        height: calc(100vh - 40px);
+        overflow-y: scroll;
+    }
 </style>
-
 </head>
 <body>
 <div class="wrap">
@@ -40,9 +35,8 @@ section h1 {
         <%@ include file="../commons/aside.jsp" %>
 
         <section>
-            <h1>고객 관리 &gt; 고객 문의</h1>
-
-            
+            <h1>주문/배송 &gt; 배송 관리 </h1>
+          
         </section>
     </main>
 
