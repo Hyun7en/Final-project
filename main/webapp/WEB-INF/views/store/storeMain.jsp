@@ -64,7 +64,7 @@
                     <div id="ask-descript">
                         <span id="ad-span1">문의사항이 있으신가요?</span> <br>
                         <span id="ad-span2">
-                            <a href="#">
+                            <a href="list.cs">
                                 관리자에게 문의해보세요.
                             </a>
                         </span>
@@ -116,7 +116,7 @@
                             </p>
                             <p class="product-descript-rating-review">
                                 <img style="width: 13px;" src="${pageContext.request.contextPath}/resources/image/star.png">
-                                <span>${spd.prStar}</span>
+                                <span>${spd.averReviewDibs}</span>
                                 <span>리뷰</span>
                                 <span>${spd.reviewCount}</span>
                             </p>
@@ -158,7 +158,7 @@
                             </p>
                             <p class="product-descript-rating-review">
                                 <img style="width: 13px;" src="${pageContext.request.contextPath}/resources/image/star.png">
-                                <span>${spd.prStar}</span>
+                                <span>${spd.averReviewDibs}</span>
                                 <span>리뷰</span>
                                 <span>${spd.reviewCount}</span>
                             </p>
