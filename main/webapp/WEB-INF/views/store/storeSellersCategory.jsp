@@ -99,7 +99,7 @@
                         <div id="seller-home-goods">
                             <div id="seller-home-goodsimg" style="background-image: url(${pr.prChangeName}); background-size: 250px 250px"></div>
                             <div id="seller-home-goodsinfo">
-                                <a href="">
+                                <a href="detail.spd?pno=${pr.prNo}">
                                     <b>${pr.prTitle}</b>
                                     <strong>${pr.prPrice} 원</strong>
                                     <br>
