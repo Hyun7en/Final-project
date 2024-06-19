@@ -97,9 +97,10 @@
                 <div id="seller-home-products">
                     <c:forEach var="pr" items="${prList}">
                         <div id="seller-home-goods">
+                            <a href="detail.spd?pno=${pr.prNo}">
                             <div id="seller-home-goodsimg" style="background-image: url(${pr.prChangeName}); background-size: 250px 250px"></div>
                             <div id="seller-home-goodsinfo">
-                                <a href="">
+                                
                                     <b>${pr.prTitle}</b>
                                     <strong>${pr.prPrice} 원</strong>
                                     <br>
