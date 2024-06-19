@@ -29,6 +29,7 @@ import com.psvm.member.vo.MemberAttachment;
 import com.psvm.myPage.service.MyPageServiceImpl;
 import com.psvm.myPage.vo.Cart;
 import com.psvm.myPage.vo.Inquiry;
+import com.psvm.myPage.vo.OrderHistory;
 import com.psvm.seller.vo.SellerInfo;
 import com.psvm.store.vo.StoreInfo;
 
@@ -115,10 +116,10 @@ public class MyPageController {
 			session.setAttribute("ma", mematt);
 
 			session.setAttribute("successMessage", "회원정보 수정 성공");
-			mv.setViewName("redirect:myPage.me?userNo=" + userNo);
+			mv.setViewName("redirect:myPage.my?userNo=" + userNo);
 		} else {
 			session.setAttribute("errorMessage", "회원정보 수정 실패");
-			mv.setViewName("redirect:myPage.me?userNo=" + userNo);
+			mv.setViewName("redirect:myPage.my?userNo=" + userNo);
 		}
 
 		return mv;
@@ -270,7 +271,16 @@ public class MyPageController {
 	}
 
 	@RequestMapping("orderHistory.my")
-	public String orderHistory() {
+	public String orderHistory(int userNo, Model model) {
+		
+		// 주문내역 수 조회
+		int orderHistoryListCount = myPageService.orderHistoryListCount(userNo);
+		
+		// 주문내역 조회
+		ArrayList<OrderHistory> orderHistoryList = myPageService.orderHistoryList(userNo);
+		
+		model.addAttribute("orderHistoryListCount", orderHistoryListCount);
+		model.addAttribute("orderHistoryList", orderHistoryList);
 
 		return "myPage/myPageOrderHistory";
 	}

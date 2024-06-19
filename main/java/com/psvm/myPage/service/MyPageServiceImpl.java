@@ -14,6 +14,7 @@ import com.psvm.member.vo.MemberAttachment;
 import com.psvm.myPage.dao.MyPageDao;
 import com.psvm.myPage.vo.Cart;
 import com.psvm.myPage.vo.Inquiry;
+import com.psvm.myPage.vo.OrderHistory;
 import com.psvm.seller.vo.SellerInfo;
 import com.psvm.store.vo.StoreInfo;
 
@@ -101,6 +102,16 @@ public class MyPageServiceImpl implements MyPageService {
 	// 장바구니에 담은 상품 삭제
 	public int deleteCartProduct(Map<String, Integer> params) {
 		return myPageDao.deleteCartProduct(sqlSession, params);
+	}
+	
+	// 주문내역 수 조회
+	public int orderHistoryListCount(int userNo) {
+		return myPageDao.orderHistoryListCount(sqlSession, userNo);
+	}
+	
+	// 주문내역 조회
+	public ArrayList<OrderHistory> orderHistoryList(int userNo){
+		return myPageDao.orderHistoryList(sqlSession, userNo);
 	}
 	
 	// 회원이 작성한 게시글 수 조회

@@ -9,6 +9,7 @@ import com.psvm.member.vo.Member;
 import com.psvm.member.vo.MemberAttachment;
 import com.psvm.myPage.vo.Cart;
 import com.psvm.myPage.vo.Inquiry;
+import com.psvm.myPage.vo.OrderHistory;
 import com.psvm.seller.vo.SellerInfo;
 import com.psvm.store.vo.StoreInfo;
 
@@ -52,6 +53,12 @@ public interface MyPageService {
 	
 	// 장바구니에 담은 상품 삭제
 	int deleteCartProduct(Map<String, Integer> params);
+	
+	// 주문내역 수 조회
+	int orderHistoryListCount(int userNo);
+	
+	//주문내역 조회
+	ArrayList<OrderHistory> orderHistoryList(int userNo);
 	
 	// 회원이 작성한 게시글 수 조회
 	int writePostListCount(int userNo);
