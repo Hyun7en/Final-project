@@ -44,7 +44,7 @@ public interface CommunityService {
 	int insertReply(Reply r);
 	
 	//top5게시글 조회
-	ArrayList<Community> selectTopBoardList();
+//	ArrayList<Community> selectTopBoardList();
 	
 	//댓글삭제
 	int deleteReply(int boardReplyNo);

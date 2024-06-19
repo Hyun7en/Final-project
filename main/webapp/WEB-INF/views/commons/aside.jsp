@@ -42,7 +42,7 @@
                 <div>고객 관리 <img src="${pageContext.request.contextPath}/resources/image/triangle.png"></div>
                 <ul class="sub-menu">
                     <li><a href="loadAlarm.ci?userNo=${loginUser.userNo}">알람 보내기</a></li>
-                    <li><a href="customerInquery.sr">고객 문의</a></li>
+                    <li><a href="customerInquiry.sr">고객 문의</a></li>
                 </ul>
             </li>
             <li>

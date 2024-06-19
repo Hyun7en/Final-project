@@ -77,32 +77,48 @@ h1{
     flex-direction: column;
 }
 
-#selected-options-container{
+#selected-options-container {
     display: flex;
     flex-direction: column;
+    margin-top: 20px;
 }
 
-#selected-options-container .option-entry{
-    background-color: white;
-    border-color: #ccc;
-    border-radius: 5px;
+.selected-option {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
 }
 
-#selected-options-container .option-entry div{
-    align-items: center;
+.option-name {
+    flex-grow: 1;
+    font-weight: bold;
 }
 
-#selected-options-container .option-entry .entry-ch{
-    font-size: large;
+.option-quantity {
+    margin-right: 10px;
 }
+
+.delete-option {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.delete-option:hover {
+    background-color: #ff1a1a;
+}
+
 
 .order-price{
     margin-left: 200px;
-    font-size: large;
+    font-size: 35px;
     font-weight: 700;
 }
 
@@ -183,7 +199,10 @@ h1{
 /* 상품 리뷰 */
 .product-review{
     width: 100%;
-    height: 500px;
+}
+
+#review-count{
+    font-weight: bolder; color: #0089FF;
 }
 
 .product-review-area .review-top{
@@ -196,22 +215,45 @@ h1{
     justify-content: space-between;
 }
 
+/* 상품 리뷰 모달 */
+
+
+
 /* 상품 문의 */
 .product-inquiry{
     width: 100%;
-    height: 500px;
 }
 
 .product-inquiry-area .inquiry-top{
     display: flex;
 }
 
-/* 배송/환불/교환 */
+/* 상품 문의 모달 */
 
-.product-delivery{
+
+/* 판매자 정보 */
+
+.seller-info div table {
     width: 100%;
-    height: 500px;
+    border-collapse: collapse;
 }
+
+.seller-info div tr{
+    border-top: 1px solid #ccc;
+}
+
+.seller-info div th {
+    width: 20%;
+    background-color: hsl(212, 89%, 93%);
+    
+    color: #333;
+}
+
+.seller-info div th, td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
 
 /* 페이지네이션 */
 
@@ -245,7 +287,7 @@ h1{
 }
 
 .bottom-product-buy-area{
-    width: 35%;
+    width: 30%;
     height: 500px;
     border: 1px solid black;
 }

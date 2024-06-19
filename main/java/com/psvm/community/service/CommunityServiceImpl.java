@@ -77,10 +77,10 @@ public class CommunityServiceImpl implements CommunityService{
 		return communityDao.insertReply(sqlSession, r);
 	}
 
-	@Override
-	public ArrayList<Community> selectTopBoardList() {
-		return communityDao.selectTopBoardList(sqlSession);
-	}
+//	@Override
+//	public ArrayList<Community> selectTopBoardList() {
+//		return communityDao.selectTopBoardList(sqlSession);
+//	}
 	
 	@Override
 	public int deleteReply(int boardReplyNo) {

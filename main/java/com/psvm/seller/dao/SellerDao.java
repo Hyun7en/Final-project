@@ -1,25 +1,27 @@
 package com.psvm.seller.dao;
 
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
-
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.seller.dto.ProductDTO;
 import com.psvm.seller.dto.StoreMainDTO;
+import com.psvm.seller.vo.Buy;
 import com.psvm.seller.vo.Product;
 import com.psvm.seller.vo.ProductCategory;
 import com.psvm.seller.vo.ProductOption;
+import com.psvm.seller.vo.Review;
 import com.psvm.seller.vo.SellerInfo;
 import com.psvm.seller.vo.SellerPage;
 
 @Repository
 public class SellerDao {
+	
+	//############################################## 판매자 관련 ############################################################
 	
 	// 판매자 정보 불러오기
 	public SellerInfo selectSeller(SqlSessionTemplate sqlSession, int userNo){
@@ -35,6 +37,7 @@ public class SellerDao {
 		
 	}
 	
+	//판매자 홈페이지 번호 가져오기
 	public int getSellerPageNo(SqlSessionTemplate sqlSession, int businessNo) {
 		return sqlSession.selectOne("sellerMapper.getSellerPageNo", businessNo);
 	}
@@ -59,7 +62,7 @@ public class SellerDao {
 		return (List)sqlSession.selectList("sellerMapper.selectCategories", businessNo);
 	} 
 	
-	// 판매자 홈 불러오기
+	// 판매자 홈 상세
 	public SellerPage selectSellerHomeDetail(SqlSessionTemplate sqlSession, int businessNo) {
 		
 		return sqlSession.selectOne("sellerMapper.selectSellerHomeDetail", businessNo);
@@ -72,10 +75,10 @@ public class SellerDao {
 	   
 	}
 	
-	public int getSellerPageNo(SqlSessionTemplate sqlSession) {
-		
-		return sqlSession.selectOne("sellerMapper.getSellerPageNo");
-	}
+//	public int getSellerPageNo(SqlSessionTemplate sqlSession) {
+//		
+//		return sqlSession.selectOne("sellerMapper.getSellerPageNo");
+//	}
 	
 	// 추가할 카테고리 처리
 	public int insertNewProductCategory(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
@@ -107,7 +110,7 @@ public class SellerDao {
 		return sqlSession.selectOne("sellerMapper.selectProductListCount");
 	}
 
-	// 상품 리스트 불러오기
+	// 상품 리스트
 	public List<Product> selectProductList(SqlSessionTemplate sqlSession, PageInfo pi, int businessNo) {
 		
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
@@ -115,6 +118,9 @@ public class SellerDao {
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (List)sqlSession.selectList("sellerMapper.selectProductList", businessNo, rowBounds);
 	}
+	
+	//상품 리스트 검색
+	
 	
 	// 상품 옵션 불러오기
 	public List<ProductOption> selectOptions(SqlSessionTemplate sqlSession,int pno) {
@@ -152,6 +158,8 @@ public class SellerDao {
 		return sqlSession.update("sellerMapper.deleteProduct",pno);
 	}
 	
+	//############################################## 스토어 메인  ############################################################
+	
 	// 인기 상품 불러오기
 	public List<StoreMainDTO> selectPopularList(SqlSessionTemplate sqlSession) {
 		
@@ -164,12 +172,6 @@ public class SellerDao {
 		return (List)sqlSession.selectList("sellerMapper.selectRecentList");
 	}
 	
-	// 판매 상품 상세 정보
-	public ProductDTO selectSalesProduct( SqlSessionTemplate sqlSession,int pno) {
-		
-		return sqlSession.selectOne("sellerMapper.selectSalesProduct", pno);
-	}
-	
 	// 무한 스크롤로 전체 상품 가져오기
 	public List<StoreMainDTO> selectAllProduct(SqlSessionTemplate sqlSession,int page, int size) {
 		
@@ -179,5 +181,37 @@ public class SellerDao {
 		
 		return (List)sqlSession.selectList("sellerMapper.selectAllProduct", null, rowBounds);
 	}
+	
+	//############################################## 판매 상품 상세 페이지  ############################################################
+	
+	// 판매 상품 상세 정보
+	public ProductDTO selectSalesProduct( SqlSessionTemplate sqlSession,int pno) {
+		
+		return sqlSession.selectOne("sellerMapper.selectSalesProduct", pno);
+	}
+	
+	//리뷰 가져오기
+	
+	//문의 가져오기
+	
+	// 장바구니 담기
+	public int insertCart(SqlSessionTemplate sqlSession,List<Map<String, Object>> data) {
+		
+		return sqlSession.insert("sellerMapper.insertCart", data);
+	}
+	
+	public List<Review> selectReviewList(SqlSessionTemplate sqlSession){
+		
+		return sqlSession.selectList("sellerMapper.selectReviewList");
+	}
+	
+	//리뷰 쓰기
+	
+	//문의 쓰기
+	
+	
+	//############################################## 구매 페이지  ############################################################
+	
+	//구매 페이지
 	
 }
