@@ -47,24 +47,62 @@
 		<result column="DROP_DATE" property="dropDate"/>
 	</resultMap>
 	
-	<!-- 판매 상품 resultMap -->
-	<resultMap type="ApplicationProduct" id="applicationProductResult">
-		<result column="USER_NAME" property="userName"/>
-		<result column="STORE_NAME" property="storeName"/>
+	<!-- 신고상품 resultMap -->
+	<resultMap type="ReportProduct" id="reportProductResult">
 		<result column="P_NO" property="pdNo"/>
+		<result column="SELLER_USER_ID" property="sellerUserId"/>
+		<result column="STORE_NAME" property="storeName"/>
 		<result column="P_TITLE" property="pdTitle"/>
-		<result column="P_PRICE" property="pdPrice"/>
 		<result column="P_CONTENT" property="pdContent"/>
+		<result column="P_PRICE" property="pdPrice"/>
 		<result column="P_ENROLL_DATE" property="pdEnrollDate"/>
-		<result column="P_STAR" property="pdStar"/>
-		<result column="P_ORIGIN_NAME" property="pdOriginName"/>
-		<result column="P_CHANGE_NAME" property="pdChangeName"/>	
-		<result column="C_NO" property="caNo"/>
-		<result column="P_COUNT" property="pdCount"/>
-		<result column="P_OPTION_NAME" property="pdOptionName"/>
-		<result column="P_OPTION_NO" property="pdOptionNo"/>
 		<result column="P_CATEGORY" property="pdCategory"/>
+		<result column="REPORTER_USER_ID" property="reporterUserId"/>
+		<result column="INQUIRY_TITLE" property="inquiryTitle"/>
+		<result column="INQUIRY_CONTENTS" property="inquiryContent"/>
+		<result column="INQUIRY_DATE" property="inquiryDate"/>
 	</resultMap> 
+	
+	<!-- 탈퇴되어있지 않은 회원 수-->
+	<select id="currentMemberCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM member 
+		WHERE activated = 'Y'
+	</select>
+	
+	<!-- 탈퇴되어있는 회원 수 조회 -->
+	<select id="deleteMemberCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM member 
+		WHERE activated = 'N'
+	</select>
+	
+	<!-- 최근 회원가입한 회원 3명 조회 -->
+	<select id="recentMemberList" resultMap="memberListResult">
+		SELECT 	USER_NO,
+				USER_ID,
+				USER_PWD,
+				EMAIL,
+				USER_NAME,
+				NICKNAME,
+				BIRTHDAY,
+				GENDER,
+				ADDRESS,
+				PHONE,
+				LIKE_FISH,
+				TAIL_FISH,
+				AUTHORITY,
+				ACTIVATED,
+				USER_LV,
+				JOIN_DATE,
+				MEMBER_FILE_NO,
+				USER_INTRO
+		FROM	MEMBER
+		WHERE	ACTIVATED = 'Y'
+		AND		AUTHORITY &lt; 2
+		ORDER BY JOIN_DATE DESC
+		LIMIT 3
+	</select>
 	
 	<!-- 관리자를 제외한 모든 회원 수 조회 -->
 	<select id="memberListCount" resultType="_int">
@@ -323,58 +361,64 @@
 		SET authority = 1
 		WHERE user_no = #{userNo}
 	</update>
+	
+	<!-- 판매자 신규신청 거부 -->
+	<update id="sellerNewApplicationReject">
+		DELETE FORM seller_info
+		WHERE user_no = #{userNo}
+	</update>
 
 	<!-- 신고상품 수 조회 -->
 	<select id="reportProductListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM product 
-		JOIN faq f USING (p_no)						<!-- product의 p_no와 fap의 p_no가  같은것끼리 JOIN -->
-		JOIN product_category USING (c_no)			<!-- product의 c_no와 product_category가 c_no가 같은것끼리 JOIN  -->
-		JOIN seller_page USING (seller_page_no)		<!-- product_category의 seller_page_no와 seller_page의 seller_page_no가 같은것끼리 JOIN-->
-		JOIN seller_info si USING (business_no)		<!-- seller_page의 business_no와 seller_info의 business_no가 같은것끼리 JOIN -->
-		JOIN member s ON si.user_no = salem.user_no	<!-- seller_info의 user_no와 member의 user_no가 같은것끼리 조인 --> <!-- si.user_no : 신고당한 판매자의 회원번호 -->
-		JOIN member m ON f.user_no = faqm.user_no	<!-- faq의 user_no와 member의 user_no가 같은것끼리 JOIN --> <!-- f.user_no : 신고한 회원의 회원번호 -->
-		WHERE report_status = true					<!-- 조건1 : product의 report_status의 true인 것 --> <!-- 신고된 상품은 status가 true임-->
-		AND p_status = 'Y'							<!-- 조건2 : product의 p_status가 'Y'인 것 -->
+		JOIN faq f USING (p_no)									<!-- product의 p_no와 fap의 p_no가  같은것끼리 JOIN -->
+		JOIN product_category USING (c_no)						<!-- product의 c_no와 product_category가 c_no가 같은것끼리 JOIN  -->
+		JOIN seller_page USING (seller_page_no)					<!-- product_category의 seller_page_no와 seller_page의 seller_page_no가 같은것끼리 JOIN-->
+		JOIN seller_info si USING (business_no)					<!-- seller_page의 business_no와 seller_info의 business_no가 같은것끼리 JOIN -->
+		JOIN member seller ON si.user_no = seller.user_no		<!-- seller_info의 user_no와 member의 user_no가 같은것끼리 조인 --> <!-- si.user_no : 신고당한 판매자의 회원번호 -->
+		JOIN member reporter ON f.user_no = reporter.user_no	<!-- faq의 user_no와 member의 user_no가 같은것끼리 JOIN --> <!-- f.user_no : 신고한 회원의 회원번호 -->
+		WHERE report_status = true								<!-- 조건1 : product의 report_status가 true인 것 --> <!-- 신고된 상품은 status가 true임-->
+		AND p_status = 'Y'										<!-- 조건2 : product의 p_status가 'Y'인 것 -->
 	</select>
 
 	<!-- 신고상품 조회 -->
-	<select id="reportProductList" resultMap="applicationProductResult">
-		SELECT  p_no,				<!-- 신고당한 상품 번호  -->
-				s.user_name, 		<!-- 신고당한 상품 판매자의 이름  -->
-				m.user_id,			<!-- 신고한 회원의 아이디-->
-				store_name,			<!-- 신고당한 상품 판매자의 상점명-->
-				p_title,			<!-- 신고당한 상품 제목-->
-				p_price,			<!-- 신고당한 상품 가격-->
-				p_content,			<!-- 신고당한 상품 내용-->
-				p_enroll_date,  	<!-- 신고당한 상품 등록일-->
-				p_category,			<!-- 신고당한 상품 카테고리-->
-				inquiry_title,		<!-- 신고 제목-->
-				inquiry_contents,	<!-- 신고 내용-->
-				inquiry_date		<!-- 신고 일시-->
+	<select id="reportProductList" resultMap="reportProductResult">
+		SELECT  p_no,											<!-- 신고당한 상품 번호  -->
+				seller.user_id "seller_user_id", 				<!-- 신고당한 상품 판매자의 아이디  --> <!-- 이 쿼리문을 sql에서 실행하면 user_id 컬럼이 2개 조회되고 각각 seller와 reporter의 user_id 값이 들어간다, 여기서 별칭을 줘야 resultMap에 컬럼이름을 다르게 줘서 각가의 값을 조회해올 수 있다. -->
+				store_name,										<!-- 신고당한 상품 판매자의 상점명-->
+				p_title,										<!-- 신고당한 상품 제목-->
+				p_content,										<!-- 신고당한 상품 내용-->
+				p_price,										<!-- 신고당한 상품 가격-->
+				p_enroll_date,  								<!-- 신고당한 상품 등록일-->
+				p_category,										<!-- 신고당한 상품 카테고리-->
+				reporter.user_id "reporter_user_id",			<!-- 신고한 회원의 아이디-->
+				inquiry_title,									<!-- 신고 제목-->
+				inquiry_contents,								<!-- 신고 내용-->
+				inquiry_date									<!-- 신고 일시-->
 		FROM product 
-		JOIN faq f USING (p_no)						<!-- product의 p_no와 fap의 p_no가  같은것끼리 JOIN -->
-		JOIN product_category USING (c_no)			<!-- product의 c_no와 product_category가 c_no가 같은것끼리 JOIN  -->
-		JOIN seller_page USING (seller_page_no)		<!-- product_category의 seller_page_no와 seller_page의 seller_page_no가 같은것끼리 JOIN-->
-		JOIN seller_info si USING (business_no)		<!-- seller_page의 business_no와 seller_info의 business_no가 같은것끼리 JOIN -->
-		JOIN member s ON si.user_no = salem.user_no	<!-- seller_info의 user_no와 member의 user_no가 같은것끼리 조인 --> <!-- si.user_no : 신고당한 판매자의 회원번호 -->
-		JOIN member m ON f.user_no = faqm.user_no	<!-- faq의 user_no와 member의 user_no가 같은것끼리 JOIN --> <!-- f.user_no : 신고한 회원의 회원번호 -->
-		WHERE report_status = true					<!-- 조건1 : product의 report_status가 true인 것 --> <!-- 신고된 상품은 status가 true임-->
-		AND p_status = 'Y'							<!-- 조건2 : product의 p_status가 'Y'인 것 -->
+		JOIN faq f USING (p_no)									<!-- product의 p_no와 fap의 p_no가  같은것끼리 JOIN -->
+		JOIN product_category USING (c_no)						<!-- product의 c_no와 product_category가 c_no가 같은것끼리 JOIN  -->
+		JOIN seller_page USING (seller_page_no)					<!-- product_category의 seller_page_no와 seller_page의 seller_page_no가 같은것끼리 JOIN-->
+		JOIN seller_info si USING (business_no)					<!-- seller_page의 business_no와 seller_info의 business_no가 같은것끼리 JOIN -->
+		JOIN member seller ON si.user_no = seller.user_no		<!-- seller_info의 user_no와 member의 user_no가 같은것끼리 조인 --> <!-- si.user_no : 신고당한 판매자의 회원번호 -->
+		JOIN member reporter ON f.user_no = reporter.user_no	<!-- faq의 user_no와 member의 user_no가 같은것끼리 JOIN --> <!-- f.user_no : 신고한 회원의 회원번호 -->
+		WHERE report_status = true								<!-- 조건1 : product의 report_status가 true인 것 --> <!-- 신고된 상품은 status가 true임-->
+		AND p_status = 'Y'										<!-- 조건2 : product의 p_status가 'Y'인 것 -->
 	</select>
 	
 	<!-- 검색한 신고상품 수 조회 -->
-	<select id="searchSellerProductApplicationCount" resultType="_int">
+	<select id="searchReportProductListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM product 
-		JOIN faq f USING (p_no)						<!-- product의 p_no와 fap의 p_no가  같은것끼리 JOIN -->
-		JOIN product_category USING (c_no)			<!-- product의 c_no와 product_category가 c_no가 같은것끼리 JOIN  -->
-		JOIN seller_page USING (seller_page_no)		<!-- product_category의 seller_page_no와 seller_page의 seller_page_no가 같은것끼리 JOIN-->
-		JOIN seller_info si USING (business_no)		<!-- seller_page의 business_no와 seller_info의 business_no가 같은것끼리 JOIN -->
-		JOIN member s ON si.user_no = salem.user_no	<!-- seller_info의 user_no와 member의 user_no가 같은것끼리 조인 --> <!-- si.user_no : 신고당한 판매자의 회원번호 -->
-		JOIN member m ON f.user_no = faqm.user_no	<!-- faq의 user_no와 member의 user_no가 같은것끼리 JOIN --> <!-- f.user_no : 신고한 회원의 회원번호 -->
-		WHERE report_status = true					<!-- 조건1 : product의 report_status의 true인 것 --> <!-- 신고된 상품은 status가 true임-->
-		AND p_status = 'Y'							<!-- 조건2 : product의 p_status가 'Y'인 것 -->
+		JOIN faq f USING (p_no)									<!-- product의 p_no와 fap의 p_no가  같은것끼리 JOIN -->
+		JOIN product_category USING (c_no)						<!-- product의 c_no와 product_category가 c_no가 같은것끼리 JOIN  -->
+		JOIN seller_page USING (seller_page_no)					<!-- product_category의 seller_page_no와 seller_page의 seller_page_no가 같은것끼리 JOIN-->
+		JOIN seller_info si USING (business_no)					<!-- seller_page의 business_no와 seller_info의 business_no가 같은것끼리 JOIN -->
+		JOIN member seller ON si.user_no = seller.user_no		<!-- seller_info의 user_no와 member의 user_no가 같은것끼리 조인 --> <!-- si.user_no : 신고당한 판매자의 회원번호 -->
+		JOIN member reporter ON f.user_no = reporter.user_no	<!-- faq의 user_no와 member의 user_no가 같은것끼리 JOIN --> <!-- f.user_no : 신고한 회원의 회원번호 -->
+		WHERE report_status = true								<!-- 조건1 : product의 report_status가 true인 것 --> <!-- 신고된 상품은 status가 true임-->
+		AND p_status = 'Y'										<!-- 조건2 : product의 p_status가 'Y'인 것 -->
 		<!-- 검색타입과 검색어를 입력했을 때 -->
 		<if test='searchType != "" and searchKeyword != ""'>
 			<!-- ${}는 자동 따옴표가 안붙는데 #{}는 자동 따옴표가 붙기떄문에 컬럼이름을 써야하는 searchType에는 ${} 사용 -->
@@ -387,28 +431,28 @@
 	</select>
 	
 	<!-- 검색한 신고상품 조회 -->
-	<select id="searchSellerProductApplicationList" resultMap="applicationProductResult">
-		SELECT  p_no,				<!-- 신고당한 상품 번호  -->
-				s.user_name, 		<!-- 신고당한 상품 판매자의 이름  -->
-				m.user_id,			<!-- 신고한 회원의 아이디-->
-				store_name,			<!-- 신고당한 상품 판매자의 상점명-->
-				p_title,			<!-- 신고당한 상품 제목-->
-				p_price,			<!-- 신고당한 상품 가격-->
-				p_content,			<!-- 신고당한 상품 내용-->
-				p_enroll_date,  	<!-- 신고당한 상품 등록일-->
-				p_category,			<!-- 신고당한 상품 카테고리-->
-				inquiry_title,		<!-- 신고 제목-->
-				inquiry_contents,	<!-- 신고 내용-->
-				inquiry_date		<!-- 신고 일시-->
+	<select id="searchReportProductList" resultMap="reportProductResult">
+		SELECT  p_no,											<!-- 신고당한 상품 번호  -->
+				seller.user_id "seller_user_id", 				<!-- 신고당한 상품 판매자의 아이디  --> <!-- 이 쿼리문을 sql에서 실행하면 user_id 컬럼이 2개 조회되고 각각 seller와 reporter의 user_id 값이 들어간다, 여기서 별칭을 줘야 resultMap에 컬럼이름을 다르게 줘서 각가의 값을 조회해올 수 있다. -->
+				store_name,										<!-- 신고당한 상품 판매자의 상점명-->
+				p_title,										<!-- 신고당한 상품 제목-->
+				p_content,										<!-- 신고당한 상품 내용-->
+				p_price,										<!-- 신고당한 상품 가격-->
+				p_enroll_date,  								<!-- 신고당한 상품 등록일-->
+				p_category,										<!-- 신고당한 상품 카테고리-->
+				reporter.user_id "reporter_user_id",			<!-- 신고한 회원의 아이디-->
+				inquiry_title,									<!-- 신고 제목-->
+				inquiry_contents,								<!-- 신고 내용-->
+				inquiry_date									<!-- 신고 일시-->
 		FROM product 
-		JOIN faq f USING (p_no)						<!-- product의 p_no와 fap의 p_no가  같은것끼리 JOIN -->
-		JOIN product_category USING (c_no)			<!-- product의 c_no와 product_category가 c_no가 같은것끼리 JOIN  -->
-		JOIN seller_page USING (seller_page_no)		<!-- product_category의 seller_page_no와 seller_page의 seller_page_no가 같은것끼리 JOIN-->
-		JOIN seller_info si USING (business_no)		<!-- seller_page의 business_no와 seller_info의 business_no가 같은것끼리 JOIN -->
-		JOIN member s ON si.user_no = salem.user_no	<!-- seller_info의 user_no와 member의 user_no가 같은것끼리 조인 --> <!-- si.user_no : 신고당한 판매자의 회원번호 -->
-		JOIN member m ON f.user_no = faqm.user_no	<!-- faq의 user_no와 member의 user_no가 같은것끼리 JOIN --> <!-- f.user_no : 신고한 회원의 회원번호 -->
-		WHERE report_status = true					<!-- 조건1 : product의 report_status가 true인 것 --> <!-- 신고된 상품은 status가 true임-->
-		AND p_status = 'Y'							<!-- 조건2 : product의 p_status가 'Y'인 것 -->
+		JOIN faq f USING (p_no)									<!-- product의 p_no와 fap의 p_no가  같은것끼리 JOIN -->
+		JOIN product_category USING (c_no)						<!-- product의 c_no와 product_category가 c_no가 같은것끼리 JOIN  -->
+		JOIN seller_page USING (seller_page_no)					<!-- product_category의 seller_page_no와 seller_page의 seller_page_no가 같은것끼리 JOIN-->
+		JOIN seller_info si USING (business_no)					<!-- seller_page의 business_no와 seller_info의 business_no가 같은것끼리 JOIN -->
+		JOIN member seller ON si.user_no = seller.user_no		<!-- seller_info의 user_no와 member의 user_no가 같은것끼리 조인 --> <!-- si.user_no : 신고당한 판매자의 회원번호 -->
+		JOIN member reporter ON f.user_no = reporter.user_no	<!-- faq의 user_no와 member의 user_no가 같은것끼리 JOIN --> <!-- f.user_no : 신고한 회원의 회원번호 -->
+		WHERE report_status = true								<!-- 조건1 : product의 report_status가 true인 것 --> <!-- 신고된 상품은 status가 true임-->
+		AND p_status = 'Y'										<!-- 조건2 : product의 p_status가 'Y'인 것 -->
 		<!-- 검색타입과 검색어를 입력했을 때 -->
 		<if test='searchType != "" and searchKeyword != ""'>
 			<!-- ${}는 자동 따옴표가 안붙는데 #{}는 자동 따옴표가 붙기떄문에 컬럼이름을 써야하는 searchType에는 ${} 사용 -->
@@ -420,14 +464,21 @@
 		</if>
 	</select>
 	
-	<!-- 신고상품 처리  -->
-	<update id="sellerProductApplicationApprove">
+	<!-- 신고상품 삭제  -->
+	<update id="reportProductRemove">
 		UPDATE product
 		SET report_status = false,
 			p_status = 'N'
-		WHERE p_no = #{p_no}
+		WHERE p_no = #{pdNo}
 	</update>
 	
+	<!-- 신고상품 무시 -->
+	<update id="reportProductIgnore">
+		UPDATE product
+		SET report_status = false
+		WHERE p_no = #{pdNo}
+	</update>
+
 	<!-- 탈퇴 회원 수 조회 -->
 	<select id="customerOutCount" resultType="_int">
 		SELECT	COUNT(*)
@@ -479,4 +530,5 @@
 		LIKE '%' || #{keyword} || '%'
 		ORDER BY DROP_DATE DESC
 	</select>
+
 </mapper>

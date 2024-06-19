@@ -65,6 +65,8 @@
 		<result column="REVIEW_DATE" property="reviewDate"/>
 		<result column="REVIEW_DIBS" property="reviewDibs"/>
 		<result column="REVIEW_CONTENTS" property="reviewContents"/>
+		<result column="RE_ORIGIN_NAME" property="reOriginName"/>
+		<result column="RE_CHANGE_NAME" property="reChangeName"/>		
 	</resultMap> 
 	
 	<resultMap type="Faq" id="FaqResult">

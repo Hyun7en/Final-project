@@ -2,7 +2,6 @@ package com.psvm.manager.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.psvm.commons.template.Pagination;
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.manager.service.ManagerServiceImpl;
-import com.psvm.manager.vo.ApplicationProduct;
+import com.psvm.manager.vo.ReportProduct;
 import com.psvm.manager.vo.Search;
 import com.psvm.manager.vo.Seller;
 import com.psvm.member.vo.Member;
@@ -27,8 +26,23 @@ public class ManagerController {
 	@Autowired
 	private ManagerServiceImpl managerService;
 	
+	// 관리지 메인페이지
 	@RequestMapping("main.ma")
-	public String managerMainView() {
+	public String managerMainView(Model model) {
+		
+		// 탈퇴되어있지 않은 회원 수
+		int currentMemberCount = managerService.currentMemberCount();
+		
+		// 탈퇴되어있는 회원 수
+		int deleteMemberCount = managerService.deleteMemberCount();
+		
+		// 최근 회원가입한 회원 3명 조회
+		ArrayList<Member> recentMemberList = managerService.recentMemberList();
+		
+		model.addAttribute("currentMemberCount", currentMemberCount);
+		model.addAttribute("deleteMemberCount", deleteMemberCount);
+		model.addAttribute("recentMemberList", recentMemberList);
+		
 		return "manager/managerMain";
 	}
 	
@@ -209,65 +223,97 @@ public class ManagerController {
 		}
 	}
 	
+	// 판매자 신규신청 거부 메서드
+	@RequestMapping("sellerNewApplicationReject.ma")
+	public String sellerNewApplicationReject(HttpSession session, int userNo, Model model) {
+		
+		// 회원의 판매자 신청 승인
+		int result = managerService.sellerNewApplicationReject(userNo);
+		
+		if(result > 0) {  // 승인 성공
+			session.setAttribute("alertMsg", "승인 되었습니다.");
+			return "redirect:sellerNewApplication.ma?categoryName=seller";
+		} else {  // 승인 실패
+			model.addAttribute("errorMsg", "승인 실패하였습니다.");
+			return "redirect:sellerNewApplication.ma?categoryName=seller";
+		}
+	}
+	
 	
 	// 신고상품 조회 메서드
 	@RequestMapping("reportProductList.ma")
 	public String reportProductList(@RequestParam(value="cpage", defaultValue="1") int currentPage, String categoryName, Model model) {
 		
-		// 판매자 신청한 일반회원 수 조회
+		// 신고상품 수 조회
 		int reportProductListCount = managerService.reportProductListCount();
-		
+
 		// 페이징 처리
 		PageInfo pi = Pagination.getPageInfo(reportProductListCount, currentPage, 10, 5);
 
-		// 판매자 신청한 일반회원 리스트 조회
-		ArrayList<ApplicationProduct> reportProductList = managerService.reportProductList(pi);
+		// 신고상품 리스트 조회
+		ArrayList<ReportProduct> reportProductList = managerService.reportProductList(pi);
 
-		model.addAttribute("sellerProductApplicationCount", reportProductListCount);
-		model.addAttribute("sellerProductApplicationList", reportProductList);
+		model.addAttribute("reportProductListCount", reportProductListCount);
+		model.addAttribute("reportProductList", reportProductList);
 		model.addAttribute("pi", pi);
 		model.addAttribute("categoryName", categoryName);
-		return "manager/managerSellerProductApplication";
+		return "manager/reportProductList";
 	}
 	
 	// 신고상품 검색 조회 메서드
-	@RequestMapping("searchSellerProductApplication.ma")
-	public String searchSellerProductApplication(@RequestParam(value="cpage", defaultValue="1") int currentPage, Search s, String categoryName, Model model) {
+	@RequestMapping("searchReportProductList.ma")
+	public String searchReportProductList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Search s, String categoryName, Model model) {
 
-    	// 검색한 판매자 상품신청 수 조회
-		int searchSellerProductApplicationCount = managerService.searchSellerProductApplicationCount(s);
-		System.out.println(searchSellerProductApplicationCount);
+    	// 검색한 신고상품 수 조회
+		int searchReportProductListCount = managerService.searchReportProductListCount(s);
+
 		// 페이징 처리
-		PageInfo pi = Pagination.getPageInfo(searchSellerProductApplicationCount, currentPage,10, 5);
+		PageInfo pi = Pagination.getPageInfo(searchReportProductListCount, currentPage,10, 5);
 		 
-		// 검색한 판매자 상품신청 조회
-    	ArrayList<ApplicationProduct> searchSellerProductApplicationList = managerService.searchSellerProductApplicationList(s, pi);
-    	System.out.println(searchSellerProductApplicationList);
-    	model.addAttribute("sellerProductApplicationCount", searchSellerProductApplicationCount);
-		model.addAttribute("sellerProductApplicationList", searchSellerProductApplicationList);
+		// 검색한 신고상품 조회
+    	ArrayList<ReportProduct> searchReportProductList = managerService.searchReportProductList(s, pi);
+    	
+    	model.addAttribute("reportProductListCount", searchReportProductListCount);
+		model.addAttribute("reportProductList", searchReportProductList);
 		model.addAttribute("pi", pi);
 		model.addAttribute("searchType", s.getSearchType());
 		model.addAttribute("searchKeyword", s.getSearchKeyword());
 		model.addAttribute("startDate", s.getStartDate());
 		model.addAttribute("endDate", s.getEndDate());
 		model.addAttribute("categoryName", categoryName);
-		return "manager/managerSellerProductApplication";
+		return "manager/reportProductList";
 	}
 	
 	
-	// 신고상품 처리 메서드
-	@RequestMapping("sellerProductApplicationApprove.ma")
-	public String sellerProductApplicationApprove(HttpSession session, int pdOptionNo, Model model) {
+	// 신고상품 삭제 메서드
+	@RequestMapping("reportProductRemove.ma")
+	public String reportProductRemove(HttpSession session, int pdNo, Model model) {
 		
 		// 판매자의 상품신청 승인
-		int result = managerService.sellerProductApplicationApprove(pdOptionNo);
+		int result = managerService.reportProductRemove(pdNo);
 		
 		if(result > 0) {  // 승인 성공
 			session.setAttribute("alertMsg", "승인 되었습니다.");
-			return "redirect:sellerProductApplication.ma?categoryName=seller";
+			return "redirect:reportProductList.ma?categoryName=seller";
 		} else {  // 승인 실패
 			model.addAttribute("errorMsg", "승인 실패하였습니다.");
-			return "redirect:sellerProductApplication.ma?categoryName=seller";
+			return "redirect:reportProductList.ma?categoryName=seller";
+		}
+	}
+	
+	// 신고상품 무시 메서드
+	@RequestMapping("reportProductIgnore.ma")
+	public String reportProductIgnore(HttpSession session, int pdNo, Model model) {
+		
+		// 판매자의 상품신청 승인
+		int result = managerService.reportProductIgnore(pdNo);
+		
+		if(result > 0) {  // 승인 성공
+			session.setAttribute("alertMsg", "승인 되었습니다.");
+			return "redirect:reportProductList.ma?categoryName=seller";
+		} else {  // 승인 실패
+			model.addAttribute("errorMsg", "승인 실패하였습니다.");
+			return "redirect:reportProductList.ma?categoryName=seller";
 		}
 	}
 	

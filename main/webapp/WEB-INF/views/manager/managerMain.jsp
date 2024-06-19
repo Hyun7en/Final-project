@@ -34,11 +34,11 @@
                         <div class="main-status-info-title">
                             <div class="total-members-info">
                                 <b>현재 회원 수</b>
-                                <p>200</p>
+                                <p>${currentMemberCount}</p>
                             </div>
                             <div class="total-members-info">
                                 <b>탈퇴한 회원 수</b>
-                                <p>10</p>
+                                <p>${deleteMemberCount}</p>
                             </div>
                         </div>
                     </div>
@@ -131,7 +131,25 @@
                             <th>가입일시</th>
                         </thead>
                         <tbody>
-                            <tr>
+                            <c:forEach var="rm" items="${recentMemberList}">
+                                <tr>
+                                    <td>${rm.userName}</td>
+                                    <td>${rm.userId}</td>
+                                    <c:choose>
+                                        <c:when test="${rm.authority eq 0}">
+                                            <td>일반회원</td>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <td>판매자</td>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <td>${rm.email}</td>
+                                    <td>${rm.phone}</td>
+                                    <td>${rm.joinDate}</td>
+                                </tr>
+                            </c:forEach>
+ 
+                            <!-- <tr>
                                 <td>홍길동</td>
                                 <td>qwqw1212</td>
                                 <td>일반회원</td>
@@ -154,7 +172,7 @@
                                 <td>qwqw1414@gmail.com</td>
                                 <td>010-1111-3333</td>
                                 <td>2024-05-13</td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>

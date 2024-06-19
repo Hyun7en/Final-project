@@ -135,6 +135,7 @@ function confirm_address() {
 // 프로필 이미지 변경했을 때
 function loadImg(imgInputFile){
     console.log(imgInputFile.files.length)
+
     if(imgInputFile.files.length == 1){
         //파일을 읽어들일 FileReader객체생성
         const reader = new FileReader();
@@ -145,12 +146,11 @@ function loadImg(imgInputFile){
 
         //파일 읽어들이기 완료했을 때 실행할 함수 정의
         reader.onload = function(ev){
-            
-            document.getElementById("profile-img").src = ev.target.result;
+            document.getElementById("myPage-profile-img").src = ev.target.result;
             console.log(ev.target.result)
         }
     } else{
-        document.getElementById("profile-img").src = null;
+        document.getElementById("myPage-profile-img").src = null;
     }
 }
 

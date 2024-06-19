@@ -118,5 +118,12 @@ function productDetail(userNo){
              location.href = 'orderlogin.me';
          }
      };  
+
+
+    //  별점
+    $('.star_rating > .star').click(function() {
+        $(this).parent().children('span').removeClass('on');
+        $(this).addClass('on').prevAll('span').addClass('on');
+      })
      
 }

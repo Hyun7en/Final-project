@@ -30,13 +30,14 @@
  		<typeAlias type="com.psvm.curation.vo.Curation" alias="Curation"/>
  		<typeAlias type="com.psvm.cs.vo.Cs" alias="Cs"/>
  		<typeAlias type="com.psvm.seller.dto.StoreMainDTO" alias="StoreMainDTO"/>
- 		<typeAlias type="com.psvm.manager.vo.ApplicationProduct" alias="ApplicationProduct"/>
+ 		<typeAlias type="com.psvm.manager.vo.ReportProduct" alias="ReportProduct"/>
  		<typeAlias type="com.psvm.seller.dto.ProductDTO" alias="ProductDTO"/>
  		<typeAlias type="com.psvm.seller.vo.Review" alias="Review"/>
  		<typeAlias type="com.psvm.alarm.vo.Alarm" alias="Alarm"/>
  		<typeAlias type="com.psvm.alarm.vo.Subscribe" alias="Subscribe"/>
+ 		<typeAlias type="com.psvm.myPage.vo.Cart" alias="Cart"/>
+ 		<typeAlias type="com.psvm.myPage.vo.OrderHistory" alias="OrderHistory"/>
  		<typeAlias type="com.psvm.seller.vo.Faq" alias="Faq"/>
- 		
  	</typeAliases>
  	
  	<!-- 
@@ -56,6 +57,7 @@
  		<mapper resource="/mappers/store-mapper.xml"/>
  		<mapper resource="/mappers/cs-mapper.xml"/>
  		<mapper resource="/mappers/alarm-mapper.xml"/>
+ 		<!-- <mapper resource="/mappers/alarm-mapper.xml"/>  -->
  	</mappers>
 
  	

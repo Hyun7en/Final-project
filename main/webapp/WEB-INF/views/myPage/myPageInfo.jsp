@@ -75,10 +75,10 @@
                             <div id="myPageInfo-profile-img">
                                 <c:choose>
                                     <c:when test="${empty ma.changeName}">
-                                        <img id="profile-img" src="">
+                                        <img id="myPage-profile-img" src="">
                                     </c:when>
                                     <c:otherwise>
-                                        <img id="profile-img" src="${ma.changeName}">
+                                        <img id="myPage-profile-img" src="${ma.changeName}">  <!-- header에있는 프로필 태그의 id도 profile-img로 동일해서 myPage를 붙임 -->
                                     </c:otherwise>
                                 </c:choose>
                                 <c:if test="${not empty ma.originName}">

@@ -81,6 +81,7 @@
                             </div>
                             <div align="center">
                                 <p>승인 대기중</p>
+                                <span style="color: red;">관리자로 인해 신청이 취소될 수 있습니다.</span>
                             </div>
                         </c:when>
 

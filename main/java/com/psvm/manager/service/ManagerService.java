@@ -5,13 +5,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.psvm.commons.vo.PageInfo;
-import com.psvm.manager.vo.ApplicationProduct;
+import com.psvm.manager.vo.ReportProduct;
 import com.psvm.manager.vo.Search;
 import com.psvm.manager.vo.Seller;
 import com.psvm.member.vo.Member;
 
 public interface ManagerService {
-
+	
+	// 탈퇴되어있지 않은 회원 수
+	int currentMemberCount();
+	
+	// 탈퇴되어있는 회원 수 조회
+	int deleteMemberCount();
+	
+	// 최근 회원가입한 회원 3명 조회
+	ArrayList<Member> recentMemberList();
+	
 	// 관리자를 제외한 모든 회원 수 조회
 	int memberListCount();
 	
@@ -26,9 +35,6 @@ public interface ManagerService {
 	
 	// 관리자가 회원 강제 탈퇴
 	int deleteMember(int userNo);
-	
-	
-	
 	
 	// 판매자 수 조회
 	int sellerListCount();
@@ -57,20 +63,26 @@ public interface ManagerService {
 	// 판매자 신규신청 승인
 	int sellerNewApplicationApprove(int userNo);
 	
-	// 판매자가 신청한 상품 수 조회
+	// 판매자 신규신청 거부
+	int sellerNewApplicationReject(int userNo);
+	
+	// 신고상품 수 조회
 	int reportProductListCount();
 	
-	// 판매자가 신청한 상품 조회
-	ArrayList<ApplicationProduct> reportProductList(PageInfo pi);
+	// 신고상품 조회
+	ArrayList<ReportProduct> reportProductList(PageInfo pi);
 	
-	// 검색한 판매자 상품신청 수 조회
-	int searchSellerProductApplicationCount(Search s);
+	// 검색한 신고상품 수 조회
+	int searchReportProductListCount(Search s);
 	
-	// 검색한 판매자 상품신청 조회
-	ArrayList<ApplicationProduct> searchSellerProductApplicationList(Search s, PageInfo pi);
+	// 검색한 신고 상품 조회
+	ArrayList<ReportProduct> searchReportProductList(Search s, PageInfo pi);
 	
-	// 판매자 상품신청 승인
-	int sellerProductApplicationApprove(int pdOptionNo);
+	// 신고상품 삭제
+	int reportProductRemove(int pdNo);
+	
+	// 신고상품 무시
+	int reportProductIgnore(int pdNo);
 	
 	// 탈퇴 회원 수 조회
 	int customerOutCount();

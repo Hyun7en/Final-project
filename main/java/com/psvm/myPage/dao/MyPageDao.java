@@ -1,6 +1,7 @@
 package com.psvm.myPage.dao;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -10,7 +11,9 @@ import com.psvm.commons.vo.PageInfo;
 import com.psvm.community.vo.Community;
 import com.psvm.member.vo.Member;
 import com.psvm.member.vo.MemberAttachment;
+import com.psvm.myPage.vo.Cart;
 import com.psvm.myPage.vo.Inquiry;
+import com.psvm.myPage.vo.OrderHistory;
 import com.psvm.seller.vo.SellerInfo;
 import com.psvm.store.vo.StoreInfo;
 
@@ -67,6 +70,31 @@ public class MyPageDao {
 	// 찜 취소
 	public int interestCancle(SqlSessionTemplate sqlSession, StoreInfo si) {
 		return sqlSession.delete("myPageMapper.interestCancle", si);
+	}
+	
+	// 장바구니에 담긴 상품 수 조회
+	public int cartProductListCount(SqlSessionTemplate sqlSession, int userNo) {
+		return sqlSession.selectOne("myPageMapper.cartProductListCount", userNo);
+	}
+	
+	// 장바구니에 담긴 상품 조회
+	public ArrayList<Cart> cartProductList(SqlSessionTemplate sqlSession, int userNo){
+		return (ArrayList)sqlSession.selectList("myPageMapper.cartProductList", userNo);
+	}
+	
+	// 장바구니에 담은 상품 삭제
+	public int deleteCartProduct(SqlSessionTemplate sqlSession, Map<String, Integer> params) {
+		return sqlSession.delete("myPageMapper.deleteCartProduct", params);	
+	}
+	
+	// 주문내역 수 조회
+	public int orderHistoryListCount(SqlSessionTemplate sqlSession, int userNo) {
+		return sqlSession.selectOne("myPageMapper.orderHistoryListCount", userNo);	
+	}
+	
+	// 주문내역 조회
+	public ArrayList<OrderHistory> orderHistoryList(SqlSessionTemplate sqlSession, int userNo) {
+		return (ArrayList)sqlSession.selectList("myPageMapper.orderHistoryList", userNo);	
 	}
 	
 	// 회원이 작성한 게시글 수 조회

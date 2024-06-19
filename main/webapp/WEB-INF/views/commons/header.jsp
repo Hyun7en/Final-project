@@ -14,7 +14,7 @@
     <script src="${pageContext.request.contextPath}/resources/js/commonsJS/header.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
 </head>
-<body onload="init('startHeader', `${pageContext.request.contextPath}`, {userNo : `${loginUser.userNo}`}) ">
+<body onload="init('startHeader', `${pageContext.request.contextPath}`, {userNo : `${loginUser.userNo}`}); ">
 	 <header>
             <div id="Header" style="background-color: white">
                 <div id="logo">
@@ -125,7 +125,7 @@
                                             </c:otherwise>
                                         </c:choose>
                                         <div id="click-menu">
-                                            <a href="myPage.me?userNo=${loginUser.userNo}">마이페이지</a>
+                                            <a href="myPage.my?userNo=${loginUser.userNo}">마이페이지</a>
                                             <a href="main.ma">관리자 페이지</a>
                                             <a href="logout.me">로그아웃</a>
                                         </div>

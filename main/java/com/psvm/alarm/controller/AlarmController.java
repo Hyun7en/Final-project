@@ -27,7 +27,7 @@ public class AlarmController {
 	public String getAlarmList(@RequestParam("userNo") int userNo) {
 		ArrayList<String> list = alarmService.getAlarmList(userNo);
 
-		
+		System.out.println(userNo);
 		return new Gson().toJson(list);
 	}
 	
@@ -67,7 +67,7 @@ public class AlarmController {
 	public String insertAlarm(@RequestParam("sellerNo") int sellerNo, @RequestParam("alarmContents") String alarmContents) {
 		
 		List<Integer> list = alarmService.getuserNos(sellerNo); //임시로 seller넘버 가져오는 함수
-		
+
 		HashMap<String, Object> map = new HashMap<>(); //매퍼로 데이터 담아서 올리기
 		
 		map.put("list", list);

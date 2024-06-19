@@ -36,7 +36,7 @@
                         <option value="category">카테고리</option>
                         <option value="productName">상품명</option>
                     </select>
-                    <input id="search-keyword" type="text" name="keyword" value="${keyword }">
+                    <input id="search-keyword" type="text" name="keyword" value="${keyword}">
                     <button type="submit" >검색</button>
                 </form>
 
