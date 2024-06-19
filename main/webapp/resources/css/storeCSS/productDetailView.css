@@ -215,14 +215,39 @@ h1{
     justify-content: space-between;
 }
 
+
 /* 상품 리뷰 모달 */
 
 
+/* 별점 */
+.star_rating {
+    width: 100%; 
+    box-sizing: border-box; 
+    display: inline-flex; 
+    float: left;
+    flex-direction: row; 
+    justify-content: flex-start;
+  }
 
-/* 상품 문의 */
-.product-inquiry{
-    width: 100%;
-}
+  .star_rating .star {
+    width: 32px; 
+    height: 32px; 
+    margin-right: 10px;
+    display: inline-block; 
+    background: url('../../image/noBlueStar.png') no-repeat; 
+    background-size: 100%; 
+    box-sizing: border-box; 
+  }
+
+  .star_rating .star.on {
+    width: 32px; 
+    height: 32px;
+    margin-right: 10px;
+    display: inline-block; 
+    background: url('../../image/blueStar.png') no-repeat;
+    background-size: 100%; 
+    box-sizing: border-box; 
+  }
 
 .product-inquiry-area .inquiry-top{
     display: flex;
