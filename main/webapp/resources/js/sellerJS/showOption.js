@@ -1,5 +1,4 @@
-    
-    $(function() {
+$(function() {
     // 페이지 로드 시 옵션 목록을 가져오고, 그리기
     selectOptions();
 
@@ -23,6 +22,9 @@
         let $selectOption = $('#select-option');
         $selectOption.empty(); // 기존의 옵션들을 초기화
 
+        // 빈 옵션을 추가하여 기본값으로 설정
+        $selectOption.append($('<option>').text("옵션").val(""));
+
         if (!options || options.length === 0) {
             console.log('No options received or options array is empty');
             return;
@@ -37,7 +39,7 @@
             }
         });
 
-        // 첫 번째 옵션 항목을 선택
+        // 첫 번째 옵션 항목을 선택 (필요 시 주석 해제)
         // if ($selectOption.find('option').length > 0) {
         //     $selectOption.val($selectOption.find('option:first').val());
         // }

@@ -90,7 +90,7 @@ function productDetail(userNo){
                     contentType: 'application/json',
                     data: JSON.stringify(options), // 데이터를 JSON 형식으로 변환하여 전송
                     success: function(response) {
-                        alert("장바구니에 담겼습니다");
+                        alert("장바구니 등록 완료!");
                         console.log('장바구니 담기 성공.');
                         console.log(response);
                     },

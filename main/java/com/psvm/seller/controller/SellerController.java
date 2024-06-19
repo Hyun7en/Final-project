@@ -9,10 +9,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
-
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,13 +21,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.psvm.commons.template.Pagination;
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.member.vo.Member;
-import com.psvm.seller.dto.CartDTO;
 import com.psvm.seller.dto.ProductCategoryDTO;
 import com.psvm.seller.dto.ProductDTO;
 import com.psvm.seller.dto.StoreMainDTO;
@@ -39,9 +34,9 @@ import com.psvm.seller.vo.Buy;
 import com.psvm.seller.vo.Product;
 import com.psvm.seller.vo.ProductCategory;
 import com.psvm.seller.vo.ProductOption;
+import com.psvm.seller.vo.Review;
 import com.psvm.seller.vo.SellerInfo;
 import com.psvm.seller.vo.SellerPage;
-
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -54,7 +49,7 @@ public class SellerController {
     private final Gson gson = new Gson();
     
 //mapping 끝 sr,srh, pd, me    
-//######################################################### 판매자 ######################################################################
+  //############################################## 판매자 관련 ############################################################
     
     // 판매자 정보 불러오기
     @RequestMapping("info.sr")
@@ -82,7 +77,7 @@ public class SellerController {
      * @param session session 가져옴
      * @return 로그인한 판매자의 사업자 번호
      */
-    // 로그인 한 판매자의 사업자 번호 가져오는 메서드
+    // 사업자 번호 가져오기
     public int getBusinessNo(HttpSession session) {
     	
     	// 세션에서 loginUser 객체 가져오기
@@ -94,7 +89,7 @@ public class SellerController {
         
     }
     
-    // sellerPageNo 가져오기
+    // 판매 홈페이지 번호 가져오기
     public int getSellerPageNo(HttpSession session) {
     	int businessNo = getBusinessNo(session);
     	
@@ -268,40 +263,6 @@ public class SellerController {
   		return "seller/productEnrollForm";
   	}
     
-    // 판매자 상품 등록
-//    @RequestMapping("insert.pd")
-//  	public String insertProduct(Product product, MultipartFile productImage, @RequestParam("optionsJson") String optionsJson,
-//    HttpSession session, RedirectAttributes redirectAttributes) {
-//    	
-//    	
-//    	System.out.println("Product: " + product.getCaNo());
-//    	System.out.println("Options JSON: " + optionsJson);
-//    	
-//         if (!productImage.getOriginalFilename().isEmpty()) {
-//             String changeName = saveFile(productImage, session);
-//             product.setPdOriginName(productImage.getOriginalFilename());
-//             product.setPdChangeName("resources/upFiles/productImg/" + changeName);
-//         }
-//
-//      
-//             Type listType = new TypeToken<List<ProductOption>>() {}.getType();
-//             List<ProductOption> options = gson.fromJson(optionsJson, listType);
-//
-//         	 int result = sellerService.insertProduct(product, options);
-//         	 
-//             if (result > 0 ) { // 성공
-//            	 
-//                 redirectAttributes.addFlashAttribute("message", "등록이 완료되었습니다.");
-//                 
-//                 return "redirect:list.pd";
-//                 
-//             }else { // 실패
-//             	redirectAttributes.addFlashAttribute("message", "등록 실패하셨습니다.");
-//                 return "redirect:list.pd"; // 등록 페이지로 리다이렉트
-//                 
-//             }
-//    
-//     }
     
     // 판매자 상품 등록
     @RequestMapping("insert.pd")
@@ -418,7 +379,7 @@ public class SellerController {
 		
 		int boardCount = sellerService.searchListCount(map);
 		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 10);
-		ArrayList<Product> list = sellerService.searchList(pi, map);
+		List<Product> list = sellerService.searchList(pi, map);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
@@ -458,46 +419,6 @@ public class SellerController {
     	
   		return "seller/productUpdateForm";
   	}
-    
-    //상품 정보 수정
-//    @RequestMapping("update.pd")
-//  	public String updateProduct(Product product, MultipartFile productImage, @RequestParam("optionsJson") String optionsJson,
-//  		    HttpSession session, RedirectAttributes redirectAttributes) {
-//    	
-//    	//새로운 첨부파일이 넘어온 경우
-//		if(!productImage.getOriginalFilename().equals("")) {
-//			//기존의 첨부파일이 있다 => 기존의 파일을 삭제
-//			if(product.getPdOriginName() != null) {
-//				new File(session.getServletContext().getRealPath(product.getPdChangeName())).delete();
-//			}
-//			
-//			//새로 넘어온 첨부파일을 서버에 업로드 시키기
-//			String changeName = saveFile(productImage, session);
-//			
-//			product.setPdOriginName(productImage.getOriginalFilename());
-//			product.setPdChangeName("/resources/upFiles/productImg/" + changeName);
-//		}
-//    			
-//	
-//            Type listType = new TypeToken<List<ProductOption>>() {}.getType();
-//            List<ProductOption> options = gson.fromJson(optionsJson, listType);
-//
-//        	 int result = sellerService.updateProduct(product, options);
-//        	 
-//            if (result > 0 ) { // 성공
-//           	 
-//                redirectAttributes.addFlashAttribute("message", "등록이 완료되었습니다.");
-//                
-//                return "redirect:list.pd";
-//                
-//            }else { // 실패
-//            	redirectAttributes.addFlashAttribute("message", "등록 실패하셨습니다.");
-//                return "redirect:list.pd"; // 등록 페이지로 리다이렉트
-//                
-//            }
-//     	
-//    			
-//  	}
     
     // 상품 정보 수정
     @RequestMapping("update.pd")
@@ -598,14 +519,16 @@ public class SellerController {
     	return "seller/settlement";
     }
     
-//############################################################## 스토어 메인 #########################################################################
+  //############################################## 스토어 메인  ############################################################
     
     // 스토어 메인
     @RequestMapping("list.spd")
   	public String storeMain(HttpSession session, Model model) {
 		
+    	//인기 상품 불러오기
     	List<StoreMainDTO> popularList = sellerService.selectPopularList();
     	
+    	//최신 상품 불러오기
 		List<StoreMainDTO> recentList = sellerService.selectRecentList();
 		
 		model.addAttribute("popularList", popularList);
@@ -614,8 +537,7 @@ public class SellerController {
 		return "store/storeMain";
 	}
     
-    // 무한 스크롤로 전체 상품 가져오기
-    
+    // 무한 스크롤로 전체 상품 가져오기   
     @RequestMapping(value = "/allProduct.ax", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
     @ResponseBody
     public String selectAllProduct(@RequestParam("page") int page, @RequestParam("size") int size) {
@@ -630,35 +552,59 @@ public class SellerController {
         return new Gson().toJson(response);
     }
     
+  //############################################## 판매상품 상세 페이지 ############################################################
+    
     // 판매 상품 상세 정보
     @RequestMapping("detail.spd")
-    public String selectSalesProduct(@RequestParam(value = "pno", required = false) Integer pno, Model model) {
+    public String productDetailView(@RequestParam(value = "pno", required = false) Integer pno, Model model) {
     	
+    	// 판매 상품 상세 정보
     	ProductDTO spd = sellerService.selectSalesProduct(pno);
     	
+    	//리뷰 가져오기
+    	List<Review> reviewList = sellerService.selectReviewList();
+    	
+    	
+    	
     	model.addAttribute("spd",spd);
+    	model.addAttribute("reviewList",reviewList);
     	
     	return "seller/productDetailView";
     }
     
     // 장바구니 담기    
-
-
-
     @PostMapping(value = "/insertCart.ax", produces = "application/json; charset=UTF-8")
     @ResponseBody
     public String insertCart(@RequestBody List<Map<String, Object>> data) {
     	
-        // 데이터베이스에 저장하는 로직을 추가합니다.
          int result = sellerService.insertCart(data);
 
-        // 응답 메시지 반환
         return new Gson().toJson(result);
     }
     
+    // 리뷰 쓰기    
+    @PostMapping(value = "/insertReview.ax", produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public String insertReview() {
+    	
+         int result = sellerService.insertReview();
+
+        return new Gson().toJson(result);
+    }
     
-    // 구매 페이지
+    // 문의 쓰기    
+    @PostMapping(value = "/insertInquiry.ax", produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public String insertInquiry() {
+    	
+         int result = sellerService.insertInquiry();
+
+        return new Gson().toJson(result);
+    }
     
+  //############################################## 구매 페이지 ############################################################
+    
+    // 구매 페이지 
     @RequestMapping("order.spd")
     public String insertBuyingProduct() {
     	

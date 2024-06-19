@@ -1,17 +1,13 @@
 package com.psvm.seller.service;
 
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.seller.dao.SellerDao;
 import com.psvm.seller.dto.ProductDTO;
@@ -20,6 +16,7 @@ import com.psvm.seller.vo.Buy;
 import com.psvm.seller.vo.Product;
 import com.psvm.seller.vo.ProductCategory;
 import com.psvm.seller.vo.ProductOption;
+import com.psvm.seller.vo.Review;
 import com.psvm.seller.vo.SellerInfo;
 import com.psvm.seller.vo.SellerPage;
 
@@ -32,6 +29,8 @@ public class SellerServiceImpl implements SellerService {
 	
 	@Autowired
 	private SellerDao sellerDao;
+	
+	//############################################## 판매자 관련 ############################################################
 
 	// 판매자 정보 불러오기
 	@Override
@@ -85,7 +84,7 @@ public class SellerServiceImpl implements SellerService {
 		return sellerDao.selectCategories(sqlSession, businessNo);
 	}
 	
-	// 판매자 홈 불러오기
+	// 판매자 홈 상세
 	@Override
 	public SellerPage selectSellerHomeDetail(int businessNo) {
 		
@@ -170,11 +169,24 @@ public class SellerServiceImpl implements SellerService {
 		return count;
 	}
 
-	// 상품 리스트 불러오기
+	// 상품 리스트
 	@Override
 	public List<Product> selectProductList(PageInfo pi, int businessNo) {
 		
 		return sellerDao.selectProductList(sqlSession, pi,businessNo);
+	}
+	
+	// 상품 리스트 검색
+	@Override
+	public int searchListCount(HashMap<String, String> map) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	@Override
+	public List<Product> searchList(PageInfo pi, HashMap<String, String> map) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	// 상품 옵션 불러오기
@@ -218,10 +230,13 @@ public class SellerServiceImpl implements SellerService {
         return t1*t2*t3*t4;
     }
 	
+	// 상품 삭제
 	@Override
 	public int deleteProduct(int pno) {
 		return sellerDao.deleteProduct(sqlSession, pno);
 	}
+	
+	//############################################## 스토어 메인 ############################################################
 
 	// 인기 상품 불러오기
 	@Override
@@ -236,20 +251,6 @@ public class SellerServiceImpl implements SellerService {
 		
 		return sellerDao.selectRecentList(sqlSession);
 	}
-
-	// 판매 상품 상세 정보
-	@Override
-	public ProductDTO selectSalesProduct(int pno) {
-		
-		return sellerDao.selectSalesProduct(sqlSession, pno);
-	}
-	
-	// 장바구니 담기
-	@Override
-    public int insertCart(List<Map<String, Object>> data) {
-        
-        return sellerDao.insertCart(sqlSession,data);
-    }
 	
 	// 무한 스크롤로 전체 상품 가져오기
 	@Override
@@ -258,16 +259,48 @@ public class SellerServiceImpl implements SellerService {
 		return sellerDao.selectAllProduct(sqlSession, page, size);
 	}
 
+	//############################################## 판매상품 상세 페이지 #######################################################
+	
+	// 판매 상품 상세 정보
 	@Override
-	public int searchListCount(HashMap<String, String> map) {
+	public ProductDTO selectSalesProduct(int pno) {
+		
+		return sellerDao.selectSalesProduct(sqlSession, pno);
+	}
+	
+	//리뷰 가져오기
+	@Override
+	public List<Review> selectReviewList() {
+		
+		return sellerDao.selectReviewList(sqlSession);
+	}
+	
+	// 장바구니 담기
+	@Override
+    public int insertCart(List<Map<String, Object>> data) {
+        
+        return sellerDao.insertCart(sqlSession,data);
+    }
+
+	//리뷰 쓰기
+	@Override
+	public int insertReview() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
+	//문의 쓰기
 	@Override
-	public ArrayList<Product> searchList(PageInfo pi, HashMap<String, String> map) {
+	public int insertInquiry() {
 		// TODO Auto-generated method stub
-		return null;
+		return 0;
 	}
+	
+	
+	//############################################## 구매 페이지 ############################################################
+	
+	//구매 페이지
+	
+	
 
 }

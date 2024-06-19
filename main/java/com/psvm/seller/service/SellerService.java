@@ -1,11 +1,9 @@
 package com.psvm.seller.service;
 
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.seller.dto.ProductDTO;
 import com.psvm.seller.dto.StoreMainDTO;
@@ -13,10 +11,13 @@ import com.psvm.seller.vo.Buy;
 import com.psvm.seller.vo.Product;
 import com.psvm.seller.vo.ProductCategory;
 import com.psvm.seller.vo.ProductOption;
+import com.psvm.seller.vo.Review;
 import com.psvm.seller.vo.SellerInfo;
 import com.psvm.seller.vo.SellerPage;
 
 public interface SellerService {
+	
+	//############################################## 판매자 관련 ############################################################
 	
 	// 판매자 정보 불러오기
 	public SellerInfo selectSeller(int userNo);
@@ -33,7 +34,7 @@ public interface SellerService {
 	// 판매 홈 카테고리 불러오기
 	public List<ProductCategory> selectCategories(int businessNo);
 
-	// 판매자 홈 불러오기
+	// 판매자 홈 상세
 	public SellerPage selectSellerHomeDetail(int businessNo);
 	
 	// 판매자 홈 수정
@@ -45,13 +46,13 @@ public interface SellerService {
 	// 상품 리스트 페이징
 	public int selectProductListCount();
 	
-	// 상품 리스트 불러오기 
+	// 상품 리스트 
 	public List<Product> selectProductList(PageInfo pi,int businessNo);
 	
-	 //상품 카테고리 검색
+	//상품 리스트 검색
 	public int searchListCount(HashMap<String, String> map);
 	
-	public ArrayList<Product> searchList(PageInfo pi, HashMap<String, String> map);
+	public List<Product> searchList(PageInfo pi, HashMap<String, String> map);
 	
 	// 상품 옵션 불러오기
 	public List<ProductOption> selectOptions(int pno);
@@ -65,18 +66,36 @@ public interface SellerService {
 	// 상품 삭제
 	public int deleteProduct(int pno);
 	
+	//############################################## 스토어 메인 ############################################################
+	
 	// 인기 상품 불러오기
 	public List<StoreMainDTO> selectPopularList();
 	
 	// 최신 상품 불러오기
 	public List<StoreMainDTO> selectRecentList();
 	
+	// 무한 스크롤로 전체 상품 가져오기
+	public List<StoreMainDTO> selectAllProduct(int page, int size);
+	
+	//############################################## 판매상품 상세 페이지 #######################################################
+	
 	// 판매 상품 상세 정보
 	public ProductDTO selectSalesProduct(int pno);
+	
+	//리뷰 가져오기
+	public List<Review> selectReviewList();
 	
 	//장바구니 담기
 	public int insertCart(List<Map<String, Object>> data);
 	
-	// 무한 스크롤로 전체 상품 가져오기
-	public List<StoreMainDTO> selectAllProduct(int page, int size);
+	//리뷰 쓰기
+	public int insertReview();
+	
+	//문의 쓰기
+	public int insertInquiry();
+	
+	
+	//############################################## 구매 페이지 ############################################################
+	
+	//구매 페이지
 }

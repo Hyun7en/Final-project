@@ -180,44 +180,60 @@
 
                             <div>
                             <!-- 반복 구문 시작 -->
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <img src="" alt="">
-                                        </td>
-                                        <td>
-                                            이름
-                                        </td>
-                                        <td>
-                                            별점
-                                        </td>
-                                        <td>
-                                            날짜
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            상품명
-                                        </td>
-                                        <td>
-                                            옵션명
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <img src="" alt="">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            리뷰 내용
-                                        </td>
-                                    </tr>
-                                </table>
-                                
-                                <hr>
+                             <c:choose >
+
+                                <c:when test="${not empty reviewList}">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <img src="" alt="">
+                                            </td>
+                                            <td>
+                                                이름
+                                            </td>
+                                            <td>
+                                                별점
+                                            </td>
+                                            <td>
+                                                날짜
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                상품명
+                                            </td>
+                                            <td>
+                                                옵션명
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <img src="" alt="">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                리뷰 내용
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                    <hr>
+                                </c:when>
+
+                                <c:otherwise>
+                                    <table>
+                                        <tr>
+                                            등록된 리뷰가 없습니다
+                                        </tr>
+                                    </table>
+
+                                    <hr>
+                                </c:otherwise>
+                            </c:choose>
                             <!-- 반복 구문 끝 -->
                             </div>
+
                         </div>
 
                         <!-- 페이징 처리 들어오는 곳-->
@@ -334,30 +350,45 @@
                             </div>
 
                             <div>
-                                <!--  반복문 시작 -->
-                                <table>
-                                    <tr>
-                                        <td>
-                                            문의자명
-                                        </td>
-                                        <td>
-                                            문의날짜
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="font-weight: bolder; color: #0089FF;">
-                                            Q
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="font-weight: bolder; color: #0089FF;">
-                                            A
-                                        </td>
-                                    </tr>
-                                </table>
+                            <!--  반복문 시작 -->
+                                <c:choose>
 
-                                <hr>
-                                <!--  반복문 끝 -->
+                                    <c:when test="not empty inquiryList">                                   
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    문의자명
+                                                </td>
+                                                <td>
+                                                    문의날짜
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight: bolder; color: #0089FF;">
+                                                    Q
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight: bolder; color: #0089FF;">
+                                                    A
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <hr>
+                                    </c:when>
+
+                                <c:otherwise>
+                                    <table>
+                                        <tr>
+                                            등록된 문의가 없습니다
+                                        </tr>
+                                    </table>
+
+                                    <hr>
+
+                                </c:otherwise>
+                            </c:choose>
+                            <!--  반복문 끝 -->
                             </div>
                             <!-- 페이징 처리 들어오는 곳-->
                             <div id="pagination-div">
