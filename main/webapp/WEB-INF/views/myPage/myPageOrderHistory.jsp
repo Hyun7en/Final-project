@@ -12,7 +12,9 @@
     <!-- css -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/myPageCSS/myPageOrderHistory.css">
- 
+    
+    <!-- javaScript -->
+    <script src="${pageContext.request.contextPath}/resources/js/myPageJS/myPageOrderHistory.js"></script>
 <body>
 	<div class="wrap">
 	
