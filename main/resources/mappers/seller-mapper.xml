@@ -67,6 +67,16 @@
 		<result column="REVIEW_CONTENTS" property="reviewContents"/>
 	</resultMap> 
 	
+	<resultMap type="Faq" id="FaqResult">
+		<result column="FAQ_NO" property="faqNo"/>
+		<result column="USER_NO" property="userNo"/>
+		<result column="INQUIRY_TITLE" property="inquiryTitle"/>
+		<result column="INQUIRY_CONTENTS" property="inquiryContents"/>
+		<result column="INQUIRY_DATE" property="inquiryDate"/>
+		<result column="P_NO" property="pdNo"/>
+		<result column="INQUIRY_STATUS" property="inquiryStatus"/>
+	</resultMap>
+	
 	<resultMap type="StoreMainDTO" id="StoreMainDTOResult">
 		<result column="SELLER_PAGE_NO" property="sellerPageNo"/>
 		<result column="BUSINESS_NO" property="businessNo"/>
@@ -77,6 +87,7 @@
 		<result column="P_PRICE" property="prPrice"/>
 		<result column="P_ENROLLDATE" property="prEnrollDate"/>
 		<result column="P_STAR" property="prStar"/>
+		<result column="AVERAGE_REVIEW_DIBS" property="averReviewDibs"/>
 		<result column="P_CHANGE_NAME" property="prChangeName"/>
 		<result column="P_STATUS" property="prStatus"/>
 		<result column="USER_NO" property="userNo"/>
@@ -115,9 +126,13 @@
 		<result column="REVIEW_DATE" property="reviewDate"/>
 		<result column="REVIEW_DIBS" property="reviewDibs"/>
 		<result column="REVIEW_CONTENTS" property="reviewContents"/>
+		<result column="AVERAGE_REVIEW_DIBS" property="averReviewDibs"/>
 		<result column="REVIEW_COUNT" property="reviewCount"/>
 	</resultMap>
 	
+	<!-- ##################################### 판매자 관련  ##################################### -->
+	
+	<!-- 판매자 정보 불러오기  -->
 	<select id="selectSeller" resultMap="sellerInfoResult">
 		SELECT *
 		  FROM SELLER_INFO
@@ -212,11 +227,11 @@
 		 WHERE C_NO = #{caNo} 
 	</delete>
 	
-	<select id="countByBusinessNo" resultType="int">
+<!-- 	<select id="countByBusinessNo" resultType="int">
         SELECT COUNT(*)
         FROM SELLER_PAGE
         WHERE BUSINESS_NO = #{businessNo}
-    </select>
+    </select> -->
 	
 	<insert id="insertProduct">
 	INSERT INTO 
@@ -226,7 +241,6 @@
 				 	      p_price,
 				 	      p_content,
 				 	      p_enroll_date,
-				 	      p_star,
 				 	      p_origin_name,
 				 	      p_change_name,
 				 	      p_status
@@ -236,7 +250,6 @@
 			 		      #{pdTitle},
 			 		      #{pdPrice},
 			 		      #{pdContent},
-			 		      default,
 			 		      default,
 			 		      #{pdOriginName},
 			 		      #{pdChangeName},
@@ -260,6 +273,7 @@
 						 		 	  )	
 	</insert>
 	
+	
 	<!-- 게시글의 총 갯수 조회 -->
 	<select id="selectProductListCount" resultType="_int">
 		SELECT COUNT(*)
@@ -279,6 +293,14 @@
 		 WHERE P_STATUS = 'Y'
 		   AND BUSINESS_NO = #{businessNo}
 		 ORDER BY P_NO DESC; 
+	</select>
+	
+	<select id="selectOptions" resultMap="productOptionResult">
+		SELECT P_COUNT,
+			   P_OPTION_NAME,
+			   P_OPTION_NO	
+		  FROM PRODUCT_OPTION
+		WHERE P_NO = #{pno}
 	</select>
 	
 	<select id="selectProduct" resultMap="productResult">
@@ -344,50 +366,59 @@
 		 WHERE P_NO = #{pno} 
 	</update>
 	
-	<select id="selectOptions" resultMap="productOptionResult">
-		SELECT P_COUNT,
-			   P_OPTION_NAME,
-			   P_OPTION_NO	
-		  FROM PRODUCT_OPTION
-		WHERE P_NO = #{pno}
-	</select>
+	<!-- ##################################### 스토어 메인  ##################################### -->
 	
 	<select id="selectPopularList" resultMap="StoreMainDTOResult">
-	SELECT *
-	  FROM (
-		    SELECT P_NO ,STORE_NAME,SELLER_PAGE_NO, P_TITLE, P_PRICE, P_CHANGE_NAME, P_STAR, COUNT(REVIEW.REPLY_NO) AS REVIEW_COUNT
-		    FROM PRODUCT
-		    JOIN PRODUCT_CATEGORY USING(C_NO)
-		    JOIN SELLER_PAGE USING(SELLER_PAGE_NO)
-		    JOIN SELLER_INFO USING(BUSINESS_NO)
-		    LEFT JOIN REVIEW USING(P_NO)
-		    WHERE P_STATUS = 'Y'
-		    GROUP BY P_NO, SELLER_PAGE_NO, STORE_NAME, P_TITLE, P_PRICE, P_STAR
-		    ORDER BY P_STAR DESC
-		    )
-	 LIMIT 10;
+		SELECT *
+		  FROM (
+			    SELECT P_NO ,STORE_NAME,SELLER_PAGE_NO, P_TITLE, P_PRICE, P_CHANGE_NAME, CAST(AVG(REVIEW.review_dibs) AS DECIMAL(10, 1)) AS AVERAGE_REVIEW_DIBS, COUNT(REVIEW.REPLY_NO) AS REVIEW_COUNT
+			    FROM PRODUCT
+			    JOIN PRODUCT_CATEGORY USING(C_NO)
+			    JOIN SELLER_PAGE USING(SELLER_PAGE_NO)
+			    JOIN SELLER_INFO USING(BUSINESS_NO)
+			    LEFT JOIN REVIEW USING(P_NO)
+			    WHERE P_STATUS = 'Y'
+			    GROUP BY P_NO ,STORE_NAME,SELLER_PAGE_NO, P_TITLE, P_PRICE, P_CHANGE_NAME 
+			    ORDER BY AVERAGE_REVIEW_DIBS
+			    )
+		 LIMIT 10
 	</select>
 	
 	<select id="selectRecentList" resultMap="StoreMainDTOResult">
 		SELECT *
 		  FROM (
-		        SELECT P_NO, STORE_NAME,SELLER_PAGE_NO, P_TITLE, P_PRICE, P_CHANGE_NAME, P_STAR, COUNT(REVIEW.REPLY_NO) AS REVIEW_COUNT
+		        SELECT P_NO, STORE_NAME,SELLER_PAGE_NO, P_TITLE, P_PRICE, P_CHANGE_NAME, CAST(AVG(REVIEW.review_dibs) AS DECIMAL(10, 1)) AS AVERAGE_REVIEW_DIBS, COUNT(REVIEW.REPLY_NO) AS REVIEW_COUNT
 		        FROM PRODUCT
 			    JOIN PRODUCT_CATEGORY USING(C_NO)
 			    JOIN SELLER_PAGE USING(SELLER_PAGE_NO)
 			    JOIN SELLER_INFO USING(BUSINESS_NO)
 			    LEFT JOIN REVIEW USING(P_NO)
 			    WHERE P_STATUS = 'Y'
-			    GROUP BY P_NO, SELLER_PAGE_NO, STORE_NAME, P_TITLE, P_PRICE, P_STAR
+			    GROUP BY P_NO, STORE_NAME,SELLER_PAGE_NO, P_TITLE, P_PRICE, P_CHANGE_NAME, P_ENROLL_DATE
 			    ORDER BY P_ENROLL_DATE DESC
 			    )
-		 LIMIT 10;
+		 LIMIT 10
 	</select>
 	
+	<select id="selectAllProduct" resultMap="StoreMainDTOResult">
+		SELECT P_NO, STORE_NAME,SELLER_PAGE_NO, P_TITLE, P_PRICE, P_CHANGE_NAME, CAST(AVG(REVIEW.review_dibs) AS DECIMAL(10, 1)) AS AVERAGE_REVIEW_DIBS, COUNT(REVIEW.REPLY_NO) AS REVIEW_COUNT
+		  FROM PRODUCT
+		  JOIN PRODUCT_CATEGORY USING(C_NO)
+		  JOIN SELLER_PAGE USING(SELLER_PAGE_NO)
+		  JOIN SELLER_INFO USING(BUSINESS_NO)
+		  LEFT JOIN REVIEW USING(P_NO)
+		 WHERE P_STATUS = 'Y'
+		 GROUP BY P_NO, STORE_NAME,SELLER_PAGE_NO, P_TITLE, P_PRICE, P_CHANGE_NAME, P_STAR, P_ENROLL_DATE
+		 ORDER BY P_ENROLL_DATE DESC
+	</select>
+	
+	<!-- ##################################### 판매 상품 상세 페이지  ##################################### -->
+	
 	<select id="selectSalesProduct" resultMap="ProductDTOResult">
-		SELECT EMAIL, PHONE, BUSINESS_NO,BUSINESS_NAME, STORE_NAME, SELLER_PAGE_NO,
-			   MAIN_BUSINESS_NAME,BUSINESS_ADDRESS, P_NO, P_TITLE, 
-			   P_PRICE, P_CONTENT, P_STAR, P_CHANGE_NAME, 
+		SELECT EMAIL, PHONE, BUSINESS_NO, BUSINESS_NAME, STORE_NAME, SELLER_PAGE_NO,
+		       MAIN_BUSINESS_NAME, BUSINESS_ADDRESS, P_NO, P_TITLE, 
+		       P_PRICE, P_CONTENT, P_CHANGE_NAME,
+		       CAST(AVG(REVIEW.review_dibs) AS DECIMAL(10, 1)) AS AVERAGE_REVIEW_DIBS,
 		       COUNT(REVIEW.REPLY_NO) AS REVIEW_COUNT
 		  FROM MEMBER
 		  JOIN SELLER_INFO USING(USER_NO)
@@ -395,22 +426,46 @@
 		  JOIN PRODUCT_CATEGORY USING(SELLER_PAGE_NO)
 		  JOIN PRODUCT USING(C_NO)
 		  LEFT JOIN REVIEW USING(P_NO)
-		 WHERE P_STATUS = 'Y' AND P_NO = 55
-		 GROUP BY EMAIL, PHONE, BUSINESS_NO,BUSINESS_NAME, STORE_NAME, SELLER_PAGE_NO,
-				MAIN_BUSINESS_NAME,BUSINESS_ADDRESS, P_NO, P_TITLE, 
-				P_PRICE, P_CONTENT, P_STAR, P_CHANGE_NAME ;
+		 WHERE P_STATUS = 'Y' AND P_NO = #{pno}
+		 GROUP BY EMAIL, PHONE, BUSINESS_NO, BUSINESS_NAME, STORE_NAME, SELLER_PAGE_NO,
+		          MAIN_BUSINESS_NAME, BUSINESS_ADDRESS, P_NO, P_TITLE, 
+		          P_PRICE, P_CONTENT, P_CHANGE_NAME
 	</select>
 	
-	<select id="selectAllProduct" resultMap="StoreMainDTOResult">
-		SELECT P_NO, STORE_NAME,SELLER_PAGE_NO, P_TITLE, P_PRICE, P_CHANGE_NAME, P_STAR, COUNT(REVIEW.REPLY_NO) AS REVIEW_COUNT
-		  FROM PRODUCT
-		  JOIN PRODUCT_CATEGORY USING(C_NO)
-		  JOIN SELLER_PAGE USING(SELLER_PAGE_NO)
-		  JOIN SELLER_INFO USING(BUSINESS_NO)
-		  LEFT JOIN REVIEW USING(P_NO)
-		 WHERE P_STATUS = 'Y'
-		 GROUP BY P_NO, SELLER_PAGE_NO, STORE_NAME, P_TITLE, P_PRICE, P_STAR
-		 ORDER BY P_ENROLL_DATE DESC
+	<!-- 리뷰 가져오기 -->
+	<select id="selectReviewList" resultMap="ReviewResult">
+		SELECT *
+		FROM REVIEW
 	</select>
+	
+	
+	<!-- 문의 가져오기 -->
+	
+	<!-- 장바구니 담기 -->
+	 <insert id="insertCart" parameterType="list">
+        INSERT INTO BUY (
+            user_no, 
+            p_option_no, 
+            buy_count, 
+            buy_money
+        )
+        VALUES 
+        <foreach collection="list" item="item" separator=",">
+            (
+                #{item.userNo}, 
+                #{item.pdOptionNo}, 
+                #{item.buyCount}, 
+                #{item.optionPrice}
+            )
+        </foreach>
+    </insert>
+	
+	<!-- 리뷰 쓰기 -->
+	
+	<!-- 문의 쓰기 -->
+	
+	<!-- ##################################### 구매 페이지  ##################################### -->
+	
+	<!-- 구매 페이지 -->
 	
 </mapper>
