@@ -13,13 +13,12 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Review {
-	private int replyNo;
+public class Faq {
+	private int faqNo;
 	private int userNo;
+	private int inquiryTitle;
+	private int inquiryContents;
+	private Date inquiryDate;
 	private int pdNo;
-	private Date reviewDate;
-	private int reviewDibs;
-	private String reviewContents;
-	private String reOriginName;
-	private String reChangeName;
+	private int inquiryStatus;
 }

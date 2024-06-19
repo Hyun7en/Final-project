@@ -11,7 +11,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sellerCSS/productListView.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sellerCSS/customerInquiryManagement.css">
 
 
 </head>
@@ -27,7 +27,7 @@
         <%@ include file="../commons/aside.jsp" %>
 
         <section>
-            <h1>스토어 관리 &gt; 등록상품관리</h1>
+            <h1>고객 관리 &gt; 고객 문의</h1>
 
             <div id="search-area">
                 <form action="search.pd" method="get">
@@ -36,7 +36,7 @@
                         <option value="category">카테고리</option>
                         <option value="productName">상품명</option>
                     </select>
-                    <input id="search-keyword" type="text" name="keyword" value="${keyword}">
+                    <input id="search-keyword" type="text" name="keyword" value="${keyword }">
                     <button type="submit" >검색</button>
                 </form>
 
@@ -45,26 +45,28 @@
             <table>
                 <thead>
                     <tr>
-                        <th>상품 번호</th>
+                        <th>문의 번호</th>
                         <th>카테고리</th>
                         <th>상품명</th>
+                        <th>문의자명</th>
                         <th>등록일</th>
                     </tr>
                 </thead>
                 <c:choose>
                     <c:when test="${empty list}">
                         <tbody>
-                            <td colspan="5" style="border-radius: 0 0 10px 10px;">등록 상품이 존재하지 않습니다.</td>
+                            <td colspan="5" style="border-radius: 0 0 10px 10px;">등록 문의가 존재하지 않습니다.</td>
                         </tbody>
                     </c:when>
                     <c:otherwise>
                         <tbody>
                             <c:forEach var="pd" items="${list}">
                                 <tr id="pdList" onclick = "location.href = 'detail.pd?pno=${pd.pdNo}'">
-                                    <td>${pd.pdNo}</td>
-                                    <td>${pd.pdCategory}</td>
-                                    <td>${pd.pdTitle}</td>
-                                    <td>${pd.pdEnrollDate}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
             
                             </c:forEach>
@@ -99,7 +101,8 @@
                 </c:choose>
                 </ul>
             </div>
-          
+
+            
         </section>
     </main>
 

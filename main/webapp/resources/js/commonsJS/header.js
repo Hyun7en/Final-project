@@ -27,6 +27,9 @@ function init(pageType, contextPath, data){
       break;
     case 'storeMain':
       break;
+    case 'productDetailView':
+      productDetail(data.userNo)
+      break;  
     case 'anotherFishAjax':
       anotherFishAjax(data);
       break;

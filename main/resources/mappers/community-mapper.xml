@@ -172,7 +172,7 @@
 				default
 		)
 	</insert>
-	<select id="selectTopBoardList" resultMap="communityResult">
+	<!-- <select id="selectTopBoardList" resultMap="communityResult">
 		SELECT *
 		FROM
 		(SELECT BOARD_NO,
@@ -186,7 +186,7 @@
 		AND		WRITE_DATE BETWEEN SYSDATE-6 AND SYSDATE
 		ORDER BY BOARD_DIBS DESC)
 		WHERE ROWNUM BETWEEN 1 AND 5
-	</select>
+	</select> -->
 	<update id="deleteReply">
 		UPDATE	BOARD_REPLY
 		SET		STATUS = 'N'

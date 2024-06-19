@@ -73,6 +73,7 @@ $(document).ready(function() {
         let products = response.products;
         if (products.length > 0) {
             products.forEach(product => {
+                console.log(product.averReviewDibs);
                 const url = path + `/resources/image/star.png`;
                 let productHTML = `
                     <div class="carousel-item" onclick="location.href='detail.spd?pno=${product.prNo}'">
@@ -84,7 +85,7 @@ $(document).ready(function() {
                             <p class="product-descript-product-price">${product.prPrice}원</p>
                             <p class="product-descript-rating-review">
                                 <img style="width: 13px;" src="${url}">
-                                <span>${product.prStar}</span>
+                                <span>${product.averReviewDibs}</span>
                                 <span>리뷰</span>
                                 <span>${product.reviewCount}</span>
                             </p>

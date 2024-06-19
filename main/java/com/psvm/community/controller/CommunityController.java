@@ -306,9 +306,9 @@ public class CommunityController {
 		return mv;
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="topList.co", produces="application/json; charset=UTF-8")
-	public String ajaxTopBoardList() {
-		return new Gson().toJson(communityService.selectTopBoardList());
-	}
+//	@ResponseBody
+//	@RequestMapping(value="topList.co", produces="application/json; charset=UTF-8")
+//	public String ajaxTopBoardList() {
+//		return new Gson().toJson(communityService.selectTopBoardList());
+//	}
 }

@@ -64,9 +64,9 @@ public class CommunityDao {
 		return sqlSession.insert("communityMapper.insertReply", r);
 	}
 	
-	public ArrayList<Community> selectTopBoardList(SqlSessionTemplate sqlSession){
-		return (ArrayList)sqlSession.selectList("communityMapper.selectTopBoardList");
-	}
+//	public ArrayList<Community> selectTopBoardList(SqlSessionTemplate sqlSession){
+//		return (ArrayList)sqlSession.selectList("communityMapper.selectTopBoardList");
+//	}
 	
 	public int deleteReply(SqlSessionTemplate sqlSession, int boardReplyNo) {
 		return sqlSession.update("communityMapper.deleteReply", boardReplyNo);
