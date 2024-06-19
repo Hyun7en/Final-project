@@ -20,4 +20,6 @@ public class Review {
 	private Date reviewDate;
 	private int reviewDibs;
 	private String reviewContents;
+	private String reOriginName;
+	private String reChangeName;
 }

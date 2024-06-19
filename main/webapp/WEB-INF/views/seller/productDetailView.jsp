@@ -168,7 +168,7 @@
                                     <span>리뷰</span> <span id="review-count">${spd.reviewCount}</span>
                                 </h1>
                                 <c:choose>
-                                    <c:when test="${loginUser = ${review}}">
+                                    <c:when test="${loginUser != null}">
                                             <button id="review-btn" class="btn btn-primary" data-toggle="modal" data-target="#review-Modal">
                                                 리뷰쓰기
                                             </button>
@@ -254,7 +254,7 @@
 
                 <!-- 리뷰 modal -->
                 <div class="modal fade" id="review-Modal">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog modal-lg">
                         <div class="modal-content" >
 
                             <!-- Modal Header -->
@@ -275,6 +275,17 @@
                                         <select name="refPdoptNo" id="qna-product-name">
                                         </select>
                                     </div>
+
+                                    <!-- 별점 -->
+                                    <div class ="star_rating">
+                                        <span class="star on" value="1"> </span>
+                                        <span class="star" value="2"> </span>
+                                        <span class="star" value="3"> </span>
+                                        <span class="star" value="4"> </span>
+                                        <span class="star" value="5"> </span>
+                                    </div>
+
+
                                     <div id="product-pic-container">
                                         <div >
                                             사진 첨부(선택)
@@ -288,7 +299,7 @@
                                         <div id="add-qna-product-pic">
                                         
                                             <span >사진 첨부하기</span>
-                                            <input type="file" name="qnaPhotoUpfile" id="file-input" accept="image/*">
+                                            <input type="file" name="reOriginName" id="file-input" >
 
                                         </div>
                                     </div>
@@ -305,7 +316,7 @@
                                     </div>
 
                                     <div id="product-qna-enroll-btn-container">
-                                        <button type="submit" id="product-qna-enroll-btn">완료</button>
+                                        <button type="submit" id="product-qna-enroll-btn">리뷰 등록</button>
                                     </div>
                                 </form>
                             </div>
@@ -410,7 +421,7 @@
 
                 <!-- 문의 modal -->
                 <div class="modal fade" id="inquiry-Modal">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog modal-lg">
                         <div class="modal-content" >
 
                             <!-- Modal Header -->
