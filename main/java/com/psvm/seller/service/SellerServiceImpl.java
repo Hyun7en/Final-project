@@ -237,6 +237,13 @@ public class SellerServiceImpl implements SellerService {
 		return sellerDao.deleteProduct(sqlSession, pno);
 	}
 	
+	//판매자 탈퇴
+	@Override
+	public int deleteSeller(int userNo) {
+		
+		return sellerDao.deleteSeller(sqlSession, userNo);
+	}
+	
 	//############################################## 스토어 메인 ############################################################
 
 	// 인기 상품 불러오기

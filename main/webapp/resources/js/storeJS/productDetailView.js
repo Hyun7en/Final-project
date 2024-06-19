@@ -91,13 +91,11 @@ function productDetail(userNo){
                     data: JSON.stringify(options), // 데이터를 JSON 형식으로 변환하여 전송
                     success: function(response) {
                         alert("장바구니 등록 완료!");
-                        console.log('장바구니 담기 성공.');
-                        console.log(response);
+                        console.log('장바구니 담기 성공.',response);
                     },
                     error: function(error) {
                         alert('로그인을 부탁드립니다');
-                        console.error('장바구니 담기 실패');
-                        console.error(error);
+                        console.error('장바구니 담기 실패',error);
                     }
                 });
 

@@ -158,6 +158,9 @@ public class SellerDao {
 		return sqlSession.update("sellerMapper.deleteProduct",pno);
 	}
 	
+	//판매자 탈퇴
+	
+	
 	//############################################## 스토어 메인  ############################################################
 	
 	// 인기 상품 불러오기

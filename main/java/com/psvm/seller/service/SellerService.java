@@ -67,6 +67,9 @@ public interface SellerService {
 	// 상품 삭제
 	public int deleteProduct(int pno);
 	
+	//판매자 탈퇴 
+	public int deleteSeller(int userNo);
+	
 	//############################################## 스토어 메인 ############################################################
 	
 	// 인기 상품 불러오기

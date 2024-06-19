@@ -49,7 +49,7 @@
                     <h1>${spd.storeName}</h1>
                 </a>
             </div>
-            <button type="button" class="btn btn-danger">상품신고</button>
+            <button type="button" class="btn btn-danger" onclick="location.href='list.cs'">상품신고</button>
         </div>
 
         <!-- 상품 구매 -->

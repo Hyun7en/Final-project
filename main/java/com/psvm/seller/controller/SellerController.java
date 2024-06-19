@@ -520,6 +520,15 @@ public class SellerController {
     	return "seller/settlement";
     }
     
+    //판매자 탈퇴
+    @PostMapping(value ="/leaveStore.ax", produces = "application/json; charset=UTF-8")
+    public String leaveStore(@RequestParam(value="userNo") int userNo) {
+    	
+    	int result = sellerService.deleteSeller(userNo);
+    	
+    	return new Gson().toJson(result);
+    }
+    
   //############################################## 스토어 메인  ############################################################
     
     // 스토어 메인
