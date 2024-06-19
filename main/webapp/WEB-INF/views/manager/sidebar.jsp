@@ -49,7 +49,7 @@
                     <div id="side-list-head">판매자 관리</div>
                     <div class="select" id="side-list-selected1"><a href="sellerList.ma?cpage=1&categoryName=seller">판매자 전체목록</a></div>
                     <div class="select" id="side-list-selected2"><a href="sellerNewApplication.ma?cpage=1&categoryName=seller">판매자 신규신청</a></div>
-                    <div class="select" id="side-list-selected3"><a href="sellerProductApplication.ma?cpage=1&categoryName=seller">판매자 상품신청</a></div>
+                    <div class="select" id="side-list-selected3"><a href="reportProductList.ma?cpage=1&categoryName=seller">신고상품 목록</a></div>
                 </c:when>
                 <c:when test="${categoryName eq 'category'}">
                     

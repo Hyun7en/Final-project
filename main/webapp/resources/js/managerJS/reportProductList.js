@@ -1,16 +1,23 @@
 $(document).ready(function(){
 
-    // 판매자 상품신청을 승인하기 위해 버튼 눌렀을 때
-    $(".application-approve-btn").click(function(){
+    // 신고상품의 상세정보를 보기 위해 상세정보 버튼 눌렀을 때
+    $(".detail-info-btn").click(function(){
         var index = $(this).closest("tr").index(); // 클릭된 버튼이 있는 행의 인덱스 가져오기
         var modal = $(".seller-info-modal").eq(index); // 해당 인덱스의 모달 찾기
         modal.css("display", "flex"); // 모달 표시
 
-        // 승인하기 버튼 눌렀을 때
-        modal.find(".approve-btn").click(function(){
-            var pdOptionNo = modal.find(".pdOptionNo").text(); // 해당 모달안의 class이름이 pdNo인 태그안의 text 가져옴
-            console.log(pdOptionNo);
-            location.href="sellerProductApplicationApprove.ma?pdOptionNo=" + pdOptionNo;
+        // 상품삭제 버튼 눌렀을 때
+        modal.find(".remove-btn").click(function(){
+            var pdNo = modal.find(".pdNo").text(); // 해당 모달안의 class이름이 pdNo인 태그안의 text 가져옴
+            console.log(pdNo);
+            location.href="reportProductRemove.ma?pdNo=" + pdNo;
+        })
+
+        // 신고무시 버튼 눌렀을 때 
+        modal.find(".no-problem-btn").click(function(){
+            var pdNo = modal.find(".pdNo").text(); // 해당 모달안의 class이름이 pdNo인 태그안의 text 가져옴
+            console.log(pdNo);
+            location.href="reportProductNoProblem.ma?pdNo=" + pdNo;
         })
 
         // 닫기 버튼 눌렀을 때
@@ -33,7 +40,7 @@ $(document).ready(function(){
         var searchKeyword = document.getElementById("search-bar").value;
         var startDate = document.getElementById("start-date").value
         if (searchKeyword.trim() === "" && startDate.trim() === "") { // 검색값이 공백인지 확인
-            document.getElementById('search-form').action = 'sellerProductApplication.ma'; // 값이 없을 경우 sellerProductApplication.ma로 변경
+            document.getElementById('search-form').action = 'reportProductList.ma'; // 값이 없을 경우 sellerProductApplication.ma로 변경
         }
     }
 
@@ -47,17 +54,24 @@ $(document).ready(function(){
         });
     }
 
-    // 선택승인 버튼 눌렀을 때
-    function selectApprove(){
+    // 선택 상품삭제 버튼 눌렀을 때
+    function selectProductRemove(){
         var checkboxes = document.querySelectorAll('.checkbox:checked');  // 체크된 체크박스들 가져오기
-        console.log(checkboxes);
         checkboxes.forEach(function(checkbox) {     // 체크된 체크박스 하나씩 기능 수행시키기
             var index = $(checkbox).closest("tr").index();  // 체크된 체크박스 행의 인덱스 가져오기
-            console.log(index);
             var modal = $(".seller-info-modal").eq(index);  // 해당 인덱스의 모달 가져오기(리스트(행)에는 userNo이 없고 모달에 userNo이 있어 모달 가져옴)
-            console.log(modal);
-            var pdOptionNo = modal.find(".pdOptionNo").text();      // 해당 모달안의 class이름이 userNo인 태그안의 값 가져옴
-            console.log(pdOptionNo);
-            location.href="sellerProductApplicationApprove.ma?pdOptionNo=" + pdOptionNo;
+            var pdNo = modal.find(".pdNo").text();      // 해당 모달안의 class이름이 userNo인 태그안의 값 가져옴
+            location.href="reportProductRemove.ma?pdNo=" + pdNo;
+        });
+    }
+
+    // 선택 신고무시 버튼 눌렀을 때
+    function selectReportIgnore(){
+        var checkboxes = document.querySelectorAll('.checkbox:checked');  // 체크된 체크박스들 가져오기
+        checkboxes.forEach(function(checkbox) {     // 체크된 체크박스 하나씩 기능 수행시키기
+            var index = $(checkbox).closest("tr").index();  // 체크된 체크박스 행의 인덱스 가져오기
+            var modal = $(".seller-info-modal").eq(index);  // 해당 인덱스의 모달 가져오기(리스트(행)에는 userNo이 없고 모달에 userNo이 있어 모달 가져옴)
+            var pdNo = modal.find(".pdNo").text();      // 해당 모달안의 class이름이 userNo인 태그안의 값 가져옴
+            location.href="reportProductIgnore.ma?pdNo=" + pdNo;
         });
     }

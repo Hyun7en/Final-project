@@ -56,31 +56,33 @@
 
                     <div id="myPageOrderHistory-list" align="center">
                         <div id="myPage-category-select-title"><h3>주문내역</h3></div>
-                        <div id="myPageOrderHistory">
-                            <div id="myPageOrderHistory-date"><h4>${date}2024.05.17 주문</h4></div>
-                            <div id="myPageOrderHistory-info-area">
-                                <div id="myPageOrderHistory-img">
-                                    <img src="https://www.kimaqua.com/mall//shop_image/202110/EMB_500.jpg" alt="">
-                                </div>
-                                <div id="myPageOrderHistory-info">
-                                    <ul>
-                                        <li><b>${cart.name}일렉트릭 모스코블루 구피</b></li>
-                                        <li>${cart.value}17,000원</li>
-                                    </ul>
-                                    <ul id="ul2">
-                                        <li><b>판매자</b></li>
-                                        <li>${buisnessInfo}(주)그린피쉬</li>
-                                    </ul>
-                                </div>
-                                <form action="">
+
+                        <c:forEach var="oh" items="${orderHistoryList}">
+                            <div id="myPageOrderHistory">
+                                <div id="myPageOrderHistory-date"><h4>${oh.buyDate} 주문</h4></div>
+                                <div id="myPageOrderHistory-info-area">
+                                    <div id="myPageOrderHistory-img">
+                                        <img src="${oh.pdChangeName}" alt="">
+                                    </div>
+                                    <div id="myPageOrderHistory-info">
+                                        <ul>
+                                            <li><b>${oh.pdTitle}</b></li>
+                                            <li>${oh.pdPrice}원</li>
+                                        </ul>
+                                        <ul id="ul2">
+                                            <li><b>판매자</b></li>
+                                            <li>${oh.storeName}</li>
+                                        </ul>
+                                    </div>
                                     <div id="myPageOrderHistory-button-area">
                                         <div><button>배송조회</button></div>
                                         <div><button>주문ㆍ배송 취소</button></div>
                                         <div><button>판매자 문의</button></div> <!-- 문의글 작성하는곳으로 이동 -->
                                     </div>
-                                </form>
+                                </div>
                             </div>
-                        </div>
+                        </c:forEach>
+
                         <div id="btnList-area">
                             <div class="btnList" align="center">
                                 <button id="btn1">&lt;</button>
@@ -88,7 +90,9 @@
                                 <button id="btn3">&gt;</button>
                             </div> 
                         </div>
+
                     </div>
+                    
                 </div>
             </div>
         </main>     

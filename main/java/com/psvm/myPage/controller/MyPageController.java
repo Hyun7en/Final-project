@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -25,7 +27,9 @@ import com.psvm.community.vo.Community;
 import com.psvm.member.vo.Member;
 import com.psvm.member.vo.MemberAttachment;
 import com.psvm.myPage.service.MyPageServiceImpl;
+import com.psvm.myPage.vo.Cart;
 import com.psvm.myPage.vo.Inquiry;
+import com.psvm.myPage.vo.OrderHistory;
 import com.psvm.seller.vo.SellerInfo;
 import com.psvm.store.vo.StoreInfo;
 
@@ -112,10 +116,10 @@ public class MyPageController {
 			session.setAttribute("ma", mematt);
 
 			session.setAttribute("successMessage", "회원정보 수정 성공");
-			mv.setViewName("redirect:myPage.me?userNo=" + userNo);
+			mv.setViewName("redirect:myPage.my?userNo=" + userNo);
 		} else {
 			session.setAttribute("errorMessage", "회원정보 수정 실패");
-			mv.setViewName("redirect:myPage.me?userNo=" + userNo);
+			mv.setViewName("redirect:myPage.my?userNo=" + userNo);
 		}
 
 		return mv;
@@ -228,14 +232,55 @@ public class MyPageController {
 		return mv;
 	}
 	
+	// 회원이 장바구니에 담은 상품 조회하는 메서드
 	@RequestMapping("cart.my")
-	public String cart() {
+	public String cart(int userNo, Model model) {
+		
+		// 장바구니에 담긴 상품 수 조회
+		int cartProductListCount = myPageService.cartProductListCount(userNo);
+		
+		// 장바구니에 담긴 상품 조회
+		ArrayList<Cart> cartProductList = myPageService.cartProductList(userNo);
+		
+		model.addAttribute("cartProductListCount", cartProductListCount);
+		model.addAttribute("cartProductList", cartProductList);
 
 		return "myPage/myPageCart";
 	}
+	
+	// 회원이 장바구니에 담은 상품 삭제하는 메서드
+	@RequestMapping("deleteCartProduct.my")
+	public ModelAndView deleteCartProduct(HttpSession session, int userNo, int poNo, ModelAndView mv) {
+		
+		// 회원 번호와 상품옵션 번호를 하나로 묶기
+		Map<String, Integer> params = new HashMap<>();
+	    params.put("userNo", userNo);
+	    params.put("poNo", poNo);
+		
+		// 장바구니에 담은 상품 삭제
+		int result = myPageService.deleteCartProduct(params);
+		
+		if (result > 0) {	// 성공
+			session.setAttribute("successMessage", "장바구니에서 제외되었습니다.");
+		} else {			// 실패
+			session.setAttribute("errorMessage", "장바구니 제외에 실패하였습니다.");
+		}
+		
+		mv.setViewName("redirect:cart.my?userNo=" + userNo);
+		return mv;
+	}
 
 	@RequestMapping("orderHistory.my")
-	public String orderHistory() {
+	public String orderHistory(int userNo, Model model) {
+		
+		// 주문내역 수 조회
+		int orderHistoryListCount = myPageService.orderHistoryListCount(userNo);
+		
+		// 주문내역 조회
+		ArrayList<OrderHistory> orderHistoryList = myPageService.orderHistoryList(userNo);
+		
+		model.addAttribute("orderHistoryListCount", orderHistoryListCount);
+		model.addAttribute("orderHistoryList", orderHistoryList);
 
 		return "myPage/myPageOrderHistory";
 	}

@@ -27,7 +27,7 @@ public class AlarmController {
 	public String getAlarmList(@RequestParam("userNo") int userNo) {
 		ArrayList<String> list = alarmService.getAlarmList(userNo);
 
-		
+		System.out.println(userNo);
 		return new Gson().toJson(list);
 	}
 	

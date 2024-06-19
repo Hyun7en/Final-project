@@ -1,12 +1,15 @@
 package com.psvm.myPage.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.community.vo.Community;
 import com.psvm.member.vo.Member;
 import com.psvm.member.vo.MemberAttachment;
+import com.psvm.myPage.vo.Cart;
 import com.psvm.myPage.vo.Inquiry;
+import com.psvm.myPage.vo.OrderHistory;
 import com.psvm.seller.vo.SellerInfo;
 import com.psvm.store.vo.StoreInfo;
 
@@ -41,6 +44,21 @@ public interface MyPageService {
 	
 	//찜 취소
 	int interestCancle(StoreInfo si);
+	
+	// 장바구니에 담긴 상품 수 조회
+	int cartProductListCount(int userNo);
+	
+	// 장바구니에 담긴 상품 조회
+	ArrayList<Cart> cartProductList(int userNo);
+	
+	// 장바구니에 담은 상품 삭제
+	int deleteCartProduct(Map<String, Integer> params);
+	
+	// 주문내역 수 조회
+	int orderHistoryListCount(int userNo);
+	
+	//주문내역 조회
+	ArrayList<OrderHistory> orderHistoryList(int userNo);
 	
 	// 회원이 작성한 게시글 수 조회
 	int writePostListCount(int userNo);
