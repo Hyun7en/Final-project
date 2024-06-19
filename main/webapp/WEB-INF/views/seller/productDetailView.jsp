@@ -168,7 +168,7 @@
                                     <span>리뷰</span> <span id="review-count">${spd.reviewCount}</span>
                                 </h1>
                                 <c:choose>
-                                    <c:when test="${loginUser = ${review}}">
+                                    <c:when test="$loginUser = review">
                                             <button id="review-btn" class="btn btn-primary" data-toggle="modal" data-target="#review-Modal">
                                                 리뷰쓰기
                                             </button>
