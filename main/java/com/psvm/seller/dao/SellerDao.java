@@ -159,7 +159,11 @@ public class SellerDao {
 	}
 	
 	//판매자 탈퇴
-	
+	public int deleteSeller(SqlSessionTemplate sqlSession, int userNo) {
+		
+		return sqlSession.update("sellerMapper.deleteSeller",userNo);
+		
+	}
 	
 	//############################################## 스토어 메인  ############################################################
 	
