@@ -93,8 +93,11 @@ public class MyPageDao {
 	}
 	
 	// 주문내역 조회
-	public ArrayList<OrderHistory> orderHistoryList(SqlSessionTemplate sqlSession, int userNo) {
-		return (ArrayList)sqlSession.selectList("myPageMapper.orderHistoryList", userNo);	
+	public ArrayList<OrderHistory> orderHistoryList(SqlSessionTemplate sqlSession, int userNo, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("myPageMapper.orderHistoryList", userNo, rowBounds);	
 	}
 	
 	// 회원이 작성한 게시글 수 조회

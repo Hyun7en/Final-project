@@ -269,18 +269,23 @@ public class MyPageController {
 		mv.setViewName("redirect:cart.my?userNo=" + userNo);
 		return mv;
 	}
-
+	
+	// 회원이 주문한 상품 내역 조회하는 메서드
 	@RequestMapping("orderHistory.my")
-	public String orderHistory(int userNo, Model model) {
+	public String orderHistory(@RequestParam(value="cpage", defaultValue="1") int currentPage, int userNo, Model model) {
 		
 		// 주문내역 수 조회
 		int orderHistoryListCount = myPageService.orderHistoryListCount(userNo);
 		
+		// 페이징 처리
+		PageInfo pi = Pagination.getPageInfo(orderHistoryListCount, currentPage, 10, 5);
+		
 		// 주문내역 조회
-		ArrayList<OrderHistory> orderHistoryList = myPageService.orderHistoryList(userNo);
+		ArrayList<OrderHistory> orderHistoryList = myPageService.orderHistoryList(userNo, pi);
 		
 		model.addAttribute("orderHistoryListCount", orderHistoryListCount);
 		model.addAttribute("orderHistoryList", orderHistoryList);
+		model.addAttribute("pi", pi);
 
 		return "myPage/myPageOrderHistory";
 	}
