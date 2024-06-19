@@ -68,7 +68,7 @@
                 </div>
                 <div class="product-grade-area">
                     <div>
-                        <span class="product-grade">평점</span><span>${spd.pdStar}</span>
+                        <span class="product-grade">평점</span><span>${spd.averReviewDibs}</span>
                     </div>
                     <div>
                         <span class="product-review-quantity">리뷰</span><span id="review-count">${spd.reviewCount}</span>
@@ -168,12 +168,13 @@
                                     <span>리뷰</span> <span id="review-count">${spd.reviewCount}</span>
                                 </h1>
                                 <c:choose>
-                                    <c:when test="${loginUser != null}">
-                                        <button id="review-btn" class="btn btn-primary" data-toggle="modal" data-target="#review-Modal">
-                                            리뷰쓰기
-                                        </button>
+                                    <c:when test="${loginUser = ${review}}">
+                                            <button id="review-btn" class="btn btn-primary" data-toggle="modal" data-target="#review-Modal">
+                                                리뷰쓰기
+                                            </button>
                                     </c:when>
                                     <c:otherwise>
+
                                     </c:otherwise>    
                                 </c:choose>
                             </div>
