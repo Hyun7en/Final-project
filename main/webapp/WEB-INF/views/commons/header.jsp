@@ -64,7 +64,7 @@
                                                 </c:otherwise>
                                             </c:choose>
                                             <div id="click-menu">
-                                                <a href="myPage.me?userNo=${loginUser.userNo}">마이페이지</a>
+                                                <a href="myPage.my?userNo=${loginUser.userNo}">마이페이지</a>
                                                 <a href="sellerConversionPage.my?userNo=${loginUser.userNo}">판매자 전환 신청</a>
                                                 <a href="logout.me">로그아웃</a>
                                             </div>
@@ -95,7 +95,7 @@
                                                 </c:otherwise>
                                             </c:choose>
                                             <div id="click-menu">
-                                                <a href="myPage.me?userNo=${loginUser.userNo}">마이페이지</a>
+                                                <a href="myPage.my?userNo=${loginUser.userNo}">마이페이지</a>
                                                 <a href="info.sr">판매자 페이지</a>
                                                 <a href="logout.me">로그아웃</a>
                                             </div>

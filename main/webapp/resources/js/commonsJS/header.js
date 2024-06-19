@@ -30,6 +30,9 @@ function init(pageType, contextPath, data){
     case 'productDetailView':
       productDetail(data.userNo)
       break;  
+    case 'anotherFishAjax':
+      anotherFishAjax(data);
+      break;
       
   }
   //기본 헤더 세팅
