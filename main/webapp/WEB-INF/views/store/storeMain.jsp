@@ -116,7 +116,7 @@
                             </p>
                             <p class="product-descript-rating-review">
                                 <img style="width: 13px;" src="${pageContext.request.contextPath}/resources/image/star.png">
-                                <span>${spd.prStar}</span>
+                                <span>${spd.averReviewDibs}</span>
                                 <span>리뷰</span>
                                 <span>${spd.reviewCount}</span>
                             </p>
@@ -158,7 +158,7 @@
                             </p>
                             <p class="product-descript-rating-review">
                                 <img style="width: 13px;" src="${pageContext.request.contextPath}/resources/image/star.png">
-                                <span>${spd.prStar}</span>
+                                <span>${spd.averReviewDibs}</span>
                                 <span>리뷰</span>
                                 <span>${spd.reviewCount}</span>
                             </p>

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.psvm.commons.vo.PageInfo;
+import com.psvm.seller.dto.FaqDTO;
 import com.psvm.seller.dto.ProductDTO;
 import com.psvm.seller.dto.StoreMainDTO;
 import com.psvm.seller.vo.Buy;
@@ -84,6 +85,9 @@ public interface SellerService {
 	
 	//리뷰 가져오기
 	public List<Review> selectReviewList();
+	
+	//문의 가져오기
+	public List<FaqDTO> selectInquiryList();
 	
 	//장바구니 담기
 	public int insertCart(List<Map<String, Object>> data);

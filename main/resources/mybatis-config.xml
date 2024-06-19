@@ -35,6 +35,8 @@
  		<typeAlias type="com.psvm.seller.vo.Review" alias="Review"/>
  		<typeAlias type="com.psvm.alarm.vo.Alarm" alias="Alarm"/>
  		<typeAlias type="com.psvm.alarm.vo.Subscribe" alias="Subscribe"/>
+ 		<typeAlias type="com.psvm.seller.vo.Faq" alias="Faq"/>
+ 		
  	</typeAliases>
  	
  	<!-- 

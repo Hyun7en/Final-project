@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.seller.dao.SellerDao;
+import com.psvm.seller.dto.FaqDTO;
 import com.psvm.seller.dto.ProductDTO;
 import com.psvm.seller.dto.StoreMainDTO;
 import com.psvm.seller.vo.Buy;
@@ -273,6 +274,13 @@ public class SellerServiceImpl implements SellerService {
 	public List<Review> selectReviewList() {
 		
 		return sellerDao.selectReviewList(sqlSession);
+	}
+	
+	//문의 가져오기
+	@Override
+	public List<FaqDTO> selectInquiryList() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	// 장바구니 담기

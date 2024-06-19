@@ -184,38 +184,24 @@
 
                                 <c:when test="${not empty reviewList}">
                                     <table>
-                                        <tr>
-                                            <td>
-                                                <img src="" alt="">
-                                            </td>
-                                            <td>
-                                                이름
-                                            </td>
-                                            <td>
-                                                별점
-                                            </td>
-                                            <td>
-                                                날짜
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                상품명
-                                            </td>
-                                            <td>
-                                                옵션명
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <img src="" alt="">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                리뷰 내용
-                                            </td>
-                                        </tr>
+                                        <c:forEach var="review" items="${reviewList}">
+                                            <tr>
+                                                <td><img src="" alt=""></td>
+                                                <td>이름</td>
+                                                <td>별점</td>
+                                                <td>${review.reviewDate}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>상품명</td>
+                                                <td>옵션명</td>
+                                            </tr>
+                                            <tr>
+                                                <td><img src="" alt=""></td>
+                                            </tr>
+                                            <tr>
+                                                <td>리뷰 내용</td>
+                                            </tr>
+                                        </c:forEach>
                                     </table>
 
                                     <hr>

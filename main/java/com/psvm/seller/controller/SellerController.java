@@ -26,6 +26,7 @@ import com.google.gson.reflect.TypeToken;
 import com.psvm.commons.template.Pagination;
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.member.vo.Member;
+import com.psvm.seller.dto.FaqDTO;
 import com.psvm.seller.dto.ProductCategoryDTO;
 import com.psvm.seller.dto.ProductDTO;
 import com.psvm.seller.dto.StoreMainDTO;
@@ -48,7 +49,7 @@ public class SellerController {
     
     private final Gson gson = new Gson();
     
-//mapping 끝 sr,srh, pd, me    
+//mapping 끝 sr, srh, pd, me    
   //############################################## 판매자 관련 ############################################################
     
     // 판매자 정보 불러오기
@@ -506,10 +507,10 @@ public class SellerController {
     }
     
     // 고객 문의 관리  
-    @RequestMapping("customerInquery.sr")
+    @RequestMapping("customerInquiry.sr")
     public String selectCustomerInqueryManagement() {
     	
-    	return "seller/customerInqueryManagement";
+    	return "seller/customerInquiryManagement";
     }
     
     // 정산 관리 
@@ -564,6 +565,9 @@ public class SellerController {
     	//리뷰 가져오기
     	List<Review> reviewList = sellerService.selectReviewList();
     	
+    	//문의 가져오기
+    	List<FaqDTO> inquiryList = sellerService.selectInquiryList();
+    	
     	
     	
     	model.addAttribute("spd",spd);
@@ -571,6 +575,8 @@ public class SellerController {
     	
     	return "seller/productDetailView";
     }
+    
+    // 상품 찜
     
     // 장바구니 담기    
     @PostMapping(value = "/insertCart.ax", produces = "application/json; charset=UTF-8")

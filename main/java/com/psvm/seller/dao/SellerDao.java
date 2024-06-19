@@ -192,6 +192,8 @@ public class SellerDao {
 	
 	//리뷰 가져오기
 	
+	//문의 가져오기
+	
 	// 장바구니 담기
 	public int insertCart(SqlSessionTemplate sqlSession,List<Map<String, Object>> data) {
 		
