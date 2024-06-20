@@ -82,7 +82,7 @@
 		<result column="P_TITLE" property="pdTitle"/>
 		<result column="P_OPTION_NAME" property="pdOptionName"/>
 		<result column="BUY_COUNT" property="buyCount"/>
-		<result column="P_PRICE" property="pdPrice"/>
+		<result column="BUY_MONEY" property="buyMoney"/>
 	</resultMap>
 	
 	<!-- 주문내역 resultMapper -->
@@ -94,7 +94,7 @@
 		<result column="P_TITLE" property="pdTitle"/>
 		<result column="P_OPTION_NAME" property="pdOptionName"/>
 		<result column="BUY_COUNT" property="buyCount"/>
-		<result column="P_PRICE" property="pdPrice"/>
+		<result column="BUY_MONEY" property="buyMoney"/>
 		<result column="STORE_NAME" property="storeName"/>
 	</resultMap>
 	
@@ -217,7 +217,7 @@
 			   P_TITLE,
 			   P_OPTION_NAME,
 			   BUY_COUNT,
-			   P_PRICE
+			   BUY_MONEY
 		FROM BUY b
 		JOIN PRODUCT_OPTION po USING (P_OPTION_NO)
 		JOIN PRODUCT p USING (P_NO)
@@ -250,8 +250,8 @@
 			   p_change_name,
 			   p_title,
 			   p_option_name,
-			   buy_count,
-			   p_price,
+			   b.buy_count,
+			   b.buy_money,
 			   store_name
 		FROM buy b
 		JOIN product_option po USING (p_option_no)
