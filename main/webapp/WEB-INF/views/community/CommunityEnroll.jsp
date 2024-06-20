@@ -78,7 +78,7 @@
                     <textarea name="boardContents" id="com-enroll-content-p"></textarea>
                 </div>
                 <div id="com-enroll-bottom">
-                    <button id="com-grey-button">취소</button>
+                    <input type="button" id="com-grey-button" onclick="window.history.back()" value="취소">
                     <button type="submit" id="com-blue-button">등록</button>
                 </div>
             </form>

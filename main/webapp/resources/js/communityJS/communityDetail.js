@@ -64,6 +64,7 @@ function deleteReply(boardReplyNo, boardLevel, boardNo){
         }
     })
 }
+
 function deleteBoard(boardLevel, boardNo){
     console.log(boardLevel, boardNo);
     swal({
@@ -82,18 +83,18 @@ function deleteBoard(boardLevel, boardNo){
 }
 
 //댓글 관련 스크립트
-function callReply(CboardNo, Cancel, cBoardLevel){
+function callReply(CboardNo, Cancel, cBoardLevel, usernickname){
     getReplyList({bno : CboardNo}, function(result){
         
         setReplyCount(result.length)
 
         const replyBody = document.querySelector("#com-reply tbody");
-        drawTableList(result, replyBody, Cancel, cBoardLevel, CboardNo);
+        drawTableList(result, replyBody, Cancel, cBoardLevel, CboardNo, usernickname);
     })
 }
 
 //댓글 등록
-function addReply(Cancel, cBoardLevel, CboardNo, CuserNo){
+function addReply(Cancel, cBoardLevel, CboardNo, CuserNo, usernickname){
     //boardNo
     //userId
     //댓글내용
@@ -109,7 +110,7 @@ function addReply(Cancel, cBoardLevel, CboardNo, CuserNo){
     }, function(res){
         getReplyList({bno : CboardNo}, function(result){
             setReplyCount(result.length);
-            drawTableList(result, document.querySelector("#com-reply tbody"), Cancel, cBoardLevel, CboardNo);
+            drawTableList(result, document.querySelector("#com-reply tbody"), Cancel, cBoardLevel, CboardNo, usernickname);
         })
         
     })
@@ -149,19 +150,25 @@ function getReplyList(data, callback){
     })
 }
 
-function drawTableList(itemList, parent, Cancel, cBoardLevel, CboardNo){
+function drawTableList(itemList, parent, Cancel, cBoardLevel, CboardNo, usernickname){
     $(parent).empty();
     //이벤트를 넣는 뷰를 작성하고 싶을 때
     for (let reply of itemList) {
-
-        const replyRow1 = document.createElement('tr');
-        replyRow1.innerHTML = `<th id="com-reply-writer" colspan="2">` + reply.nickname + `</th>
-                              <td id="com-reply-enrolldate">` + reply.replyDate + `</td>
-                              <td id="com-reply-edit"><img src="` + Cancel +
-                              `" alt="댓글 삭제 이미지" onclick="deleteReply(` + reply.boardReplyNo +
-                              `, ` + cBoardLevel + `, ` + CboardNo + `)"></td>`;
-        parent.appendChild(replyRow1);
-
+        if(usernickname != reply.nickname){
+            const replyRow1 = document.createElement('tr');
+            replyRow1.innerHTML = `<th id="com-reply-writer" colspan="2">` + reply.nickname + `</th>
+                                <td id="com-reply-enrolldate">` + reply.replyDate + `</td>
+                                <td id="com-reply-edit"></td>`;
+            parent.appendChild(replyRow1);
+        }else{
+            const replyRow1 = document.createElement('tr');
+            replyRow1.innerHTML = `<th id="com-reply-writer" colspan="2">` + reply.nickname + `</th>
+                                <td id="com-reply-enrolldate">` + reply.replyDate + `</td>
+                                <td id="com-reply-edit"><img src="` + Cancel +
+                                `" alt="댓글 삭제 이미지" onclick="deleteReply(` + reply.boardReplyNo +
+                                `, ` + cBoardLevel + `, ` + CboardNo + `)"></td>`;
+            parent.appendChild(replyRow1);
+        }
         const replyRow2 = document.createElement('tr');
         replyRow2.innerHTML = `<td id="com-reply-blank"></td>
                                 <td id="com-reply-words" colspan="2">` + reply.replyContents + `</td>
