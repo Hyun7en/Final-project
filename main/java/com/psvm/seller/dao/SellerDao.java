@@ -167,6 +167,16 @@ public class SellerDao {
 		return sqlSession.selectOne("sellerMapper.selectCsInquiryListCount");
 	}
 	
+	public List<FaqDTO> selectCsInquiryList(SqlSessionTemplate sqlSession,PageInfo pi,int userNo){
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		
+		return sqlSession.selectList("sellerMapper.selectCsInquiryList",userNo,rowBounds);
+	}
+	
+	
 	//판매자 탈퇴
 	public int updateMemberAuthority(SqlSessionTemplate sqlSession, int userNo) {
 		

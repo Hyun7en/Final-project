@@ -514,13 +514,18 @@ public class SellerController {
     // 고객 문의 관리  
     @RequestMapping("customerInquiry.sr")
     public String selectCustomerInqueryManagement(@RequestParam(value="cpage", defaultValue="1") int currentPage, HttpSession session, Model model) {
+
+    	// 세션에서 loginUser 객체 가져오기
+    	Member loginUser = (Member)session.getAttribute("loginUser");
+
+    	int userNo = loginUser.getUserNo();
     	
     	//문의 가져오기
     	int boardCount = sellerService.selectCsInquiryListCount();
 		
 		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 5);
     	
-    	List<FaqDTO> inquiryList = sellerService.selectCsInquiryList(pi);
+    	List<FaqDTO> inquiryList = sellerService.selectCsInquiryList(pi,userNo);
     	
     	model.addAttribute("pi", pi);
     	model.addAttribute("inquiryList",inquiryList);
@@ -678,7 +683,7 @@ public class SellerController {
 		map.put("ipi", ipi);
 		map.put("inquiryList",inquiryList);
     	
-    	return null;
+    	return new Gson().toJson(map);
     }
     
     // 상품 찜
@@ -694,19 +699,19 @@ public class SellerController {
     }
     
     // 리뷰 쓰기    
-    @PostMapping(value = "/insertReview.ax", produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public String insertReview() {
+    @PostMapping(value = "insertReview", produces = "application/json; charset=UTF-8")
+    public String insertReview(@RequestParam(value = "pno") int pno,@RequestParam(value = "userNo") int userNo) {
     	
          int result = sellerService.insertReview();
 
         return new Gson().toJson(result);
     }
     
-    // 문의 쓰기    
-    @PostMapping(value = "/insertInquiry.ax", produces = "application/json; charset=UTF-8")
+    // 문의 쓰기  
     @ResponseBody
-    public String insertInquiry() {
+    @PostMapping(value = "/insertInquiry.ax", produces = "application/json; charset=UTF-8")
+    public String insertInquiry(@RequestParam(value = "pno") int pno,@RequestParam(value = "userNo") int userNo) {
     	
          int result = sellerService.insertInquiry();
 

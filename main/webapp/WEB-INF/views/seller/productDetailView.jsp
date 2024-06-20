@@ -85,34 +85,31 @@
                 </div>
                 <div class="top-product-buy-area">
                     <div class="product-buy-info">
-                        <div id="product-opt-form-wrapper">
-                            <form action="" id="product-opt-form" method="post">
-                                <div class="product-opts">
-                                    <div class="product-opt-select">
-                                        <div><span>옵션을 선택해주세요</span></div>
-                                        <select class="form-control" id="select-option" name="optionName">
-                                        </select>
-                                    </div>
-                                </div>
-                                <!-- 선택된 옵션과 수량 입력을 위한 컨테이너 -->
-                                <div id="selected-options-container">
+                        <form action="" id="product-opt-form" method="post">
+                            <div class="product-opts">
+                                <div class="product-opt-select">
+                                    <div><span>옵션을 선택해주세요(필수)</span></div>
+                                    <select class="form-control" id="select-option" name="optionName">
 
+                                    </select>
                                 </div>
-                        
-                                <div id="price-area">
-                                    <div >주문금액</div>
-                                    <div >
-                                        <span class="order-price">원</span>
-                                    </div>
+                            </div>
+                            <!-- 선택된 옵션과 수량 입력을 위한 컨테이너 -->
+                            <div id="selected-options-container" class="selected-container">
+
+                            </div>
+                    
+                            <div class="price-area">
+                                <div >주문금액</div>
+                                <div >
+                                    <span class="order-price">원</span>
                                 </div>
-                                <div id="product-price-btn-wrapper">
-                                    <div class="product-buy-btn-container">
-                                        <button type="button" class="cart-btn" id="product-cart-btn">장바구니</button>
-                                        <button type="button" class="buy-btn" id="product-buy-btn" >바로구매</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                            </div>
+                            <div class="product-buy-btn-container">
+                                <button type="button" class="cart-btn" id="product-cart-btn">장바구니</button>
+                                <button type="button" class="buy-btn" id="product-buy-btn" >바로구매</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -212,12 +209,12 @@
                                         <li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
                                     </c:when>
                                     <c:otherwise>
-                                        <li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="getReviewList(`${rpi.currentPage - 1}`,`${spd.pdNo}`)">&laquo;</a></li>
+                                        <li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="getReviewList(`${rpi.currentPage - 1}`,`${spd.pdNo}`);">&laquo;</a></li>
                                     </c:otherwise>
                             </c:choose>
 
                         <c:forEach var="p" begin="${ rpi.startPage }" end="${ rpi.endPage }">
-                            <li class="page-item ${p == rpi.currentPage ? 'active' : ''}"><a class="page-link" href="javascript:void(0);" onclick="getReviewList(`${p}`,`${spd.pdNo}`)">${p}</a></li>
+                            <li class="page-item ${p == rpi.currentPage ? 'active' : ''}"><a class="page-link" href="javascript:void(0);" onclick="getReviewList(`${p}`,`${spd.pdNo}`);">${p}</a></li>
                         </c:forEach>
                             
                         <c:choose>
@@ -225,7 +222,7 @@
                                     <li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
                                 </c:when>
                                 <c:otherwise>
-                                    <li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="getReviewList(`${rpi.currentPage + 1}`,`${spd.pdNo}`)">&raquo;</a></li>
+                                    <li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="getReviewList(`${rpi.currentPage + 1}`,`${spd.pdNo}`);">&raquo;</a></li>
                                 </c:otherwise>
                             </c:choose>
                             </ul>
@@ -254,7 +251,7 @@
                                     </div>
 
                                     <!-- 별점 -->
-                                     <span class="star-rating-title">별점평가</span>
+                                    <span class="star-rating-title">별점평가</span>
                                     <div class ="star_rating">
                                         <span class="star on" value="1"> </span>
                                         <span class="star" value="2"> </span>
@@ -356,12 +353,12 @@
                                             <li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
                                         </c:when>
                                         <c:otherwise>
-                                            <li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="getInquiryList(`${ipi.currentPage - 1}`,`${spd.pdNo}`)">&laquo;</a></li>
+                                            <li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="getInquiryList(`${ipi.currentPage - 1}`,`${spd.pdNo}`);">&laquo;</a></li>
                                         </c:otherwise>
                                 </c:choose>
 
                             <c:forEach var="p" begin="${ ipi.startPage }" end="${ ipi.endPage }">
-                                <li class="page-item ${p == ipi.currentPage ? 'active' : ''}"><a class="page-link" href="javascript:void(0);" onclick="getInquiryList(`${p}`,`${spd.pdNo}`)">${p}</a></li>
+                                <li class="page-item ${p == ipi.currentPage ? 'active' : ''}"><a class="page-link" href="javascript:void(0);" onclick="getInquiryList(`${p}`,`${spd.pdNo}`);">${p}</a></li>
                             </c:forEach>
                                 
                             <c:choose>
@@ -369,7 +366,7 @@
                                         <li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
                                     </c:when>
                                     <c:otherwise>
-                                        <li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="getInquiryList(`${ipi.currentPage + 1}`,`${spd.pdNo}`)">&raquo;</a></li>
+                                        <li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="getInquiryList(`${ipi.currentPage + 1}`,`${spd.pdNo}`);">&raquo;</a></li>
                                     </c:otherwise>
                                 </c:choose>
                                 </ul>
@@ -489,10 +486,34 @@
             </div>
 
             <div class="bottom-product-buy-area">
+                <div>    
+                    <form action="" id="product-opt-form" method="post">
+                        <div class="product-opts">
+                            <div class="product-opt-select">
+                                <div><span>옵션을 선택해주세요(필수)</span></div>
+                                <select class="form-control" id="select-option" name="optionName">
 
+                                </select>
+                            </div>
+                        </div>
+                        <!-- 선택된 옵션과 수량 입력을 위한 컨테이너 -->
+                        <div class="selected-container">
+
+                        </div>
+                
+                        <div class="price-area">
+                            <div >주문금액</div>
+                            <div >
+                                <span class="order-price">원</span>
+                            </div>
+                        </div>
+                        <div class="bottom-btn-container">
+                            <button type="button" class="cart-btn" id="product-cart-btn">장바구니</button>
+                            <button type="button" class="buy-btn" id="product-buy-btn" >바로구매</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-
-        </div>
         
     </main>
 

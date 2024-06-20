@@ -250,9 +250,9 @@ public class SellerServiceImpl implements SellerService {
 	}
 	
 	@Override
-	public List<FaqDTO> selectCsInquiryList(PageInfo pi) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<FaqDTO> selectCsInquiryList(PageInfo pi, int userNo) {
+		
+		return sellerDao.selectCsInquiryList(sqlSession,pi,userNo);
 	}
 	
 	//판매자 탈퇴

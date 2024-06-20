@@ -93,6 +93,8 @@
 		<result column="ANSWER_NO" property="answerNo"/>
 		<result column="ANSWER_DATE" property="answerDate"/>
 		<result column="ANSWER_CONTENTS" property="answerContents"/>
+		<result column="NICKNAME" property="nickName"/>
+		<result column="P_NO" property="pdNo"/>
 	</resultMap>
 	
 	<resultMap type="StoreMainDTO" id="StoreMainDTOResult">
@@ -390,6 +392,29 @@
 	<!-- 배송 관리 -->
 	
 	<!-- 고객 문의 관리 -->	
+	<select id="selectCsInquiryListCount" resultType="_int">
+	select count(*)
+	  from member m
+	  join seller_info s using(user_no)
+	  join seller_page using(business_no)
+	  join product_category using(seller_page_no)
+	  join product using(c_no)
+	  join faq f using(p_no)
+	  join member nm on(f.user_No = nm.user_no )
+	 where m.user_no = #{userNo}
+	</select>
+	
+	<select id="selectCsInquiryList" resultMap="FaqDTOResult">
+	select faq_no,p_title,f.user_no,nm.user_name,f.inquiry_date
+	  from member m
+	  join seller_info s using(user_no)
+	  join seller_page using(business_no)
+	  join product_category using(seller_page_no)
+	  join product using(c_no)
+	  join faq f using(p_no)
+	  join member nm on(f.user_No = nm.user_no )
+	 where m.user_no = #{userNo}
+	</select>
 
 	
 	<!-- 판매자 탈퇴 -->
@@ -524,10 +549,11 @@
 	
 	<!-- 문의 가져오기 -->
 	<select id="selectInquiryList" resultMap="FaqDTOResult">
-	 SELECT *
-	   FROM FAQ
-	   LEFT JOIN FAQ_ANSWER USING(FAQ_NO)
-	  WHERE P_NO = #{PNO}
+	 SELECT M.NICKNAME,F.INQUIRY_DATE,F.INQUIRY_TITLE,F.INQUIRY_CONTENTS,P_NO,FA.ANSWER_DATE,FA.ANSWER_CONTENTS
+	   FROM FAQ F
+	   LEFT JOIN FAQ_ANSWER FA USING(FAQ_NO)
+	   LEFT JOIN MEMBER M ON(F.USER_NO = M.USER_NO)
+	  WHERE P_NO = #{pno}
 	</select>
 	
 

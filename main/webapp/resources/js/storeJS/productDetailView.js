@@ -126,9 +126,40 @@ function productDetail(userNo){
 
     // 별점 등록(이미지로 바꾸기)
 
-    getReviewList(1, pno);
+    getReviewList(1,pno);
     getInquiryList(1,pno);
 }
+
+    let review = [];
+
+
+    function insertReview(){
+        $.ajax({
+            url: 'insertReview.ax',
+            method: 'POST',
+            data: {userNo: userNo},
+            success: function(data){
+                console.log("리뷰 넣기 성공");
+            },
+            error: function(data){
+                console.log("리뷰 넣기 실패");
+            }
+        })
+    }
+
+    function insertInquiry(){
+        $.ajax({
+            url: 'insertInquiry.ax',
+            method: 'POST',
+            data: {userNo: userNo},
+            success: function(data){
+                console.log("문의 넣기 성공");
+            },
+            error: function(data){
+                console.log("문의 넣기 실패");
+            }
+        })
+    }
 
       //리뷰 불러오기
       function getReviewList(cpage,pno){
@@ -207,18 +238,18 @@ function productDetail(userNo){
     
         let pagingStr = "";
         
-        if (data.ipi.currentPage != 1) {
-            pagingStr += `<li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="getReviewList(${data.ipi.currentPage - 1}, '${data.reviewList[0].pdNo}');">&laquo;</a></li>`;
+        if (data.rpi.currentPage != 1) {
+            pagingStr += `<li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="getReviewList(${data.rpi.currentPage - 1}, '${data.reviewList[0].pdNo}');">&laquo;</a></li>`;
         } else {
             pagingStr += `<li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>`;
         }
 
-        for (let p = data.ipi.startPage; p <= data.ipi.endPage; p++) {
-            pagingStr += `<li class="page-item ${p == data.ipi.currentPage ? 'active' : ''}"><a class="page-link" href="javascript:void(0);" onclick="getReviewList(${p}, '${data.reviewList[0].pdNo}')">${p}</a></li>`;
+        for (let p = data.rpi.startPage; p <= data.rpi.endPage; p++) {
+            pagingStr += `<li class="page-item ${p == data.rpi.currentPage ? 'active' : ''}"><a class="page-link" href="javascript:void(0);" onclick="getReviewList(${p}, '${data.reviewList[0].pdNo}');">${p}</a></li>`;
         }
         
-        if (data.ipi.currentPage != data.ipi.maxPage) {
-            pagingStr += `<li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="getReviewList(${data.ipi.currentPage + 1}, '${data.reviewList[0].pdNo}')">&raquo;</a></li>`;
+        if (data.rpi.currentPage != data.rpi.maxPage) {
+            pagingStr += `<li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="getReviewList(${data.rpi.currentPage + 1}, '${data.reviewList[0].pdNo}');">&raquo;</a></li>`;
         } else {
             pagingStr += `<li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>`;
         }
@@ -267,7 +298,7 @@ function productDetail(userNo){
                 <table class="inquiry-table">
                     <tr>
                         <td>
-                            문의자명
+                            ${inquiry.nickName}
                             <span>${inquiry.inquiryDate}</span>
                         </td>
                         
@@ -275,13 +306,32 @@ function productDetail(userNo){
                     <tr>
                         <td >
                             <span style="font-weight: bolder; color: #0089FF;">Q</span>
+                            <span>${inquiry.inquiryTitle}</span>
                         </td>
                     </tr>
                     <tr>
-                        <td >
-                            <span style="font-weight: bolder; color: #0089FF;">A</span>
+                        <td>
+                            <span>${inquiry.inquiryContents}</span>
                         </td>
                     </tr>
+                    ${inquiry.answerContents ?` 
+                        <tr>
+                            <td >
+                                <span style="font-weight: bolder; color: #0089FF;">A</span>
+                                <span>판매자</span>
+                            </td>
+                        </tr>    
+                        <tr>
+                            <td>
+                                <span>${inquiry.inquiryContents}</span>
+                            </td>
+                        </tr>
+                        `:`
+                        <tr>
+                            
+                        </tr>
+                    `}        
+                        
                 </table>
 
                 <hr>
@@ -301,17 +351,17 @@ function productDetail(userNo){
 
         
         if (data.ipi.currentPage != 1) {
-            pagingStr += `<li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="getinquiryList(${data.ipi.currentPage - 1}, '${data.inquiryList[0].pdNo}');">&laquo;</a></li>`;
+            pagingStr += `<li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="getInquiryList(${data.ipi.currentPage - 1}, '${data.inquiryList[0].pdNo}');">&laquo;</a></li>`;
         } else {
             pagingStr += `<li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>`;
         }
 
         for (let p = data.ippi.startPage; p <= data.ipi.endPage; p++) {
-            pagingStr += `<li class="page-item ${p == data.ipi.currentPage ? 'active' : ''}"><a class="page-link" href="javascript:void(0);" onclick="getinquiryList(${p}, '${data.inquiryList[0].pdNo}')">${p}</a></li>`;
+            pagingStr += `<li class="page-item ${p == data.ipi.currentPage ? 'active' : ''}"><a class="page-link" href="javascript:void(0);" onclick="getInquiryList(${p}, '${data.inquiryList[0].pdNo}');">${p}</a></li>`;
         }
         
         if (data.ipi.currentPage != data.ipi.maxPage) {
-            pagingStr += `<li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="getinquiryList(${data.ipi.currentPage + 1}, '${data.inquiryList[0].pdNo}')">&raquo;</a></li>`;
+            pagingStr += `<li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="getInquiryList(${data.ipi.currentPage + 1}, '${data.inquiryList[0].pdNo}');">&raquo;</a></li>`;
         } else {
             pagingStr += `<li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>`;
         }

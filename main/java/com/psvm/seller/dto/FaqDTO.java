@@ -25,4 +25,7 @@ public class FaqDTO {
 	private int answerNo;
 	private Date answerDate;
 	private String answerContents;
+	
+	private String nickName;
+	private String pdTitle;
 }

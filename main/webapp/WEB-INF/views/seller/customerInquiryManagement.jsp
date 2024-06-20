@@ -55,24 +55,23 @@
                 <thead>
                     <tr>
                         <th>문의 번호</th>
-                        <th>카테고리</th>
                         <th>상품명</th>
                         <th>문의자명</th>
                         <th>등록일</th>
+                        <th>문의 상세</th>
                     </tr>
                 </thead>
                 <c:choose>
-                    <c:when test="${empty list}">
+                    <c:when test="${empty inquiryList}">
                         <tbody>
                             <td colspan="5" style="border-radius: 0 0 10px 10px;">등록 문의가 존재하지 않습니다.</td>
                         </tbody>
                     </c:when>
                     <c:otherwise>
                         <tbody>
-                            <c:forEach var="pd" items="${list}">
+                            <c:forEach var="inquiry" items="${inquiryList}">
                                 <tr id="pdList">
-                                    <td></td>
-                                    <td></td>
+                                    <td>${inquiry.faqNo}</td>
                                     <td></td>
                                     <td></td>
                                     <td></td>

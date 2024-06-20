@@ -75,7 +75,7 @@ public interface SellerService {
 	//고객 문의 관리
 	public int selectCsInquiryListCount();
 	
-	public List<FaqDTO> selectCsInquiryList(PageInfo pi);
+	public List<FaqDTO> selectCsInquiryList(PageInfo pi, int userNo);
 	
 	//판매자 탈퇴 
 	public int deleteSeller(int userNo);
