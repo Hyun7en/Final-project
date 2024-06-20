@@ -110,8 +110,8 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 	
 	// 주문내역 조회
-	public ArrayList<OrderHistory> orderHistoryList(int userNo){
-		return myPageDao.orderHistoryList(sqlSession, userNo);
+	public ArrayList<OrderHistory> orderHistoryList(int userNo, PageInfo pi){
+		return myPageDao.orderHistoryList(sqlSession, userNo, pi);
 	}
 	
 	// 회원이 작성한 게시글 수 조회

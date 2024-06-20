@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -250,7 +251,10 @@ public class MyPageController {
 	
 	// 회원이 장바구니에 담은 상품 삭제하는 메서드
 	@RequestMapping("deleteCartProduct.my")
-	public ModelAndView deleteCartProduct(HttpSession session, int userNo, int poNo, ModelAndView mv) {
+	public ModelAndView deleteCartProduct(HttpSession session, int poNo, ModelAndView mv) {
+		
+		// 세션에 있는 회원번호(userNo) 가져오기
+		int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
 		
 		// 회원 번호와 상품옵션 번호를 하나로 묶기
 		Map<String, Integer> params = new HashMap<>();
@@ -269,18 +273,35 @@ public class MyPageController {
 		mv.setViewName("redirect:cart.my?userNo=" + userNo);
 		return mv;
 	}
+	
+	// 회원이 장바구니에 담은 상품 주문하는 메서드
+	@RequestMapping("orderCartProduct.my")
+	public String orderCartProduct(HttpSession session, @RequestParam("poNo") List<Integer> poNoList, Model model) {
+		
+		// 장바구니에서 구매할 상품의 옵션번호 넘기기
+		model.addAttribute("poNoList", poNoList);
+		System.out.println(poNoList);
 
+		return "store/order";
+	}
+	
+	// 회원이 주문한 상품 내역 조회하는 메서드
 	@RequestMapping("orderHistory.my")
-	public String orderHistory(int userNo, Model model) {
+	public String orderHistory(@RequestParam(value="cpage", defaultValue="1") int currentPage, int userNo, Model model) {
 		
 		// 주문내역 수 조회
 		int orderHistoryListCount = myPageService.orderHistoryListCount(userNo);
 		
+		// 페이징 처리
+		PageInfo pi = Pagination.getPageInfo(orderHistoryListCount, currentPage, 10, 5);
+		
 		// 주문내역 조회
-		ArrayList<OrderHistory> orderHistoryList = myPageService.orderHistoryList(userNo);
+		ArrayList<OrderHistory> orderHistoryList = myPageService.orderHistoryList(userNo, pi);
+		System.out.println(orderHistoryList);
 		
 		model.addAttribute("orderHistoryListCount", orderHistoryListCount);
 		model.addAttribute("orderHistoryList", orderHistoryList);
+		model.addAttribute("pi", pi);
 
 		return "myPage/myPageOrderHistory";
 	}

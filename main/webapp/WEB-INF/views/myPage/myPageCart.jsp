@@ -36,7 +36,7 @@
                         <div class="myPage-category"><a href="myPage.my?userNo=${loginUser.userNo}">내 정보</a></div>
                         <div class="myPage-category"><a href="interestProduct.my?userNo=${loginUser.userNo}&cpage=1">관심상품</a></div>
                         <div class="myPage-category"><a style="color: #0089FF;" href="cart.my?userNo=${loginUser.userNo}">장바구니</a></div>
-                        <div class="myPage-category"><a href="orderHistory.my?userNo=${loginUser.userNo}">주문내역</a></div>
+                        <div class="myPage-category"><a href="orderHistory.my?userNo=${loginUser.userNo}&cpage=1">주문내역</a></div>
                         <div class="myPage-category"><a href="writePost.my?userNo=${loginUser.userNo}"> 작성한 글</a></div>
                         <div class="myPage-category"><a href="inquiry.my?userNo=${loginUser.userNo}">1:1 문의</a></div>
                         <div class="myPage-category"><a href="sellerConversionPage.my?userNo=${loginUser.userNo}">판매자 신청</a></div>
@@ -46,7 +46,7 @@
                     <div id="myPage-category-select-title"><h3>장바구니</h3></div>
                     <table>
                         <thead>
-                            <th width="5%"><input type="checkbox"></th>
+                            <th width="5%"><input type="checkbox" class="all-checkbox" onclick="clickAllCheckboxes()"></th>
                             <th width="30%">상품정보</th>
                             <!-- <th width="15%">옵션</th> -->
                             <th width="15%">수량</th>
@@ -54,9 +54,19 @@
                             <th width="20%">선택</th>
                         </thead>
                         <tbody>
+                            <c:choose>
+                                <c:when test="${empty cartProductList}">
+                                    <tr>
+                                        <td colspan="5" style="text-align: center;">장바구니에 담긴 상품이 없습니다.</td>
+                                    </tr>
+                                </c:when>
+                                <c:otherwise>
+
+                                </c:otherwise>
+                            </c:choose>
                             <c:forEach var="cp" items="${cartProductList}">
                                 <tr class="product">
-                                    <td class="userNo" style="display: none;">${loginUser.userNo}</td>
+                                    <!-- <td class="userNo" style="display: none;">${loginUser.userNo}</td> -->
                                     <td class="poNo" style="display: none;">${cp.poNo}</td>
                                     <td width="5%"><input class="checkbox" type="checkbox"></td>
                                     <td class="product-info" width="45%">
@@ -72,11 +82,11 @@
                                         </div>
                                     </td> -->
                                     <td width="15%">${cp.buyCount}</td>
-                                    <td width="15%" class="product-price">${cp.pdPrice}</td>
+                                    <td width="15%" class="product-price">${cp.buyMoney}</td>
                                     <td width="20%">
                                         <div class="product-btn">
-                                            <button>주문하기</button>
-                                            <button onclick="location.href='deleteCartProduct.my?userNo=${loginUser.userNo}&poNo=${cp.poNo}'">삭제</button>
+                                            <button onclick="productOrder('${cp.poNo}')">주문하기</button>  <!-- 버튼 눌렀을 때 해당 상품의 옵션번호 넘겨주기 -->
+                                            <button onclick="location.href='deleteCartProduct.my?poNo=${cp.poNo}'">삭제</button>
                                         </div>
                                     </td>
                                 </tr>
@@ -115,11 +125,11 @@
                         <div id="select-btn">
                             <div id="delete-btn-area">
                                 <button onclick="allProductRemove()">전체삭제</button>
-                                <button onclick="">선택상품 삭제</button>
+                                <button onclick="selectProductRemove()">선택상품 삭제</button>
                             </div>
                             <div id="order-btn-area">
-                                <button onclick="">선택상품 주문</button>
-                                <button onclick="">전체 주문</button>
+                                <button onclick="selectProductOrder()">선택상품 주문</button>
+                                <button onclick="allProductOrder()">전체 주문</button>
                             </div>
                         </div>
                     </div>

@@ -58,7 +58,7 @@ public interface MyPageService {
 	int orderHistoryListCount(int userNo);
 	
 	//주문내역 조회
-	ArrayList<OrderHistory> orderHistoryList(int userNo);
+	ArrayList<OrderHistory> orderHistoryList(int userNo, PageInfo pi);
 	
 	// 회원이 작성한 게시글 수 조회
 	int writePostListCount(int userNo);

@@ -18,5 +18,5 @@ public class Cart {
 	private String pdTitle;
 	private String pdOptionName;
 	private int buyCount;
-	private int pdPrice;
+	private int buyMoney;
 }
