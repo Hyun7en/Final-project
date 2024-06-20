@@ -11,7 +11,7 @@ function init(pageType, contextPath, data){
       break;
     case 'communityDetail':
       callThumbup(data.boardNo, data.userNo);
-      callReply(data.boardNo, `${path}/resources/image/Cancel.png`, data.boardLevel);
+      callReply(data.boardNo, `${path}/resources/image/Cancel.png`, data.boardLevel, data.nickname);
       categorySelectedsc(data.boardLevel);
       conditionSelected(data.condition);
       break;

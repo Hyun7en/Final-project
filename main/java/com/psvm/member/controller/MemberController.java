@@ -30,7 +30,6 @@ public class MemberController {
 	
 	@RequestMapping("loginForm.me") //로그인 페이지 이동
 	public String loginFormMember(@RequestParam(value="recentLink") String recentLink, HttpSession session) {
-		System.out.println(recentLink);
 		if (recentLink != "") {
 			session.setAttribute("recentLink", recentLink);
 		}
@@ -38,8 +37,9 @@ public class MemberController {
 	}
 	
 	@RequestMapping("login.me") //로그인
-	public ModelAndView loginMember(Member m, ModelAndView mv, HttpSession session, String saveId, HttpServletResponse response) {
-	    Member loginUser = memberService.loginMember(m);
+	public ModelAndView loginMember(Member m, @RequestParam(value="staying", defaultValue="off") String staying, ModelAndView mv, HttpSession session, String saveId, HttpServletResponse response) {
+	    System.out.println(staying);
+		Member loginUser = memberService.loginMember(m);
 	    if (loginUser == null) { // 아이디가 없는 경우
 	        mv.addObject("errorMessage", "일치하는 아이디를 찾을 수 없습니다.");
 	        mv.setViewName("member/login");
@@ -48,15 +48,16 @@ public class MemberController {
 	        mv.addObject("errorMessage", "비밀번호가 일치하지 않습니다.");
 	        mv.setViewName("member/login");
 	    } else { // 성공
-	        Cookie ck = new Cookie("saveId", loginUser.getUserId());
-	        if (saveId == null) {
-	            ck.setMaxAge(0);
-	        }
-	        response.addCookie(ck);
+	    	if (staying.equals("on")) {
+	    		Cookie ck = new Cookie("saveId", loginUser.getUserId());
+	    		ck.setMaxAge(60 * 60 * 24 * 30); // 쿠키 만료 시간 설정 (30일)
+	    	    ck.setPath("/"); // 쿠키의 유효 경로 설정
+	    		response.addCookie(ck);
+	    	}
 	        session.setAttribute("successMessage", "로그인에 성공했습니다!");
 	        session.setAttribute("loginUser", loginUser);
 	        String recentLink = session.getAttribute("recentLink").toString();
-	        mv.setViewName("redirect:" + recentLink);
+	        mv.setViewName("redirect:/");
 	    }
 	    
 	    return mv;
@@ -64,9 +65,15 @@ public class MemberController {
 
 	
 	@RequestMapping("logout.me") //로그아웃
-	public String logoutMember(HttpSession session) {
+	public String logoutMember(HttpSession session, HttpServletResponse response) {
 		session.removeAttribute("loginUser");
-		session.setAttribute("successMessage", "로그아웃되었습니다.");
+		
+		Cookie ck = new Cookie("saveId", null);
+	    ck.setMaxAge(0); // 쿠키 즉시 만료
+	    ck.setPath("/"); // 쿠키의 유효 경로 설정
+	    response.addCookie(ck);
+		
+	    session.setAttribute("successMessage", "로그아웃되었습니다.");
 		return "redirect:/";
 	}
 	
@@ -80,6 +87,20 @@ public class MemberController {
 	public String idCheck(String checkId) {
 		
 		return memberService.idCheck(checkId) > 0 ? "NNNNN" : "NNNNY";
+	}
+	
+	@ResponseBody
+	@RequestMapping("nicknameCheck.me") //아이디 중복 확인
+	public String nicknameCheck(String checkNickname) {
+		
+		return memberService.nicknameCheck(checkNickname) > 0 ? "NNNNN" : "NNNNY";
+	}
+	
+	@ResponseBody
+	@RequestMapping("emailCheck.me") //아이디 중복 확인
+	public String emailCheck(String checkEmail) {
+		
+		return memberService.emailCheck(checkEmail) > 0 ? "NNNNN" : "NNNNY";
 	}
 	
 	@RequestMapping("signUp.me") //회원가입

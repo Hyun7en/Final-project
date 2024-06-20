@@ -45,12 +45,17 @@
                 <p>필수 입력 항목</p>
                 <input type="text" id="signup-id" name="userId" placeholder="아이디" style="border-top: 2px solid #0089FF; border-bottom: 2px solid #0089FF;" maxlength="20">
                 <div id="checkResult" style="color: #0089FF; height: 25px;">5자 이상 입력해야 합니다.</div>
-                <input type="password" id="signup-pwd" name="userPwd" placeholder="비밀번호">
+                
+                <input type="password" id="signup-pwd" name="userPwd" placeholder="비밀번호(8자 이상 입력, 영어 대소문자와 숫자 조합만 가능)">
                 <input type="password" id="check-pwd" placeholder="비밀번호 확인">
-                <input type="text" id="signup-email" name="email" placeholder="이메일" title="'@naver.com', '@gmail.com', '@hanmail.net', '@daum.net', '@nate.com', '@hotmail.com', '@icloud.com', '@outlook.com'">
+                <div id="emailArea">
+                    <input type="text" id="signup-email" name="email" placeholder="이메일">
+                    <span>이메일 형식은 아래의 8가지만 허용됩니다.<br>'@naver.com', '@gmail.com', '@hanmail.net', '@daum.net', '@nate.com', '@hotmail.com', '@icloud.com', '@outlook.com'</span>
+                </div>
                 <div style="height: 50px; display: flex;">
                     <input type="text" id="signup-name" name="userName" placeholder="이름" maxlength="21">
                     <input type="text" id="signup-nickname" name="nickname" placeholder="닉네임" maxlength="18">
+                    
                 </div>
                 <div style="height: 50px; display: flex">
                     <input type="text" id="signup-birthday" name="birthday" placeholder="생년월일 8자리" maxlength="8" title="YYYYMMDD">
@@ -71,6 +76,9 @@
                 <input type="text" id="signup-tailFish" name="tailFish" placeholder="키우는 물고기" maxlength="30">
             </div>
             <button type="button" id="signup-submit" onclick="signUpSubmit()" disabled>가입하기</button>
+            <input type="checkbox" style="display: none;" id="checkId">
+            <input type="checkbox" style="display: none;" id="checkNickname">
+            <input type="checkbox" style="display: none;" id="checkEmail">
         </form>
     </div>
 </body>
