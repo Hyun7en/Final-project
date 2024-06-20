@@ -73,7 +73,7 @@
                                             <div class="myPageOrderHistory-info">
                                                 <ul>
                                                     <li><b>${oh.pdTitle}</b></li>
-                                                    <li class="order-history-product-price">${oh.pdPrice}원</li>
+                                                    <li class="product-price">${oh.buyMoney}</li>
                                                 </ul>
                                                 <ul class="ul2">
                                                     <li><b>판매자</b></li>
@@ -83,7 +83,7 @@
                                             <div class="myPageOrderHistory-button-area">
                                                 <div><button>배송조회</button></div>
                                                 <div><button>주문ㆍ배송 취소</button></div>
-                                                <div><button>판매자 문의</button></div> <!-- 문의글 작성하는곳으로 이동 -->
+                                                <div><button onclick="location.href='detail.spd?pno=${oh.pdNo}#go-product-inquiry'">판매자 문의</button></div> <!-- 문의글 작성하는곳으로 이동 -->
                                             </div>
                                         </div>
                                     </div>
@@ -91,9 +91,7 @@
                             </c:otherwise>
                         </c:choose>
 
-                        
-
-                        <!-- 페이징 처리 들어오는 곳-->
+                        <!-- 페이징 처리 -->
                         <div id="pagination-div">
                             <ul class="pagination">
                                 <c:choose>
@@ -103,20 +101,20 @@
                                     <c:otherwise>
                                         <li class="page-item"><a class="page-link" href="orderHistory.my?userNo=${loginUser.userNo}&cpage=${pi.currentPage - 1}">&laquo;</a></li>
                                     </c:otherwise>
-                            </c:choose>
+                                </c:choose>
 
-                        <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-                            <li class="page-item ${p == pi.currentPage ? 'active' : ''}"><a class="page-link" href="orderHistory.my?userNo=${loginUser.userNo}&cpage=${p}">${p}</a></li>
-                        </c:forEach>
+                                <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+                                    <li class="page-item ${p == pi.currentPage ? 'active' : ''}"><a class="page-link" href="orderHistory.my?userNo=${loginUser.userNo}&cpage=${p}">${p}</a></li>
+                                </c:forEach>
                             
-                        <c:choose>
-                                <c:when test="${ pi.currentPage eq pi.maxPage }">
-                                    <li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
-                                </c:when>
-                                <c:otherwise>
-                                    <li class="page-item"><a class="page-link" href="orderHistory.my?userNo=${loginUser.userNo}&cpage=${pi.currentPage + 1}">&raquo;</a></li>
-                                </c:otherwise>
-                            </c:choose>
+                                <c:choose>
+                                    <c:when test="${ pi.currentPage eq pi.maxPage }">
+                                        <li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li class="page-item"><a class="page-link" href="orderHistory.my?userNo=${loginUser.userNo}&cpage=${pi.currentPage + 1}">&raquo;</a></li>
+                                    </c:otherwise>
+                                </c:choose>
                             </ul>
                         </div>
 

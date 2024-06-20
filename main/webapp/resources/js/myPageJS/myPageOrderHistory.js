@@ -3,9 +3,12 @@ $(document).ready(function(){
 });
 
 function productPriceCommas(){
-    const productPrice = parseInt($(".order-history-product-price").text());
-    const formattedProductPrice = numberWithCommas(productPrice); 
-    $(".order-history-product-price").text(formattedProductPrice);
+    const allProductPrice = document.querySelectorAll(".product-price");
+    allProductPrice.forEach(function(productPrice) {
+        const p = parseInt($(productPrice).text());
+        const formattedProductPrice = numberWithCommas(p);
+        $(productPrice).text(formattedProductPrice + "원");
+    })
 }
 
 // 숫자 3자리마다 콤마(,) 추가하는 함수
