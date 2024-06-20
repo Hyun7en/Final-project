@@ -63,7 +63,7 @@
             <input type="hidden" name="recentLink" value="${recentLink}">
             <input type="text" id="login-id" name="userId" placeholder="아이디" required>
             <input type="password" id="login-pwd" name="userPwd" placeholder="비밀번호" required> 
-            <div id="login-staying"><input type="checkbox" name="staying" value="Y"> 로그인 상태 유지</div>
+            <div id="login-staying"><input type="checkbox" name="staying" value="on"> 로그인 상태 유지</div>
             <button type="submit">로그인</button>
         </form>
         <div id="login-help">

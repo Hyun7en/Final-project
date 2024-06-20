@@ -96,7 +96,7 @@
                             </div>
                             <form action="">
                                 <div id="interest-product-button-area">
-                                    <div class="interest-product-button"><a>구매하기</a></div>
+                                    <div class="interest-product-button"><a href="detail.spd?pno=${i.prNo}">구매하기</a></div>
                                     <div class="interest-product-button"><a href="sellersStore.st?sellerPageNo=${i.sellerPageNo}&order=1&cpage=1">판매자의 다른 상품 보기</a></div>
                                     <div class="interest-product-button"><a href="interestCancle.my?userNo=${loginUser.userNo}&prNo=${i.prNo}">관심상품 취소</a></div>
                                 </div>
