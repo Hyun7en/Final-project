@@ -68,6 +68,15 @@ public interface SellerService {
 	// 상품 삭제
 	public int deleteProduct(int pno);
 	
+	//주문 관리
+	
+	//배송 관리
+	
+	//고객 문의 관리
+	public int selectCsInquiryListCount();
+	
+	public List<FaqDTO> selectCsInquiryList(PageInfo pi);
+	
 	//판매자 탈퇴 
 	public int deleteSeller(int userNo);
 	

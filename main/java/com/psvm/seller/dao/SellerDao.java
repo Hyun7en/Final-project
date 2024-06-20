@@ -158,6 +158,15 @@ public class SellerDao {
 		return sqlSession.update("sellerMapper.deleteProduct",pno);
 	}
 	
+	//주문 관리
+	
+	//배송 관리
+	
+	//고객 문의 관리
+	public int selectCsInquiryListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("sellerMapper.selectCsInquiryListCount");
+	}
+	
 	//판매자 탈퇴
 	public int updateMemberAuthority(SqlSessionTemplate sqlSession, int userNo) {
 		

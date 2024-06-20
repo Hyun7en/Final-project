@@ -81,7 +81,7 @@
                     </div>
                 </div>
                 <div class="product-etc">
-                    <span>배송</span>
+                    <span>배송비</span>
                 </div>
                 <div class="top-product-buy-area">
                     <div class="product-buy-info">

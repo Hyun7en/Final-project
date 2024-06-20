@@ -237,6 +237,24 @@ public class SellerServiceImpl implements SellerService {
 		return sellerDao.deleteProduct(sqlSession, pno);
 	}
 	
+	//주문 관리
+	
+	//배송 관리
+	
+	//고객 문의 관리
+	@Override
+	public int selectCsInquiryListCount() {
+		int count = sellerDao.selectCsInquiryListCount(sqlSession);
+		
+		return count;
+	}
+	
+	@Override
+	public List<FaqDTO> selectCsInquiryList(PageInfo pi) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	//판매자 탈퇴
 	@Override
 	@Transactional

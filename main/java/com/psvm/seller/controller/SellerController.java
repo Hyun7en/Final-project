@@ -513,7 +513,17 @@ public class SellerController {
     
     // 고객 문의 관리  
     @RequestMapping("customerInquiry.sr")
-    public String selectCustomerInqueryManagement() {
+    public String selectCustomerInqueryManagement(@RequestParam(value="cpage", defaultValue="1") int currentPage, HttpSession session, Model model) {
+    	
+    	//문의 가져오기
+    	int boardCount = sellerService.selectCsInquiryListCount();
+		
+		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 5);
+    	
+    	List<FaqDTO> inquiryList = sellerService.selectCsInquiryList(pi);
+    	
+    	model.addAttribute("pi", pi);
+    	model.addAttribute("inquiryList",inquiryList);
     	
     	return "seller/customerInquiryManagement";
     }

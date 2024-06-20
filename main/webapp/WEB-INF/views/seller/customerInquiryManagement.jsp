@@ -10,9 +10,18 @@
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sellerCSS/customerInquiryManagement.css">
 
+<!-- Popper JS -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </head>
 <body>
@@ -61,12 +70,13 @@
                     <c:otherwise>
                         <tbody>
                             <c:forEach var="pd" items="${list}">
-                                <tr id="pdList" onclick = "location.href = 'detail.pd?pno=${pd.pdNo}'">
+                                <tr id="pdList">
                                     <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
+                                    <td><button class="btn btn-primary" data-toggle="modal" data-target="#inquiry-answer-Modal">문의 답변</button></td>
                                 </tr>
             
                             </c:forEach>
@@ -101,6 +111,78 @@
                 </c:choose>
                 </ul>
             </div>
+
+            <!-- 문의 답변 modal -->
+            <div class="modal fade" id="inquiry-answer-Modal">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content" >
+
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 >리뷰쓰기</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body" >
+                            <form id="modal-qna-content" action="" enctype="multipart/form-data" method="post">
+                                <input type="hidden" name="writerNo" value=>
+                                <input type="hidden" name="refProductNo" value=>
+                                <div id="qna-product-name-header">
+                                    ${spd.pdTitle}
+                                </div>
+
+                                <!-- 별점 -->
+                                 <span class="star-rating-title">별점평가</span>
+                                <div class ="star_rating">
+                                    <span class="star on" value="1"> </span>
+                                    <span class="star" value="2"> </span>
+                                    <span class="star" value="3"> </span>
+                                    <span class="star" value="4"> </span>
+                                    <span class="star" value="5"> </span>
+                                </div>
+
+
+                                <div id="product-pic-container">
+                                    <div >
+                                        사진 첨부(선택)
+                                    </div>
+                                    <div >
+                                        사진을 첨부해주세요.(최대 1장)
+                                    </div>
+                                    <div id="qna-pic-container">
+
+                                    </div>
+                                    <div id="add-qna-product-pic">
+                                    
+                                        <span >사진 첨부하기</span>
+                                        <input type="file" name="reOriginName" id="file-input" >
+
+                                    </div>
+                                </div>
+
+                                <div id="product-qna-content-container">
+                                    <div >
+                                        리뷰작성
+                                        <div>필수 입력 항목입니다.</div>
+                                    </div>
+                                    <div id="product-qna-content-textarea">
+                                        <textarea name="qnaContent" id="product-qna-content"
+                                            placeholder="자세하고 솔직한 리뷰는 다른 고객과 스토어에게 큰 도움이 됩니다."></textarea>
+                                    </div>
+                                </div>
+
+                                <div id="product-qna-enroll-btn-container">
+                                    <button type="submit" id="product-qna-enroll-btn">리뷰 등록</button>
+                                </div>
+                            </form>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
 
             
         </section>
