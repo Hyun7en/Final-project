@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.psvm.curation.vo.Curation;
 import com.psvm.fishInfo.vo.Fish;
+import com.psvm.seller.vo.Product;
 
 @Repository
 public class CurationDao {
@@ -17,5 +18,9 @@ public class CurationDao {
 	
 	public ArrayList<Fish> resultCuration(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
 		return (ArrayList)sqlSession.selectList("fishMapper.resultCuration", map);
+	}
+	
+	public ArrayList<Product> getFishProductList(SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("sellerMapper.getFishProductList");
 	}
 }

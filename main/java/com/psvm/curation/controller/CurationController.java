@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.psvm.curation.service.CurationService;
 import com.psvm.curation.vo.Curation;
 import com.psvm.fishInfo.vo.Fish;
+import com.psvm.seller.vo.Product;
 
 @Controller
 public class CurationController {
@@ -36,7 +37,6 @@ public class CurationController {
 	    List<String> clickedTextList = Arrays.asList(clickedTexts.split(","));
 	    
 	   	Fish fish = curationService.resultCuration(clickedTextList);
-	    System.out.println(fish);
 	    model.addAttribute("fish", fish);
 	    return "curation/detailCuration";
 	}
@@ -46,6 +46,14 @@ public class CurationController {
 	@PostMapping(value="getQuestionList.cu", produces = "application/json; charset=UTF-8")
 	public String getQuestionList() {
 		ArrayList<Curation> list = curationService.getQuestionList();
+		
+		return new Gson().toJson(list);
+	}
+	
+	@ResponseBody
+	@PostMapping(value="getFishProductList.cu", produces = "application/json; charset=UTF-8")
+	public String getFishProductList() {
+		ArrayList<Product> list = curationService.getFishProductList();
 		
 		return new Gson().toJson(list);
 	}

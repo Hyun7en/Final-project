@@ -182,6 +182,17 @@ public class SellerDao {
 		return (List)sqlSession.selectList("sellerMapper.selectAllProduct", null, rowBounds);
 	}
 	
+	public List<StoreMainDTO> selectSearchProduct(SqlSessionTemplate sqlSession,int page, int size, String title) {
+		
+		int offset = page * size;  
+		
+		RowBounds rowBounds = new RowBounds(offset, size);
+		
+		return (List)sqlSession.selectList("sellerMapper.selectSearchProduct", title, rowBounds);
+	}
+	
+	
+	
 	//############################################## 판매 상품 상세 페이지  ############################################################
 	
 	// 판매 상품 상세 정보

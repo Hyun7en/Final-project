@@ -9,10 +9,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.psvm.commons.template.Pagination;
@@ -31,13 +35,13 @@ import com.psvm.seller.dto.ProductCategoryDTO;
 import com.psvm.seller.dto.ProductDTO;
 import com.psvm.seller.dto.StoreMainDTO;
 import com.psvm.seller.service.SellerService;
-import com.psvm.seller.vo.Buy;
 import com.psvm.seller.vo.Product;
 import com.psvm.seller.vo.ProductCategory;
 import com.psvm.seller.vo.ProductOption;
 import com.psvm.seller.vo.Review;
 import com.psvm.seller.vo.SellerInfo;
 import com.psvm.seller.vo.SellerPage;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -544,6 +548,29 @@ public class SellerController {
     public String selectAllProduct(@RequestParam("page") int page, @RequestParam("size") int size) {
     	
         List<StoreMainDTO> products = sellerService.selectAllProduct(page, size);
+        boolean hasMore = products.size() == size; // 더 불러올 데이터가 있는지 확인
+        HashMap<String, Object> response = new HashMap<>();
+        
+        response.put("products", products);
+        response.put("hasMore", hasMore);
+        
+        return new Gson().toJson(response);
+    }
+    // 검색 단순 이동 
+    @RequestMapping(value = "gotoSearchProduct.ax")
+    @GetMapping
+    public String gotoSearchProduct(@RequestParam("title") String title,HttpSession session, Model model) {
+    	
+    	model.addAttribute("title", title);
+    	
+    	return "store/searchStoreMain";
+    }
+    
+    // 무한 스크롤로 전체 상품 가져오기   
+    @PostMapping(value = "allSearchProduct.ax", produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public String selectSearchProduct(@RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("title") String title) {
+        List<StoreMainDTO> products = sellerService.selectSearchProduct(page, size, title);
         boolean hasMore = products.size() == size; // 더 불러올 데이터가 있는지 확인
         HashMap<String, Object> response = new HashMap<>();
         

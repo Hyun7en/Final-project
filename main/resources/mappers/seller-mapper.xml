@@ -414,6 +414,19 @@
 		 ORDER BY P_ENROLL_DATE DESC
 	</select>
 	
+	<select id="selectSearchProduct" resultMap="StoreMainDTOResult">
+		SELECT P_NO, STORE_NAME,SELLER_PAGE_NO, P_TITLE, P_PRICE, P_CHANGE_NAME, CAST(AVG(REVIEW.review_dibs) AS DECIMAL(10, 1)) AS AVERAGE_REVIEW_DIBS, COUNT(REVIEW.REPLY_NO) AS REVIEW_COUNT
+		  FROM PRODUCT
+		  JOIN PRODUCT_CATEGORY USING(C_NO)
+		  JOIN SELLER_PAGE USING(SELLER_PAGE_NO)
+		  JOIN SELLER_INFO USING(BUSINESS_NO)
+		  LEFT JOIN REVIEW USING(P_NO)
+		 WHERE P_STATUS = 'Y'
+		 AND  P_TITLE like('%' || #{title} || '%')
+		 GROUP BY P_NO, STORE_NAME,SELLER_PAGE_NO, P_TITLE, P_PRICE, P_CHANGE_NAME, P_STAR, P_ENROLL_DATE
+		 ORDER BY P_ENROLL_DATE DESC
+	</select>
+	
 	<!-- ##################################### 판매 상품 상세 페이지  ##################################### -->
 	
 	<select id="selectSalesProduct" resultMap="ProductDTOResult">
@@ -469,5 +482,15 @@
 	<!-- ##################################### 구매 페이지  ##################################### -->
 	
 	<!-- 구매 페이지 -->
+	
+	<select id="getFishProductList" resultMap="productResult">
+		SELECT p_no,
+			   p_title,
+			   p_price,
+			   P_CHANGE_NAME
+		FROM product
+		ORDER BY RANDOM()
+		LIMIT 5
+	</select>
 	
 </mapper>
