@@ -53,10 +53,45 @@
 		WHERE	USER_ID = #{userId}
 		AND		ACTIVATED = 'Y'
 	</select>
+	<select id="cookieLogin" resultMap="memberResult">
+		SELECT 	USER_NO,
+				USER_ID,
+				USER_PWD,
+				EMAIL,
+				USER_NAME,
+				NICKNAME,
+				BIRTHDAY,
+				GENDER,
+				ADDRESS,
+				PHONE,
+				LIKE_FISH,
+				TAIL_FISH,
+				AUTHORITY,
+				ACTIVATED,
+				USER_LV,
+				JOIN_DATE,
+				M.MEMBER_FILE_NO,
+				USER_INTRO,
+				CHANGE_NAME
+		FROM	MEMBER M
+		LEFT JOIN	MEMBER_ATTACHMENT A on(REF_MNO = USER_NO)
+		WHERE	USER_ID = #{savedUserId}
+		AND		ACTIVATED = 'Y'
+	</select>
 	<select id="idCheck" resultType="_int">
 		SELECT	COUNT(*)
 		FROM	MEMBER
 		WHERE	USER_ID = #{checkId}
+	</select>
+	<select id="nicknameCheck" resultType="_int">
+		SELECT	COUNT(*)
+		FROM	MEMBER
+		WHERE	NICKNAME = #{checkNickname}
+	</select>
+	<select id="emailCheck" resultType="_int">
+		SELECT	COUNT(*)
+		FROM	MEMBER
+		WHERE	EMAIL = #{checkEmail}
 	</select>
 	<insert id="signupMember">
 		INSERT INTO MEMBER(

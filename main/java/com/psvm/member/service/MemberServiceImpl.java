@@ -24,8 +24,23 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
+	public Member cookieLogin(String savedUserId) {
+		return memberDao.cookieLogin(sqlSession, savedUserId);
+	}
+	
+	@Override
 	public int idCheck(String checkId) {
 		return memberDao.idCheck(sqlSession, checkId);
+	}
+	
+	@Override
+	public int nicknameCheck(String checkNickname) {
+		return memberDao.nicknameCheck(sqlSession, checkNickname);
+	}
+	
+	@Override
+	public int emailCheck(String checkEmail) {
+		return memberDao.emailCheck(sqlSession, checkEmail);
 	}
 	
 	@Override
