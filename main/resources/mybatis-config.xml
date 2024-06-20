@@ -38,6 +38,7 @@
  		<typeAlias type="com.psvm.myPage.vo.Cart" alias="Cart"/>
  		<typeAlias type="com.psvm.myPage.vo.OrderHistory" alias="OrderHistory"/>
  		<typeAlias type="com.psvm.seller.vo.Faq" alias="Faq"/>
+ 		<typeAlias type="com.psvm.seller.dto.FaqDTO" alias="FaqDTO"/>
  	</typeAliases>
  	
  	<!-- 

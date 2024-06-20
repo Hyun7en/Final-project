@@ -4,6 +4,7 @@ package com.psvm.seller.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.seller.dto.FaqDTO;
 import com.psvm.seller.dto.ProductDTO;
@@ -86,11 +87,17 @@ public interface SellerService {
 	// 판매 상품 상세 정보
 	public ProductDTO selectSalesProduct(int pno);
 	
+	//리뷰 리스트 페이징
+	public int selectReviewListCount(int pno);
+	
 	//리뷰 가져오기
-	public List<Review> selectReviewList();
+	public List<Review> selectReviewList(PageInfo rpi,int pno);
+	
+	//문의 리스트 페이징
+	public int selectInquiryListCount(int pno);
 	
 	//문의 가져오기
-	public List<FaqDTO> selectInquiryList();
+	public List<FaqDTO> selectInquiryList(PageInfo ipi,int pno);
 	
 	//장바구니 담기
 	public int insertCart(List<Map<String, Object>> data);

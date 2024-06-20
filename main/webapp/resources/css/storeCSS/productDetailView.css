@@ -179,6 +179,7 @@ h1{
 .close{
     height: 50px;
 }
+
 /* 상품 설명 */
 
 .product-detail{
@@ -187,7 +188,8 @@ h1{
 
 .product-description-area{
     width: 100%;
-    padding: 10px;
+    padding: 20px;
+    background-color: white;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
@@ -215,11 +217,41 @@ h1{
     justify-content: space-between;
 }
 
+#review-table{
+    width: 1000px;
+    margin-bottom: 20px;
+}
+
+.buyer-img{
+    height: 25px;
+    width: 25px;
+}
+
+#review-table tr td{
+    padding: 12px 15px;
+    text-align: left;
+}
+
+#review-product-title{
+    color: #929191;
+}
 
 /* 상품 리뷰 모달 */
 
+#qna-product-name-header{
+    color: #0089FF;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
 
 /* 별점 */
+.star-rating-title{
+    font-weight: bold;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
 .star_rating {
     width: 100%; 
     box-sizing: border-box; 
@@ -227,6 +259,7 @@ h1{
     float: left;
     flex-direction: row; 
     justify-content: flex-start;
+    margin-bottom: 10px;
   }
 
   .star_rating .star {
@@ -253,6 +286,22 @@ h1{
     display: flex;
 }
 
+.inquiry-table{
+    width: 1000px;
+    margin-bottom: 20px;
+}
+
+.inquiry-table tr td{
+    padding: 12px 15px;
+    text-align: left;
+}
+
+.inquiry-table tr span{
+    color: #929191;
+    margin-left: 10px;
+    
+}
+
 /* 상품 문의 모달 */
 
 
@@ -274,7 +323,7 @@ h1{
     color: #333;
 }
 
-.seller-info div th, td {
+.seller-info div th, .seller-info div td {
     padding: 12px 15px;
     text-align: left;
 }
@@ -313,6 +362,5 @@ h1{
 
 .bottom-product-buy-area{
     width: 30%;
-    height: 500px;
     border: 1px solid black;
 }

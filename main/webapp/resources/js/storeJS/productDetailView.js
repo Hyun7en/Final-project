@@ -123,5 +123,200 @@ function productDetail(userNo){
         $(this).parent().children('span').removeClass('on');
         $(this).addClass('on').prevAll('span').addClass('on');
       })
-     
+
+    // 별점 등록(이미지로 바꾸기)
+
+    getReviewList(1, pno);
+    getInquiryList(1,pno);
 }
+
+      //리뷰 불러오기
+      function getReviewList(cpage,pno){
+        console.log("ajax실행");
+        $.ajax({
+            url: 'getReviewList.ax',
+            method: 'GET',
+            data: {
+                cpage: cpage,
+                pno: pno
+            },
+            success: function(data){
+                console.log("리뷰 불러오기 성공" + data.reviewList[0].nickName);
+                drawReviewList(data);
+
+            },
+            error: function(){
+                console.log("리뷰 불러오기 실패");
+
+
+            }
+        })
+      }
+
+      function drawReviewList(data) {
+        const rDiv = document.getElementById("review-container");
+        rDiv.innerText = "";
+        
+        let str = "";
+    
+        for( const review of data.reviewList) {
+            str += `
+                <table id="review-table">
+                    <tr>
+                        ${review.changeName ? `
+                            <td colspan="2">
+                                <img class="buyer-img" src="${review.changeName}" alt="">
+                                ${review.nickName}
+                            </td>
+                        ` : `
+                            <td colspan="2">
+                                <img class="buyer-img" src="" alt="">
+                                ${review.nickName}
+                            </td>
+                        `}
+                    </tr>
+                    <tr>
+                        <td width="100px">${review.reviewDibs}</td>
+                        <td>${review.reviewDate}</td>
+                    </tr>
+                    <tr>
+                        <td id="review-product-title" colspan="2">| ${review.pdTitle}</td>
+                    </tr>
+                    ${review.reChangeName ? `
+                        <tr>
+                            <td colspan="2"><img src="${review.reChangeName}" alt=""></td>
+                        </tr>
+                    ` : ''}
+                    <tr>
+                        <td colspan="2">${review.reviewContents}</td>
+                    </tr>
+                </table>
+
+                <hr>
+                    
+                
+            `;
+
+        };
+        console.log(str);
+
+        rDiv.innerHTML = str;
+        
+
+        let pagi = document.getElementsByClassName("pagination")[0]; // 첫 번째 요소 선택
+    
+        let pagingStr = "";
+        
+        if (data.ipi.currentPage != 1) {
+            pagingStr += `<li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="getReviewList(${data.ipi.currentPage - 1}, '${data.reviewList[0].pdNo}');">&laquo;</a></li>`;
+        } else {
+            pagingStr += `<li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>`;
+        }
+
+        for (let p = data.ipi.startPage; p <= data.ipi.endPage; p++) {
+            pagingStr += `<li class="page-item ${p == data.ipi.currentPage ? 'active' : ''}"><a class="page-link" href="javascript:void(0);" onclick="getReviewList(${p}, '${data.reviewList[0].pdNo}')">${p}</a></li>`;
+        }
+        
+        if (data.ipi.currentPage != data.ipi.maxPage) {
+            pagingStr += `<li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="getReviewList(${data.ipi.currentPage + 1}, '${data.reviewList[0].pdNo}')">&raquo;</a></li>`;
+        } else {
+            pagingStr += `<li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>`;
+        }
+
+        pagi.innerHTML = pagingStr;
+    }
+
+    
+    
+
+      //문의 불러오기
+      
+      function getInquiryList(cpage,pno){
+
+        $.ajax({
+            url: 'getInquiryList.ax',
+            method: 'GET',
+            data: { 
+                    cpage:cpage,
+                    pno:pno
+                  },
+            success: function(data){
+                console.log("문의 불러오기 성공");
+                drawInquiryList(data);
+
+
+            },
+            error: function(){
+                console.log("문의 불러오기 실패");
+
+                
+            }
+
+        })
+
+      }
+
+      function drawInquiryList(data) {
+        const rDiv = document.getElementById("inquiry-container");
+        rDiv.innerText = "";
+        
+        let str = "";
+    
+        for( const inquiry of data.inquiryList) {
+            str += `
+                <table class="inquiry-table">
+                    <tr>
+                        <td>
+                            문의자명
+                            <span>${inquiry.inquiryDate}</span>
+                        </td>
+                        
+                    </tr>
+                    <tr>
+                        <td >
+                            <span style="font-weight: bolder; color: #0089FF;">Q</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td >
+                            <span style="font-weight: bolder; color: #0089FF;">A</span>
+                        </td>
+                    </tr>
+                </table>
+
+                <hr>
+                    
+                
+            `;
+
+        };
+        console.log(str);
+
+        rDiv.innerHTML = str;
+        
+
+        let pagi = document.getElementsByClassName("pagination")[1]; // 두 번째 요소 선택
+    
+        let pagingStr = "";
+
+        
+        if (data.ipi.currentPage != 1) {
+            pagingStr += `<li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="getinquiryList(${data.ipi.currentPage - 1}, '${data.inquiryList[0].pdNo}');">&laquo;</a></li>`;
+        } else {
+            pagingStr += `<li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>`;
+        }
+
+        for (let p = data.ippi.startPage; p <= data.ipi.endPage; p++) {
+            pagingStr += `<li class="page-item ${p == data.ipi.currentPage ? 'active' : ''}"><a class="page-link" href="javascript:void(0);" onclick="getinquiryList(${p}, '${data.inquiryList[0].pdNo}')">${p}</a></li>`;
+        }
+        
+        if (data.ipi.currentPage != data.ipi.maxPage) {
+            pagingStr += `<li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="getinquiryList(${data.ipi.currentPage + 1}, '${data.inquiryList[0].pdNo}')">&raquo;</a></li>`;
+        } else {
+            pagingStr += `<li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>`;
+        }
+
+        pagi.innerHTML = pagingStr;
+    }
+     
+

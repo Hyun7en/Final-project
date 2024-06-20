@@ -15,8 +15,11 @@ import lombok.ToString;
 @ToString
 public class Review {
 	private int replyNo;
+	private String nickName;
 	private int userNo;
 	private int pdNo;
+	private String pdTitle;
+	private String changeName;
 	private Date reviewDate;
 	private int reviewDibs;
 	private String reviewContents;

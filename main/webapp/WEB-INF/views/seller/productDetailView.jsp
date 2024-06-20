@@ -180,32 +180,14 @@
                             </div>
 
                             <div>
-                            <!-- 반복 구문 시작 -->
                              <c:choose >
 
                                 <c:when test="${not empty reviewList}">
-                                    <table>
-                                        <c:forEach var="review" items="${reviewList}">
-                                            <tr>
-                                                <td><img src="" alt=""></td>
-                                                <td>이름</td>
-                                                <td>별점</td>
-                                                <td>${review.reviewDate}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>상품명</td>
-                                                <td>옵션명</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="" alt=""></td>
-                                            </tr>
-                                            <tr>
-                                                <td>리뷰 내용</td>
-                                            </tr>
-                                        </c:forEach>
-                                    </table>
+                                    <div id="review-container">
 
-                                    <hr>
+                                        
+                                    
+                                    </div>    
                                 </c:when>
 
                                 <c:otherwise>
@@ -218,7 +200,6 @@
                                     <hr>
                                 </c:otherwise>
                             </c:choose>
-                            <!-- 반복 구문 끝 -->
                             </div>
 
                         </div>
@@ -231,20 +212,20 @@
                                         <li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
                                     </c:when>
                                     <c:otherwise>
-                                        <li class="page-item"><a class="page-link" href="?cpage=${pi.currentPage - 1}">&laquo;</a></li>
+                                        <li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="getReviewList(`${rpi.currentPage - 1}`,`${spd.pdNo}`)">&laquo;</a></li>
                                     </c:otherwise>
                             </c:choose>
 
-                        <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-                            <li class="page-item ${p == pi.currentPage ? 'active' : ''}"><a class="page-link" href="?cpage=${p}">${p}</a></li>
+                        <c:forEach var="p" begin="${ rpi.startPage }" end="${ rpi.endPage }">
+                            <li class="page-item ${p == rpi.currentPage ? 'active' : ''}"><a class="page-link" href="javascript:void(0);" onclick="getReviewList(`${p}`,`${spd.pdNo}`)">${p}</a></li>
                         </c:forEach>
                             
                         <c:choose>
-                                <c:when test="${ pi.currentPage eq pi.maxPage }">
+                                <c:when test="${ rpi.currentPage eq rpi.maxPage }">
                                     <li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
                                 </c:when>
                                 <c:otherwise>
-                                    <li class="page-item"><a class="page-link" href="?cpage=${pi.currentPage + 1}">&raquo;</a></li>
+                                    <li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="getReviewList(`${rpi.currentPage + 1}`,`${spd.pdNo}`)">&raquo;</a></li>
                                 </c:otherwise>
                             </c:choose>
                             </ul>
@@ -268,15 +249,12 @@
                                 <form id="modal-qna-content" action="" enctype="multipart/form-data" method="post">
                                     <input type="hidden" name="writerNo" value=>
                                     <input type="hidden" name="refProductNo" value=>
-                                    <div id="product-name-container">
-                                        <div id="qna-product-name-header">
-                                            상품명
-                                        </div>
-                                        <select name="refPdoptNo" id="qna-product-name">
-                                        </select>
+                                    <div id="qna-product-name-header">
+                                        ${spd.pdTitle}
                                     </div>
 
                                     <!-- 별점 -->
+                                     <span class="star-rating-title">별점평가</span>
                                     <div class ="star_rating">
                                         <span class="star on" value="1"> </span>
                                         <span class="star" value="2"> </span>
@@ -351,28 +329,10 @@
                             <!--  반복문 시작 -->
                                 <c:choose>
 
-                                    <c:when test="not empty inquiryList">                                   
-                                        <table>
-                                            <tr>
-                                                <td>
-                                                    문의자명
-                                                </td>
-                                                <td>
-                                                    문의날짜
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="font-weight: bolder; color: #0089FF;">
-                                                    Q
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="font-weight: bolder; color: #0089FF;">
-                                                    A
-                                                </td>
-                                            </tr>
-                                        </table>
-                                        <hr>
+                                    <c:when test="${not empty inquiryList}"> 
+                                        <div id="inquiry-container">
+
+                                        </div>
                                     </c:when>
 
                                 <c:otherwise>
@@ -392,24 +352,24 @@
                             <div id="pagination-div">
                                 <ul class="pagination">
                                     <c:choose>
-                                        <c:when test="${ pi.currentPage eq 1 }">
+                                        <c:when test="${ ipi.currentPage eq 1 }">
                                             <li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
                                         </c:when>
                                         <c:otherwise>
-                                            <li class="page-item"><a class="page-link" href="?cpage=${pi.currentPage - 1}">&laquo;</a></li>
+                                            <li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="getInquiryList(`${ipi.currentPage - 1}`,`${spd.pdNo}`)">&laquo;</a></li>
                                         </c:otherwise>
                                 </c:choose>
 
-                            <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-                                <li class="page-item ${p == pi.currentPage ? 'active' : ''}"><a class="page-link" href="?cpage=${p}">${p}</a></li>
+                            <c:forEach var="p" begin="${ ipi.startPage }" end="${ ipi.endPage }">
+                                <li class="page-item ${p == ipi.currentPage ? 'active' : ''}"><a class="page-link" href="javascript:void(0);" onclick="getInquiryList(`${p}`,`${spd.pdNo}`)">${p}</a></li>
                             </c:forEach>
                                 
                             <c:choose>
-                                    <c:when test="${ pi.currentPage eq pi.maxPage }">
+                                    <c:when test="${ ipi.currentPage eq ipi.maxPage }">
                                         <li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
                                     </c:when>
                                     <c:otherwise>
-                                        <li class="page-item"><a class="page-link" href="?cpage=${pi.currentPage + 1}">&raquo;</a></li>
+                                        <li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="getInquiryList(`${ipi.currentPage + 1}`,`${spd.pdNo}`)">&raquo;</a></li>
                                     </c:otherwise>
                                 </c:choose>
                                 </ul>
@@ -437,7 +397,7 @@
                                     <input type="hidden" name="refProductNo" value=>
                                     <div id="product-name-container">
                                         <div id="qna-product-name-header">
-                                            상품명
+                                            ${spd.pdTitle}
                                         </div>
                                         <select name="refPdoptNo" id="qna-product-name">
                                         </select>

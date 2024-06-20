@@ -60,8 +60,11 @@
 	
 	<resultMap type="Review" id="ReviewResult">
 		<result column="REPLY_NO" property="replyNo"/>
+		<result column="NICKNAME" property="nickName"/>
 		<result column="USER_NO" property="userNo"/>
 		<result column="P_NO" property="pdNo"/>
+		<result column="P_TITLE" property="pdTitle"/>
+		<result column="CHANGE_NAME" property="changeName"/>
 		<result column="REVIEW_DATE" property="reviewDate"/>
 		<result column="REVIEW_DIBS" property="reviewDibs"/>
 		<result column="REVIEW_CONTENTS" property="reviewContents"/>
@@ -77,6 +80,19 @@
 		<result column="INQUIRY_DATE" property="inquiryDate"/>
 		<result column="P_NO" property="pdNo"/>
 		<result column="INQUIRY_STATUS" property="inquiryStatus"/>
+	</resultMap>
+	
+	<resultMap type="FaqDTO" id="FaqDTOResult">
+		<result column="FAQ_NO" property="faqNo"/>
+		<result column="USER_NO" property="userNo"/>
+		<result column="INQUIRY_TITLE" property="inquiryTitle"/>
+		<result column="INQUIRY_CONTENTS" property="inquiryContents"/>
+		<result column="INQUIRY_DATE" property="inquiryDate"/>
+		<result column="P_NO" property="pdNo"/>
+		<result column="INQUIRY_STATUS" property="inquiryStatus"/>
+		<result column="ANSWER_NO" property="answerNo"/>
+		<result column="ANSWER_DATE" property="answerDate"/>
+		<result column="ANSWER_CONTENTS" property="answerContents"/>
 	</resultMap>
 	
 	<resultMap type="StoreMainDTO" id="StoreMainDTOResult">
@@ -368,6 +384,18 @@
 		 WHERE P_NO = #{pno} 
 	</update>
 	
+	<!-- 판매자 탈퇴 -->
+	<update id="updateMemberAuthority">
+		UPDATE MEMBER
+		   SET AUTHORITY = 0
+		   WHERE USER_NO = #{userNo}
+	</update>
+	
+	<delete id="deleteSellerinfo">
+		DELETE FROM SELLER_INFO
+		 WHERE USER_NO = #{userNo}	
+	</delete>
+	
 	<!-- ##################################### 스토어 메인  ##################################### -->
 	
 	<select id="selectPopularList" resultMap="StoreMainDTOResult">
@@ -434,14 +462,54 @@
 		          P_PRICE, P_CONTENT, P_CHANGE_NAME
 	</select>
 	
-	<!-- 리뷰 가져오기 -->
-	<select id="selectReviewList" resultMap="ReviewResult">
-		SELECT *
-		FROM REVIEW
+	<!-- 리뷰 리스트 페이징 -->
+	<select id="selectReviewListCount" resultType="_int">
+		SELECT COUNT(*)
+		  FROM REVIEW
+		 WHERE P_NO = #{pno}
 	</select>
 	
+	<!-- 리뷰 가져오기 -->
+	<select id="selectReviewList" resultMap="ReviewResult">
+	    SELECT
+	        MEMBER.nickName,
+	        REVIEW.review_dibs,
+	        REVIEW.review_date,
+	        PRODUCT.p_title,
+	        REVIEW.review_contents,
+	        p_no
+	        <if test="change_name != null and re_change_name == null">
+	             ,change_name
+	        </if>
+	        <if test="change_name == null and re_change_name != null">
+	            ,REVIEW.re_change_name
+	        </if>
+	        <if test="change_name != null and re_change_name != null">
+	            , REVIEW.re_change_name,change_name
+	        </if>
+	    FROM REVIEW
+	    JOIN MEMBER USING (USER_NO)
+	    JOIN PRODUCT USING (P_NO)
+	    LEFT JOIN MEMBER_ATTACHMENT ON (USER_NO = REF_MNO)
+	    WHERE P_NO = #{pno}
+	</select>
+
+	<!-- 문의 리스트 페이징  -->
+    <select id="selectInquiryListCount" resultType="_int">
+		SELECT COUNT(*)
+		  FROM FAQ
+		 WHERE P_NO = #{pno}
+	</select>	
 	
 	<!-- 문의 가져오기 -->
+	<select id="selectInquiryList" resultMap="FaqDTOResult">
+	 SELECT *
+	   FROM FAQ
+	   LEFT JOIN FAQ_ANSWER USING(FAQ_NO)
+	  WHERE P_NO = #{PNO}
+	</select>
+	
+
 	
 	<!-- 장바구니 담기 -->
 	 <insert id="insertCart" parameterType="list">
