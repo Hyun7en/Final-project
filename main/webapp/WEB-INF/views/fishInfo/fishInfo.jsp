@@ -43,18 +43,22 @@
                
                <div class="fish-atag">
                
-                    <ul class="menu align-center expanded text-center SMN_effect-45">
-                      <li><a href="javascript:void(0);" onclick="contentsFunction(1,'해수어')">해수어</a></li>
-                      <li style="margin-left: 45px;"><a href="javascript:void(0);" onclick="contentsFunction(1,'담수어')">담수어</a></li>
-                      <li style="margin-left: 45px;"><a href="javascript:void(0);" onclick="contentsFunction(1,'기수어')">기수어</a></li>
-                      <li style="margin-left: 45px;"><a href="javascript:void(0);" onclick="contentsFunction(1,'열대어')">열대어</a></li>
-                    </ul>
-              
+                  <ul class="menu align-center expanded text-center SMN_effect-45">
+                     <li><a href="javascript:void(0);" onclick="menuClickHandler(1, '해수어')">해수어</a></li>
+                     <li style="margin-left: 45px;"><a href="javascript:void(0);" onclick="menuClickHandler(1, '담수어')">담수어</a></li>
+                     <li style="margin-left: 45px;"><a href="javascript:void(0);" onclick="menuClickHandler(1, '기수어')">기수어</a></li>
+                     <li style="margin-left: 45px;"><a href="javascript:void(0);" onclick="menuClickHandler(1, '열대어')">열대어</a></li>
+                 </ul>
+                 
+
                 </div>
 
                <div id="fish-sub-explain">
                   <div>
                      <p>물고기 데이터 260종</p>
+                  </div>
+                  <div id="show-fish-category">
+                     
                   </div>
                </div>
 

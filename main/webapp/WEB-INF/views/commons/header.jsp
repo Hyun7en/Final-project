@@ -21,8 +21,8 @@
                     <a href="home.ma"><p>Aquaqu</p></a>
                 </div>
                 <div id="searchBar">
-                    <form action="">                       
-                        <input type="text" id="inputArea">
+                    <form action="gotoSearchProduct.ax">                       
+                        <input type="text" id="inputArea" name="title">
                         <input type="submit" id="inputSubmit" value="">
                     </form>
                     

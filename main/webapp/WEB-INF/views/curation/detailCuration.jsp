@@ -42,7 +42,7 @@
                                 <hr class="divider">
                                 <div class="card-body-footer">
                                     
-                                    <i class="icon icon-view_count">수명 : ${fish.lifeSpan}</i>
+                                    <i class="icon icon-view_count" style="width: 100px;">수명 : ${fish.lifeSpan}</i>
                                     <i class="icon icon-comments_count">난이도 : ${fish.difficulty}</i>
                                     <i class="reg_date">크기 : ${fish.growthLength}</i>
                                 </div>
