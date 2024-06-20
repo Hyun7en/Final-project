@@ -148,31 +148,6 @@
                                     <td>${rm.joinDate}</td>
                                 </tr>
                             </c:forEach>
- 
-                            <!-- <tr>
-                                <td>홍길동</td>
-                                <td>qwqw1212</td>
-                                <td>일반회원</td>
-                                <td>qwqw1212@gmail.com</td>
-                                <td>010-1111-1111</td>
-                                <td>2024-05-13</td>
-                            </tr>
-                            <tr>
-                                <td>고길동</td>
-                                <td>qwqw1313</td>
-                                <td>일반회원</td>
-                                <td>qwqw1313@gmail.com</td>
-                                <td>010-1111-2222</td>
-                                <td>2024-05-13</td>
-                            </tr>
-                            <tr>
-                                <td>최길동</td>
-                                <td>qwqw1414</td>
-                                <td>일반회원</td>
-                                <td>qwqw1414@gmail.com</td>
-                                <td>010-1111-3333</td>
-                                <td>2024-05-13</td>
-                            </tr> -->
                         </tbody>
                     </table>
                 </div>

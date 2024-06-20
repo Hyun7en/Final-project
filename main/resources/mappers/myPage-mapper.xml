@@ -251,7 +251,7 @@
 			   p_title,
 			   p_option_name,
 			   b.buy_count,
-			   b.buy_money,
+			   p.p_price,
 			   store_name
 		FROM buy b
 		JOIN product_option po USING (p_option_no)

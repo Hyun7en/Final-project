@@ -43,7 +43,7 @@
                 <c:when test="${categoryName eq 'member'}">
                     <div id="side-list-head">회원 관리</div>
                     <div class="select" id="side-list-selected1"><a href="memberList.ma?cpage=1&categoryName=member">회원 정보관리</a></div>
-                    <div class="select" id="side-list-selected2"><a href="memberLevel.ma?cpage=1&categoryName=member">회원 레벨 관리</a></div>
+                    <!-- <div class="select" id="side-list-selected2"><a href="memberLevel.ma?cpage=1&categoryName=member">회원 레벨 관리</a></div> -->
                 </c:when>
                 <c:when test="${categoryName eq 'seller'}">
                     <div id="side-list-head">판매자 관리</div>

@@ -85,7 +85,6 @@
                                     <input type="hidden" name="originName" value="${ma.originName }">
                        			    <input type="hidden" name="changeName" value="${ma.changeName }">
                                 </c:if>
-                                
                             </div>
                             <div id="myPageInfo-profile-edit">
                                 <label id="profile-edit-btn" for="file" onclick="change_profileImage()">프로필 변경</label>

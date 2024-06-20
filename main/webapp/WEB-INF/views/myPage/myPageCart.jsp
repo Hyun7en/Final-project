@@ -70,7 +70,11 @@
                                     <td class="poNo" style="display: none;">${cp.poNo}</td>
                                     <td width="5%"><input class="checkbox" type="checkbox"></td>
                                     <td class="product-info" width="45%">
-                                        <div class="product-info-img"><img src="${cp.pdChangeName}" alt=""></div>
+                                        <div class="product-info-img">
+                                            <a href="detail.spd?pno=${cp.pdNo}">
+                                                <img src="${cp.pdChangeName}">
+                                            </a>
+                                        </div>
                                         <div class="product-info-name">
                                             <b>${cp.pdTitle}</b>
                                             <span class="product-option">옵션: ${cp.pdOptionName}</span>
