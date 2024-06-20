@@ -188,7 +188,11 @@ main{
     font-size: 14px;
     width: 90%;
     padding-left: 50px;
-    height: 140px;
+    height: 130px;
+    /* overflow: hidden;  		
+	text-overflow: ellipsis;  	
+	white-space: nowrap; 		
+	word-break:break-all; */
 }
 
 /* 3번째 컨텐츠 */

@@ -1,3 +1,4 @@
+
 main {
     margin: 0;
     overflow: hidden;
@@ -122,6 +123,8 @@ h1 {
     justify-content: space-evenly;
 }
 
+
+
 .icon {
 	display: inline-block;
 	vertical-align: middle;
@@ -149,4 +152,13 @@ h1 {
     height: 2px;
     background: #0089FF; /* 선 색상 설정 */
     opacity: 1; /* 불투명도 설정 */
+}
+
+.card-body-nickname{
+	overflow: hidden;  		
+	text-overflow: ellipsis;  	
+	white-space: nowrap; 		
+	word-break:break-all;
+	width: 310px;
+	height: 20px;
 }

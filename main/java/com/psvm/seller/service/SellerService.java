@@ -78,6 +78,9 @@ public interface SellerService {
 	// 무한 스크롤로 전체 상품 가져오기
 	public List<StoreMainDTO> selectAllProduct(int page, int size);
 	
+	//카테고리 제품 검색
+	public List<StoreMainDTO> selectSearchProduct(int page, int size, String title);
+	
 	//############################################## 판매상품 상세 페이지 #######################################################
 	
 	// 판매 상품 상세 정보
@@ -97,7 +100,6 @@ public interface SellerService {
 	
 	//문의 쓰기
 	public int insertInquiry();
-	
 	
 	//############################################## 구매 페이지 ############################################################
 	

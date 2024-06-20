@@ -259,6 +259,13 @@ public class SellerServiceImpl implements SellerService {
 		
 		return sellerDao.selectAllProduct(sqlSession, page, size);
 	}
+	
+	// 카테고리 제품 검색
+		@Override
+		public List<StoreMainDTO> selectSearchProduct(int page, int size, String title) {
+			
+			return sellerDao.selectSearchProduct(sqlSession, page, size, title);
+		}
 
 	//############################################## 판매상품 상세 페이지 #######################################################
 	

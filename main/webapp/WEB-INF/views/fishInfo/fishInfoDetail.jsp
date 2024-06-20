@@ -116,49 +116,10 @@
             <section id="go-store">
                 <div id="go-store-info">
                     <p>해당 물고기를 키우는데 필요한 것이 있으신가요?</p>
-                    <a href="storeMain.ma">스토어 추천 바로가기</a>
                 </div>
 
                 <div class="store-product">
-                    <a href="#">
-                        <div class="product-info">
-                            <img src="${pageContext.request.contextPath}/resources/image/suzo.png" alt="">
-                            <p>프리미엄 수조</p>
-                            <p>36,000 원</p>
-                        </div>
-                    </a>
 
-                    <a href="#">
-                        <div class="product-info">
-                            <img src="${pageContext.request.contextPath}/resources/image/suzo.png" alt="">
-                            <p>프리미엄 수조</p>
-                            <p>36,000 원</p>
-                        </div>
-                    </a>
-
-                    <a href="#">
-                        <div class="product-info">
-                            <img src="${pageContext.request.contextPath}/resources/image/suzo.png" alt="">
-                            <p>프리미엄 수조</p>
-                            <p>36,000 원</p>
-                        </div>
-                    </a>
-
-                    <a href="#">
-                        <div class="product-info">
-                            <img src="${pageContext.request.contextPath}/resources/image/suzo.png" alt="">
-                            <p>프리미엄 수조</p>
-                            <p>36,000 원</p>
-                        </div>
-                    </a>
-
-                    <a href="#">
-                        <div class="product-info">
-                            <img src="${pageContext.request.contextPath}/resources/image/suzo.png" alt="">
-                            <p>프리미엄 수조</p>
-                            <p>36,000 원</p>
-                        </div>
-                    </a>
                 </div>
                 
             </section>
