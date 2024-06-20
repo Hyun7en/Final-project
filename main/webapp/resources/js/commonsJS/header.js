@@ -110,7 +110,7 @@ function notification(userNo) {
               }, 10 * 1000);
 
 
-              // 클릭 시 이벤트는 딱히 생각한게 없어서 보류
+              // 클릭 시 알람보낸 스토어페이지로 이동
               notification.addEventListener('click', () => {
                   window.open(data, '_blank');
               });
