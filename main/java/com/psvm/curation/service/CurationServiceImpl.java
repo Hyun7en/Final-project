@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.psvm.curation.dao.CurationDao;
 import com.psvm.curation.vo.Curation;
 import com.psvm.fishInfo.vo.Fish;
+import com.psvm.seller.vo.Product;
 
 @Service
 public class CurationServiceImpl implements CurationService{
@@ -75,6 +76,10 @@ public class CurationServiceImpl implements CurationService{
 		int random = (int)(Math.random()*fishes.size());
 
 		return fishes.get(random);
+	}
+	
+	public ArrayList<Product> getFishProductList() {
+		return curationDao.getFishProductList(sqlSession);
 	}
 	
 

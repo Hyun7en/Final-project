@@ -116,7 +116,6 @@ function anotherFish(data){
     let Section = document.querySelector("#store-another-fish");
     for(const b of data){
         const url = path + `/resources/image/${b.url}` //빽팁을 써야 스크립트에서는 변수라고 알아먹는다.
-        console.log(url);
 
     str += `
                 <a href="fishDetail.fi?fishName=${b.fishName}">
@@ -170,6 +169,42 @@ function drawYoutubeList(url1, url2){
             `;
 
     section.innerHTML = str;
+}
+
+function getFishProduct(){
+    $.ajax({
+        url : 'getFishProductList.cu',
+        type:"post",
+        dataType : 'Json',
+        success : function(data){
+            drawFishProduct(data)
+            console.log("ajax성공")
+        }, error : function(){
+            console.log("ajax실패")
+        }
+    })
+}
+
+function drawFishProduct(data){
+    const pDiv = document.querySelector(".store-product");
+    let str = "";
+    
+    for(const b of data){
+        const url = path + `/${b.pdChangeName}`
+
+        str +=
+        `
+        <a href="detail.spd?pno=${b.pdNo}">
+            <div class="product-info">
+                <img src="${url}" alt="">
+                    <p>${b.pdTitle}</p>
+                <p>${b.pdPrice} 원</p>
+            </div>
+        </a>
+        `;
+
+    }
+    pDiv.innerHTML = str;
 }
 
 

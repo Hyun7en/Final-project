@@ -105,11 +105,11 @@ a:hover, a:focus {
     box-shadow: 0px 8px 6px -6px #666;
 }
 
-.SMN_effect-45 a:hover, .SMN_effect-45 a:focus, .SMN_effect-45 a:active {
+.SMN_effect-45 a:hover{
     color: white;
 }
 
-.SMN_effect-45 a:hover:before, .SMN_effect-45 a:focus:before, .SMN_effect-45 a:active:before {
+.SMN_effect-45 a:hover:before{
     width: 150px;
     height: 50px;
 }
@@ -118,7 +118,6 @@ a:hover, a:focus {
     width: 100%;
     height: 21px;
     display: flex;
-    justify-content: space-between;
     font-size: 18px;
     font-weight: 600;
 }
@@ -206,4 +205,18 @@ a:hover, a:focus {
 .pagination > li > a:hover:not(.active) {
     background-color: #ddd;  /* 활성화되지 않은 버튼에 마우스를 올렸을 때 배경색 */
     border-radius: 5px;      /* 테두리 둥글게 */
+}
+
+#show-fish-category{
+    font-size: 13px;
+    height: 21px;
+    margin-left: 20px;
+    
+}
+
+#show-fish-category p{
+    text-align: center;
+    height: 21px;
+    margin-top: 3px;
+    
 }

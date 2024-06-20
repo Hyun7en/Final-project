@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -111,6 +112,21 @@ public class FishInfoController {
 		return new Gson().toJson(map);
 	}
 	
+	@ResponseBody
+	@PostMapping(value ="getList.fi")
+	public String getFishList() {
+		int cpage= 1;
+		int boardCount = fishService.selectListCount();
+		
+		PageInfo pi = Pagination.getPageInfo(boardCount, cpage, 10, 15);
+		ArrayList<Fish> list = fishService.selectList(pi);
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("pi", pi);
+		map.put("list",list);
+		
+		return new Gson().toJson(map);
+	}
 
 	
 	
