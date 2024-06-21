@@ -1,5 +1,4 @@
 $(document).ready(function(){
-
     // 회원 정보를 보기 위해 상세보기 버튼 눌렀을 때
     $(".sellerInfo-detailView-btn").click(function(){
         var index = $(this).closest("tr").index(); // 클릭된 버튼이 있는 행의 인덱스 가져오기

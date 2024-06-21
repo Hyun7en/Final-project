@@ -37,7 +37,7 @@ public class ManagerController {
 		int deleteMemberCount = managerService.deleteMemberCount();
 		
 		// 최근 주문내역 3개 조회
-		ArrayList<Member>
+//		ArrayList<Member>
 		
 		// 최근 회원가입한 회원 3명 조회
 		ArrayList<Member> recentMemberList = managerService.recentMemberList();

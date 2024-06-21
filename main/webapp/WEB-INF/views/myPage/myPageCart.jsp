@@ -85,7 +85,7 @@
                                             
                                         </div>
                                     </td> -->
-                                    <td width="15%">${cp.buyCount}</td>
+                                    <td width="15%" class="product-count">${cp.buyCount}</td>
                                     <td width="15%" class="product-price">${cp.buyMoney}</td>
                                     <td width="20%">
                                         <div class="product-btn">

@@ -97,40 +97,40 @@
         
                                         <div class="info-input-area">
                                             <div class="info-input-title"><b>사업자등록번호</b></div>
-                                            <div><input type="text" name="businessNo" id="businessNo"></div>
+                                            <div><input type="text" name="businessNo" id="businessNo" required></div>
                                             <div><button type="button" id="businessMan-certify">사업자 인증</button></div>
                                         </div>
                                         <div class="info-input-area">
                                             <div class="info-input-title"><b>대표자 성명</b></div>
-                                            <div><input type="text" name="businessName"></div>
+                                            <div><input type="text" name="businessName" required></div>
                                         </div>
                                         <div class="info-input-area">
                                             <div class="info-input-title"><b>대표자 성명2</b></div>
-                                            <div><input type="text" name="subBusinessName"></div>
+                                            <div><input type="text" name="subBusinessName" required></div>
                                         </div>
                                         <div class="info-input-area">
                                             <div class="info-input-title"><b>개업일자</b></div>
-                                            <div><input type="date" name="openBusinessDate"></div>
+                                            <div><input type="date" name="openBusinessDate" required></div>
                                         </div>
                                         <div class="info-input-area">
                                             <div class="info-input-title"><b>상호</b></div>
-                                            <div><input type="text" name="storeName"></div>
+                                            <div><input type="text" name="storeName" required></div>
                                         </div>
                                         <div class="info-input-area">
                                             <div class="info-input-title"><b>법인등록번호</b></div>
-                                            <div><input type="text" name="crn"></div>
+                                            <div><input type="text" name="crn" required></div>
                                         </div>
                                         <div class="info-input-area">
                                             <div class="info-input-title"><b>주 업태명</b></div>
-                                            <div><input type="text" name="mainBusinessName"></div>
+                                            <div><input type="text" name="mainBusinessName" required></div>
                                         </div>
                                         <div class="info-input-area">
                                             <div class="info-input-title"><b>주 종목명</b></div>
-                                            <div><input type="text" name="mainItemName"></div>
+                                            <div><input type="text" name="mainItemName" required></div>
                                         </div>
                                         <div class="info-input-area">
                                             <div class="info-input-title"><b>사업장 주소</b></div>
-                                            <div><input type="text" name="businessAddress"></div>
+                                            <div><input type="text" name="businessAddress" required></div>
                                         </div>
                                         <div class="info-input-area" id="deposit-account-area">
                                             <div class="info-input-title" ><b>정산대금 <br> 입금계좌</b></div>
@@ -145,7 +145,7 @@
                                                 </div> -->
                                                 <div>
                                                     <!-- <input type="text" name="" placeholder="예금주명"> -->
-                                                    <input type="text" name="businessAccount" placeholder="계좌번호(-없이 입력)">
+                                                    <input type="text" name="businessAccount" placeholder="계좌번호(-없이 입력)" required>
                                                 </div>
                                             </div>
                                         </div>

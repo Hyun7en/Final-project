@@ -1,5 +1,4 @@
 $(document).ready(function(){
-
     // 판매자 신규신청을 승인하기 위해 승인 버튼 눌렀을 때
     $(".application-approve-btn").click(function(){
         var index = $(this).closest("tr").index(); // 클릭된 버튼이 있는 행의 인덱스 가져오기

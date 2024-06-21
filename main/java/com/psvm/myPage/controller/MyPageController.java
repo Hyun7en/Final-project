@@ -62,9 +62,7 @@ public class MyPageController {
 	@RequestMapping("modifyInfo.my")
 	public ModelAndView modifyInfo(HttpSession session, Member m, MemberAttachment ma,
 			MultipartFile file, ModelAndView mv) {
-//		System.out.println(ma);
-		System.out.println(file);
-		System.out.println(file.getOriginalFilename());
+
 		int result1 = 0;
 		int result2 = 0;
 		int userNo = m.getUserNo();
@@ -79,7 +77,6 @@ public class MyPageController {
 
 				// 파일명 변경하는 메소드로 보내고 값 받아오기
 				String changeName = saveFile(file, session);
-				System.out.println(changeName);
 				
 				// 선택한 파일명 ma객체의 originName에 덮어쓰기
 				ma.setOriginName(file.getOriginalFilename());
@@ -306,7 +303,6 @@ public class MyPageController {
 		
 		// 주문내역 조회
 		ArrayList<OrderHistory> orderHistoryList = myPageService.orderHistoryList(userNo, pi);
-		System.out.println(orderHistoryList);
 		
 		model.addAttribute("orderHistoryListCount", orderHistoryListCount);
 		model.addAttribute("orderHistoryList", orderHistoryList);
@@ -392,17 +388,5 @@ public class MyPageController {
 
 		return mv;
 	}
-
-//	public String selctListView(@RequestParam(value="cpag", defaultValue="1") int currentPage, Model model){
-//		int boardCount = myPageService.selectListCount();
-//		
-//		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 5);
-//		ArrayList<Board> list = boardService.selectList(pi);
-//		
-//		model.addAllAttributes("list", list);
-//		model.addAllAttributes("pi", pi);
-//		
-//		return "myPage/myPagePost";
-//	}
 
 }

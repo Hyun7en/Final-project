@@ -96,13 +96,13 @@
                                     <li>${i.storeName}</li>
                                 </ul>
                             </div>
-                            <form action="">
-                                <div id="interest-product-button-area">
-                                    <div class="interest-product-button"><a href="detail.spd?pno=${i.prNo}">구매하기</a></div>
-                                    <div class="interest-product-button"><a href="sellersStore.st?sellerPageNo=${i.sellerPageNo}&order=1&cpage=1">판매자의 다른 상품 보기</a></div>
-                                    <div class="interest-product-button"><a href="interestCancle.my?userNo=${loginUser.userNo}&prNo=${i.prNo}">관심상품 취소</a></div>
-                                </div>
-                            </form>
+
+                            <div id="interest-product-button-area">
+                                <div class="interest-product-button"><a href="detail.spd?pno=${i.prNo}">구매하기</a></div>
+                                <div class="interest-product-button"><a href="sellersStore.st?sellerPageNo=${i.sellerPageNo}&order=1&cpage=1">판매자의 다른 상품 보기</a></div>
+                                <div class="interest-product-button"><a href="interestCancle.my?userNo=${loginUser.userNo}&prNo=${i.prNo}">관심상품 취소</a></div>
+                            </div>
+
                         </div>
                     </c:forEach>
 
@@ -133,7 +133,7 @@
                         </ul>
                     </div>
 
-                    <div id="similar-products-area">
+                    <!-- <div id="similar-products-area">
                         <div id="similar-products-title">
                             <h3>관심상품과 비슷한 상품</h3>
                         </div>
@@ -143,7 +143,7 @@
                                     <a href=""><img src="https://m.healingaqua.co.kr/web/product/big/202307/8c3f0b4a50ce3f27f7d21a0cc005d599.jpg" alt=""></a>
                                 </div>
                                 <div class="similar-products-info" >
-                                    <b>아프리칸파이크</b> <!-- AI 알고리즘 이용? -->
+                                    <b>아프리칸파이크</b> 
                                     <p>50,000원</p>
                                 </div>
                             </div>
@@ -152,7 +152,7 @@
                                     <a href=""><img src="https://m.healingaqua.co.kr/web/product/big/202307/8c3f0b4a50ce3f27f7d21a0cc005d599.jpg" alt=""></a>
                                 </div>
                                 <div class="similar-products-info" >
-                                    <b>아프리칸파이크</b> <!-- AI 알고리즘 이용? -->
+                                    <b>아프리칸파이크</b> 
                                     <p>50,000원</p>
                                 </div>
                             </div>
@@ -161,12 +161,13 @@
                                     <a href=""><img src="https://m.healingaqua.co.kr/web/product/big/202307/8c3f0b4a50ce3f27f7d21a0cc005d599.jpg" alt=""></a>
                                 </div>
                                 <div class="similar-products-info">
-                                    <b>아프리칸파이크</b> <!-- AI 알고리즘 이용? -->
+                                    <b>아프리칸파이크</b> 
                                     <p>50,000원</p>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
+                    
                 </div>
             </div>
         </main>          

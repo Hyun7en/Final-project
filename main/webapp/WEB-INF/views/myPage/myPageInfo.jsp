@@ -116,10 +116,13 @@
                                     <th>닉네임</th>
                                     <td>
                                         <!-- button 태그에 type="button"을 안쓰면 버튼을 눌렀을때 페이지가 새로고침이 되서 써야한다.-->
-                                        <input type="text" id="nickname" name="nickname" readonly value="${loginUser.nickname}">
-                                        <button type="button" class="change-btn" id="nickname-btn" onclick="change_nickname(this)">변경</button>
+                                        <input type="text" id="nickname" name="nickname" readonly placeholder="${loginUser.nickname}">
+                                        <button type="button" class="change-btn" id="nickname-btn" onclick="change_nickname()">변경</button>
+                                        <button type="button" class="change-btn" id="nickname-btn-cancel" style="display: none;" onclick="cancel_btn(this)">취소</button>
                                     </td>
                                 </tr>
+                                <!-- <span class="required-input" style="display: none; color: red">* 닉네임을 입력하셔야 합니다.</span> -->
+
                                 <tr>
                                     <th>한줄소개</th>
                                     <td>
@@ -127,6 +130,7 @@
                                         <button type="button" class="change-btn" id="userIntro-btn" onclick="change_userIntro()">변경</button>
                                     </td>
                                 </tr>
+
                                 <tr>
                                     <th>성별</th>
                                     <td id="gender-area">
@@ -168,7 +172,6 @@
 
                             <div id="myPageInfo-modify-delete-button-area">
                                 <button type="submit" id="modify-btn" disabled style="background-color: #eee;">정보수정</button>
-                                <!-- 초기화 버튼을 만들지 말지 -->
                                 <button type="button" onclick="delete_member_modal()">회원탙퇴</button>
                             </div>
                         </div>

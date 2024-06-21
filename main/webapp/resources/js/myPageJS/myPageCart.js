@@ -1,37 +1,50 @@
 $(document).ready(function(){   // 페이지가 다 로드된 후에 실행할 함수
-    calculateTotalOrder();
     productPriceCommas();
+    calculateTotalOrder();
 });
 
+// 상품가격 (수량에 맞게 계산 and 3자리마다 콤마 붙여주는 함수)
 function productPriceCommas(){
-    const allProductPrice = document.querySelectorAll(".product-price");  // class가 "product-price"인 요소(상품가격) 전부 가져옴
-    allProductPrice.forEach(function(productPrice) {                      // 가져온 요소 반복문 실행
-        const p = parseInt($(productPrice).text());                       // 각 요소안에 text를 가져와서 int형으로 변환
-        const formattedProductPrice = numberWithCommas(p);                // 숫자 3자리마다 콤마(,) 붙여줌
-        $(productPrice).text(formattedProductPrice + "원");                      // 변환된 값을 class가 "product-price"인 요소의 text에 대입
+    $(".product").each(function() {             // 상품리스트 반복문 실행
+        let count = parseInt($(this).find(".product-count").text());  // 해당 상품(".product")안에 상품가격(".product-count") 텍스트 추출
+        let price = parseInt($(this).find(".product-price").text());  // 해당 상품(".product")안에 상품가격(".product-price") 텍스트 추출
+
+        let totalPrice = count * price;         // 수량과 가격을 곱하여 상품가격 계산
+
+        const formattedProductPrice = numberWithCommas(totalPrice);  // 계산된 상품가격에 3자리마다 콤마 추가
+        
+        $(this).find(".product-price").text(formattedProductPrice + "원")   // 업데이트된 값을 다시 상품가격(".product") 태그안에 넣기
     })
+
+    // 상품가격과 수량을 곱하지 않고 가격만 불러온 함수
+    // const allProductPrice = document.querySelectorAll(".product-price");  // class가 "product-price"인 요소(상품가격) 전부 가져옴
+    // allProductPrice.forEach(function(productPrice) {                      // 가져온 요소 반복문 실행
+    //     const p = parseInt($(productPrice).text());                       // 각 요소안에 text를 가져와서 int형으로 변환
+    //     const formattedProductPrice = numberWithCommas(p);                // 숫자 3자리마다 콤마(,) 붙여줌
+    //     $(productPrice).text(formattedProductPrice + "원");                      // 변환된 값을 class가 "product-price"인 요소의 text에 대입
+    // })
 }
 
 // 총 주문 가격 계산 결과 함수
 function calculateTotalOrder(){
     let totalPrice = 0;            // 총 상품 가격
-    $(".product-price").each(function() {      // 상품 가격 반복 추출
+    $(".product-price").each(function() {       // 상품 가격 반복 추출
         let price = parseInt($(this).text().replace(',', '')); // 상품 가격 텍스트 추출
-        totalPrice += price;      // 상품 가격 총합 구하기
+        totalPrice += price;       // 상품 가격 총합 구하기
     });
     const formattedPrice = numberWithCommas(totalPrice);        // 총 상품 가격에 3자리마다 콤마 추가
-    $("#product-list-total-price span").text(formattedPrice);            // 총 상품 가격 업데이트
+    $("#product-list-total-price span").text(formattedPrice);   // 총 상품 가격 업데이트
 
     let totalSale = 0;                          // 총 상품 할인 가격
-    $(".product-price").each(function() {      // 상품 가격 반복 추출
+    $(".product-price").each(function() {       // 상품 가격 반복 추출
         let sale = parseInt($(this).text().replace(',', '')) * 0.1; // 상품 가격 10%할인 텍스트 추출
-        totalSale += sale;      // 상품 할인 가격 총합 구하기
+        totalSale += sale;                      // 상품 할인 가격 총합 구하기
     });
-    const formattedSale = numberWithCommas(totalSale);        // 총 상품 가격 3자리마다 콤마 추가
-    $("#product-list-total-sale span").text(formattedSale);            // 총 상품 가격 업데이트
+    const formattedSale = numberWithCommas(totalSale);                  // 총 상품 가격 3자리마다 콤마 추가
+    $("#product-list-total-sale span").text(formattedSale);             // 총 상품 가격 업데이트
 
-    const totalOrderAmount = numberWithCommas(totalPrice - totalSale); // 총 주문 금액 3자리마다 콤마 추가
-    $("#product-list-total-order-amount span").text(totalOrderAmount);         // 총 주문 금액 업데이트
+    const totalOrderAmount = numberWithCommas(totalPrice - totalSale);  // 총 주문 금액 3자리마다 콤마 추가
+    $("#product-list-total-order-amount span").text(totalOrderAmount);  // 총 주문 금액 업데이트
 }
 
 // 숫자 3자리마다 콤마(,) 추가하는 함수

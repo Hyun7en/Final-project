@@ -1,5 +1,4 @@
 $(document).ready(function(){
-
     // 신고상품의 상세정보를 보기 위해 상세정보 버튼 눌렀을 때
     $(".detail-info-btn").click(function(){
         var index = $(this).closest("tr").index(); // 클릭된 버튼이 있는 행의 인덱스 가져오기

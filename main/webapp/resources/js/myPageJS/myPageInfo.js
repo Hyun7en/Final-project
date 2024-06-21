@@ -6,19 +6,43 @@ function change_profileImage(){
 function change_nickname() {
     document.getElementById("nickname").readOnly = false;
     document.getElementById("nickname").style.backgroundColor = "white";
+
+    document.getElementById("nickname").placeholder = "닉네임을 입력해주세요.";
+    document.getElementById("nickname").value = "";
+
     document.getElementById("nickname-btn").innerText = "확정";
     document.getElementById("nickname-btn").style.backgroundColor = "#96E6FF";
     document.getElementById("nickname-btn").setAttribute("onclick", "confirm_nickname()");
 }
 
 function confirm_nickname() {
+    // if(document.getElementById("nickname").value === "") {
+    //     document.querySelector(".required-input").style.display = "flex";
+    // } else{
+    //     document.querySelector(".required-input").style.display = "none";
+
+    //     document.getElementById("nickname-btn-cancel").style.display = "block";
+    //     document.getElementById("nickname-btn-cancel").style.backgroundColor = "pink";
+    
+    //     document.getElementById("modify-btn").disabled = false;
+    //     document.getElementById("modify-btn").style.backgroundColor = "#000";
+    //     document.getElementById("nickname").readOnly = true;
+    //     document.getElementById("nickname").style.backgroundColor = "#96E6FF";
+    //     document.getElementById("nickname-btn").readOnly = true;
+    //     document.getElementById("nickname-btn").innerText = "확정됨";
+    //     document.getElementById("nickname-btn").style.color = "#000";    
+    // }
+
+    document.getElementById("nickname-btn-cancel").style.display = "block";
+    document.getElementById("nickname-btn-cancel").style.backgroundColor = "pink";
+
     document.getElementById("modify-btn").disabled = false;
     document.getElementById("modify-btn").style.backgroundColor = "#000";
     document.getElementById("nickname").readOnly = true;
     document.getElementById("nickname").style.backgroundColor = "#96E6FF";
-    document.getElementById("nickname-btn").disabled = true;
+    document.getElementById("nickname-btn").readOnly = true;
     document.getElementById("nickname-btn").innerText = "확정됨";
-    document.getElementById("nickname-btn").style.color = "#000";
+    document.getElementById("nickname-btn").style.color = "#000"; 
 }
 
 function change_userIntro() {
@@ -152,6 +176,23 @@ function loadImg(imgInputFile){
     } else{
         document.getElementById("myPage-profile-img").src = null;
     }
+}
+
+// 취소 버튼 눌렀을 때
+function cancel_btn(cancelBtn){
+    if(cancelBtn.id === "nickname-btn-cancel") {
+        document.getElementById("nickname").readOnly = true;
+        document.getElementById("nickname").style.backgroundColor = "#eee";
+       
+        document.getElementById("nickname-btn").innerText = "변경";
+        document.getElementById("nickname-btn").style.backgroundColor = "white";
+        document.getElementById("nickname-btn").readOnly = false;
+        document.getElementById("nickname-btn").setAttribute("onclick", "change_nickname()");
+        document.getElementById("nickname-btn-cancel").style.display = "none"
+        document.getElementById("modify-btn").disabled = true;
+        document.getElementById("modify-btn").style.backgroundColor = "#eee";
+    }
+    
 }
 
 // 회원탈퇴 버튼 눌렀을 때 나타나는 모달창
