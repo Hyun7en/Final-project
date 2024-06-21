@@ -78,7 +78,8 @@
 
                         <c:otherwise>
                             <div id="myPage-category-select-title">
-                                <h3>판매자 전환 신청</h3>
+                                <span>판매자 전환 신청</span>
+                                <span id="reference-text" style="color: red;">* 모든값은 필수로 입력하셔야 됩니다.</span>
                             </div>
         
                             <form action="sellerConversion.my" method="POST">
@@ -90,6 +91,7 @@
                                             <div class="info-input-title"><b>사업자등록번호</b></div>
                                             <div><input type="text" name="businessNo" id="businessNo"></div>
                                             <div><button type="button" id="businessMan-certify" onclick="businessNumber()">사업자 인증</button></div>
+                                            <div><span id="check-message"></span></div>
                                         </div>
                                         <div class="info-input-area">
                                             <div class="info-input-title"><b>대표자 성명</b></div>
