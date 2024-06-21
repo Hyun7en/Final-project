@@ -24,11 +24,6 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
-	public Member cookieLogin(String savedUserId) {
-		return memberDao.cookieLogin(sqlSession, savedUserId);
-	}
-	
-	@Override
 	public int idCheck(String checkId) {
 		return memberDao.idCheck(sqlSession, checkId);
 	}
@@ -53,4 +48,18 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.kakaoLogin(sqlSession, email);
 	}
 
+	@Override
+	public Member findId(Member m) {
+		return memberDao.findId(sqlSession, m);
+	}
+	
+	@Override
+	public int findUser(Member m) {
+		return memberDao.findUser(sqlSession, m);
+	}
+	
+	@Override
+	public int changePwd(Member m) {
+		return memberDao.changePwd(sqlSession, m);
+	}
 }

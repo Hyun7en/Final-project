@@ -35,4 +35,15 @@ public class MemberDao {
 		return sqlSession.selectOne("memberMapper.kakaoLogin", email);
 	}
 	
+	public Member findId(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectOne("memberMapper.findId", m);
+	}
+	
+	public int findUser(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectOne("memberMapper.findUser", m);
+	}
+	
+	public int changePwd(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.changePwd", m);
+	}
 }
