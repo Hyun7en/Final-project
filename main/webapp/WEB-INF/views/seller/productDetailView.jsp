@@ -63,7 +63,7 @@
                 <div class="product-name-area">
                     <span class="product-name">${spd.pdTitle}</span>
                     <span class="dibs">
-                        <i class="fa-regular fa-heart"></i>
+                        
                     </span>
                 </div>
                 <div class="product-grade-area">
@@ -89,13 +89,13 @@
                             <div class="product-opts">
                                 <div class="product-opt-select">
                                     <div><span>옵션을 선택해주세요(필수)</span></div>
-                                    <select class="form-control" id="select-option" name="optionName">
+                                    <select class="select-option" name="optionName">
 
                                     </select>
                                 </div>
                             </div>
                             <!-- 선택된 옵션과 수량 입력을 위한 컨테이너 -->
-                            <div id="selected-options-container" class="selected-container">
+                            <div class="selected-options-container">
 
                             </div>
                     
@@ -123,10 +123,10 @@
                         <a class="nav-link" href="#go-product-detail" aria-label="상품정보로 이동">상품정보</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="#go-product-review" aria-label="리뷰로 이동">리뷰</a>
+                        <a class="nav-link" href="#go-product-review" aria-label="리뷰로 이동">리뷰 <span id="nav-review-count">${spd.reviewCount}</span></a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="#go-product-inquiry" aria-label="문의로 이동">문의</a>
+                        <a class="nav-link" href="#go-product-inquiry" aria-label="문의로 이동">문의 <span id="nav-inquiry-count"></span></a>
                       </li>
                       <li class="nav-item">
                         <a class="nav-link" href="#go-seller-info" aria-label="판매자 정보로 이동">판매자 정보</a>
@@ -243,55 +243,52 @@
 
                             <!-- Modal body -->
                             <div class="modal-body" >
-                                <form id="modal-qna-content" action="" enctype="multipart/form-data" method="post">
-                                    <input type="hidden" name="writerNo" value=>
-                                    <input type="hidden" name="refProductNo" value=>
+                                <form id="modal-qna-content" action="insertReview.spd" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" name="pno" value=${param.pno}>
+                                    <input type="hidden" name="userNo" value=${loginUser.userNo}>
                                     <div id="qna-product-name-header">
                                         ${spd.pdTitle}
                                     </div>
 
                                     <!-- 별점 -->
                                     <span class="star-rating-title">별점평가</span>
-                                    <div class ="star_rating">
-                                        <span class="star on" value="1"> </span>
-                                        <span class="star" value="2"> </span>
-                                        <span class="star" value="3"> </span>
-                                        <span class="star" value="4"> </span>
-                                        <span class="star" value="5"> </span>
+                                    <div id="reply-dibs" class ="star_rating">
+                                        <span class="star on" value="1" onclick="starClick(1);"> </span>
+                                        <span class="star" value="2" onclick="starClick(2);"> </span>
+                                        <span class="star" value="3" onclick="starClick(3);"> </span>
+                                        <span class="star" value="4" onclick="starClick(4);"> </span>
+                                        <span class="star" value="5" onclick="starClick(5);"> </span>
                                     </div>
+                                    
+                                    <div id="hidden-sub">
 
+                                    </div>
 
                                     <div id="product-pic-container">
                                         <div >
-                                            사진 첨부(선택)
-                                        </div>
-                                        <div >
-                                            사진을 첨부해주세요.(최대 1장)
-                                        </div>
-                                        <div id="qna-pic-container">
-
+                                            사진 첨부(선택)(최대 1장)
                                         </div>
                                         <div id="add-qna-product-pic">
-                                        
                                             <span >사진 첨부하기</span>
-                                            <input type="file" name="reOriginName" id="file-input" >
-
+                                            <input type="file" name="reOriginName" id="reOriginName" >
+                                        </div>
+                                        <div id="preview-img-container" >
+                                            <img id="preview-img" src="" alt="">
                                         </div>
                                     </div>
 
-                                    <div id="product-qna-content-container">
+                                    <div id="product-review-container">
                                         <div >
-                                            리뷰작성
-                                            <div>필수 입력 항목입니다.</div>
+                                            *리뷰작성(필수)
                                         </div>
-                                        <div id="product-qna-content-textarea">
-                                            <textarea name="qnaContent" id="product-qna-content"
-                                                placeholder="자세하고 솔직한 리뷰는 다른 고객과 스토어에게 큰 도움이 됩니다."></textarea>
+                                        <div id="product-review-textarea">
+                                            <textarea name="reviewContents" id="product-qna-content"
+                                                placeholder="자세하고 솔직한 리뷰는 다른 고객과 스토어에게 큰 도움이 됩니다." required></textarea>
                                         </div>
                                     </div>
 
-                                    <div id="product-qna-enroll-btn-container">
-                                        <button type="submit" id="product-qna-enroll-btn">리뷰 등록</button>
+                                    <div id="product-review-enroll-btn-container">
+                                        <button type="submit" id="product-review-enroll-btn" onclick="aaa();">리뷰 등록</button>
                                     </div>
                                 </form>
                             </div>
@@ -389,29 +386,32 @@
 
                             <!-- Modal body -->
                             <div class="modal-body" >
-                                <form id="modal-qna-content" action="" enctype="multipart/form-data" method="post">
-                                    <input type="hidden" name="writerNo" value=>
-                                    <input type="hidden" name="refProductNo" value=>
-                                    <div id="product-name-container">
-                                        <div id="qna-product-name-header">
-                                            ${spd.pdTitle}
-                                        </div>
-                                        <select name="refPdoptNo" id="qna-product-name">
-                                        </select>
+                                <div id="product-name-container">
+                                    <div id="inquiry-product-name">
+                                        ${spd.pdTitle}
                                     </div>
-
-                                    <div id="product-qna-content-container">
+                                </div>
+                                <form id="modal-inquiry-content" action="insertInquiry.spd" enctype="multipart/form-data" method="post">
+                                    <input type="hidden" name="pno" value=${param.pno}>
+                                    <input type="hidden" name="userNo" value=${loginUser.userNo}>
+                                    <div id="product-inquiry-content-container">
+                                        <div>
+                                            문의제목
+                                        </div>
+                                        <div>
+                                            <input type="text" name="inquiryTitle" required>
+                                        </div>
                                         <div >
-                                            문의내용
+                                            *문의내용
                                         </div>
-                                        <div id="product-qna-content-textarea">
-                                            <textarea name="qnaContent" id="product-qna-content"
-                                                placeholder="문의 내용을 입력하세요."></textarea>
+                                        <div id="product-inquiry-content-textarea">
+                                            <textarea name="inquiryContents" id="product-inquiry-content"
+                                                placeholder="문의 내용을 입력하세요." required></textarea>
                                         </div>
                                     </div>
 
-                                    <div id="product-qna-enroll-btn-container">
-                                        <button type="submit" id="product-qna-enroll-btn">완료</button>
+                                    <div id="product-inquiry-enroll-btn-container">
+                                        <button type="submit" id="product-inquiry-enroll-btn">완료</button>
                                     </div>
                                 </form>
                             </div>
@@ -491,13 +491,13 @@
                         <div class="product-opts">
                             <div class="product-opt-select">
                                 <div><span>옵션을 선택해주세요(필수)</span></div>
-                                <select class="form-control" id="select-option" name="optionName">
+                                <select class="select-option" name="optionName">
 
                                 </select>
                             </div>
                         </div>
                         <!-- 선택된 옵션과 수량 입력을 위한 컨테이너 -->
-                        <div class="selected-container">
+                        <div class="selected-options-container">
 
                         </div>
                 

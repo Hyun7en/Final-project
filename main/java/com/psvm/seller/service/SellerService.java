@@ -10,6 +10,7 @@ import com.psvm.seller.dto.FaqDTO;
 import com.psvm.seller.dto.ProductDTO;
 import com.psvm.seller.dto.StoreMainDTO;
 import com.psvm.seller.vo.Buy;
+import com.psvm.seller.vo.Faq;
 import com.psvm.seller.vo.Product;
 import com.psvm.seller.vo.ProductCategory;
 import com.psvm.seller.vo.ProductOption;
@@ -115,10 +116,10 @@ public interface SellerService {
 	public int insertCart(List<Map<String, Object>> data);
 	
 	//리뷰 쓰기
-	public int insertReview();
+	public int insertReview(Review review);
 	
 	//문의 쓰기
-	public int insertInquiry();
+	public int insertInquiry(Faq faq);
 	
 	//############################################## 구매 페이지 ############################################################
 	

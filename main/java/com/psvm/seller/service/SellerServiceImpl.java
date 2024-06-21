@@ -14,6 +14,7 @@ import com.psvm.seller.dto.FaqDTO;
 import com.psvm.seller.dto.ProductDTO;
 import com.psvm.seller.dto.StoreMainDTO;
 import com.psvm.seller.vo.Buy;
+import com.psvm.seller.vo.Faq;
 import com.psvm.seller.vo.Product;
 import com.psvm.seller.vo.ProductCategory;
 import com.psvm.seller.vo.ProductOption;
@@ -344,16 +345,15 @@ public class SellerServiceImpl implements SellerService {
 
 	//리뷰 쓰기
 	@Override
-	public int insertReview() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int insertReview(Review review) {
+		return sellerDao.insertReview(sqlSession,review);
 	}
 
 	//문의 쓰기
 	@Override
-	public int insertInquiry() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int insertInquiry(Faq faq) {
+		
+		return sellerDao.insertInquiry(sqlSession,faq);
 	}
 
 	

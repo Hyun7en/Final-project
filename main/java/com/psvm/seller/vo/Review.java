@@ -18,6 +18,7 @@ public class Review {
 	private String nickName;
 	private int userNo;
 	private int pdNo;
+	private int pno;
 	private String pdTitle;
 	private String changeName;
 	private Date reviewDate;

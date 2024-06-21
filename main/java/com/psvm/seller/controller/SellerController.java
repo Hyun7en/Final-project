@@ -36,6 +36,7 @@ import com.psvm.seller.dto.ProductCategoryDTO;
 import com.psvm.seller.dto.ProductDTO;
 import com.psvm.seller.dto.StoreMainDTO;
 import com.psvm.seller.service.SellerService;
+import com.psvm.seller.vo.Faq;
 import com.psvm.seller.vo.Product;
 import com.psvm.seller.vo.ProductCategory;
 import com.psvm.seller.vo.ProductOption;
@@ -545,8 +546,6 @@ public class SellerController {
     @PostMapping(value = "/leaveStore.ax", produces = "application/json; charset=UTF-8")
     public String leaveStore(@RequestParam(value="userNo") int userNo) {
     	
-        log.info("userNo: " + userNo);
-        
         int result = sellerService.deleteSeller(userNo);
         
         if(result > 0) {
@@ -699,23 +698,78 @@ public class SellerController {
     }
     
     // 리뷰 쓰기    
-    @ResponseBody
-    @PostMapping(value = "insertReview", produces = "application/json; charset=UTF-8")
-    public String insertReview(@RequestParam(value = "pno") int pno,@RequestParam(value = "userNo") int userNo) {
-    	
-         int result = sellerService.insertReview();
+    @PostMapping("insertReview.spd")
+    public String insertReview(@RequestParam("pno") int pno, 
+					    		@RequestParam("userNo") int userNo,
+					    		@RequestParam("reviewDibs") int reviewDibs,
+					    		@RequestParam("reviewContents") String reviewContents ,
+					    		@RequestParam(value= "reOriginName", required = false) MultipartFile reOriginName, 
+							    HttpSession session) {
 
-        return new Gson().toJson(result);
+    	log.info("review" + pno);
+    	log.info("review" + userNo);
+    	log.info("review" + reviewDibs);
+    	log.info("review" + reviewContents);
+    	log.info("review" + reOriginName);
+    	
+    	
+    	
+    	Review review = new Review();
+    	
+         // 파일이 제출되었는지 확인
+         if (!reOriginName.getOriginalFilename().isEmpty()) {
+             String changeName = saveFile(reOriginName, session);
+             review.setReOriginName(reOriginName.getOriginalFilename());
+             review.setReChangeName("resources/upFiles/productImg/" + changeName);
+         }
+         
+         
+         review.setPno(pno);
+         review.setUserNo(userNo);
+         review.setReviewDibs(reviewDibs);
+         review.setReviewContents(reviewContents);
+         
+         
+        int result = sellerService.insertReview(review);
+         
+        if(result > 0) {
+        	return "redirect:detail.spd?pno=" + pno;
+         }else {
+        	 return "redirect:list.spd";
+         }
+         
     }
     
     // 문의 쓰기  
-    @ResponseBody
-    @PostMapping(value = "/insertInquiry.ax", produces = "application/json; charset=UTF-8")
-    public String insertInquiry(@RequestParam(value = "pno") int pno,@RequestParam(value = "userNo") int userNo) {
+    @PostMapping(value = "insertInquiry.spd")
+    public String insertInquiry(@RequestParam(value = "pno") int pno,
+    							@RequestParam(value = "userNo") int userNo,
+    							@RequestParam(value = "inquiryTitle") String inquiryTitle,
+    							@RequestParam(value = "inquiryContents") String inquiryContents
+    							) {
     	
-         int result = sellerService.insertInquiry();
+    	log.info("pno"+pno);
+    	log.info("userNo"+userNo);
+    	log.info("inquiryTitle"+inquiryTitle);
+    	log.info("inquiryContents"+inquiryContents);
+    	
+    	
+    	Faq faq = new Faq();
+    	
+    	faq.setPno(pno);
+    	faq.setUserNo(userNo);
+    	faq.setInquiryTitle(inquiryTitle);
+    	faq.setInquiryContents(inquiryContents);
+    	
+    	
+         int result = sellerService.insertInquiry(faq);
 
-        return new Gson().toJson(result);
+         if(result > 0) {
+         	return "redirect:detail.spd?pno=" + pno;
+          }else {
+         	 return "redirect:list.spd";
+          }
+        
     }
     
   //############################################## 구매 페이지 ############################################################

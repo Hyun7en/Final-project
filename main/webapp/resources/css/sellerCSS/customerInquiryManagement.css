@@ -80,6 +80,107 @@ table tbody #pdList:hover {
     color: white;
 }
 
+/* 상품 문의 모달 */
+/* Inquiry Modal CSS */
+.modal-content {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    font-family: Arial, sans-serif;
+}
+
+.modal-header {
+    background-color: #f7f7f7;
+    padding: 15px;
+    border-bottom: 1px solid #e5e5e5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h4 {
+    margin: 0;
+}
+
+.modal-header .close {
+    font-size: 1.5rem;
+    color: #aaa;
+    cursor: pointer;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+#product-name-container div {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+#product-name-container #inquiry-product-name {
+    font-size: 1.2rem;
+    color: #0089FF;
+}
+
+.select-option {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+#select-inquiry-option{
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+#product-inquiry-content-container {
+    margin-bottom: 20px;
+}
+
+#product-inquiry-content-container div {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+#product-inquiry-content-container input[type="text"],
+#product-inquiry-content-textarea textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    resize: none;
+    font-size: 14px;
+}
+
+#product-inquiry-enroll-btn-container {
+    text-align: right;
+}
+
+#product-inquiry-enroll-btn {
+    background-color: #0089FF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+#product-inquiry-enroll-btn:hover {
+    background-color: #005bb5;
+}
+
+
 /* 페이지네이션 */
 
 .pagination {

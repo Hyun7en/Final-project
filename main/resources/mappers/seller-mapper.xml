@@ -94,7 +94,7 @@
 		<result column="ANSWER_DATE" property="answerDate"/>
 		<result column="ANSWER_CONTENTS" property="answerContents"/>
 		<result column="NICKNAME" property="nickName"/>
-		<result column="P_NO" property="pdNo"/>
+		<result column="P_TITLE" property="pdTitle"/>
 	</resultMap>
 	
 	<resultMap type="StoreMainDTO" id="StoreMainDTOResult">
@@ -405,7 +405,7 @@
 	</select>
 	
 	<select id="selectCsInquiryList" resultMap="FaqDTOResult">
-	select faq_no,p_title,f.user_no,nm.user_name,f.inquiry_date
+	select faq_no,p_title,f.user_no,nm.nickname,f.inquiry_date,inquiry_title,inquiry_contents
 	  from member m
 	  join seller_info s using(user_no)
 	  join seller_page using(business_no)
@@ -538,6 +538,7 @@
 	    JOIN PRODUCT USING (P_NO)
 	    LEFT JOIN MEMBER_ATTACHMENT ON (USER_NO = REF_MNO)
 	    WHERE P_NO = #{pno}
+	    ORDER BY REVIEW.review_date DESC
 	</select>
 
 	<!-- 문의 리스트 페이징  -->
@@ -555,8 +556,6 @@
 	   LEFT JOIN MEMBER M ON(F.USER_NO = M.USER_NO)
 	  WHERE P_NO = #{pno}
 	</select>
-	
-
 	
 	<!-- 장바구니 담기 -->
 	 <insert id="insertCart" parameterType="list">
@@ -578,8 +577,43 @@
     </insert>
 	
 	<!-- 리뷰 쓰기 -->
+	<insert id="insertReview">
+	insert into 
+		 review(
+		 		user_no,
+	 			p_no,
+	 			review_dibs,
+	 			review_contents,
+	 			re_origin_name,
+	 			re_change_name
+	 			)
+		 values(
+		 		#{userNo},
+		 		#{pno},
+		 		#{reviewDibs},
+		 		#{reviewContents},
+		 		#{reOriginName},
+		 		#{reChangeName}
+		        )
+	
+	</insert>
 	
 	<!-- 문의 쓰기 -->
+	<insert id="insertInquiry">
+		insert into
+				faq(
+					user_no,
+					inquiry_title,
+					inquiry_contents,
+					p_no
+					)
+			 values(
+			 		#{userNo},
+			 		#{inquiryTitle},
+			 		#{inquiryContents},
+			 		#{pno}
+					)	
+	</insert>
 	
 	<!-- ##################################### 구매 페이지  ##################################### -->
 	

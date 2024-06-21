@@ -11,6 +11,7 @@ import com.psvm.commons.vo.PageInfo;
 import com.psvm.seller.dto.FaqDTO;
 import com.psvm.seller.dto.ProductDTO;
 import com.psvm.seller.dto.StoreMainDTO;
+import com.psvm.seller.vo.Faq;
 import com.psvm.seller.vo.Product;
 import com.psvm.seller.vo.ProductCategory;
 import com.psvm.seller.vo.ProductOption;
@@ -271,8 +272,16 @@ public class SellerDao {
 	}
 	
 	//리뷰 쓰기
+	public int insertReview(SqlSessionTemplate sqlSession,Review review) {
+		
+		return sqlSession.insert("sellerMapper.insertReview",review);
+	}
 	
 	//문의 쓰기
+	public int insertInquiry(SqlSessionTemplate sqlSession, Faq faq) {
+		
+		return sqlSession.insert("sellerMapper.insertInquiry",faq);
+	}
 	
 	
 	//############################################## 구매 페이지  ############################################################

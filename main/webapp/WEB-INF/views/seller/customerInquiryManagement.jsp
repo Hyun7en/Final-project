@@ -42,7 +42,6 @@
                 <form action="search.pd" method="get">
                     <input type="hidden" name="cpage" value="1">
                     <select name="condition">
-                        <option value="category">카테고리</option>
                         <option value="productName">상품명</option>
                     </select>
                     <input id="search-keyword" type="text" name="keyword" value="${keyword }">
@@ -72,11 +71,63 @@
                             <c:forEach var="inquiry" items="${inquiryList}">
                                 <tr id="pdList">
                                     <td>${inquiry.faqNo}</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>${inquiry.pdTitle}</td>
+                                    <td>${inquiry.nickName}</td>
+                                    <td>${inquiry.inquiryDate}</td>
                                     <td><button class="btn btn-primary" data-toggle="modal" data-target="#inquiry-answer-Modal">문의 답변</button></td>
                                 </tr>
+
+                                <!-- 문의 modal -->
+                                <div class="modal fade" id="inquiry-answer-Modal">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content" >
+
+                                            <!-- Modal Header -->
+                                            <div class="modal-header">
+                                                <h4 >문의하기</h4>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            </div>
+
+                                            <!-- Modal body -->
+                                            <div class="modal-body" >
+                                                <div id="product-name-container">
+                                                    <div id="inquiry-product-name">
+                                                        ${inquiry.pdTitle}
+                                                    </div>
+                                                </div>
+                                                
+                                                <div id="product-inquiry-content-container">
+                                                    <div>
+                                                        문의제목
+                                                    </div>
+                                                    <div>
+                                                        
+                                                    </div>
+                                                    <div >
+                                                        *문의내용
+                                                    </div>
+                                                    <div id="product-inquiry-content-textarea">
+                                                        
+                                                    </div>
+                                                </div>
+                                                <form id="modal-inquiry-content" action="insertInquiry.spd" enctype="multipart/form-data" method="post">
+                                                    <input type="hidden" name="pno" value=${param.pno}>
+                                                    <input type="hidden" name="userNo" value=${loginUser.userNo}>
+                                                    <div>
+
+                                                    </div>
+
+                                                    <div id="product-inquiry-enroll-btn-container">
+                                                        <button type="submit" id="product-inquiry-enroll-btn">완료</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
             
                             </c:forEach>
                         </tbody>
@@ -111,77 +162,7 @@
                 </ul>
             </div>
 
-            <!-- 문의 답변 modal -->
-            <div class="modal fade" id="inquiry-answer-Modal">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content" >
-
-                        <!-- Modal Header -->
-                        <div class="modal-header">
-                            <h4 >리뷰쓰기</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-
-                        <!-- Modal body -->
-                        <div class="modal-body" >
-                            <form id="modal-qna-content" action="" enctype="multipart/form-data" method="post">
-                                <input type="hidden" name="writerNo" value=>
-                                <input type="hidden" name="refProductNo" value=>
-                                <div id="qna-product-name-header">
-                                    ${spd.pdTitle}
-                                </div>
-
-                                <!-- 별점 -->
-                                 <span class="star-rating-title">별점평가</span>
-                                <div class ="star_rating">
-                                    <span class="star on" value="1"> </span>
-                                    <span class="star" value="2"> </span>
-                                    <span class="star" value="3"> </span>
-                                    <span class="star" value="4"> </span>
-                                    <span class="star" value="5"> </span>
-                                </div>
-
-
-                                <div id="product-pic-container">
-                                    <div >
-                                        사진 첨부(선택)
-                                    </div>
-                                    <div >
-                                        사진을 첨부해주세요.(최대 1장)
-                                    </div>
-                                    <div id="qna-pic-container">
-
-                                    </div>
-                                    <div id="add-qna-product-pic">
-                                    
-                                        <span >사진 첨부하기</span>
-                                        <input type="file" name="reOriginName" id="file-input" >
-
-                                    </div>
-                                </div>
-
-                                <div id="product-qna-content-container">
-                                    <div >
-                                        리뷰작성
-                                        <div>필수 입력 항목입니다.</div>
-                                    </div>
-                                    <div id="product-qna-content-textarea">
-                                        <textarea name="qnaContent" id="product-qna-content"
-                                            placeholder="자세하고 솔직한 리뷰는 다른 고객과 스토어에게 큰 도움이 됩니다."></textarea>
-                                    </div>
-                                </div>
-
-                                <div id="product-qna-enroll-btn-container">
-                                    <button type="submit" id="product-qna-enroll-btn">리뷰 등록</button>
-                                </div>
-                            </form>
-                        </div>
-
-
-                    </div>
-                </div>
-            </div>
-
+            
 
             
         </section>
