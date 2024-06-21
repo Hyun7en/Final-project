@@ -1,5 +1,5 @@
 
-$(function(){ // 아이디, 비밀번호 체크
+$(function(){ // 아이디 체크
     const idInput = document.querySelector("#signup-id");
     let eventFlag;
     idInput.onkeyup = function(ev){
@@ -9,40 +9,146 @@ $(function(){ // 아이디, 비밀번호 체크
         const str = ev.target.value;
         if(str.trim().length >= 5) { // 5글자이상
             eventFlag = setTimeout(function(){ // 1.5초후에 서버로 check요청 전송
-                            $.ajax({
-                                url: "idCheck.me",
-                                data: {checkId : ev.target.value}, // 체크하고싶은 사용자가 입력한 아이디
-                                success: function(result){
-                                    const checkResult = document.getElementById("checkResult");
-                                    if(result === "NNNNN"){ //사용이 불가한경우
-                                        //회원가입버튼 비활성화
-                                        document.querySelector("#signup-submit").disabled = true;
-                                        
-                                        checkResult.style.color = "red";
-                                        checkResult.innerText = "이미 사용중인 아이디입니다.";
-                                    } else { //사용이 가능한 경우
-                                        //회원가입버튼 활성화
-                                        document.querySelector("#signup-submit").disabled = false;
+                $.ajax({
+                    url: "idCheck.me",
+                    data: {checkId : ev.target.value}, // 체크하고싶은 사용자가 입력한 아이디
+                    success: function(result){
+                        const checkResult = document.getElementById("checkResult");
+                        if(result === "NNNNN"){ //사용이 불가한경우
+                            //회원가입버튼 비활성화
+                            document.querySelector("#checkId").checked = false;
+                            submitLock()
+                            
+                            checkResult.style.color = "red";
+                            checkResult.innerText = "이미 사용중인 아이디입니다.";
+                        } else { //사용이 가능한 경우
+                            //회원가입버튼 활성화
+                            document.querySelector("#checkId").checked = true;
+                            submitLock()
 
-                                        checkResult.style.color = "green";
-                                        checkResult.innerText = "사용가능한 아이디입니다.";
-                                    }
-                                },
-                                error: function(){
-                                    console.log("아이디 중복체크 ajax 실패");
-                                }
-                            })
-                        }, 300)
+                            checkResult.style.color = "green";
+                            checkResult.innerText = "사용가능한 아이디입니다.";
+                        }
+                    },
+                    error: function(){
+                        console.log("아이디 중복체크 ajax 실패");
+                    }
+                })
+            }, 300)
         } else { // 5글자이하
-            //disabled상태 유지
-            document.querySelector("#signup-submit").disabled = true;
-            //
+            document.querySelector("#checkId").checked = false;
+            submitLock()
+
             document.getElementById("checkResult").style.color = "#0089FF"
             document.getElementById("checkResult").innerHTML = "5자 이상 입력해야 합니다.";
         }
     }
 })
 
+$(function(){ // 닉네임 체크
+    const nicknameInput = document.querySelector("#signup-nickname");
+    let eventFlag;
+    nicknameInput.onkeyup = function(ev){
+        clearTimeout(eventFlag);
+        const str = ev.target.value;
+        if(str.trim().length >= 1) { // 1글자이상
+            eventFlag = setTimeout(function(){
+                console.log(str);
+                $.ajax({
+                    url: "nicknameCheck.me",
+                    data: {checkNickname : ev.target.value},
+                    success: function(result){
+                        console.log(result);
+                        if(result === "NNNNN"){ //사용이 불가한경우
+                            document.querySelector("#checkNickname").checked = false;
+                            submitLock()
+
+                            nicknameInput.style.color = "red";
+                        } else { //사용이 가능한 경우
+                            document.querySelector("#checkNickname").checked = true;
+                            submitLock()
+
+                            nicknameInput.style.color = "green";
+                        }
+                    },
+                    error: function(){
+                        console.log("닉네임 중복체크 ajax 실패");
+                    }
+                })
+            }, 300)
+        } else { // 1글자이하
+            document.querySelector("#checkNickname").checked = false;
+            submitLock()
+
+            nicknameInput.style.color = "black";
+        }
+    }
+})
+
+$(function(){ // 이메일 체크
+    const emailInput = document.querySelector("#signup-email");
+    let eventFlag;
+    emailInput.onkeyup = function(ev){
+        clearTimeout(eventFlag);
+        const str = ev.target.value;
+        if(isValidEmail(str)){
+            eventFlag = setTimeout(function(){
+                console.log(str);
+                $.ajax({
+                    url: "emailCheck.me",
+                    data: {checkEmail : ev.target.value},
+                    success: function(result){
+                        console.log(result);
+                        if(result === "NNNNN"){ //사용이 불가한경우
+                            document.querySelector("#checkEmail").checked = false;
+                            submitLock()
+
+                            emailInput.style.color = "red";
+                        } else { //사용이 가능한 경우
+                            document.querySelector("#checkEmail").checked = true;
+                            submitLock()
+
+                            emailInput.style.color = "green";
+                        }
+                    },
+                    error: function(){
+                        console.log("이메일 중복체크 ajax 실패");
+                    }
+                })
+            }, 300)
+        } else { //정규식 탈락
+            document.querySelector("#checkEmail").checked = false;
+            submitLock()
+
+            emailInput.style.color = "black";
+        }
+    }
+})
+
+//이메일 정규식: 우측의 8가지 형식만 허용('@naver.com', '@gmail.com', '@hanmail.net', '@daum.net', '@nate.com', '@hotmail.com', '@icloud.com', '@outlook.com')
+function isValidEmail(email) {
+    // 정규 표현식 생성: 유효한 이메일 형식과 허용되는 도메인 검사
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@(naver\.com|gmail\.com|hanmail\.net|daum\.net|nate\.com|hotmail\.com|icloud\.com|outlook\.com)$/;
+    
+    // 정규 표현식을 사용하여 이메일 검사
+    const result = emailPattern.test(email);
+    console.log(result);
+    return result;
+}
+
+function  submitLock(){
+    const checkId = document.querySelector('#checkId');
+    const checkEmail = document.querySelector('#checkEmail');
+    const checkNickname = document.querySelector('#checkNickname');
+    console.log("체크 판정");
+    if(checkId.checked && checkEmail.checked && checkNickname.checked){
+        console.log("전부 통과");
+        document.querySelector('#signup-submit').disabled = false;
+    } else{
+        console.log("통과 실패");
+        document.querySelector('#signup-submit').disabled = true;
+    }
+}
 
 function callDaumService() { //다음 주소 API
     new daum.Postcode({
@@ -97,40 +203,30 @@ var themeObj = { //다음 주소 API 테마
     outlineColor: "#0089FF" //테두리
 };
 
-
-
 function signUpSubmit(){ //회원가입 신청 시 필수 항목 체크
     const userPwd = document.querySelector('#signup-pwd').value;
     const checkPwd = document.querySelector('#check-pwd').value;
-    const email = document.querySelector('#signup-email').value;
     const userName = document.querySelector('#signup-name').value;
-    const nickname = document.querySelector('#signup-nickname').value;
     const birthday = document.querySelector('#signup-birthday').value;
     const address = document.querySelector('#signup-address').value;
     const phone = document.querySelector('#signup-phone').value;
     const signUp = document.querySelector('#signup-input');
-    if(userPwd == ""){ //비밀번호 누락
-        callErrorMsg("비밀번호를 입력해주세요.")
+    if(isValidPwd(userPwd) == false){ //비밀번호 정규식
+        callErrorMsg("올바른 형식의 비밀번호가 아닙니다.")
         return false;
     } else if(userPwd != checkPwd){ //비밀번호 확인 불일치
         callErrorMsg("비밀번호가 일치하지 않습니다.")
         return false;
-    } else if(email.length == "" || isValidEmail(email) == false){ //이메일 누락 또는 정규식 탈락
-        callErrorMsg("이메일 형식은 아래의 8가지만 허용됩니다.<br>'@naver.com', '@gmail.com', '@hanmail.net', '@daum.net', '@nate.com', '@hotmail.com', '@icloud.com', '@outlook.com'")
-        return false;
-    } else if(userName.length == ""){ //이름 누락
+    } else if(userName.length == 0){ //이름 누락
         callErrorMsg("이름을 입력해주세요")
         return false;
-    } else if(nickname.length == ""){ //닉네임 누락
-        callErrorMsg("닉네임을 입력해주세요")
+    } else if(isValidBirthdate1(birthday) == false || isValidBirthdate2(birthday) == false){ //생년월일 정규식 탈락 또는 존재할 수 없는 날짜
+        callErrorMsg("생년월일은 실재하는 날짜의 YYYYMMDD의 형식만 허용됩니다.")
         return false;
-    } else if(birthday.length == "" || isValidBirthdate(birthday) == false){ //생년월일 누락 또는 정규식 탈락
-        callErrorMsg("생년월일은 YYYYMMDD의 형식만 허용됩니다.")
-        return false;
-    } else if(address.length == ""){ //주소 누락
+    } else if(address.length == 0){ //주소 누락
         callErrorMsg("주소를 입력해주세요.")
         return false;
-    } else if(phone.length == "" || isValidPhoneNumber(phone) == false){ // 전화번호 누락 또는 정규식 탈락
+    } else if(phone.length == 0 || isValidPhoneNumber(phone) == false){ // 전화번호 누락 또는 정규식 탈락
         callErrorMsg("전화번호는 한국의 일반전화, 또는 휴대전화의 번호만 허용됩니다.")
         return false;
     } else{
@@ -138,19 +234,19 @@ function signUpSubmit(){ //회원가입 신청 시 필수 항목 체크
     }
 }
 
-//이메일 정규식: 우측의 8가지 형식만 허용('@naver.com', '@gmail.com', '@hanmail.net', '@daum.net', '@nate.com', '@hotmail.com', '@icloud.com', '@outlook.com')
-function isValidEmail(email) {
-    // 정규 표현식 생성: 유효한 이메일 형식과 허용되는 도메인 검사
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@(naver\.com|gmail\.com|hanmail\.net|daum\.net|nate\.com|hotmail\.com|icloud\.com|outlook\.com)$/;
-    
-    // 정규 표현식을 사용하여 이메일 검사
-    const result = emailPattern.test(email);
-    console.log(result);
-    return result;
+//비밀번호 정규식: 8자리 이상의 영어 대소문자 및 숫자 조합
+function isValidPwd(userPwd) {
+    // 정규 표현식 생성: 
+    const pwdPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    // 정규 표현식을 사용하여 생년월일 형식 검사
+    if (!pwdPattern.test(userPwd)) {
+        console.log("비밀번호 정규식 오류");
+        return false;
+    }
 }
 
 //생년월일 정규식: YYYYMMDD
-function isValidBirthdate(birthdate) {
+function isValidBirthdate1(birthdate) {
     // 정규 표현식 생성: 8자리 숫자 형식의 생년월일 검사
     const birthdatePattern = /^(19|20)\d{2}(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01])$/;
 
@@ -171,6 +267,20 @@ function isValidBirthdate(birthdate) {
         date.getMonth() === month &&
         date.getDate() === day
     );
+}
+//현재 날짜 기준으로 2차 검사
+function isValidBirthdate2(birthdate){
+    const today = new Date();
+    const todayString = today.toISOString().slice(0, 10).replace(/-/g, "");
+    
+    const sampleDate = parseInt(birthdate, 10);
+    const todayDate = parseInt(todayString, 10);
+
+    if (sampleDate > todayDate) {
+    return false;
+    } else {
+    return true;
+    }
 }
 
 //전화번호 정규식('-' 없이 한국에서 쓰이는 전화번호 한정)
