@@ -19,7 +19,8 @@ $(function() {
     }
 
     function drawOptions(options) {
-        let $selectOption = $('#select-option');
+        let $selectOption = $('.select-option');
+
         $selectOption.empty(); // 기존의 옵션들을 초기화
 
         // 빈 옵션을 추가하여 기본값으로 설정
