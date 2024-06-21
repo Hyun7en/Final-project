@@ -225,8 +225,10 @@
 		UPDATE SELLER_PAGE
 		   SET SELLER_EXPLAIN = #{sellerExplain},
 		   	   SP_ENROLL_DATE = CURRENT_TIMESTAMP,
+		   	   <if test="spOriginName !=null">
 		   	   SP_ORIGIN_NAME = #{spOriginName},
 		   	   SP_CHANGE_NAME = #{spChangeName}
+		   	   </if>
 		 WHERE BUSINESS_NO = #{businessNo}   			
 	</update>
 	
@@ -293,14 +295,17 @@
 						 		 	  )	
 	</insert>
 	
-	
-	<!-- 게시글의 총 갯수 조회 -->
+	<!-- 상품 리스트 페이징  -->
 	<select id="selectProductListCount" resultType="_int">
 		SELECT COUNT(*)
 		  FROM PRODUCT
+		  JOIN PRODUCT_CATEGORY USING(C_NO)
+		  JOIN SELLER_PAGE USING(SELLER_PAGE_NO)
 		 WHERE P_STATUS = 'Y'
+		   AND BUSINESS_NO = #{businessNo}
 	</select>
 	
+	<!-- 상품 리스트 -->
 	<select id="selectProductList" resultMap="productResult">
 		SELECT P_NO,
 			   C_NO,
@@ -314,6 +319,45 @@
 		   AND BUSINESS_NO = #{businessNo}
 		 ORDER BY P_NO DESC; 
 	</select>
+	
+	<!-- 상품 리스트 검색 -->
+	<select id="searchProductListCount" resultType="_int">
+		SELECT COUNT(*)
+		  FROM PRODUCT
+		  JOIN PRODUCT_CATEGORY USING(C_NO)
+		  JOIN SELLER_PAGE USING(SELLER_PAGE_NO)
+		 WHERE P_STATUS = 'Y'
+		   AND BUSINESS_NO = #{businessNo}
+		<if test="condition == 'category'">
+		 	AND	P_CATEGORY
+		</if>
+		<if test="condition == 'productName'">
+		 	AND	P_TITLE
+		</if>
+		LIKE '%' || #{keyword} || '%'
+	</select>
+	
+	<select id="searchProductList" resultMap="productResult">
+		SELECT P_NO,
+			   C_NO,
+			   P_CATEGORY,
+			   P_TITLE,
+			   TO_CHAR(P_ENROLL_DATE , 'YYYY-MM-DD') AS "P_ENROLL_DATE"
+		  FROM PRODUCT
+		  JOIN PRODUCT_CATEGORY USING(C_NO)
+		  JOIN SELLER_PAGE USING(SELLER_PAGE_NO)
+		 WHERE P_STATUS = 'Y'
+		   AND BUSINESS_NO = #{businessNo}
+		 <if test="condition == 'category'">
+		 	AND	P_CATEGORY
+		 </if>
+		 <if test="condition == 'productName'">
+		 	AND	P_TITLE
+		 </if>
+		 LIKE '%' || #{keyword} || '%'
+		 ORDER BY P_NO DESC 
+	</select>
+	
 	
 	<select id="selectOptions" resultMap="productOptionResult">
 		SELECT P_COUNT,
@@ -413,8 +457,11 @@
 	  join product using(c_no)
 	  join faq f using(p_no)
 	  join member nm on(f.user_No = nm.user_no )
-	 where m.user_no = #{userNo}
+	 where m.user_no = #{userNo} and f.inquiry_status = 0
+	 order by f.inquiry_date desc
 	</select>
+	
+	<!-- 고객 문의 검색 -->
 
 	
 	<!-- 판매자 탈퇴 -->

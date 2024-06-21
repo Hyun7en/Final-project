@@ -47,15 +47,15 @@ public interface SellerService {
 	public int insertProduct(Product product, List<ProductOption> options);
 	
 	// 상품 리스트 페이징
-	public int selectProductListCount();
+	public int selectProductListCount(int businessNo);
 	
 	// 상품 리스트 
 	public List<Product> selectProductList(PageInfo pi,int businessNo);
 	
 	//상품 리스트 검색
-	public int searchListCount(HashMap<String, String> map);
+	public int searchProductListCount(HashMap<String, Object> map);
 	
-	public List<Product> searchList(PageInfo pi, HashMap<String, String> map);
+	public List<Product> searchProductList(PageInfo pi, HashMap<String, Object> map);
 	
 	// 상품 옵션 불러오기
 	public List<ProductOption> selectOptions(int pno);
@@ -77,6 +77,8 @@ public interface SellerService {
 	public int selectCsInquiryListCount();
 	
 	public List<FaqDTO> selectCsInquiryList(PageInfo pi, int userNo);
+	
+	//고객 문의 검색
 	
 	//판매자 탈퇴 
 	public int deleteSeller(int userNo);

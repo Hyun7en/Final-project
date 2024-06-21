@@ -1,6 +1,7 @@
 package com.psvm.seller.dao;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -107,8 +108,8 @@ public class SellerDao {
 	}
 
 	// 상품 리스트 페이징
-	public int selectProductListCount(SqlSessionTemplate sqlSession) {
-		return sqlSession.selectOne("sellerMapper.selectProductListCount");
+	public int selectProductListCount(SqlSessionTemplate sqlSession,int businessNo) {
+		return sqlSession.selectOne("sellerMapper.selectProductListCount",businessNo);
 	}
 
 	// 상품 리스트
@@ -121,7 +122,19 @@ public class SellerDao {
 	}
 	
 	//상품 리스트 검색
+	public int searchProductListCount(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		
+		return sqlSession.selectOne("sellerMapper.searchProductListCount", map);
+		
+	}
 	
+	public List<Product> searchProductList(SqlSessionTemplate sqlSession, PageInfo pi, HashMap<String, Object> map) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return sqlSession.selectList("sellerMapper.searchProductList", map, rowBounds);
+		
+	}
 	
 	// 상품 옵션 불러오기
 	public List<ProductOption> selectOptions(SqlSessionTemplate sqlSession,int pno) {
@@ -176,6 +189,8 @@ public class SellerDao {
 		
 		return sqlSession.selectList("sellerMapper.selectCsInquiryList",userNo,rowBounds);
 	}
+	
+	//고객 문의 검색
 	
 	
 	//판매자 탈퇴

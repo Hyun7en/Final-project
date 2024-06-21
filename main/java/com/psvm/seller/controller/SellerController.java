@@ -221,7 +221,7 @@ public class SellerController {
     
     // 판매자 홈 수정
     @RequestMapping("update.srh")
-    public String updateSellerHome(SellerPage sellerPage, MultipartFile storeHomeImage, @RequestParam("categoriesJson") String categoriesJson,
+    public String updateSellerHome(SellerPage sellerPage,@RequestParam(value="MultipartFile", required = false) MultipartFile storeHomeImage, @RequestParam("categoriesJson") String categoriesJson,
         HttpSession session, RedirectAttributes redirectAttributes) {
         
         // 새로운 첨부파일이 넘어온 경우
@@ -361,11 +361,10 @@ public class SellerController {
   	//등록한 상품 리스트
     @RequestMapping("list.pd")
   	public String selectProductList(@RequestParam(value="cpage", defaultValue="1") int currentPage,HttpSession session, Model model) {
-    	
-		int boardCount = sellerService.selectProductListCount();
-		//logger.info("list.bo 실행");
 		
 		int businessNo = getBusinessNo(session);
+		
+		int boardCount = sellerService.selectProductListCount(businessNo);
 		
 		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 5);
 		List<Product> list = sellerService.selectProductList(pi,businessNo);
@@ -378,22 +377,28 @@ public class SellerController {
     
     //상품(카테고리,상품명으로)  검색
     @RequestMapping("search.pd")//게시글 목록 띄우기
-	public String searchProduct(@RequestParam(value="cpage", defaultValue="1") int currentPage, @RequestParam(value="condition", defaultValue="category") String condition, @RequestParam(value="keyword", defaultValue="") String keyword, Model model) {
+	public String searchProduct(@RequestParam(value="cpage", defaultValue="1") int currentPage, 
+								@RequestParam(value="condition", defaultValue="category") String condition,
+								@RequestParam(value="productName", defaultValue="") String productName, 
+								@RequestParam(value="keyword", defaultValue="") String keyword,HttpSession session, Model model) {
 		
-		HashMap<String, String> map = new HashMap<>();
+    	int businessNo = getBusinessNo(session);
+    	
+		HashMap<String, Object> map = new HashMap<>();
 		map.put("condition", condition);
 		map.put("keyword", keyword);
+		map.put("businessNo",businessNo);
 		
-		int boardCount = sellerService.searchListCount(map);
-		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 10);
-		List<Product> list = sellerService.searchList(pi, map);
+		int boardCount = sellerService.searchProductListCount(map);
+		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 5);
+		List<Product> list = sellerService.searchProductList(pi, map);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("condition", condition);
 		
-		return "seller/productListView";
+		return "seller/productSearchListView";
 	}
     
     // 옵션 불러오는 ajax
@@ -533,6 +538,8 @@ public class SellerController {
     	
     	return "seller/customerInquiryManagement";
     }
+    
+    //고객 문의 검색
     
     // 정산 관리 
     @RequestMapping("settlement.sr")

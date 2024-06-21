@@ -81,18 +81,17 @@ table tbody #pdList:hover {
 }
 
 /* 상품 문의 모달 */
-/* Inquiry Modal CSS */
 .modal-content {
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     font-family: Arial, sans-serif;
 }
 
 .modal-header {
-    background-color: #f7f7f7;
-    padding: 15px;
-    border-bottom: 1px solid #e5e5e5;
+    background-color: #f1f1f1;
+    padding: 15px 20px;
+    border-bottom: 1px solid #e0e0e0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -100,10 +99,12 @@ table tbody #pdList:hover {
 
 .modal-header h4 {
     margin: 0;
+    font-size: 1.5rem;
+    color: #333;
 }
 
 .modal-header .close {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     color: #aaa;
     cursor: pointer;
 }
@@ -112,33 +113,31 @@ table tbody #pdList:hover {
     padding: 20px;
 }
 
+.inquiry-detail span{
+    margin-right: 10px;
+}
+
+#product-name-container {
+    margin-bottom: 20px;
+}
+
 #product-name-container div {
-    margin-bottom: 5px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #0089FF;
+    margin-bottom: 10px;
+}
+
+.inquiry-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.inquiry-info span {
     font-weight: bold;
     color: #333;
-}
-
-#product-name-container #inquiry-product-name {
-    font-size: 1.2rem;
-    color: #0089FF;
-}
-
-.select-option {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-top: 10px;
-    font-size: 14px;
-}
-
-#select-inquiry-option{
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-top: 10px;
-    font-size: 14px;
+    font-size: 1rem;
 }
 
 #product-inquiry-content-container {
@@ -146,19 +145,28 @@ table tbody #pdList:hover {
 }
 
 #product-inquiry-content-container div {
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #333;
+    margin-bottom: 10px;
 }
 
-#product-inquiry-content-container input[type="text"],
-#product-inquiry-content-textarea textarea {
+#product-inquiry-content-container span {
+    font-weight: bold;
+    color: #333;
+    font-size: 1rem;
+}
+
+#product-inquiry-content-textarea,
+#inquiry-answer-textarea {
+    margin-bottom: 20px;
+}
+
+#product-inquiry-content-textarea,
+#inquiry-answer-textarea textarea {
     width: 100%;
-    padding: 10px;
+    padding: 15px;
     border: 1px solid #ddd;
     border-radius: 5px;
     resize: none;
-    font-size: 14px;
+    font-size: 1rem;
 }
 
 #product-inquiry-enroll-btn-container {
@@ -172,14 +180,13 @@ table tbody #pdList:hover {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 1rem;
     transition: background-color 0.3s;
 }
 
 #product-inquiry-enroll-btn:hover {
     background-color: #005bb5;
 }
-
 
 /* 페이지네이션 */
 

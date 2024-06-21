@@ -164,9 +164,9 @@ public class SellerServiceImpl implements SellerService {
 
 	// 상품 리스트 페이징
 	@Override
-	public int selectProductListCount() {
+	public int selectProductListCount(int businessNo) {
 		
-		int count = sellerDao.selectProductListCount(sqlSession);
+		int count = sellerDao.selectProductListCount(sqlSession, businessNo);
 		
 		return count;
 	}
@@ -180,15 +180,15 @@ public class SellerServiceImpl implements SellerService {
 	
 	// 상품 리스트 검색
 	@Override
-	public int searchListCount(HashMap<String, String> map) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int searchProductListCount(HashMap<String, Object> map) {
+		
+		return sellerDao.searchProductListCount(sqlSession,map);
 	}
 	
 	@Override
-	public List<Product> searchList(PageInfo pi, HashMap<String, String> map) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Product> searchProductList(PageInfo pi, HashMap<String, Object> map) {
+		
+		return sellerDao.searchProductList(sqlSession,pi,map);
 	}
 
 	// 상품 옵션 불러오기
@@ -255,6 +255,8 @@ public class SellerServiceImpl implements SellerService {
 		
 		return sellerDao.selectCsInquiryList(sqlSession,pi,userNo);
 	}
+	
+	//고객 문의 검색
 	
 	//판매자 탈퇴
 	@Override
