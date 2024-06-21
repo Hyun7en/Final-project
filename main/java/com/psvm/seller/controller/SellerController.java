@@ -29,12 +29,14 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.psvm.commons.template.Pagination;
 import com.psvm.commons.vo.PageInfo;
+import com.psvm.fishInfo.vo.Fish;
 import com.psvm.member.vo.Member;
 import com.psvm.seller.dto.FaqDTO;
 import com.psvm.seller.dto.ProductCategoryDTO;
 import com.psvm.seller.dto.ProductDTO;
 import com.psvm.seller.dto.StoreMainDTO;
 import com.psvm.seller.service.SellerService;
+import com.psvm.seller.vo.Faq;
 import com.psvm.seller.vo.Product;
 import com.psvm.seller.vo.ProductCategory;
 import com.psvm.seller.vo.ProductOption;
@@ -512,7 +514,22 @@ public class SellerController {
     
     // 고객 문의 관리  
     @RequestMapping("customerInquiry.sr")
-    public String selectCustomerInqueryManagement() {
+    public String selectCustomerInqueryManagement(@RequestParam(value="cpage", defaultValue="1") int currentPage, HttpSession session, Model model) {
+
+    	// 세션에서 loginUser 객체 가져오기
+    	Member loginUser = (Member)session.getAttribute("loginUser");
+
+    	int userNo = loginUser.getUserNo();
+    	
+    	//문의 가져오기
+    	int boardCount = sellerService.selectCsInquiryListCount();
+		
+		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 5);
+    	
+    	List<FaqDTO> inquiryList = sellerService.selectCsInquiryList(pi,userNo);
+    	
+    	model.addAttribute("pi", pi);
+    	model.addAttribute("inquiryList",inquiryList);
     	
     	return "seller/customerInquiryManagement";
     }
@@ -522,6 +539,23 @@ public class SellerController {
     public String selectSettleMent() {
     	
     	return "seller/settlement";
+    }
+    
+    //판매자 탈퇴
+    @ResponseBody
+    @PostMapping(value = "/leaveStore.ax", produces = "application/json; charset=UTF-8")
+    public String leaveStore(@RequestParam(value="userNo") int userNo) {
+    	
+        int result = sellerService.deleteSeller(userNo);
+        
+        if(result > 0) {
+        	
+        	return new Gson().toJson(result);
+        	
+        }else {
+        	return "";
+        }   
+       
     }
     
   //############################################## 스토어 메인  ############################################################
@@ -543,7 +577,7 @@ public class SellerController {
 	}
     
     // 무한 스크롤로 전체 상품 가져오기   
-    @RequestMapping(value = "/allProduct.ax", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+    @RequestMapping(value = "allProduct.ax", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
     @ResponseBody
     public String selectAllProduct(@RequestParam("page") int page, @RequestParam("size") int size) {
     	
@@ -584,30 +618,78 @@ public class SellerController {
     
     // 판매 상품 상세 정보
     @RequestMapping("detail.spd")
-    public String productDetailView(@RequestParam(value = "pno", required = false) Integer pno, Model model) {
+    public String productDetailView(@RequestParam(value = "pno", required = false) Integer pno,@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
     	
     	// 판매 상품 상세 정보
     	ProductDTO spd = sellerService.selectSalesProduct(pno);
     	
     	//리뷰 가져오기
-    	List<Review> reviewList = sellerService.selectReviewList();
+    	int boardCount = sellerService.selectReviewListCount(pno);
+		
+		PageInfo rpi = Pagination.getPageInfo(boardCount, currentPage, 10, 5);
+    	
+    	List<Review> reviewList = sellerService.selectReviewList(rpi,pno);
     	
     	//문의 가져오기
-    	List<FaqDTO> inquiryList = sellerService.selectInquiryList();
+    	int boardCount2 = sellerService.selectInquiryListCount(pno);
+		
+		PageInfo ipi = Pagination.getPageInfo(boardCount2, currentPage, 10, 5);
+    	
+    	List<FaqDTO> inquiryList = sellerService.selectInquiryList(ipi, pno);
     	
     	
     	
     	model.addAttribute("spd",spd);
     	model.addAttribute("reviewList",reviewList);
+    	model.addAttribute("rpi", rpi);
+    	model.addAttribute("inquiryList",inquiryList);
+    	model.addAttribute("ipi",ipi);
     	
     	return "seller/productDetailView";
+    }
+    
+    //리뷰 가져오는 ajax
+    @ResponseBody
+    @GetMapping(value="getReviewList.ax", produces = "application/json; charset=UTF-8")
+    public String getReviewList(@RequestParam("cpage") int cpage, @RequestParam(value = "pno") int pno) {
+    	
+    	
+    	int boardCount = sellerService.selectReviewListCount(pno);
+		
+		PageInfo rpi = Pagination.getPageInfo(boardCount, cpage, 10, 5);
+    	
+    	List<Review> reviewList = sellerService.selectReviewList(rpi,pno);
+    	
+    	HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("rpi", rpi);
+		map.put("reviewList",reviewList);
+
+    	return new Gson().toJson(map);
+    }
+    
+    //문의 가져오는 ajax
+    @ResponseBody
+    @GetMapping(value="getInquiryList.ax", produces = "application/json; charset=UTF-8")
+    public String getInquiryList(@RequestParam("cpage") int cpage, @RequestParam(value = "pno") int pno) {
+    	
+    	int boardCount2 = sellerService.selectInquiryListCount(pno);
+		
+		PageInfo ipi = Pagination.getPageInfo(boardCount2, cpage, 10, 5);
+    	
+    	List<FaqDTO> inquiryList = sellerService.selectInquiryList(ipi, pno);
+    	
+    	HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("ipi", ipi);
+		map.put("inquiryList",inquiryList);
+    	
+    	return new Gson().toJson(map);
     }
     
     // 상품 찜
     
     // 장바구니 담기    
-    @PostMapping(value = "/insertCart.ax", produces = "application/json; charset=UTF-8")
     @ResponseBody
+    @PostMapping(value = "/insertCart.ax", produces = "application/json; charset=UTF-8")
     public String insertCart(@RequestBody List<Map<String, Object>> data) {
     	
          int result = sellerService.insertCart(data);
@@ -616,23 +698,78 @@ public class SellerController {
     }
     
     // 리뷰 쓰기    
-    @PostMapping(value = "/insertReview.ax", produces = "application/json; charset=UTF-8")
-    @ResponseBody
-    public String insertReview() {
-    	
-         int result = sellerService.insertReview();
+    @PostMapping("insertReview.spd")
+    public String insertReview(@RequestParam("pno") int pno, 
+					    		@RequestParam("userNo") int userNo,
+					    		@RequestParam("reviewDibs") int reviewDibs,
+					    		@RequestParam("reviewContents") String reviewContents ,
+					    		@RequestParam(value= "reOriginName", required = false) MultipartFile reOriginName, 
+							    HttpSession session) {
 
-        return new Gson().toJson(result);
+    	log.info("review" + pno);
+    	log.info("review" + userNo);
+    	log.info("review" + reviewDibs);
+    	log.info("review" + reviewContents);
+    	log.info("review" + reOriginName);
+    	
+    	
+    	
+    	Review review = new Review();
+    	
+         // 파일이 제출되었는지 확인
+         if (!reOriginName.getOriginalFilename().isEmpty()) {
+             String changeName = saveFile(reOriginName, session);
+             review.setReOriginName(reOriginName.getOriginalFilename());
+             review.setReChangeName("resources/upFiles/productImg/" + changeName);
+         }
+         
+         
+         review.setPno(pno);
+         review.setUserNo(userNo);
+         review.setReviewDibs(reviewDibs);
+         review.setReviewContents(reviewContents);
+         
+         
+        int result = sellerService.insertReview(review);
+         
+        if(result > 0) {
+        	return "redirect:detail.spd?pno=" + pno;
+         }else {
+        	 return "redirect:list.spd";
+         }
+         
     }
     
-    // 문의 쓰기    
-    @PostMapping(value = "/insertInquiry.ax", produces = "application/json; charset=UTF-8")
-    @ResponseBody
-    public String insertInquiry() {
+    // 문의 쓰기  
+    @PostMapping(value = "insertInquiry.spd")
+    public String insertInquiry(@RequestParam(value = "pno") int pno,
+    							@RequestParam(value = "userNo") int userNo,
+    							@RequestParam(value = "inquiryTitle") String inquiryTitle,
+    							@RequestParam(value = "inquiryContents") String inquiryContents
+    							) {
     	
-         int result = sellerService.insertInquiry();
+    	log.info("pno"+pno);
+    	log.info("userNo"+userNo);
+    	log.info("inquiryTitle"+inquiryTitle);
+    	log.info("inquiryContents"+inquiryContents);
+    	
+    	
+    	Faq faq = new Faq();
+    	
+    	faq.setPno(pno);
+    	faq.setUserNo(userNo);
+    	faq.setInquiryTitle(inquiryTitle);
+    	faq.setInquiryContents(inquiryContents);
+    	
+    	
+         int result = sellerService.insertInquiry(faq);
 
-        return new Gson().toJson(result);
+         if(result > 0) {
+         	return "redirect:detail.spd?pno=" + pno;
+          }else {
+         	 return "redirect:list.spd";
+          }
+        
     }
     
   //############################################## 구매 페이지 ############################################################
