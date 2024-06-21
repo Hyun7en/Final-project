@@ -101,6 +101,9 @@ async function requestNotificationPermission() {
 function notification(userNo) {
   const eventSource = new EventSource(`http://localhost:8888/psvm/notifications/subscribe.pr/${userNo}`);
 
+  
+
+
   eventSource.addEventListener('sse', event => {
       (async () => {
           const data = event.data; // Assuming event.data is a JSON string
@@ -151,13 +154,15 @@ function getAlarmList(userNo, callback){
 
 //alarmCheck가 하나라도 false이면 빨간 종모양으로 변경 and for문 중지
 function drawNotification(alarmList){
+  //알람 버튼 빨간 점 띄울지 말지
   const nDiv = document.getElementById("notifi-bell");
   let str = "";
-
   for(const i of alarmList){
     if(i.alarmCheck == false){
+      sDiv = "";
       str = `<img id="notification-img" style="margin-top: 0;" src="${path}/resources/image/notification-new.png" onclick="onNotification()" alt="">`
       nDiv.innerHTML = str;
+
       break;
     }
   }
@@ -165,26 +170,32 @@ function drawNotification(alarmList){
 
 // 알람들을 div에 채워넣는 함수
 function drawAlarmList(data) {
-  const aDiv = document.getElementById("notification-div");
-  let str = "";
 
-  for (const b of data) {
-    const href = `checkAlarm.al?userNo=${b.userNo}&sellerPageNo=${b.sellerPageNo}&alarmNo=${b.alarmNo}`;
-    if (b.alarmCheck == false) {
-      str += `
-        <a href="${href}" class="notification-false">
-          ${b.storeName}에서 ${b.alarmContents}.
-        </a>
-      `;
-    } else {
-      str += `
-        <a href="${href}" class="notification-true">
-          ${b.storeName}에서 ${b.alarmContents}.
-        </a>
-      `;
+  if(data ==  ""){
+    document.getElementById("notification-div").innerHTML = `<p style="text-align: center;" class="notification-false">아무 알람도 오지 않았어요!</p>`
+  } else{
+    const aDiv = document.getElementById("notification-div");
+    let str = "";
+
+    for (const b of data) {
+      const href = `checkAlarm.al?userNo=${b.userNo}&sellerPageNo=${b.sellerPageNo}&alarmNo=${b.alarmNo}`;
+      if (b.alarmCheck == false) {
+        str += `
+          <a href="${href}" class="notification-false">
+            ${b.storeName}에서 ${b.alarmContents}.
+          </a>
+        `;
+      } else {
+        str += `
+          <a href="${href}" class="notification-true">
+            ${b.storeName}에서 ${b.alarmContents}.
+          </a>
+        `;
+      }
     }
+    aDiv.innerHTML = str;
   }
-  aDiv.innerHTML = str;
+
 }
 //로그인 했을 시 이전 url을 보내는 함수
 function getRecentURL(){

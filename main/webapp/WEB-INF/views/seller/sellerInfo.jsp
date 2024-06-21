@@ -16,9 +16,12 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonsCSS/reset.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sellerCSS/sellerInfo.css">
 
+<script src="${pageContext.request.contextPath}/resources/js/sellerJS/leaveStore.js"></script>
 </head>
 <body>
 <div class="wrap">
+
+    <input type="hidden" id="leaveStore" value="${loginUser.userNo}">
 
     <!-- header -->
     <%@ include file="../commons/header.jsp" %>
@@ -123,7 +126,7 @@
             </table>
 
             <div>
-                <button>수정 신청</button>
+                <button onclick="leaveStore();">퇴점</button>
             </div>
 
         </section>

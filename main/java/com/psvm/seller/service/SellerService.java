@@ -4,11 +4,13 @@ package com.psvm.seller.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.seller.dto.FaqDTO;
 import com.psvm.seller.dto.ProductDTO;
 import com.psvm.seller.dto.StoreMainDTO;
 import com.psvm.seller.vo.Buy;
+import com.psvm.seller.vo.Faq;
 import com.psvm.seller.vo.Product;
 import com.psvm.seller.vo.ProductCategory;
 import com.psvm.seller.vo.ProductOption;
@@ -67,6 +69,18 @@ public interface SellerService {
 	// 상품 삭제
 	public int deleteProduct(int pno);
 	
+	//주문 관리
+	
+	//배송 관리
+	
+	//고객 문의 관리
+	public int selectCsInquiryListCount();
+	
+	public List<FaqDTO> selectCsInquiryList(PageInfo pi, int userNo);
+	
+	//판매자 탈퇴 
+	public int deleteSeller(int userNo);
+	
 	//############################################## 스토어 메인 ############################################################
 	
 	// 인기 상품 불러오기
@@ -86,20 +100,26 @@ public interface SellerService {
 	// 판매 상품 상세 정보
 	public ProductDTO selectSalesProduct(int pno);
 	
+	//리뷰 리스트 페이징
+	public int selectReviewListCount(int pno);
+	
 	//리뷰 가져오기
-	public List<Review> selectReviewList();
+	public List<Review> selectReviewList(PageInfo rpi,int pno);
+	
+	//문의 리스트 페이징
+	public int selectInquiryListCount(int pno);
 	
 	//문의 가져오기
-	public List<FaqDTO> selectInquiryList();
+	public List<FaqDTO> selectInquiryList(PageInfo ipi,int pno);
 	
 	//장바구니 담기
 	public int insertCart(List<Map<String, Object>> data);
 	
 	//리뷰 쓰기
-	public int insertReview();
+	public int insertReview(Review review);
 	
 	//문의 쓰기
-	public int insertInquiry();
+	public int insertInquiry(Faq faq);
 	
 	//############################################## 구매 페이지 ############################################################
 	
