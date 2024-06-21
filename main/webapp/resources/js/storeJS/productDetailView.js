@@ -5,7 +5,7 @@ function productDetail(userNo){
 
     // z-index 추가
     document.getElementById("sticky-container").style.zIndex = "10";
-    
+
     let selectedOptions = {}; // 선택된 옵션을 저장하는 객체
     let productPrice = parseInt($('.product-price').text().replace(/[^0-9.-]+/g, "")); // 상품 가격을 가져옵니다.
     
@@ -169,6 +169,7 @@ function productDetail(userNo){
     getInquiryList(1,pno);
     
 }
+
 
     //별점 등록
     let starValue ="";
