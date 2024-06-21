@@ -175,12 +175,36 @@ public class MyPageController {
 		return mv;
 	}
 	
-	// 비밀번호 변경 메서드
-	@RequestMapping("changePwd.my")
-	public ModelAndView changePwd(Member m, String newPwd, Model model, HttpSession session, ModelAndView mv) {
+	// 마이페이지 비밀번호 확인 메서드
+	@RequestMapping("passwordCheck.my")
+	public ModelAndView passwordCheck(String inputPwd, HttpSession session, ModelAndView mv) {
 		
+		// 세션에 로그인 되어있는 회원 비밀번호 가져오기
+		String loginUserPwd = ((Member) session.getAttribute("loginUser")).getUserPwd();
+		// 입력한 비밀번호가  로그인한 회원 비밀번호랑 같은지 비교
+		boolean isPasswordCheck = bcryptPasswordEncoder.matches(inputPwd, loginUserPwd);
+		if (isPasswordCheck) {
+			mv.setViewName("redirect:/changePwdForm.my");
+		} else {
+			mv.addObject("errorMessage", "비밀번호가 올바르지 않습니다.");
+			mv.setViewName("myPage/myPageInfo");
+		}
+		return mv;
+	}
+	
+	// 마이페이지 비밀번호 변경창 이동 메서드
+	@RequestMapping("changePwdForm.my")
+	public String changePwdForm() {
+		return "myPage/myPageChangePwd";
+	}
+	
+	// 마이페이지 비밀번호 변경 메서드
+	@RequestMapping("changePwd.my")
+	public ModelAndView changePwd(String newPwd, Model model, HttpSession session, ModelAndView mv) {
+		
+		Member m = (Member)session.getAttribute("loginUser");
 		// 비밀번호 변경
-		String encPwd = bcryptPasswordEncoder.encode(m.getUserPwd());
+		String encPwd = bcryptPasswordEncoder.encode(newPwd);
 		
 		m.setUserPwd(encPwd);
 		
@@ -191,22 +215,10 @@ public class MyPageController {
 			session.setAttribute("successMessage", "비밀번호가 변경되어 로그아웃되었습니다.");
 			mv.setViewName("redirect:/");
 		} else {
-			mv.addObject("errorMessage", "비밀번호 변경 실패");
-			mv.setViewName("myPage/myPageInfo");
+			mv.addObject("errorMessage", "비밀번호 변경에 실패하였습니다.");
+			mv.setViewName("myPage/myPageChangePwd");
 		}
 		return mv;
-	}
-
-	// 회원탈퇴, 비밀번호 변경시 입력한 비밀번호를 체크(ajax)하는 메서드
-	@ResponseBody
-	@RequestMapping(value = "passwordCheck.my", produces = "application/json; charset-UTF-8")
-	public String passwordCheck(String inputPwd, HttpSession session) {
-		
-		// 세션에 로그인 되어있는 회원 비밀번호 가져오기
-		String loginUserPwd = ((Member) session.getAttribute("loginUser")).getUserPwd();
-		// 입력한 비밀번호가  로그인한 회원 비밀번호랑 같은지 비교
-		boolean isPasswordCheck = bcryptPasswordEncoder.matches(inputPwd, loginUserPwd);
-		return new Gson().toJson(isPasswordCheck);
 	}
 
 	@RequestMapping("interestProduct.my")

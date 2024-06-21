@@ -1,0 +1,77 @@
+body{
+    background-color: #E0F1FF;
+    position: relative;
+}
+#wrap{
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+h1{
+    text-align: center;
+    color: #0089FF;
+    margin-top: 100px;
+    margin-bottom: 25px;
+}
+#find-area{
+    border: 2px solid #0089FF;
+    width: 800px;
+    height: 425px;
+    border-radius: 15px;
+    display: flex;
+    background-color: white;
+}
+#find-id-area, #find-pwd-area{
+    width: 400px;
+    text-align: center;
+}
+#find-id-area{
+    border-right: 1px solid #0089FF;
+}
+#find-pwd-area{    
+    border-left: 1px solid #0089FF;
+}
+#find-id-area input, #find-pwd-area input{
+    width: 300px;
+    height: 50px;
+    border-left: 2px solid #0089FF;
+    border-right: 2px solid #0089FF;
+    font-size: 15px;
+    padding-left: 10px;
+    outline: 0;
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+}
+#idNameInput, #pwdNameInput{
+    margin-top: 25px;
+    border-top: 2px solid #0089FF;
+    border-bottom: 1px solid #0089FF;
+    border-radius: 15px 15px 0 0;
+}
+#idEmailInput, #pwdEmailInput{
+    margin-bottom: 25px;
+    border-top: 1px solid #0089FF;
+    border-bottom: 2px solid #0089FF;
+    border-radius: 0 0 15px 15px;
+}
+#pwdIdInput, #idBirthdayInput{
+    border-top: 1px solid #0089FF;
+    border-bottom: 1px solid #0089FF;
+}
+#vcodeInput{
+    margin-top: 25px;
+    border: 2px solid #0089FF;
+    border-radius: 15px;
+    margin-bottom: 25px;
+}
+#find-id-area>form>button, #find-pwd-area>form>button{
+    width: 250px;
+    height: 50px;
+    border: none;
+    background-color: #0089FF;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 15px;
+}

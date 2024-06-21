@@ -32,10 +32,7 @@
                     <c:choose>
                         <c:when test="${empty loginUser}">
                             <!-- 로그인 전 -->
-                            <form action="loginForm.me" method="post">
-                                <input type="hidden" name="recentLink" id="recentLink">
-                            </form>
-                            <a href="javascript:void(0)" onclick="getRecentURL()" >로그인</a>
+                            <a href="#" onclick="getRecentURL()" >로그인</a>
                             <a href="signUpForm.me">회원가입</a>
                             
                         </c:when>

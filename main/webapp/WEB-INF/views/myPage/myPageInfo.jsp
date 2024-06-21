@@ -40,7 +40,19 @@
 
 		<c:remove var="successMessage" scope="session"/>
 	</c:if>
-
+    <c:if test="${ not empty errorMessage}">
+		<script>
+			var errorMessage = "${errorMessage}";
+		    if (errorMessage) {
+		        Swal.fire({
+		            icon: 'error',
+		            title: 'Error!',
+		            html: errorMessage
+		        });
+		    }
+		</script>
+		<c:remove var="errorMessage" scope="session"/>
+	</c:if>
 	<div class="wrap">
 		<!-- header -->
         <%@ include file="../commons/header.jsp" %>
@@ -104,8 +116,8 @@
                                 <tr>
                                     <th>비밀번호</th>
                                     <td>
-                                        <input type="password" id="userPwd" name="userPwd" placeholder="기존의 비밀번호 입력">
-                                        <button type="button" class="change-btn" onclick="change_pwd_modal()">변경</button>
+                                            <input type="password" id="userPwd" name="userPwd" style="width: 70%;" placeholder="기존의 비밀번호 입력">
+                                            <button type="button" class="change-btn" style="width: 110px;" onclick="passwordCheck()">비밀번호 변경</button>
                                     </td>
                                 </tr>
                             </table>
@@ -197,27 +209,7 @@
                             </div>
                         </div>
                     </div>  
-
-                    <div id="change-pwd-modal">
-                        <div id="change-pwd-modal-content">
-                            <h3>비밀번호 변경</h3>
-                            <div id="password-check-area">
-                                <div>
-                                    <span>새 비밀번호 입력</span>
-                                    <div>
-                                        <input type="password" id="inputNewPwd" placeholder="새 비밀번호">
-                                        <input type="password" id="inputChkPwd" placeholder="새 비밀번호 확인">
-                                        <button type="button" id="confirm-btn" type="button" onclick="new_password_check()">결정</button>
-                                    </div>
-                                </div>
-                                <span id="notice-text"></span>
-                            </div>
-                            <div id="modal-btn-area">
-                                <button type="button" id="changePwd-btn" onclick="change_pwd('${loginUser.userNo}')" disabled style="color: #d0d0d0;">변경하기</button>
-                                <button type="button" id="close-modal" onclick="close_pwd_modal()">닫기</button>
-                            </div>
-                        </div>
-                    </div> 
+ 
                 </div>
             </div>
         </main>
