@@ -28,16 +28,7 @@
 </head>
 <body>
     <c:if test="${ not empty successMessage}">
-		<script>
-	    var successMessage = "${successMessage}";
-    	if (successMessage) {
-        Swal.fire({
-            icon: 'success',
-            title: 'success!',
-            html: successMessage
-        });
-        }
-		</script>
+
 		<c:remove var="successMessage" scope="session"/>
 	</c:if>
 
@@ -98,7 +89,7 @@
                                         <div class="info-input-area">
                                             <div class="info-input-title"><b>사업자등록번호</b></div>
                                             <div><input type="text" name="businessNo" id="businessNo"></div>
-                                            <div><button type="button" id="businessMan-certify">사업자 인증</button></div>
+                                            <div><button type="button" id="businessMan-certify" onclick="businessNumber()">사업자 인증</button></div>
                                         </div>
                                         <div class="info-input-area">
                                             <div class="info-input-title"><b>대표자 성명</b></div>
