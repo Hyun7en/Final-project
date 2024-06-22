@@ -51,7 +51,7 @@
                 </form>
             </div>
             <div id="find-pwd-area">
-                <form action="findPwd.me" id="findPwd" method="post">
+                
                     <input id="pwdNameInput" type="text" name="userName" placeholder="이름" required>
                     <input id="pwdIdInput" type="text" name="userId" placeholder="아이디" required>
                     <input id="pwdEmailInput" type="text" name="email" placeholder="이메일" required>
@@ -60,7 +60,7 @@
 
                     <input id="vcodeInput" type="text" name="Vcode" placeholder="인증번호" required>
                     <div id="vcodeTimer"><span></span></div>
-
+                <form action="findPwd.me" id="findPwd" method="post">
                     <button type="button" id="findPwd-submit" onclick="findPwd()" disabled>비밀번호 찾기</button>
                 </form>
             </div>
