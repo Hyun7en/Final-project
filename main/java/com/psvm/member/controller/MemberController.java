@@ -143,6 +143,7 @@ public class MemberController {
 		int result = memberService.findUser(m);
 		if (result > 0) {
 			//인증번호 생성 후 세션에 저장
+			session.setAttribute("findUser", m);
 			String Vcode = new java.math.BigInteger(48, new java.security.SecureRandom()).toString(32).substring(0, 8);
 			System.out.println(Vcode);
 			session.setAttribute("Vcode", Vcode);
@@ -154,12 +155,11 @@ public class MemberController {
 	}	
 	
 	@RequestMapping("findPwd.me") // 인증코드 대조
-	public ModelAndView findPwd(Member m, String Vcode, HttpSession session, ModelAndView mv) {
+	public ModelAndView findPwd(String Vcode, HttpSession session, ModelAndView mv) {
 		System.out.println(Vcode);
 		String KeyCode = (String)session.getAttribute("Vcode");
 		if (Vcode.equals(KeyCode)) {
 			session.removeAttribute("Vcode");
-			session.setAttribute("findUser", m);
 			mv.setViewName("redirect:/changePwdForm.me");
 		} else {
 			session.removeAttribute("Vcode");
