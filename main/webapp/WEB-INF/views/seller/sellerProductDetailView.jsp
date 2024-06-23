@@ -35,7 +35,7 @@
         <%@ include file="../commons/aside.jsp" %>
 
         <section>
-            <h1>스토어 관리</h1>
+            <h1>스토어 관리 > 상품 상세</h1>
             
             <div id="product-detail">
 
@@ -62,7 +62,7 @@
                 
                 <div class="form-group">
                     <h4>옵션</h4>
-                    <select class="form-control" id="select-option" name="optionName">
+                    <select class="select-option" name="optionName">
                         
                     </select>
                 </div>
@@ -80,7 +80,8 @@
 
                     <div id="summernote">
                         <!-- summernote 내용 -->
-                        ${pd.pdContent}
+                            ${pd.pdContent}
+                        
                     </div>
                 </div>
 

@@ -194,7 +194,7 @@
 	<update id="changePwd">
 	UPDATE member
 	SET USER_PWD = #{userPwd}
-	WHERE user_no = #{userNo}
+	WHERE USER_ID = #{userId}
 	</update>
 	
 	<!-- 장바구니에 담긴 상품 수 조회 -->

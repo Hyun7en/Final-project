@@ -23,11 +23,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/myPageCSS/myPageInterest.css">
 
 <body>
-    
-	<div class="wrap">
-		<!-- header -->
-        <%@ include file="../commons/header.jsp" %>
-        <c:if test="${ not empty infoMessage}">
+    <c:if test="${ not empty infoMessage}">
             <script>
                 var infoMessage = '${infoMessage}';
                 if (infoMessage) {
@@ -53,6 +49,22 @@
             </script>
             <c:remove var="errorMessage" scope="session"/>
         </c:if>
+        <c:if test="${ not empty successMessage}">
+		<script>
+			var successMessage = "${successMessage}";
+		    if (successMessage) {
+		        Swal.fire({
+		            icon: 'success',
+		            title: 'success!',
+		            html: successMessage
+		        });
+		    }
+		</script>
+		<c:remove var="successMessage" scope="session"/>
+	</c:if>
+	<div class="wrap">
+		<!-- header -->
+        <%@ include file="../commons/header.jsp" %>
         <main>
             <div id="myPageInterest-wrapper">
                 <div id="myPage-sidebar">

@@ -39,11 +39,11 @@
                     
                     <div>
                         <h4>스토어 소개</h4>
-                        <input id="store-introduce" type="text" name="sellerExplain" placeholder="스토어 소개 입력" style="width: 300px; padding: 5px;">
+                        <input id="store-introduce" type="text" name="sellerExplain" placeholder="스토어 소개 입력" style="width: 300px; padding: 5px;" required>
                     </div>
                     <div>
                         <h4>대표 이미지</h4>
-                        <input type="file" name="storeHomeImage" id="storeHomeImage">
+                        <input type="file" name="storeHomeImage" id="storeHomeImage" required>
                     </div>
                     <div class="image-container">
                         <img id="preview-image" src="getImage?id=1" alt="스토어 홈 이미지">
@@ -52,7 +52,7 @@
                     <div id="div-enroll-category">
                         <div>
                             <h4>카테고리 등록</h4>
-                            <input id="enroll-category" type="text" placeholder="카테고리 입력">
+                            <input id="enroll-category" type="text" placeholder="카테고리 입력" required>
                             <button type="button" id="add-categoryBtn">추가</button>
                         </div>
                         <div>
@@ -68,7 +68,9 @@
             </c:if>
         
             <c:if test="${sessionScope.SellerHomeRegistered}">
-                <p>등록이 완료되었습니다.</p>
+                <div id="enroll-please">
+                    등록이 완료되었습니다.
+                </div>
             </c:if>
         </section>
     </main>

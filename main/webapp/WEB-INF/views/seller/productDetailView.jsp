@@ -49,7 +49,7 @@
                     <h1>${spd.storeName}</h1>
                 </a>
             </div>
-            <button type="button" class="btn btn-danger">상품신고</button>
+            <button type="button" class="btn btn-danger" onclick="location.href='list.cs'">상품신고</button>
         </div>
 
         <!-- 상품 구매 -->
@@ -63,7 +63,7 @@
                 <div class="product-name-area">
                     <span class="product-name">${spd.pdTitle}</span>
                     <span class="dibs">
-                        <i class="fa-regular fa-heart"></i>
+                        
                     </span>
                 </div>
                 <div class="product-grade-area">
@@ -79,40 +79,37 @@
                     <div>
                         <span class="product-price">${spd.pdPrice}</span>원
                     </div>
-                </div>
+                </div> 
                 <div class="product-etc">
-                    <span>배송</span>
+                    <span>배송 업체직접배송</span>
                 </div>
                 <div class="top-product-buy-area">
                     <div class="product-buy-info">
-                        <div id="product-opt-form-wrapper">
-                            <form action="" id="product-opt-form" method="post">
-                                <div class="product-opts">
-                                    <div class="product-opt-select">
-                                        <div><span>옵션을 선택해주세요</span></div>
-                                        <select class="form-control" id="select-option" name="optionName">
-                                        </select>
-                                    </div>
-                                </div>
-                                <!-- 선택된 옵션과 수량 입력을 위한 컨테이너 -->
-                                <div id="selected-options-container">
+                        <form action="" id="product-opt-form" method="post">
+                            <div class="product-opts">
+                                <div class="product-opt-select">
+                                    <div><span>옵션을 선택해주세요(필수)</span></div>
+                                    <select class="select-option" name="optionName">
 
+                                    </select>
                                 </div>
-                        
-                                <div id="price-area">
-                                    <div >주문금액</div>
-                                    <div >
-                                        <span class="order-price">원</span>
-                                    </div>
+                            </div>
+                            <!-- 선택된 옵션과 수량 입력을 위한 컨테이너 -->
+                            <div class="selected-options-container">
+
+                            </div>
+                    
+                            <div class="price-area">
+                                <div >주문금액</div>
+                                <div >
+                                    <span class="order-price">원</span>
                                 </div>
-                                <div id="product-price-btn-wrapper">
-                                    <div class="product-buy-btn-container">
-                                        <button type="button" class="cart-btn" id="product-cart-btn">장바구니</button>
-                                        <button type="button" class="buy-btn" id="product-buy-btn" >바로구매</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                            </div>
+                            <div class="product-buy-btn-container">
+                                <button type="button" class="cart-btn" id="product-cart-btn">장바구니</button>
+                                <button type="button" class="buy-btn" id="product-buy-btn" >바로구매</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -126,10 +123,10 @@
                         <a class="nav-link" href="#go-product-detail" aria-label="상품정보로 이동">상품정보</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="#go-product-review" aria-label="리뷰로 이동">리뷰</a>
+                        <a class="nav-link" href="#go-product-review" aria-label="리뷰로 이동">리뷰 <span id="nav-review-count">${spd.reviewCount}</span></a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="#go-product-inquiry" aria-label="문의로 이동">문의</a>
+                        <a class="nav-link" href="#go-product-inquiry" aria-label="문의로 이동">문의 <span id="nav-inquiry-count"></span></a>
                       </li>
                       <li class="nav-item">
                         <a class="nav-link" href="#go-seller-info" aria-label="판매자 정보로 이동">판매자 정보</a>
@@ -156,7 +153,6 @@
                         
                     </section>
                 </div>   
-                
                 <div class="go" id="go-product-review"></div>
 
                 <!-- 리뷰 -->
@@ -167,8 +163,15 @@
                                 <h1 class="description-title">
                                     <span>리뷰</span> <span id="review-count">${spd.reviewCount}</span>
                                 </h1>
+                                <c:set var="canWriteReview" value="false" />
+                                <c:forEach var="review" items="${userNoList}">
+                                    <c:if test="${review.userNo eq loginUser.userNo}">
+                                        <c:set var="canWriteReview" value="true" />
+                                    </c:if>
+                                </c:forEach>
+
                                 <c:choose>
-                                    <c:when test="${loginUser != null}">
+                                    <c:when test="${canWriteReview}">
                                             <button id="review-btn" class="btn btn-primary" data-toggle="modal" data-target="#review-Modal">
                                                 리뷰쓰기
                                             </button>
@@ -180,32 +183,14 @@
                             </div>
 
                             <div>
-                            <!-- 반복 구문 시작 -->
                              <c:choose >
 
                                 <c:when test="${not empty reviewList}">
-                                    <table>
-                                        <c:forEach var="review" items="${reviewList}">
-                                            <tr>
-                                                <td><img src="" alt=""></td>
-                                                <td>이름</td>
-                                                <td>별점</td>
-                                                <td>${review.reviewDate}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>상품명</td>
-                                                <td>옵션명</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="" alt=""></td>
-                                            </tr>
-                                            <tr>
-                                                <td>리뷰 내용</td>
-                                            </tr>
-                                        </c:forEach>
-                                    </table>
+                                    <div id="review-container">
 
-                                    <hr>
+                                        
+                                    
+                                    </div>    
                                 </c:when>
 
                                 <c:otherwise>
@@ -218,33 +203,32 @@
                                     <hr>
                                 </c:otherwise>
                             </c:choose>
-                            <!-- 반복 구문 끝 -->
                             </div>
 
                         </div>
 
-                        <!-- 페이징 처리 들어오는 곳-->
+                        <!-- 리뷰 페이징 처리 들어오는 곳-->
                         <div id="pagination-div">
                             <ul class="pagination">
                                 <c:choose>
-                                    <c:when test="${ pi.currentPage eq 1 }">
+                                    <c:when test="${ rpi.currentPage eq 1 }">
                                         <li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
                                     </c:when>
                                     <c:otherwise>
-                                        <li class="page-item"><a class="page-link" href="?cpage=${pi.currentPage - 1}">&laquo;</a></li>
+                                        <li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="getReviewList(`${rpi.currentPage - 1}`,`${spd.pdNo}`);">&laquo;</a></li>
                                     </c:otherwise>
                             </c:choose>
 
-                        <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-                            <li class="page-item ${p == pi.currentPage ? 'active' : ''}"><a class="page-link" href="?cpage=${p}">${p}</a></li>
+                        <c:forEach var="p" begin="${ rpi.startPage }" end="${ rpi.endPage }">
+                            <li class="page-item ${p == rpi.currentPage ? 'active' : ''}"><a class="page-link" href="javascript:void(0);" onclick="getReviewList(`${p}`,`${spd.pdNo}`);">${p}</a></li>
                         </c:forEach>
                             
                         <c:choose>
-                                <c:when test="${ pi.currentPage eq pi.maxPage }">
+                                <c:when test="${ rpi.currentPage eq rpi.maxPage }">
                                     <li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
                                 </c:when>
                                 <c:otherwise>
-                                    <li class="page-item"><a class="page-link" href="?cpage=${pi.currentPage + 1}">&raquo;</a></li>
+                                    <li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="getReviewList(`${rpi.currentPage + 1}`,`${spd.pdNo}`);">&raquo;</a></li>
                                 </c:otherwise>
                             </c:choose>
                             </ul>
@@ -265,58 +249,52 @@
 
                             <!-- Modal body -->
                             <div class="modal-body" >
-                                <form id="modal-qna-content" action="" enctype="multipart/form-data" method="post">
-                                    <input type="hidden" name="writerNo" value=>
-                                    <input type="hidden" name="refProductNo" value=>
-                                    <div id="product-name-container">
-                                        <div id="qna-product-name-header">
-                                            상품명
-                                        </div>
-                                        <select name="refPdoptNo" id="qna-product-name">
-                                        </select>
+                                <form id="modal-qna-content" action="insertReview.spd" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" name="pno" value=${param.pno}>
+                                    <input type="hidden" name="userNo" value=${loginUser.userNo}>
+                                    <div id="qna-product-name-header">
+                                        ${spd.pdTitle}
                                     </div>
 
                                     <!-- 별점 -->
-                                    <div class ="star_rating">
-                                        <span class="star on" value="1"> </span>
-                                        <span class="star" value="2"> </span>
-                                        <span class="star" value="3"> </span>
-                                        <span class="star" value="4"> </span>
-                                        <span class="star" value="5"> </span>
+                                    <span class="star-rating-title">별점평가</span>
+                                    <div id="reply-dibs" class ="star_rating">
+                                        <span class="star on" value="1" onclick="starClick(1);"> </span>
+                                        <span class="star" value="2" onclick="starClick(2);"> </span>
+                                        <span class="star" value="3" onclick="starClick(3);"> </span>
+                                        <span class="star" value="4" onclick="starClick(4);"> </span>
+                                        <span class="star" value="5" onclick="starClick(5);"> </span>
                                     </div>
+                                
+                                    <div id="hidden-sub">
 
+                                    </div>
 
                                     <div id="product-pic-container">
                                         <div >
-                                            사진 첨부(선택)
-                                        </div>
-                                        <div >
-                                            사진을 첨부해주세요.(최대 1장)
-                                        </div>
-                                        <div id="qna-pic-container">
-
+                                            사진 첨부(선택)(최대 1장)
                                         </div>
                                         <div id="add-qna-product-pic">
-                                        
                                             <span >사진 첨부하기</span>
-                                            <input type="file" name="reOriginName" id="file-input" >
-
+                                            <input type="file" name="reOriginName" id="reOriginName" >
+                                        </div>
+                                        <div id="preview-img-container" >
+                                            <img id="preview-img" src="" alt="">
                                         </div>
                                     </div>
 
-                                    <div id="product-qna-content-container">
+                                    <div id="product-review-container">
                                         <div >
-                                            리뷰작성
-                                            <div>필수 입력 항목입니다.</div>
+                                            *리뷰작성(필수)
                                         </div>
-                                        <div id="product-qna-content-textarea">
-                                            <textarea name="qnaContent" id="product-qna-content"
-                                                placeholder="자세하고 솔직한 리뷰는 다른 고객과 스토어에게 큰 도움이 됩니다."></textarea>
+                                        <div id="product-review-textarea">
+                                            <textarea name="reviewContents" id="product-qna-content"
+                                                placeholder="자세하고 솔직한 리뷰는 다른 고객과 스토어에게 큰 도움이 됩니다." required></textarea>
                                         </div>
                                     </div>
 
-                                    <div id="product-qna-enroll-btn-container">
-                                        <button type="submit" id="product-qna-enroll-btn">리뷰 등록</button>
+                                    <div id="product-review-enroll-btn-container">
+                                        <button type="submit" id="product-review-enroll-btn" onclick="aaa();">리뷰 등록</button>
                                     </div>
                                 </form>
                             </div>
@@ -348,72 +326,54 @@
                             </div>
 
                             <div>
-                            <!--  반복문 시작 -->
                                 <c:choose>
 
-                                    <c:when test="not empty inquiryList">                                   
+                                    <c:when test="${not empty inquiryList}"> 
+                                        <div id="inquiry-container">
+
+                                        </div>
+                                    </c:when>
+
+                                    <c:otherwise>
                                         <table>
                                             <tr>
-                                                <td>
-                                                    문의자명
-                                                </td>
-                                                <td>
-                                                    문의날짜
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="font-weight: bolder; color: #0089FF;">
-                                                    Q
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="font-weight: bolder; color: #0089FF;">
-                                                    A
-                                                </td>
+                                                등록된 문의가 없습니다
                                             </tr>
                                         </table>
+
                                         <hr>
-                                    </c:when>
 
-                                <c:otherwise>
-                                    <table>
-                                        <tr>
-                                            등록된 문의가 없습니다
-                                        </tr>
-                                    </table>
-
-                                    <hr>
-
-                                </c:otherwise>
-                            </c:choose>
-                            <!--  반복문 끝 -->
-                            </div>
-                            <!-- 페이징 처리 들어오는 곳-->
-                            <div id="pagination-div">
-                                <ul class="pagination">
-                                    <c:choose>
-                                        <c:when test="${ pi.currentPage eq 1 }">
-                                            <li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <li class="page-item"><a class="page-link" href="?cpage=${pi.currentPage - 1}">&laquo;</a></li>
-                                        </c:otherwise>
-                                </c:choose>
-
-                            <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-                                <li class="page-item ${p == pi.currentPage ? 'active' : ''}"><a class="page-link" href="?cpage=${p}">${p}</a></li>
-                            </c:forEach>
-                                
-                            <c:choose>
-                                    <c:when test="${ pi.currentPage eq pi.maxPage }">
-                                        <li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <li class="page-item"><a class="page-link" href="?cpage=${pi.currentPage + 1}">&raquo;</a></li>
                                     </c:otherwise>
                                 </c:choose>
-                                </ul>
                             </div>
+                            
+                        </div>
+
+                         <!-- 문의 페이징 처리 들어오는 곳-->
+                         <div id="pagination-div">
+                            <ul id="inquiry-pagination" class="pagination">
+                                <c:choose>
+                                    <c:when test="${ ipi.currentPage eq 1 }">
+                                        <li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="getInquiryList(`${ipi.currentPage - 1}`,`${spd.pdNo}`);">&laquo;</a></li>
+                                    </c:otherwise>
+                            </c:choose>
+
+                        <c:forEach var="p" begin="${ ipi.startPage }" end="${ ipi.endPage }">
+                            <li class="page-item ${p == ipi.currentPage ? 'active' : ''}"><a class="page-link" href="javascript:void(0);" onclick="getInquiryList(`${p}`,`${spd.pdNo}`);">${p}</a></li>
+                        </c:forEach>
+                            
+                        <c:choose>
+                                <c:when test="${ ipi.currentPage eq ipi.maxPage }">
+                                    <li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="getInquiryList(`${ipi.currentPage + 1}`,`${spd.pdNo}`);">&raquo;</a></li>
+                                </c:otherwise>
+                            </c:choose>
+                            </ul>
                         </div>
                     </section>
                 </div>    
@@ -432,29 +392,32 @@
 
                             <!-- Modal body -->
                             <div class="modal-body" >
-                                <form id="modal-qna-content" action="" enctype="multipart/form-data" method="post">
-                                    <input type="hidden" name="writerNo" value=>
-                                    <input type="hidden" name="refProductNo" value=>
-                                    <div id="product-name-container">
-                                        <div id="qna-product-name-header">
-                                            상품명
-                                        </div>
-                                        <select name="refPdoptNo" id="qna-product-name">
-                                        </select>
+                                <div id="product-name-container">
+                                    <div id="inquiry-product-name">
+                                        ${spd.pdTitle}
                                     </div>
-
-                                    <div id="product-qna-content-container">
+                                </div>
+                                <form id="modal-inquiry-content" action="insertInquiry.spd" enctype="multipart/form-data" method="post">
+                                    <input type="hidden" name="pno" value=${param.pno}>
+                                    <input type="hidden" name="userNo" value=${loginUser.userNo}>
+                                    <div id="product-inquiry-content-container">
+                                        <div>
+                                            문의제목
+                                        </div>
+                                        <div>
+                                            <input type="text" name="inquiryTitle" required>
+                                        </div>
                                         <div >
-                                            문의내용
+                                            *문의내용
                                         </div>
-                                        <div id="product-qna-content-textarea">
-                                            <textarea name="qnaContent" id="product-qna-content"
-                                                placeholder="문의 내용을 입력하세요."></textarea>
+                                        <div id="product-inquiry-content-textarea">
+                                            <textarea name="inquiryContents" id="product-inquiry-content"
+                                                placeholder="문의 내용을 입력하세요." required></textarea>
                                         </div>
                                     </div>
 
-                                    <div id="product-qna-enroll-btn-container">
-                                        <button type="submit" id="product-qna-enroll-btn">완료</button>
+                                    <div id="product-inquiry-enroll-btn-container">
+                                        <button type="submit" id="product-inquiry-enroll-btn">완료</button>
                                     </div>
                                 </form>
                             </div>
@@ -528,11 +491,37 @@
 
             </div>
 
-            <div class="bottom-product-buy-area">
+            <div class="bottom-product-buy-area-container">
+                <div class="bottom-product-buy-area" style="position: sticky; top: 185px; transition: top 0.1s ease 0s;">
+                    <div>    
+                        <form action="" id="product-opt-form" method="post">
+                            <div class="product-opts">
+                                <div class="product-opt-select">
+                                    <div><span>옵션을 선택해주세요(필수)</span></div>
+                                    <select class="select-option" name="optionName">
 
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- 선택된 옵션과 수량 입력을 위한 컨테이너 -->
+                            <div class="selected-options-container">
+
+                            </div>
+                    
+                            <div class="bottom-price-area">
+                                <div >주문금액</div>
+                                <div >
+                                    <span class="order-price">원</span>
+                                </div>
+                            </div>
+                            <div class="bottom-btn-container">
+                                <button type="button" class="cart-btn" id="product-cart-btn">장바구니</button>
+                                <button type="button" class="buy-btn" id="product-buy-btn" >바로구매</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-
-        </div>
         
     </main>
 

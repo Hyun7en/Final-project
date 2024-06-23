@@ -45,8 +45,10 @@
                 <p>필수 입력 항목</p>
                 <input type="text" id="signup-id" name="userId" placeholder="아이디" style="border-top: 2px solid #0089FF; border-bottom: 2px solid #0089FF;" maxlength="20">
                 <div id="checkResult" style="color: #0089FF; height: 25px;">5자 이상 입력해야 합니다.</div>
-                
-                <input type="password" id="signup-pwd" name="userPwd" placeholder="비밀번호(8자 이상 입력, 영어 대소문자와 숫자 조합만 가능)">
+                <div id="pwdArea">
+                    <input type="password" id="signup-pwd" name="userPwd" placeholder="비밀번호">
+                    <span>8자 이상, 영어 대소문자와 숫자를 하나씩 사용해야 합니다.</span>
+                </div>
                 <input type="password" id="check-pwd" placeholder="비밀번호 확인">
                 <div id="emailArea">
                     <input type="text" id="signup-email" name="email" placeholder="이메일">

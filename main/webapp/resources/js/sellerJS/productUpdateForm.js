@@ -90,6 +90,15 @@ $(function() {
         }
     });
 
+    // 스토어 홈 이미지 변경 시 미리보기 기능
+    $('#productImage').change(function(event) {
+        let reader = new FileReader();
+        reader.onload = function(e) {
+            $('#preview-image').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    });
+
     // 폼 제출 전에 existing 상태의 옵션을 제거합니다.
     $('form').submit(function(e) {
         $('#div-enroll-option table tr[data-status="existing"]').remove();

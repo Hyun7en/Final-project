@@ -16,9 +16,10 @@ import lombok.ToString;
 public class Faq {
 	private int faqNo;
 	private int userNo;
-	private int inquiryTitle;
-	private int inquiryContents;
+	private String inquiryTitle;
+	private String inquiryContents;
 	private Date inquiryDate;
 	private int pdNo;
+	private int pno;
 	private int inquiryStatus;
 }

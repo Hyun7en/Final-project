@@ -60,8 +60,11 @@
 	
 	<resultMap type="Review" id="ReviewResult">
 		<result column="REPLY_NO" property="replyNo"/>
+		<result column="NICKNAME" property="nickName"/>
 		<result column="USER_NO" property="userNo"/>
 		<result column="P_NO" property="pdNo"/>
+		<result column="P_TITLE" property="pdTitle"/>
+		<result column="CHANGE_NAME" property="changeName"/>
 		<result column="REVIEW_DATE" property="reviewDate"/>
 		<result column="REVIEW_DIBS" property="reviewDibs"/>
 		<result column="REVIEW_CONTENTS" property="reviewContents"/>
@@ -77,6 +80,21 @@
 		<result column="INQUIRY_DATE" property="inquiryDate"/>
 		<result column="P_NO" property="pdNo"/>
 		<result column="INQUIRY_STATUS" property="inquiryStatus"/>
+	</resultMap>
+	
+	<resultMap type="FaqDTO" id="FaqDTOResult">
+		<result column="FAQ_NO" property="faqNo"/>
+		<result column="USER_NO" property="userNo"/>
+		<result column="INQUIRY_TITLE" property="inquiryTitle"/>
+		<result column="INQUIRY_CONTENTS" property="inquiryContents"/>
+		<result column="INQUIRY_DATE" property="inquiryDate"/>
+		<result column="P_NO" property="pdNo"/>
+		<result column="INQUIRY_STATUS" property="inquiryStatus"/>
+		<result column="ANSWER_NO" property="answerNo"/>
+		<result column="ANSWER_DATE" property="answerDate"/>
+		<result column="ANSWER_CONTENTS" property="answerContents"/>
+		<result column="NICKNAME" property="nickName"/>
+		<result column="P_TITLE" property="pdTitle"/>
 	</resultMap>
 	
 	<resultMap type="StoreMainDTO" id="StoreMainDTOResult">
@@ -207,8 +225,10 @@
 		UPDATE SELLER_PAGE
 		   SET SELLER_EXPLAIN = #{sellerExplain},
 		   	   SP_ENROLL_DATE = CURRENT_TIMESTAMP,
+		   	   <if test="spOriginName !=null">
 		   	   SP_ORIGIN_NAME = #{spOriginName},
 		   	   SP_CHANGE_NAME = #{spChangeName}
+		   	   </if>
 		 WHERE BUSINESS_NO = #{businessNo}   			
 	</update>
 	
@@ -275,14 +295,17 @@
 						 		 	  )	
 	</insert>
 	
-	
-	<!-- 게시글의 총 갯수 조회 -->
+	<!-- 상품 리스트 페이징  -->
 	<select id="selectProductListCount" resultType="_int">
 		SELECT COUNT(*)
 		  FROM PRODUCT
+		  JOIN PRODUCT_CATEGORY USING(C_NO)
+		  JOIN SELLER_PAGE USING(SELLER_PAGE_NO)
 		 WHERE P_STATUS = 'Y'
+		   AND BUSINESS_NO = #{businessNo}
 	</select>
 	
+	<!-- 상품 리스트 -->
 	<select id="selectProductList" resultMap="productResult">
 		SELECT P_NO,
 			   C_NO,
@@ -296,6 +319,45 @@
 		   AND BUSINESS_NO = #{businessNo}
 		 ORDER BY P_NO DESC; 
 	</select>
+	
+	<!-- 상품 리스트 검색 -->
+	<select id="searchProductListCount" resultType="_int">
+		SELECT COUNT(*)
+		  FROM PRODUCT
+		  JOIN PRODUCT_CATEGORY USING(C_NO)
+		  JOIN SELLER_PAGE USING(SELLER_PAGE_NO)
+		 WHERE P_STATUS = 'Y'
+		   AND BUSINESS_NO = #{businessNo}
+		<if test="condition == 'category'">
+		 	AND	P_CATEGORY
+		</if>
+		<if test="condition == 'productName'">
+		 	AND	P_TITLE
+		</if>
+		LIKE '%' || #{keyword} || '%'
+	</select>
+	
+	<select id="searchProductList" resultMap="productResult">
+		SELECT P_NO,
+			   C_NO,
+			   P_CATEGORY,
+			   P_TITLE,
+			   TO_CHAR(P_ENROLL_DATE , 'YYYY-MM-DD') AS "P_ENROLL_DATE"
+		  FROM PRODUCT
+		  JOIN PRODUCT_CATEGORY USING(C_NO)
+		  JOIN SELLER_PAGE USING(SELLER_PAGE_NO)
+		 WHERE P_STATUS = 'Y'
+		   AND BUSINESS_NO = #{businessNo}
+		 <if test="condition == 'category'">
+		 	AND	P_CATEGORY
+		 </if>
+		 <if test="condition == 'productName'">
+		 	AND	P_TITLE
+		 </if>
+		 LIKE '%' || #{keyword} || '%'
+		 ORDER BY P_NO DESC 
+	</select>
+	
 	
 	<select id="selectOptions" resultMap="productOptionResult">
 		SELECT P_COUNT,
@@ -362,11 +424,112 @@
 		 WHERE P_OPTION_NO = #{pdOptionNo} 
 	</delete>
 	
+	<!-- 상품 삭제 -->
 	<update id="deleteProduct">
 		UPDATE PRODUCT
 		   SET P_STATUS = 'N' 
 		 WHERE P_NO = #{pno} 
 	</update>
+	
+	<!-- 주문 관리 -->
+	
+	<!-- 배송 관리 -->
+	
+	<!-- 고객 문의 관리 -->	
+	<select id="selectCsInquiryListCount" resultType="_int">
+	select count(*)
+	  from member m
+	  join seller_info s using(user_no)
+	  join seller_page using(business_no)
+	  join product_category using(seller_page_no)
+	  join product using(c_no)
+	  join faq f using(p_no)
+	  join member nm on(f.user_No = nm.user_no )
+	 where m.user_no = #{userNo} and f.inquiry_status = 0
+	</select>
+	
+	<select id="selectCsInquiryList" resultMap="FaqDTOResult">
+	select faq_no,p_title,f.user_no,nm.nickname,
+			TO_CHAR(f.inquiry_date, 'YYYY-MM-DD') as "inquiry_date", inquiry_title,inquiry_contents
+	  from member m
+	  join seller_info s using(user_no)
+	  join seller_page using(business_no)
+	  join product_category using(seller_page_no)
+	  join product using(c_no)
+	  join faq f using(p_no)
+	  join member nm on(f.user_No = nm.user_no )
+	 where m.user_no = #{userNo} and f.inquiry_status = 0
+	 order by f.faq_no desc
+	</select>
+	
+	<!-- 고객 문의 답변 -->
+	<insert id="insertInquiryAnswer">
+		INSERT INTO FAQ_ANSWER
+							  (
+							   FAQ_NO,
+							   USER_NO,
+							   ANSWER_CONTENTS								  
+							   )
+						VALUES(
+							   #{faqNo},
+							   #{userNo},
+							   #{answerContents}
+							   )	  						
+	
+	</insert>
+	
+	<update id="updateInquiry">
+		UPDATE FAQ
+		   SET INQUIRY_STATUS = 1
+		WHERE FAQ_NO = #{faqNo} 
+		   
+	</update>
+	
+	<!-- 고객 문의 검색 -->
+	<select id="searchInquiryListCount" resultType="_int">
+		select count(*)
+		  from member m
+		  join seller_info s using(user_no)
+		  join seller_page using(business_no)
+		  join product_category using(seller_page_no)
+		  join product using(c_no)
+		  join faq f using(p_no)
+		  join member nm on(f.user_No = nm.user_no )
+		 where m.user_no = #{userNo} and f.inquiry_status = 0
+		<if test="condition == 'productName'">
+		 	and p_title LIKE '%' || #{keyword} || '%'
+		</if>
+	</select>
+	
+	<select id="searchInquiryList" resultMap="FaqDTOResult">
+		select faq_no,p_title,f.user_no,nm.nickname,
+				TO_CHAR(f.inquiry_date, 'YYYY-MM-DD') as inquiry_date,inquiry_title,inquiry_contents
+		  from member m
+		  join seller_info s using(user_no)
+		  join seller_page using(business_no)
+		  join product_category using(seller_page_no)
+		  join product using(c_no)
+		  join faq f using(p_no)
+		  join member nm on(f.user_No = nm.user_no )
+		 where m.user_no = #{userNo} and f.inquiry_status = 0
+		<if test="condition == 'productName'">
+		 	and p_title LIKE '%' || #{keyword} || '%'
+		</if>
+		 order by f.faq_no desc
+	</select>
+
+	
+	<!-- 판매자 탈퇴 -->
+	<update id="updateMemberAuthority">
+		UPDATE MEMBER
+		   SET AUTHORITY = 0
+		   WHERE USER_NO = #{userNo}
+	</update>
+	
+	<delete id="deleteSellerinfo">
+		DELETE FROM SELLER_INFO
+		 WHERE USER_NO = #{userNo}	
+	</delete>
 	
 	<!-- ##################################### 스토어 메인  ##################################### -->
 	
@@ -447,14 +610,69 @@
 		          P_PRICE, P_CONTENT, P_CHANGE_NAME
 	</select>
 	
-	<!-- 리뷰 가져오기 -->
-	<select id="selectReviewList" resultMap="ReviewResult">
-		SELECT *
-		FROM REVIEW
+	<!-- 상품 구매한 유저 번호 가져오기  -->
+	<select id="getPayUserNo" resultMap="ReviewResult">
+	SELECT DISTINCT user_no
+		FROM pay_info
+		JOIN product_option
+		ON product_option.p_option_no = ANY(pay_info.p_option_no)
+		WHERE product_option.p_no = #{pno};
 	</select>
 	
+	<!-- 리뷰 리스트 페이징 -->
+	<select id="selectReviewListCount" resultType="_int">
+		SELECT COUNT(*)
+		  FROM REVIEW
+		 WHERE P_NO = #{pno}
+	</select>
+	
+	<!-- 리뷰 가져오기 -->
+	<select id="selectReviewList" resultMap="ReviewResult">
+	    SELECT
+	        MEMBER.nickName,
+	        REVIEW.review_dibs,
+	        TO_CHAR(REVIEW.review_date, 'YYYY-MM-DD') as "review_date",
+	        PRODUCT.p_title,
+	        REVIEW.review_contents,
+	        p_no
+	        <if test="change_name != null and re_change_name == null">
+	             ,change_name
+	        </if>
+	        <if test="change_name == null and re_change_name != null">
+	            ,REVIEW.re_change_name
+	        </if>
+	        <if test="change_name != null and re_change_name != null">
+	            , REVIEW.re_change_name,change_name
+	        </if>
+	    FROM REVIEW
+	    JOIN MEMBER USING (USER_NO)
+	    JOIN PRODUCT USING (P_NO)
+	    LEFT JOIN MEMBER_ATTACHMENT ON (USER_NO = REF_MNO)
+	    WHERE P_NO = #{pno}
+	    ORDER BY REPLY_NO DESC
+	</select>
+
+	<!-- 문의 리스트 페이징  -->
+    <select id="selectInquiryListCount" resultType="_int">
+		SELECT COUNT(*)
+		  FROM FAQ
+		 WHERE P_NO = #{pno}
+	</select>	
 	
 	<!-- 문의 가져오기 -->
+	<select id="selectInquiryList" resultMap="FaqDTOResult">
+	 SELECT M.NICKNAME,
+	 		TO_CHAR(F.INQUIRY_DATE, 'YYYY-MM-DD') as "INQUIRY_DATE",
+	 		F.INQUIRY_TITLE,
+	 		F.INQUIRY_CONTENTS,
+	 		P_NO,FA.ANSWER_DATE,
+	 		FA.ANSWER_CONTENTS
+	   FROM FAQ F
+	   LEFT JOIN FAQ_ANSWER FA USING(FAQ_NO)
+	   LEFT JOIN MEMBER M ON(F.USER_NO = M.USER_NO)
+	  WHERE P_NO = #{pno}
+	  ORDER BY F.FAQ_NO DESC
+	</select>
 	
 	<!-- 장바구니 담기 -->
 	 <insert id="insertCart" parameterType="list">
@@ -476,8 +694,43 @@
     </insert>
 	
 	<!-- 리뷰 쓰기 -->
+	<insert id="insertReview">
+	insert into 
+		 review(
+		 		user_no,
+	 			p_no,
+	 			review_dibs,
+	 			review_contents,
+	 			re_origin_name,
+	 			re_change_name
+	 			)
+		 values(
+		 		#{userNo},
+		 		#{pno},
+		 		#{reviewDibs},
+		 		#{reviewContents},
+		 		#{reOriginName},
+		 		#{reChangeName}
+		        )
+	
+	</insert>
 	
 	<!-- 문의 쓰기 -->
+	<insert id="insertInquiry">
+		insert into
+				faq(
+					user_no,
+					inquiry_title,
+					inquiry_contents,
+					p_no
+					)
+			 values(
+			 		#{userNo},
+			 		#{inquiryTitle},
+			 		#{inquiryContents},
+			 		#{pno}
+					)	
+	</insert>
 	
 	<!-- ##################################### 구매 페이지  ##################################### -->
 	
@@ -492,5 +745,44 @@
 		ORDER BY RANDOM()
 		LIMIT 5
 	</select>
+	
+	<select id="getBusinessNoToProductName" resultType="_int">
+	select business_no
+		from product
+		join product_category using(c_no)
+		join seller_page using(seller_page_no)
+		where p_title = #{productName}
+	</select>
+
+	
+	<!-- 상품 구매 -->
+	<insert id="insertOrder">
+    INSERT INTO pay_info (
+        p_option_no, 	
+        user_no, 
+        business_no, 
+        pay_count,
+        pay_money, 
+        delivery_address, 
+        delivery_detail_address, 
+        delivery_name,
+        recipient,
+        recipient_phone
+    )
+    VALUES (
+          ARRAY[#{pdOptionNo}]::INTEGER[], 
+        #{userNo}, 
+        #{businessNo},
+        ARRAY[#{payCount}]::INTEGER[], 
+        #{payMoney}, 
+        #{deliveryAddress}, 
+        #{deliveryDetailAddress},
+        #{deliveryName},
+        #{recipient},
+        #{recipientPhone}
+    )
+</insert>
+
+	
 	
 </mapper>

@@ -51,6 +51,8 @@ body {
 }
 
 section h1 {
+    font-size: 1.5em;
+    font-weight: bolder;
     margin-bottom: 20px;
 }
 
@@ -76,6 +78,114 @@ table tbody #pdList {
 table tbody #pdList:hover {
     background-color: #AFA8A8;
     color: white;
+}
+
+/* 상품 문의 모달 */
+.modal-content {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+.modal-header {
+    background-color: #f1f1f1;
+    padding: 15px 20px;
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h4 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.modal-header .close {
+    font-size: 1.2rem;
+    color: #aaa;
+    cursor: pointer;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.inquiry-detail span{
+    margin-right: 10px;
+}
+
+#product-name-container {
+    margin-bottom: 20px;
+}
+
+#product-name-container div {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #0089FF;
+    margin-bottom: 10px;
+}
+
+.inquiry-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.inquiry-info span {
+    font-weight: bold;
+    color: #333;
+    font-size: 1rem;
+}
+
+#product-inquiry-content-container {
+    margin-bottom: 20px;
+}
+
+#product-inquiry-content-container div {
+    margin-bottom: 10px;
+}
+
+#product-inquiry-content-container span {
+    font-weight: bold;
+    color: #333;
+    font-size: 1rem;
+}
+
+#product-inquiry-content-textarea,
+#inquiry-answer-textarea {
+    margin-bottom: 20px;
+}
+
+#product-inquiry-content-textarea,
+#inquiry-answer-textarea textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    resize: none;
+    font-size: 1rem;
+}
+
+#product-inquiry-enroll-btn-container {
+    text-align: right;
+}
+
+#product-inquiry-enroll-btn {
+    background-color: #0089FF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+#product-inquiry-enroll-btn:hover {
+    background-color: #005bb5;
 }
 
 /* 페이지네이션 */

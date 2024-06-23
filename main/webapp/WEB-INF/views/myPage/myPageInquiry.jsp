@@ -14,6 +14,19 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/myPageCSS/myPageInquiry.css">
    
 <body>
+    <c:if test="${ not empty successMessage}">
+		<script>
+			var successMessage = "${successMessage}";
+		    if (successMessage) {
+		        Swal.fire({
+		            icon: 'success',
+		            title: 'success!',
+		            html: successMessage
+		        });
+		    }
+		</script>
+		<c:remove var="successMessage" scope="session"/>
+	</c:if>
 	<div class="wrap">
 	
 		<!-- header -->
