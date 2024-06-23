@@ -35,12 +35,6 @@ body{
 #login-pwd{
     border-radius: 0 0 15px 15px;
 }
-#login-staying{
-    height: 30px;
-    padding-top: 5px;
-    margin-top: 15px;
-    margin-bottom: 15px;
-}
 #login-input button{
     width: 400px;
     height: 50px;
@@ -50,6 +44,7 @@ body{
     font-size: 20px;
     font-weight: bold;
     border-radius: 15px;
+    margin-top: 45px;
 }
 #login-help{
     width: 400px;
@@ -74,6 +69,8 @@ body{
 }
 #login-naver>p, #login-kakao>p{
     font-size: 12px;
+    margin-top: 15px;
+    margin-bottom: 0;
 }
 #login-naver>button, #login-naver>button>img, #login-kakao>button, #login-kakao>button>img{
     width: 200px;

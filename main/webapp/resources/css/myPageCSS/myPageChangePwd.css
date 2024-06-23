@@ -1,0 +1,80 @@
+body{
+    background-color: #E0F1FF;
+    position: relative;
+}
+#wrap{
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+h3{
+    text-align: center;
+    font-weight: bold;
+    color: #0089FF;
+    margin-top: 200px;
+    margin-bottom: 50px;
+}
+#changePwd-input{
+    width: 400px;
+    height: 650px;
+    font-size: 10px;
+}
+#changePwd-input input{
+    width: 400px;
+    height: 50px;
+    border-left: 2px solid #0089FF;
+    border-right: 2px solid #0089FF;
+    font-size: 15px;
+    padding-left: 10px;
+    outline: 0;
+    background-color: white;
+}
+#changePwd-pwd{
+    border-top: 2px solid #0089FF;
+    border-bottom: 1px solid #0089FF;
+    border-radius: 15px 15px 0px 0px;
+}
+#check-pwd{
+    border-top: 1px solid #0089FF;
+    border-bottom: 2px solid #0089FF;
+    border-radius: 0px 0px 15px 15px;
+    margin-bottom: 50px;
+}
+
+#pwdArea{
+    position: relative;
+}
+#pwdArea span{
+    position: absolute;
+    background-color: white;
+    border: 2px solid #0089FF;
+    border-right: 0;
+    border-radius: 15px 0 0 15px;
+    font-size: 15px;
+    width: 400px;
+    height: 52px;
+    padding-top: 12px;
+    text-align: center;
+    top: 15px;
+    right: 50%;                    /*중앙배치 : 왼쪽에서 50%위치*/
+    transform: translateX(-50%);  /*중앙배치 : X크기값을 50%만큼 이동*/
+    opacity: 0;                   /*이벤트설정 : 서서히 변하게 함*/
+    transition: 0.5s;             /*어떤 변화가 요청되면 0.5초뒤에 일어나자.*/
+    visibility: hidden;          /*특정 요소 접촉시 이벤트 발생*/
+}
+#pwdArea:hover span{
+    opacity: 1;
+    visibility: visible;
+    
+}
+
+#changePwd-input button{
+    width: 400px;
+    height: 50px;
+    border: none;
+    background-color: #0089FF;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 15px;
+}

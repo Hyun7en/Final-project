@@ -199,15 +199,10 @@ function drawAlarmList(data) {
 }
 //로그인 했을 시 이전 url을 보내는 함수
 function getRecentURL(){
-  const recentLink = document.querySelector('#recentLink');
-  recentLink.value = (window.location.href);
-  recentLink.form.submit();
+  const recentLink = window.location.href;
+  
+  location.href = "loginForm.me?recentLink=" + recentLink;
 }
-
-
-
-
-
 
 
 //-------------------------------------------------폐기함수------------------------------------------------------

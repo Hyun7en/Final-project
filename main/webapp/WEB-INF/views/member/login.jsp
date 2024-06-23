@@ -9,6 +9,8 @@
     <title>Header</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!-- Popper JS -->
@@ -16,9 +18,12 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/memberCSS/login.css">
     <script src="${pageContext.request.contextPath}/resources/js/memberJS/login.js"></script>
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
 
     <!-- naver login -->
     <script src="${pageContext.request.contextPath}/resources/js/memberJS/NaverLogin.js"></script>
@@ -63,11 +68,10 @@
             <input type="hidden" name="recentLink" value="${recentLink}">
             <input type="text" id="login-id" name="userId" placeholder="아이디" required>
             <input type="password" id="login-pwd" name="userPwd" placeholder="비밀번호" required> 
-            <div id="login-staying"><input type="checkbox" name="staying" value="on"> 로그인 상태 유지</div>
             <button type="submit">로그인</button>
         </form>
         <div id="login-help">
-            <a href="" id="login-help-find">아이디 · 비밀번호 찾기</a>
+            <a href="findAccount.me" id="login-help-find">아이디 · 비밀번호 찾기</a>
             <a href="signUpForm.me" id="login-help-signup">회원가입</a>
         </div>
         <div id="login-naver">
