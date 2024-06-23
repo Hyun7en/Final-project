@@ -143,7 +143,7 @@ function productDetail(userNo){
     function createAndSubmitForm() {
         const form = document.createElement('form');
         form.method = 'post';
-        form.action = 'order.spd'; // 구매 페이지 URL로 변경하세요
+        form.action = 'order.spd'; 
     
         // 선택된 옵션 객체를 폼 데이터로 변환
         for (const id in selectedOptions) {

@@ -688,10 +688,12 @@ public class SellerController {
     public String productDetailView(@RequestParam(value = "pno", required = false) Integer pno,
     		@RequestParam(value="cpage", defaultValue="1") int currentPage, 
     		@RequestParam(value = "cpage", defaultValue = "1") int currentInquiryPage,
-    		Model model) {
+    		Model model, HttpSession session) {
     	
     	// 판매 상품 상세 정보
     	ProductDTO spd = sellerService.selectSalesProduct(pno);
+    	
+    	 List<PayInfo> userNoList = sellerService.getPayUserNo(pno);
     	
     	//리뷰 가져오기
     	int boardCount = sellerService.selectReviewListCount(pno);
@@ -708,7 +710,7 @@ public class SellerController {
     	List<FaqDTO> inquiryList = sellerService.selectInquiryList(ipi, pno);
     	
     	
-    	
+    	model.addAttribute("userNoList",userNoList);
     	model.addAttribute("spd",spd);
     	model.addAttribute("reviewList",reviewList);
     	model.addAttribute("rpi", rpi);
@@ -933,7 +935,7 @@ public class SellerController {
             
             PayInfo payInfo = new PayInfo();
             
-         // 세션에서 loginUser 객체 가져오기
+            // 세션에서 loginUser 객체 가져오기
         	Member loginUser = (Member)session.getAttribute("loginUser");
 
         	int userNo = loginUser.getUserNo();

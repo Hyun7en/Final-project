@@ -31,13 +31,13 @@
                     <li><a href="list.pd">등록 상품 관리</a></li>
                 </ul>
             </li>
-            <li>
+            <!-- <li>
                 <div>주문/배송 <img src="${pageContext.request.contextPath}/resources/image/triangle.png"></div>
                 <ul class="sub-menu">
                     <li><a href="customerOrder.sr">주문 관리</a></li>
                     <li><a href="customerShipment.sr">배송 관리</a></li>
                 </ul>
-            </li>
+            </li> -->
             <li>
                 <div>고객 관리 <img src="${pageContext.request.contextPath}/resources/image/triangle.png"></div>
                 <ul class="sub-menu">
@@ -45,12 +45,12 @@
                     <li><a href="customerInquiry.sr">고객 문의</a></li>
                 </ul>
             </li>
-            <li>
+            <!-- <li>
                 <div>정산 관리 <img src="${pageContext.request.contextPath}/resources/image/triangle.png"></div>
                 <ul class="sub-menu">
                     <li><a href="settlement.sr">정산</a></li>
                 </ul>
-            </li>
+            </li> -->
         </ul>
     </aside>
 </body>

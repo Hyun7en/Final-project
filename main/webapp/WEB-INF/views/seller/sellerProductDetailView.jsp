@@ -35,7 +35,7 @@
         <%@ include file="../commons/aside.jsp" %>
 
         <section>
-            <h1>스토어 관리</h1>
+            <h1>스토어 관리 > 상품 상세</h1>
             
             <div id="product-detail">
 

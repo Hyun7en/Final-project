@@ -332,6 +332,13 @@ public class SellerServiceImpl implements SellerService {
 		return sellerDao.selectSalesProduct(sqlSession, pno);
 	}
 	
+	//상품 구매한 유저 번호 가져오기
+	@Override
+	public List<PayInfo> getPayUserNo(int pno) {
+		
+		return sellerDao.getPayUserNo(sqlSession, pno);
+	}
+	
 	//리뷰 리스트 페이징
 	@Override
 	public int selectReviewListCount(int pno) {
@@ -400,6 +407,8 @@ public class SellerServiceImpl implements SellerService {
 		
 		return sellerDao.insertOrder(sqlSession,payInfo);
 	}
+
+
 
 	
 

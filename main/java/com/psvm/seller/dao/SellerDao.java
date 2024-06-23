@@ -276,6 +276,12 @@ public class SellerDao {
 		return sqlSession.selectOne("sellerMapper.selectSalesProduct", pno);
 	}
 	
+	//상품 구매한 유저 번호 가져오기
+	public List<PayInfo> getPayUserNo(SqlSessionTemplate sqlSession, int pno) {
+		
+		return sqlSession.selectList("sellerMapper.getPayUserNo", pno);
+	}
+	
 	// 리뷰 리스트 페이징
 	public int selectReviewListCount(SqlSessionTemplate sqlSession, int pno) {
 		
