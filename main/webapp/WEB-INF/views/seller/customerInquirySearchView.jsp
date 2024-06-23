@@ -144,12 +144,12 @@
                             <li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
                         </c:when>
                         <c:otherwise>
-                            <li class="page-item"><a class="page-link" href="customerInquiry.sr?cpage=${pi.currentPage - 1}">&laquo;</a></li>
+                            <li class="page-item"><a class="page-link" href="searchInquiry.sr?cpage=${pi.currentPage - 1}">&laquo;</a></li>
                         </c:otherwise>
                 </c:choose>
 
             <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-                <li class="page-item ${p == pi.currentPage ? 'active' : ''}"><a class="page-link" href="customerInquiry.sr?cpage=${p}">${p}</a></li>
+                <li class="page-item ${p == pi.currentPage ? 'active' : ''}"><a class="page-link" href="searchInquiry.sr?cpage=${p}">${p}</a></li>
             </c:forEach>
                 
             <c:choose>
@@ -157,7 +157,7 @@
                         <li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
                     </c:when>
                     <c:otherwise>
-                        <li class="page-item"><a class="page-link" href="customerInquiry.sr?cpage=${pi.currentPage + 1}">&raquo;</a></li>
+                        <li class="page-item"><a class="page-link" href="searchInquiry.sr?cpage=${pi.currentPage + 1}">&raquo;</a></li>
                     </c:otherwise>
                 </c:choose>
                 </ul>

@@ -9,8 +9,9 @@ import com.psvm.commons.vo.PageInfo;
 import com.psvm.seller.dto.FaqDTO;
 import com.psvm.seller.dto.ProductDTO;
 import com.psvm.seller.dto.StoreMainDTO;
-import com.psvm.seller.vo.Buy;
 import com.psvm.seller.vo.Faq;
+import com.psvm.seller.vo.FaqAnswer;
+import com.psvm.seller.vo.PayInfo;
 import com.psvm.seller.vo.Product;
 import com.psvm.seller.vo.ProductCategory;
 import com.psvm.seller.vo.ProductOption;
@@ -74,11 +75,17 @@ public interface SellerService {
 	//배송 관리
 	
 	//고객 문의 관리
-	public int selectCsInquiryListCount();
+	public int selectCsInquiryListCount(int userNo);
 	
 	public List<FaqDTO> selectCsInquiryList(PageInfo pi, int userNo);
 	
+	//고객 문의 답변
+	public int insertInquiryAnswer( FaqAnswer faqAnswer,int faqNo);
+	
 	//고객 문의 검색
+	public int searchInquiryListCount(HashMap<String, Object> map);
+	
+	public List<FaqDTO> searchInquiryList(PageInfo pi, HashMap<String, Object> map);
 	
 	//판매자 탈퇴 
 	public int deleteSeller(int userNo);
@@ -126,4 +133,8 @@ public interface SellerService {
 	//############################################## 구매 페이지 ############################################################
 	
 	//구매 페이지
+	public int getBusinessNo(String productName);
+	public int insertOrder(PayInfo payInfo);
+	
+	//상품 구매
 }
