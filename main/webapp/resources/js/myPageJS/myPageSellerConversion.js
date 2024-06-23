@@ -3,7 +3,7 @@ function businessNumber(){
     var data = {
         b_no: [num] 
     }; 
-  
+    console.log("data : "+ data);
     $.ajax({
         url: `https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=CyIbg1w%2BruaWHNUV7qJySFVkigkOcUzi%2FSYeINSMNtSzSrkreTn843csiwTN5EtUMiVt6lx%2FFqCG4wtX7pcEhw%3D%3D`,
         type: "POST",
@@ -12,6 +12,7 @@ function businessNumber(){
         contentType: "application/json",
         accept: "application/json",
         success: function(result) {
+            console.log(result);
             resultCheck(result);
         },
         error: function(result) {
