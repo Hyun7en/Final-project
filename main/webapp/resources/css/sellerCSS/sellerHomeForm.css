@@ -48,6 +48,7 @@ section div input {
 }
 
 .image-container img {
+    object-fit: cover;
     width: 100%;
     height: 100%;
 }
@@ -108,4 +109,10 @@ section div input {
 
 .form-actions button:hover {
     background-color: #005bb5;
+}
+
+#enroll-please{
+    color: #0089FF;
+    margin-top: 260px;
+    font-size: 80px;
 }

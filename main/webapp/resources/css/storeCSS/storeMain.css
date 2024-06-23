@@ -13,6 +13,7 @@ main {
 }
 
 .banner-item img{
+    object-fit: cover;
     width: 100%;
     height: 100%;
 }
@@ -51,6 +52,7 @@ main {
 
 /* 문의 사항 */
 #descript-quick #askn-quick-move #ask img {
+    object-fit: cover;
     margin-top: 20px;
     height: 60px;
     width: 60px;
@@ -153,6 +155,7 @@ main {
 }
 
 .carousel-item .product-descript .product-descript-rating-review img{
+    object-fit: cover;
     height: 12px;
 }
 
@@ -169,6 +172,7 @@ main {
 
 
 .carousel-item .carousel-dimg img{
+    object-fit: cover;
     width: 100%; 
     height: 300px;
     border-radius: 15px;

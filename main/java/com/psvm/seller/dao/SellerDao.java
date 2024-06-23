@@ -1,6 +1,7 @@
 package com.psvm.seller.dao;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,10 +9,13 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 import com.psvm.commons.vo.PageInfo;
+import com.psvm.member.vo.Member;
 import com.psvm.seller.dto.FaqDTO;
 import com.psvm.seller.dto.ProductDTO;
 import com.psvm.seller.dto.StoreMainDTO;
 import com.psvm.seller.vo.Faq;
+import com.psvm.seller.vo.FaqAnswer;
+import com.psvm.seller.vo.PayInfo;
 import com.psvm.seller.vo.Product;
 import com.psvm.seller.vo.ProductCategory;
 import com.psvm.seller.vo.ProductOption;
@@ -107,8 +111,8 @@ public class SellerDao {
 	}
 
 	// 상품 리스트 페이징
-	public int selectProductListCount(SqlSessionTemplate sqlSession) {
-		return sqlSession.selectOne("sellerMapper.selectProductListCount");
+	public int selectProductListCount(SqlSessionTemplate sqlSession,int businessNo) {
+		return sqlSession.selectOne("sellerMapper.selectProductListCount",businessNo);
 	}
 
 	// 상품 리스트
@@ -121,7 +125,19 @@ public class SellerDao {
 	}
 	
 	//상품 리스트 검색
+	public int searchProductListCount(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		
+		return sqlSession.selectOne("sellerMapper.searchProductListCount", map);
+		
+	}
 	
+	public List<Product> searchProductList(SqlSessionTemplate sqlSession, PageInfo pi, HashMap<String, Object> map) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return sqlSession.selectList("sellerMapper.searchProductList", map, rowBounds);
+		
+	}
 	
 	// 상품 옵션 불러오기
 	public List<ProductOption> selectOptions(SqlSessionTemplate sqlSession,int pno) {
@@ -164,8 +180,8 @@ public class SellerDao {
 	//배송 관리
 	
 	//고객 문의 관리
-	public int selectCsInquiryListCount(SqlSessionTemplate sqlSession) {
-		return sqlSession.selectOne("sellerMapper.selectCsInquiryListCount");
+	public int selectCsInquiryListCount(SqlSessionTemplate sqlSession,int userNo) {
+		return sqlSession.selectOne("sellerMapper.selectCsInquiryListCount",userNo);
 	}
 	
 	public List<FaqDTO> selectCsInquiryList(SqlSessionTemplate sqlSession,PageInfo pi,int userNo){
@@ -175,6 +191,32 @@ public class SellerDao {
 		
 		
 		return sqlSession.selectList("sellerMapper.selectCsInquiryList",userNo,rowBounds);
+	}
+	
+	//고객 문의 답변
+	public int insertInquiryAnswer(SqlSessionTemplate sqlSession, FaqAnswer faqAnswer) {
+		
+		return sqlSession.insert("sellerMapper.insertInquiryAnswer",faqAnswer);
+	}
+	
+	public int updateInquiry(SqlSessionTemplate sqlSession, int faqNo) {
+		
+		return sqlSession.update("sellerMapper.updateInquiry", faqNo);
+	}
+	
+	//고객 문의 검색
+	public int searchInquiryListCount(SqlSessionTemplate sqlSession,HashMap<String, Object> map) {
+		
+		return sqlSession.selectOne("sellerMapper.searchInquiryListCount",map);
+	}
+
+	public List<FaqDTO> searchInquiryList(SqlSessionTemplate sqlSession,PageInfo pi, HashMap<String, Object> map) {
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return sqlSession.selectList("sellerMapper.searchInquiryList",map,rowBounds);
 	}
 	
 	
@@ -287,5 +329,17 @@ public class SellerDao {
 	//############################################## 구매 페이지  ############################################################
 	
 	//구매 페이지
+
+	
+	//상품 구매
+	public int getBusinessNo(SqlSessionTemplate sqlSession, String productName) {
+		
+		return sqlSession.selectOne("sellerMapper.getBusinessNoToProductName", productName);
+	}
+	
+	public int insertOrder(SqlSessionTemplate sqlSession, PayInfo payInfo) {
+		
+		return sqlSession.insert("sellerMapper.insertOrder",payInfo);
+	}
 	
 }

@@ -101,10 +101,13 @@ function productDetail(userNo){
         });
     }
     
+    
+
     // 장바구니 버튼 클릭 이벤트 핸들러
     $('.cart-btn').on('click', function() {
         // 선택된 옵션 데이터를 배열로 변환
         let options = [];
+        
         for (let id in selectedOptions) {
             options.push({
                 pdOptionNo: parseInt(id),
@@ -132,18 +135,94 @@ function productDetail(userNo){
                 }
             });
         } else {
-            alert("옵션을 선택해주세요");
+            alert("옵션 선택 후에 클릭해주세요");
         }
+          
     });
+
+    function createAndSubmitForm() {
+        const form = document.createElement('form');
+        form.method = 'post';
+        form.action = 'order.spd'; // 구매 페이지 URL로 변경하세요
+    
+        // 선택된 옵션 객체를 폼 데이터로 변환
+        for (const id in selectedOptions) {
+            const option = selectedOptions[id];
+    
+            // 옵션 ID 입력 필드 추가
+            const hiddenFieldId = document.createElement('input');
+            hiddenFieldId.type = 'hidden';
+            hiddenFieldId.name = 'optionId[]';
+            hiddenFieldId.value = id;
+            form.appendChild(hiddenFieldId);
+    
+            // 구매 수량 입력 필드 추가
+            const hiddenFieldCount = document.createElement('input');
+            hiddenFieldCount.type = 'hidden';
+            hiddenFieldCount.name = 'buyCount[]';
+            hiddenFieldCount.value = option.buyCount;
+            form.appendChild(hiddenFieldCount);
+    
+            // 옵션 가격 입력 필드 추가
+            const hiddenFieldPrice = document.createElement('input');
+            hiddenFieldPrice.type = 'hidden';
+            hiddenFieldPrice.name = 'optionPrice[]';
+            hiddenFieldPrice.value = option.optionPrice;
+            form.appendChild(hiddenFieldPrice);
+    
+            // 옵션명 입력 필드 추가
+            const hiddenFieldName = document.createElement('input');
+            hiddenFieldName.type = 'hidden';
+            hiddenFieldName.name = 'optionName[]';
+            hiddenFieldName.value = option.optionName;
+            form.appendChild(hiddenFieldName);
+        }
+         // 상품 이름 추가
+        const hiddenFieldProductName = document.createElement('input');
+        hiddenFieldProductName.type = 'hidden';
+        hiddenFieldProductName.name = 'productName';
+        hiddenFieldProductName.value = document.querySelector('.product-name').textContent; // 상품명
+        form.appendChild(hiddenFieldProductName);
+    
+        // 상품 이미지 추가
+        const hiddenFieldImage = document.createElement('input');
+        hiddenFieldImage.type = 'hidden';
+        hiddenFieldImage.name = 'productImage';
+        hiddenFieldImage.value = document.querySelector('.product-img').src; // 상품 이미지 URL
+        form.appendChild(hiddenFieldImage);
+    
+        // 유저 번호 추가
+        const userNoField = document.createElement('input');
+        userNoField.type = 'hidden';
+        userNoField.name = 'userNo';
+        userNoField.value = userNo;
+        form.appendChild(userNoField);
+    
+        document.body.appendChild(form);
+        form.submit(); // 폼 제출
+    }
+    
+    
     
     // 바로구매 버튼 클릭 이벤트 핸들러
     $('.buy-btn').on('click', function() {
-        if (userNo > 0) {
-            location.href = 'order.spd';
+        if(Object.keys(selectedOptions).length > 0) {
+            if (userNo > 0) {
+
+                createAndSubmitForm(); // 폼 생성 및 제출 함수 호출
+            
+            } else {
+            
+                location.href = 'orderlogin.me';
+            
+            }
+
         } else {
-            location.href = 'orderlogin.me';
+            alert('옵션 선택 후에 클릭해주세요');
         }
     });
+    
+    
     
  
 
@@ -226,7 +305,7 @@ function productDetail(userNo){
                         `}
                     </tr>
                     <tr>
-                        <td width="100px">${review.reviewDibs}</td>
+                        <td width="100px"><span style="font-weight: bold;">평점</span> ${review.reviewDibs}</td>
                         <td>${review.reviewDate}</td>
                     </tr>
                     <tr>
@@ -272,7 +351,7 @@ function productDetail(userNo){
         } else {
             pagingStr += `<li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>`;
         }
-
+        console.log("페이지네이션 HTML", pagingStr); // 페이지네이션 HTML 확인용 콘솔 로그
         pagi.innerHTML = pagingStr;
     }
 
@@ -291,7 +370,7 @@ function productDetail(userNo){
                     pno:pno
                   },
             success: function(data){
-                console.log("문의 불러오기 성공");
+                console.log("문의 불러오기 성공",data);
                 drawInquiryList(data);
 
             },
@@ -336,12 +415,12 @@ function productDetail(userNo){
                         <tr>
                             <td >
                                 <span style="font-weight: bolder; color: #0089FF;">A</span>
-                                <span>판매자</span>
+                                <span>판매자 ${inquiry.answerDate}</span>
                             </td>
                         </tr>    
                         <tr>
                             <td>
-                                <span>${inquiry.inquiryContents}</span>
+                                <span>${inquiry.answerContents}</span>
                             </td>
                         </tr>
                         `:`
@@ -363,28 +442,28 @@ function productDetail(userNo){
         rDiv.innerHTML = str;
         
 
-        let pagi = document.getElementsByClassName("pagination")[1]; // 두 번째 요소 선택
+        let pagi1 = document.getElementById('inquiry-pagination'); // 두 번째 요소 선택
     
-        let pagingStr = "";
+        let pagingStr1 = "";
 
         
         if (data.ipi.currentPage != 1) {
-            pagingStr += `<li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="getInquiryList(${data.ipi.currentPage - 1}, '${data.inquiryList[0].pdNo}');">&laquo;</a></li>`;
+            pagingStr1 += `<li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="getInquiryList(${data.ipi.currentPage - 1}, '${data.inquiryList[0].pdNo}');">&laquo;</a></li>`;
         } else {
-            pagingStr += `<li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>`;
+            pagingStr1 += `<li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>`;
         }
 
         for (let p = data.ipi.startPage; p <= data.ipi.endPage; p++) {
-            pagingStr += `<li class="page-item ${p == data.ipi.currentPage ? 'active' : ''}"><a class="page-link" href="javascript:void(0);" onclick="getInquiryList(${p}, '${data.inquiryList[0].pdNo}');">${p}</a></li>`;
+            pagingStr1 += `<li class="page-item ${p == data.ipi.currentPage ? 'active' : ''}"><a class="page-link" href="javascript:void(0);" onclick="getInquiryList(${p}, '${data.inquiryList[0].pdNo}');">${p}</a></li>`;
         }
         
         if (data.ipi.currentPage != data.ipi.maxPage) {
-            pagingStr += `<li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="getInquiryList(${data.ipi.currentPage + 1}, '${data.inquiryList[0].pdNo}');">&raquo;</a></li>`;
+            pagingStr1 += `<li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="getInquiryList(${data.ipi.currentPage + 1}, '${data.inquiryList[0].pdNo}');">&raquo;</a></li>`;
         } else {
-            pagingStr += `<li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>`;
+            pagingStr1 += `<li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>`;
         }
-
-        pagi.innerHTML = pagingStr;
+        console.log("페이지네이션 HTML", pagingStr1); // 페이지네이션 HTML 확인용 콘솔 로그
+        pagi1.innerHTML = pagingStr1;
     }
      
 

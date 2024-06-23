@@ -1,6 +1,4 @@
-package com.psvm.seller.vo;
-
-import java.sql.Date;
+package com.psvm.seller.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,10 +11,10 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class FaqAnswer {
-	private int answerNo;
-	private int faqNo;
-	private int userNo;
-	private Date answerDate;
-	private String answerContents;
+public class OrderOptionDTO {
+	 private int optionId;
+	 private int buyCount;
+	 private int optionPrice;
+
+
 }

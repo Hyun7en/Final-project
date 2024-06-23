@@ -31,7 +31,7 @@
         <%@ include file="../commons/aside.jsp" %>
 
         <section>
-            <h1>스토어 관리 &gt; 판매자 홈 등록</h1>
+            <h1>스토어 관리 &gt; 판매자 홈 수정</h1>
 
             <form id="enrollForm"  action="update.srh" method="post" enctype="multipart/form-data">
                 
