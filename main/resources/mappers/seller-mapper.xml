@@ -610,6 +610,15 @@
 		          P_PRICE, P_CONTENT, P_CHANGE_NAME
 	</select>
 	
+	<!-- 상품 구매한 유저 번호 가져오기  -->
+	<select id="getPayUserNo" resultMap="ReviewResult">
+	SELECT DISTINCT user_no
+		FROM pay_info
+		JOIN product_option
+		ON product_option.p_option_no = ANY(pay_info.p_option_no)
+		WHERE product_option.p_no = #{pno};
+	</select>
+	
 	<!-- 리뷰 리스트 페이징 -->
 	<select id="selectReviewListCount" resultType="_int">
 		SELECT COUNT(*)

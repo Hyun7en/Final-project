@@ -109,6 +109,9 @@ public interface SellerService {
 	// 판매 상품 상세 정보
 	public ProductDTO selectSalesProduct(int pno);
 	
+	//상품 구매한 유저 번호 가져오기
+	public List<PayInfo> getPayUserNo(int pno);
+	
 	//리뷰 리스트 페이징
 	public int selectReviewListCount(int pno);
 	

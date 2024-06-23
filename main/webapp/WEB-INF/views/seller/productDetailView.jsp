@@ -153,7 +153,6 @@
                         
                     </section>
                 </div>   
-                
                 <div class="go" id="go-product-review"></div>
 
                 <!-- 리뷰 -->
@@ -164,8 +163,15 @@
                                 <h1 class="description-title">
                                     <span>리뷰</span> <span id="review-count">${spd.reviewCount}</span>
                                 </h1>
+                                <c:set var="canWriteReview" value="false" />
+                                <c:forEach var="review" items="${userNoList}">
+                                    <c:if test="${review.userNo eq loginUser.userNo}">
+                                        <c:set var="canWriteReview" value="true" />
+                                    </c:if>
+                                </c:forEach>
+
                                 <c:choose>
-                                    <c:when test="${loginUser != null}">
+                                    <c:when test="${canWriteReview}">
                                             <button id="review-btn" class="btn btn-primary" data-toggle="modal" data-target="#review-Modal">
                                                 리뷰쓰기
                                             </button>
