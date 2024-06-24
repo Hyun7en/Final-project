@@ -16,6 +16,7 @@
     
     <!-- javaScript -->
     <script src="${pageContext.request.contextPath}/resources/js/myPageJS/myPageInfo.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
     <!-- Popper JS -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -116,18 +117,18 @@
                                     <th>닉네임</th>
                                     <td>
                                         <!-- button 태그에 type="button"을 안쓰면 버튼을 눌렀을때 페이지가 새로고침이 되서 써야한다.-->
-                                        <input type="text" id="nickname" name="nickname" readonly placeholder="${loginUser.nickname}">
+                                        <input type="text" id="nickname" name="nickname" value="${loginUser.nickname}" readonly>
                                         <button type="button" class="change-btn" id="nickname-btn" onclick="change_nickname()">변경</button>
                                         <button type="button" class="change-btn" id="nickname-btn-cancel" style="display: none;" onclick="cancel_btn(this)">취소</button>
                                     </td>
                                 </tr>
-                                <!-- <span class="required-input" style="display: none; color: red">* 닉네임을 입력하셔야 합니다.</span> -->
 
                                 <tr>
                                     <th>한줄소개</th>
                                     <td>
                                         <input type="text" id="userIntro" name="userIntro" readonly value="${loginUser.userIntro}">
                                         <button type="button" class="change-btn" id="userIntro-btn" onclick="change_userIntro()">변경</button>
+                                        <button type="button" class="change-btn" id="intro-btn-cancel" style="display: none;" onclick="cancel_btn(this)">취소</button>
                                     </td>
                                 </tr>
 
@@ -152,6 +153,7 @@
                                     <td>
                                         <input type="text" id="phone" name="phone" readonly value="${loginUser.phone}">
                                         <button type="button" class="change-btn" id="phone-btn" onclick="change_phone()">변경</button>
+                                        <button type="button" class="change-btn" id="phone-btn-cancel" style="display: none;" onclick="cancel_btn(this)">취소</button>
                                     </td>
                                 </tr>
                                 <tr>
@@ -159,13 +161,15 @@
                                     <td>
                                         <input type="text" id="email" name="email" readonly value="${loginUser.email}">
                                         <button type="button" class="change-btn" id="email-btn" onclick="change_email()">변경</button>
+                                        <button type="button" class="change-btn" id="email-btn-cancel" style="display: none;" onclick="cancel_btn(this)">취소</button>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>주소</th>
                                     <td>
-                                        <input type="text" id="address" name="address" readonly value="${loginUser.address}">
+                                        <input type="text" id="address" name="address" readonly value="${loginUser.address}" onclick="callDaumService()">
                                         <button type="button" class="change-btn" id="address-btn" onclick="change_address()">변경</button>
+                                        <button type="button" class="change-btn" id="address-btn-cancel" style="display: none;" onclick="cancel_btn(this)">취소</button>
                                     </td>
                                 </tr>
                             </table>
