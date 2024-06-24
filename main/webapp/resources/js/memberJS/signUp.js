@@ -64,11 +64,14 @@ $(function(){ // 닉네임 체크
                             submitLock()
 
                             nicknameInput.style.color = "red";
+                            nicknameInput.style.fontWeight = "700";
+
                         } else { //사용이 가능한 경우
                             document.querySelector("#checkNickname").checked = true;
                             submitLock()
 
                             nicknameInput.style.color = "green";
+                            nicknameInput.style.fontWeight = "700";
                         }
                     },
                     error: function(){
@@ -81,6 +84,7 @@ $(function(){ // 닉네임 체크
             submitLock()
 
             nicknameInput.style.color = "black";
+            nicknameInput.style.fontWeight = "400";
         }
     }
 })
@@ -104,11 +108,13 @@ $(function(){ // 이메일 체크
                             submitLock()
 
                             emailInput.style.color = "red";
+                            emailInput.style.fontWeight = "700";
                         } else { //사용이 가능한 경우
                             document.querySelector("#checkEmail").checked = true;
                             submitLock()
 
                             emailInput.style.color = "green";
+                            emailInput.style.fontWeight = "700";
                         }
                     },
                     error: function(){
@@ -121,6 +127,7 @@ $(function(){ // 이메일 체크
             submitLock()
 
             emailInput.style.color = "black";
+            emailInput.style.fontWeight = "400";
         }
     }
 })

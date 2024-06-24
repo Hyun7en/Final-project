@@ -57,10 +57,9 @@
                     <input id="pwdEmailInput" type="text" name="email" placeholder="이메일" required>
 
                     <button type="button" onclick="sendVcode()">인증번호 받기</button>
-
-                    <input id="vcodeInput" type="text" name="Vcode" placeholder="인증번호" required>
-                    <div id="vcodeTimer"><span></span></div>
                 <form action="findPwd.me" id="findPwd" method="post">
+                    <input id="vcodeInput" type="text" name="Vcode" placeholder="인증번호" required>
+                    
                     <button type="button" id="findPwd-submit" onclick="findPwd()" disabled>비밀번호 찾기</button>
                 </form>
             </div>

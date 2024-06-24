@@ -102,19 +102,20 @@ public class NaverLoginController {
 				JsonObject resObj = memberInfo.getAsJsonObject("response");
 				
 				Member naverUser = new Member();
+				
 				String email = resObj.get("email").getAsString();
+				naverUser.setEmail(email);
 				
-				String userId = email.substring(0, email.indexOf('@'));
-				naverUser.setUserId(userId);
+				int emailCheck = memberService.emailCheck(email);
 				
-				String encPwd = bcryptPasswordEncoder.encode(new java.math.BigInteger(48, new java.security.SecureRandom()).toString(32).substring(0, 8));
-				naverUser.setUserPwd(encPwd);
-				
-				int idCheck = memberService.idCheck(userId);
-				
-				if (idCheck == 0) { //아이디가 없으므로 회원으로 등록
+				if (emailCheck == 0) { //해당 이메일로 가입된 계정이 없으므로 신규 등록
 					
-					naverUser.setEmail(resObj.get("email").getAsString());
+					String userId = email.substring(0, email.indexOf('@'));
+					naverUser.setUserId(userId);
+					
+					String encPwd = bcryptPasswordEncoder.encode(new java.math.BigInteger(48, new java.security.SecureRandom()).toString(32).substring(0, 8));
+					naverUser.setUserPwd(encPwd);
+					
 					naverUser.setUserName(resObj.get("name").getAsString());
 					naverUser.setNickname(resObj.get("nickname").getAsString());
 					
@@ -128,7 +129,7 @@ public class NaverLoginController {
 					memberService.signupMember(naverUser);
 				}
 				
-				Member loginUser = memberService.loginMember(naverUser);
+				Member loginUser = memberService.kakaoLogin(email);
 				
 				Cookie ck = new Cookie("saveId", loginUser.getUserId());
 		        if (saveId == null) {
