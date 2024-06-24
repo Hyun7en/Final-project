@@ -37,8 +37,8 @@ public class Email {
 		
 		//메시지생성
 		SimpleMailMessage message = new SimpleMailMessage();
-		message.setSubject("인증번호 전송");
-		message.setText("당신의 인증번호는 " + Vcode + "입니다.");
+		message.setSubject("AquAqu로부터 인증코드 발송");
+		message.setText("당신의 인증코드는 " + Vcode + "입니다.");
 		
 		String[] to = {m.getEmail()};
 		message.setTo(to);
