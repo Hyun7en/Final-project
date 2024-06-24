@@ -224,10 +224,10 @@
 	<update id="updateSellerHome">
 		UPDATE SELLER_PAGE
 		   SET SELLER_EXPLAIN = #{sellerExplain},
-		   	   SP_ENROLL_DATE = CURRENT_TIMESTAMP,
+		   	   SP_ENROLL_DATE = CURRENT_TIMESTAMP
 		   	   <if test="spOriginName !=null">
-		   	   SP_ORIGIN_NAME = #{spOriginName},
-		   	   SP_CHANGE_NAME = #{spChangeName}
+		   	   ,SP_ORIGIN_NAME = #{spOriginName}
+		   	   ,SP_CHANGE_NAME = #{spChangeName}
 		   	   </if>
 		 WHERE BUSINESS_NO = #{businessNo}   			
 	</update>
