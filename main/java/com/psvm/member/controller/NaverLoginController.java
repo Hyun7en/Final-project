@@ -102,11 +102,12 @@ public class NaverLoginController {
 				JsonObject resObj = memberInfo.getAsJsonObject("response");
 				
 				Member naverUser = new Member();
+				String email = resObj.get("email").getAsString();
 				
-				String userId = resObj.get("id").getAsString();
+				String userId = email.substring(0, email.indexOf('@'));
 				naverUser.setUserId(userId);
 				
-				String encPwd = bcryptPasswordEncoder.encode("NaverUser");
+				String encPwd = bcryptPasswordEncoder.encode(new java.math.BigInteger(48, new java.security.SecureRandom()).toString(32).substring(0, 8));
 				naverUser.setUserPwd(encPwd);
 				
 				int idCheck = memberService.idCheck(userId);
