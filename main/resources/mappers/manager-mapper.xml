@@ -63,6 +63,15 @@
 		<result column="INQUIRY_DATE" property="inquiryDate"/>
 	</resultMap> 
 	
+	<!-- 최근 주문내역 resultMap -->
+	<resultMap type="recentOrderhistory" id="recentOrderhistoryResult">
+		<result column="PAY_NO" property="payNo"/>
+		<result column="USER_NAME" property="userName"/>
+		<result column="PHONE" property="phone"/>
+		<result column="PAY_MONEY" property="payMoney"/>
+		<result column="PAY_DATE" property="payDate"/>
+	</resultMap> 
+	
 	<!-- 탈퇴되어있지 않은 회원 수-->
 	<select id="currentMemberCount" resultType="_int">
 		SELECT COUNT(*)
@@ -530,5 +539,18 @@
 		LIKE '%' || #{keyword} || '%'
 		ORDER BY DROP_DATE DESC
 	</select>
+	
+	<select id="recentOrderHistory" resultMap="recentOrderhistoryResult">
+		SELECT pay_no,
+		   user_name,
+		   phone,
+		   pay_money,
+		   pay_date
+		FROM pay_info
+		JOIN member USING (user_no)
+		ORDER BY PAY_DATE DESC
+		LIMIT 3
+	</select>
+	
 
 </mapper>

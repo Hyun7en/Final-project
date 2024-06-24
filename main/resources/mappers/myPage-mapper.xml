@@ -49,9 +49,10 @@
 	
 	<!-- 작성한 문의글 resultMapper -->
 	<resultMap type="Inquiry" id="inquiryResult">
-		<result column="inquiry_no" property="inquiryNo"/>
+		<result column="faq_no" property="faqNo"/>
 		<result column="inquiry_title" property="inquiryTitle"/>
 		<result column="inquiry_date" property="inquiryDate"/>
+		<result column="p_no" property="pdNo"/>
 	</resultMap>
 	
 	<!-- 찜한 상품 resultMapper -->
@@ -83,22 +84,21 @@
 		<result column="P_OPTION_NAME" property="pdOptionName"/>
 		<result column="BUY_COUNT" property="buyCount"/>
 		<result column="BUY_MONEY" property="buyMoney"/>
+		<result column="USER_NO" property="userNo"/>
 	</resultMap>
 	
 	<!-- 주문내역 resultMapper -->
 	<resultMap type="OrderHistory" id="OrderHistoryResult">
 		<result column="P_NO" property="pdNo"/>
-		<result column="P_OPTION_NO" property="poNo"/>
-		<result column="BUY_DATE" property="buyDate"/>
-		<result column="P_CHANGE_NAME" property="pdChangeName"/>
-		<result column="P_TITLE" property="pdTitle"/>
-		<result column="P_OPTION_NAME" property="pdOptionName"/>
-		<result column="BUY_COUNT" property="buyCount"/>
-		<result column="BUY_MONEY" property="buyMoney"/>
-		<result column="STORE_NAME" property="storeName"/>
+	    <result column="P_OPTION_NO" property="poNo"/>
+	    <result column="BUY_DATE" property="buyDate"/>
+	    <result column="P_CHANGE_NAME" property="pdChangeName"/>
+	    <result column="P_TITLE" property="pdTitle"/>
+	    <result column="P_OPTION_NAME" property="pdOptionName"/>
+	    <result column="BUY_COUNT" property="buyCount"/>
+	    <result column="P_PRICE" property="buyMoney"/>
+	    <result column="STORE_NAME" property="storeName"/>
 	</resultMap>
-	
-	
 	
 	<!-- 내 정보로 이동할 때 이미지 파일 가지고있는지 확인하기 위한 select -->
 	<select id="selectMemberAttachment" resultMap="selectMemberAttachmentResult">
@@ -217,7 +217,8 @@
 			   P_TITLE,
 			   P_OPTION_NAME,
 			   BUY_COUNT,
-			   BUY_MONEY
+			   BUY_MONEY,
+			   b.USER_NO
 		FROM BUY b
 		JOIN PRODUCT_OPTION po USING (P_OPTION_NO)
 		JOIN PRODUCT p USING (P_NO)
@@ -236,14 +237,38 @@
 	
 	<!-- 주문내역 수 조회 -->
 	<select id="orderHistoryListCount" resultType="_int">
+		<!--
+		SELECT COUNT(*)
+		FROM pay_info
+		WHERE user_no = #{userNo}
+		-->
 		SELECT COUNT(*)
 		FROM BUY b
 		WHERE b.user_no = #{userNo}
-		AND b.buy_status = true
+		AND b.buy_status = true	 
 	</select>
 	
 	<!-- 주문내역 조회 -->
 	<select id="orderHistoryList" resultMap="OrderHistoryResult">
+		<!-- 
+		SELECT p.p_no,
+		       pi.p_option_no,
+		       pi.pay_date,
+		       p.p_change_name,
+		       p.p_title,
+		       product_option.p_option_name,
+		       pi.pay_count,
+		       p.p_price,
+		       si.store_name
+		FROM pay_info pi
+		JOIN product_option ON product_option.p_option_no = ANY(pi.p_option_no)
+		JOIN product p using(p_no)
+		JOIN product_category using(c_no)
+		JOIN seller_page sp using(seller_page_no)
+		JOIN seller_info si ON si.business_no = sp.business_no
+		WHERE pi.user_no = #{userNo};
+		 -->
+		
 		SELECT p_no,
 			   p_option_no,
 			   buy_date,
@@ -251,7 +276,7 @@
 			   p_title,
 			   p_option_name,
 			   b.buy_count,
-			   b.buy_money,
+			   p.p_price,
 			   store_name
 		FROM buy b
 		JOIN product_option po USING (p_option_no)
@@ -297,20 +322,18 @@
 	<!-- 회원이 작성한 문의글 수 조회 -->
 	<select id="inquiryListCount" resultType="_int">
 		SELECT COUNT(*)
-		FROM inquiry
-		WHERE status = 'Y'
-		AND user_no = #{userNo}
+		FROM faq
+		WHERE user_no = #{userNo}
 	</select>
 	
 	<!-- 회원이 작성한 문의글 리스트 조회 -->
 	<select id="inquiryList" resultMap="inquiryResult">
-		SELECT inquiry_no,
+		SELECT faq_no,
 			   inquiry_title,
 			   inquiry_date,
-			   status
-		FROM inquiry
-		WHERE status = 'Y'
-		AND user_no = #{userNo}
+			   p_no
+		FROM faq
+		WHERE user_no = #{userNo}
 		ORDER BY inquiry_date DESC
 	</select>
 	

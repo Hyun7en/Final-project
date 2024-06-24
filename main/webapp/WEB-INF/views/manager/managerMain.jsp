@@ -71,7 +71,7 @@
                         </div>
                         <div class="main-status-info-title">
                             <div id="visit-status-graph">
-                                <p>방문자 수 증/감 그래프</p>
+                                <p></p>
                             </div>
                         </div>
                     </div>
@@ -91,30 +91,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>21012102102102</td>
-                                <td>홍길동</td>
-                                <td>010-1111-1111</td>
-                                <td>신용카드</td>
-                                <td>264,000</td>
-                                <td>2024-05-13</td>
-                            </tr>
-                            <tr>
-                                <td>21012102121212</td>
-                                <td>고길동</td>
-                                <td>010-1111-2222</td>
-                                <td>무통장</td>
-                                <td>124,000</td>
-                                <td>2024-05-13</td>
-                            </tr>
-                            <tr>
-                                <td>21012101010211</td>
-                                <td>최길동</td>
-                                <td>010-1111-3333</td>
-                                <td>신용카드</td>
-                                <td>54,000</td>
-                                <td>2024-05-13</td>
-                            </tr>
+                            <c:forEach var="ro" items="${recentOrderHistory}">
+                                <tr>
+                                    <td>${ro.payNo}</td>
+                                    <td>${ro.userName}</td>
+                                    <td>${ro.phone}</td>
+                                    <td>신용카드</td>
+                                    <td>${ro.payMoney}</td>
+                                    <td>${ro.payDate}</td>
+                                </tr>
+                            </c:forEach>
                         </tbody>
                     </table>
                 </div> 
@@ -148,31 +134,6 @@
                                     <td>${rm.joinDate}</td>
                                 </tr>
                             </c:forEach>
- 
-                            <!-- <tr>
-                                <td>홍길동</td>
-                                <td>qwqw1212</td>
-                                <td>일반회원</td>
-                                <td>qwqw1212@gmail.com</td>
-                                <td>010-1111-1111</td>
-                                <td>2024-05-13</td>
-                            </tr>
-                            <tr>
-                                <td>고길동</td>
-                                <td>qwqw1313</td>
-                                <td>일반회원</td>
-                                <td>qwqw1313@gmail.com</td>
-                                <td>010-1111-2222</td>
-                                <td>2024-05-13</td>
-                            </tr>
-                            <tr>
-                                <td>최길동</td>
-                                <td>qwqw1414</td>
-                                <td>일반회원</td>
-                                <td>qwqw1414@gmail.com</td>
-                                <td>010-1111-3333</td>
-                                <td>2024-05-13</td>
-                            </tr> -->
                         </tbody>
                     </table>
                 </div>

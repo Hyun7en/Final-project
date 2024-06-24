@@ -1,4 +1,4 @@
-package com.psvm.myPage.vo;
+package com.psvm.manager.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,9 +11,10 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Inquiry {
-	private int faqNo;
-	private String inquiryTitle;
-	private String inquiryDate;
-	private int pdNo;
+public class RecentOrderHistory {
+	private int payNo;
+	private String userName;
+	private String phone;
+	private int payMoney;
+	private String payDate;
 }

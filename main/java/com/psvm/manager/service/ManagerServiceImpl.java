@@ -2,7 +2,6 @@ package com.psvm.manager.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.manager.dao.ManagerDao;
+import com.psvm.manager.vo.RecentOrderHistory;
 import com.psvm.manager.vo.ReportProduct;
 import com.psvm.manager.vo.Search;
 import com.psvm.manager.vo.Seller;
@@ -195,4 +195,11 @@ public class ManagerServiceImpl implements ManagerService{
 	public ArrayList<Member> searchedOutlist(PageInfo pi, HashMap<String, String> map){
 		return managerDao.searchedOutlist(sqlSession, pi, map);
 	}
+	
+	// 최근 주문내역 3개 조회
+	@Override
+	public ArrayList<RecentOrderHistory> recentOrderHistory(){
+		return managerDao.recentOrderHistory(sqlSession);
+	}
+	
 }

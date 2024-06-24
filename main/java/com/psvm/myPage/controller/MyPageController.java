@@ -60,13 +60,13 @@ public class MyPageController {
 
 	// 내정보 페이지에 있는 회원정보 수정하는 메서드
 	@RequestMapping("modifyInfo.my")
-	public ModelAndView modifyInfo(HttpSession session, Member m, MemberAttachment ma, MultipartFile file,
-			ModelAndView mv) {
+	public ModelAndView modifyInfo(HttpSession session, Member m, MemberAttachment ma,
+			MultipartFile file, ModelAndView mv) {
 
 		int result1 = 0;
 		int result2 = 0;
 		int userNo = m.getUserNo();
-
+		
 		// 전달된 첨부파일이 있을 경우
 		if (!file.getOriginalFilename().equals("")) {
 
@@ -77,9 +77,12 @@ public class MyPageController {
 
 				// 파일명 변경하는 메소드로 보내고 값 받아오기
 				String changeName = saveFile(file, session);
-
+				
+				// 선택한 파일명 ma객체의 originName에 덮어쓰기
 				ma.setOriginName(file.getOriginalFilename());
+				// 변경된 파일명 ma객체의 changeName에 덮어쓰기
 				ma.setChangeName("resources/image/" + changeName);
+				// 회원번호 넣기
 				ma.setRefMno(userNo);
 				
 				// 이미지 파일 제외한 정보 수정
@@ -90,9 +93,12 @@ public class MyPageController {
 
 				// 파일명 변경하는 메소드로 보내고 값 받아오기
 				String changeName = saveFile(file, session);
-
+				
+				// 선택한 파일의 파일명 ma객체의 originName에 넣기
 				ma.setOriginName(file.getOriginalFilename());
+				// 변경된 파일명 ma객체의 changeName에 넣기
 				ma.setChangeName("resources/image/" + changeName);
+				// 회원번호 넣기
 				ma.setRefMno(userNo);
 				
 				//이미지 파일 제외한 정보 수정
@@ -226,10 +232,11 @@ public class MyPageController {
 		int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
 		//페이징
 		int interestCount = myPageService.selectInterestCount(userNo);
-		PageInfo pi = Pagination.getPageInfo(interestCount, currentPage, 5, 10);
+		PageInfo pi = Pagination.getPageInfo(interestCount, currentPage, 10, 5);
 		ArrayList<StoreInfo> InterestList = myPageService.selectInterest(pi, userNo);
 		
 		model.addAttribute("iList", InterestList);
+		model.addAttribute("pi", pi);
 		return "myPage/myPageInterest";
 	}
 	
@@ -292,7 +299,6 @@ public class MyPageController {
 		
 		// 장바구니에서 구매할 상품의 옵션번호 넘기기
 		model.addAttribute("poNoList", poNoList);
-		System.out.println(poNoList);
 
 		return "store/order";
 	}
@@ -309,7 +315,6 @@ public class MyPageController {
 		
 		// 주문내역 조회
 		ArrayList<OrderHistory> orderHistoryList = myPageService.orderHistoryList(userNo, pi);
-		System.out.println(orderHistoryList);
 		
 		model.addAttribute("orderHistoryListCount", orderHistoryListCount);
 		model.addAttribute("orderHistoryList", orderHistoryList);
@@ -343,7 +348,7 @@ public class MyPageController {
 
 	// 회원이 작성한 문의글을 조회하기 위한 메서드
 	@RequestMapping("inquiry.my")
-	public String inquiry(@RequestParam(value="cpage", defaultValue="1") int currentPage, HttpSession session, int userNo) {
+	public String inquiry(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model, int userNo) {
 		
 		// 회원이 작성한 문의글 수 조회
 		int myInquiryListCount = myPageService.inquiryListCount(userNo);
@@ -354,7 +359,7 @@ public class MyPageController {
 		// 회원이 작성한 문의글 리스트 조회
 		ArrayList<Inquiry> myInquiryList = myPageService.inquiryList(userNo, pi);
 
-		session.setAttribute("myInquiryList", myInquiryList);
+		model.addAttribute("myInquiryList", myInquiryList);
 
 		return "myPage/myPageInquiry";
 	}
@@ -395,17 +400,5 @@ public class MyPageController {
 
 		return mv;
 	}
-
-//	public String selctListView(@RequestParam(value="cpag", defaultValue="1") int currentPage, Model model){
-//		int boardCount = myPageService.selectListCount();
-//		
-//		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 5);
-//		ArrayList<Board> list = boardService.selectList(pi);
-//		
-//		model.addAllAttributes("list", list);
-//		model.addAllAttributes("pi", pi);
-//		
-//		return "myPage/myPagePost";
-//	}
 
 }

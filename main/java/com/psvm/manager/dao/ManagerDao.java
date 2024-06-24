@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.psvm.commons.vo.PageInfo;
+import com.psvm.manager.vo.RecentOrderHistory;
 import com.psvm.manager.vo.ReportProduct;
 import com.psvm.manager.vo.Search;
 import com.psvm.manager.vo.Seller;
@@ -186,5 +187,9 @@ public class ManagerDao {
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
 		return (ArrayList)sqlSession.selectList("managerMapper.searchedOutlist", map, rowBounds);
+	}
+	// 최근 주문내역 3개 조회
+	public ArrayList<RecentOrderHistory> recentOrderHistory(SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("managerMapper.recentOrderHistory");
 	}
 }

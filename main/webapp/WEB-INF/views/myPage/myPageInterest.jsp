@@ -94,7 +94,9 @@
                     <c:forEach var="i" items="${iList}">
                         <div id="interest-product">
                             <div id="interest-product-img">
-                                <img src="${i.prChangeName}" alt="">
+                                <a href="detail.spd?pno=${i.prNo}">
+                                    <img src="${i.prChangeName}">
+                                </a>
                             </div>
                             <div id="interest-product-info">
                                 <ul>
@@ -106,24 +108,44 @@
                                     <li>${i.storeName}</li>
                                 </ul>
                             </div>
-                            <form action="">
-                                <div id="interest-product-button-area">
-                                    <div class="interest-product-button"><a href="detail.spd?pno=${i.prNo}">구매하기</a></div>
-                                    <div class="interest-product-button"><a href="sellersStore.st?sellerPageNo=${i.sellerPageNo}&order=1&cpage=1">판매자의 다른 상품 보기</a></div>
-                                    <div class="interest-product-button"><a href="interestCancle.my?userNo=${loginUser.userNo}&prNo=${i.prNo}">관심상품 취소</a></div>
-                                </div>
-                            </form>
+
+                            <div id="interest-product-button-area">
+                                <div class="interest-product-button"><a href="detail.spd?pno=${i.prNo}">구매하기</a></div>
+                                <div class="interest-product-button"><a href="sellersStore.st?sellerPageNo=${i.sellerPageNo}&order=1&cpage=1">판매자의 다른 상품 보기</a></div>
+                                <div class="interest-product-button"><a href="interestCancle.my?userNo=${loginUser.userNo}&prNo=${i.prNo}">관심상품 취소</a></div>
+                            </div>
+
                         </div>
                     </c:forEach>
 
-                    <div id="btnList-area">
-                        <div class="btnList" align="center">
-                            <button id="btn1">&lt;</button>
-                            <button id="btn2">1</button>
-                            <button id="btn3">&gt;</button>
-                        </div> 
+                    <!-- 페이징 처리 -->
+                    <div id="pagination-div">
+                        <ul class="pagination">
+                            <c:choose>
+                                <c:when test="${ pi.currentPage eq 1 }">
+                                    <li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="page-item"><a class="page-link" href="interestProduct.my?cpage=${pi.currentPage - 1}&userNo=${loginUser.userNo}">&laquo;</a></li>
+                                </c:otherwise>
+                            </c:choose>
+
+                            <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+                                <li class="page-item ${p == pi.currentPage ? 'active' : ''}"><a class="page-link" href="interestProduct.my?cpage=${p}&userNo=${loginUser.userNo}">${p}</a></li>
+                            </c:forEach>
+                        
+                            <c:choose>
+                                <c:when test="${ pi.currentPage eq pi.maxPage }">
+                                    <li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="page-item"><a class="page-link" href="interestProduct.my?cpage=${pi.currentPage + 1}&userNo=${loginUser.userNo}">&raquo;</a></li>
+                                </c:otherwise>
+                            </c:choose>
+                        </ul>
                     </div>
-                    <div id="similar-products-area">
+
+                    <!-- <div id="similar-products-area">
                         <div id="similar-products-title">
                             <h3>관심상품과 비슷한 상품</h3>
                         </div>
@@ -133,7 +155,7 @@
                                     <a href=""><img src="https://m.healingaqua.co.kr/web/product/big/202307/8c3f0b4a50ce3f27f7d21a0cc005d599.jpg" alt=""></a>
                                 </div>
                                 <div class="similar-products-info" >
-                                    <b>아프리칸파이크</b> <!-- AI 알고리즘 이용? -->
+                                    <b>아프리칸파이크</b> 
                                     <p>50,000원</p>
                                 </div>
                             </div>
@@ -142,7 +164,7 @@
                                     <a href=""><img src="https://m.healingaqua.co.kr/web/product/big/202307/8c3f0b4a50ce3f27f7d21a0cc005d599.jpg" alt=""></a>
                                 </div>
                                 <div class="similar-products-info" >
-                                    <b>아프리칸파이크</b> <!-- AI 알고리즘 이용? -->
+                                    <b>아프리칸파이크</b> 
                                     <p>50,000원</p>
                                 </div>
                             </div>
@@ -151,12 +173,13 @@
                                     <a href=""><img src="https://m.healingaqua.co.kr/web/product/big/202307/8c3f0b4a50ce3f27f7d21a0cc005d599.jpg" alt=""></a>
                                 </div>
                                 <div class="similar-products-info">
-                                    <b>아프리칸파이크</b> <!-- AI 알고리즘 이용? -->
+                                    <b>아프리칸파이크</b> 
                                     <p>50,000원</p>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
+                    
                 </div>
             </div>
         </main>          

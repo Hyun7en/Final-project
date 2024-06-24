@@ -2,9 +2,9 @@ package com.psvm.manager.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import com.psvm.commons.vo.PageInfo;
+import com.psvm.manager.vo.RecentOrderHistory;
 import com.psvm.manager.vo.ReportProduct;
 import com.psvm.manager.vo.Search;
 import com.psvm.manager.vo.Seller;
@@ -95,4 +95,7 @@ public interface ManagerService {
 	
 	// 탈퇴 회원 조회(검색)
 	ArrayList<Member> searchedOutlist(PageInfo pi, HashMap<String, String> map);
+	
+	// 최근주문내역 3개 조회
+	ArrayList<RecentOrderHistory> recentOrderHistory();
 }

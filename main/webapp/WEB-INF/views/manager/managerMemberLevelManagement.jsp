@@ -22,7 +22,7 @@
             <!-- sidebar -->
             <%@ include file="sidebar.jsp" %>
             
-            <div id="managerMemberLevelManagement-info-area">
+            <!-- <div id="managerMemberLevelManagement-info-area">
                 <div id="manager-sidebar-category-select-title"><h3>회원 레벨관리</h3></div>
                 <div id="detail-setting"><b>세부설정</b></div>
                 <form action="">
@@ -156,17 +156,10 @@
                         
                     </div>
                 </form>
-            </div>	    
-        </main>
-     </div>
+            </div>	-->
 
-     <script>
-        $(document).ready(function(){
-            $("#nav ul.sub").hide();
-            $("#nav ul.menu li").click(function(){
-                $("ul",this).slideToggle("fast")
-            });
-        });
-     </script>
+        </main>
+     </div> 
+
 </body>
 </html>

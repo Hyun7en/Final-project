@@ -78,31 +78,37 @@
                                 </c:otherwise>
                             </c:choose>
                             <c:forEach var="cp" items="${cartProductList}">
-                                <tr class="product">
-                                    <!-- <td class="userNo" style="display: none;">${loginUser.userNo}</td> -->
-                                    <td class="poNo" style="display: none;">${cp.poNo}</td>
-                                    <td width="5%"><input class="checkbox" type="checkbox"></td>
-                                    <td class="product-info" width="45%">
-                                        <div class="product-info-img"><img src="${cp.pdChangeName}" alt=""></div>
-                                        <div class="product-info-name">
-                                            <b>${cp.pdTitle}</b>
-                                            <span class="product-option">옵션: ${cp.pdOptionName}</span>
-                                        </div>
-                                    </td>
-                                    <!-- <td width="15%">
-                                        <div id="product-option">
-                                            
-                                        </div>
-                                    </td> -->
-                                    <td width="15%">${cp.buyCount}</td>
-                                    <td width="15%" class="product-price">${cp.buyMoney}</td>
-                                    <td width="20%">
-                                        <div class="product-btn">
-                                            <button onclick="productOrder('${cp.poNo}')">주문하기</button>  <!-- 버튼 눌렀을 때 해당 상품의 옵션번호 넘겨주기 -->
-                                            <button onclick="location.href='deleteCartProduct.my?poNo=${cp.poNo}'">삭제</button>
-                                        </div>
-                                    </td>
-                                </tr>
+                                <!-- <form action="" id="product-opt-form" method="post"> -->
+                                    <tr class="product">
+                                        <td class="userNo" style="display: none;">${loginUser.userNo}</td>
+                                        <td class="poNo" style="display: none;">${cp.poNo}</td>
+                                        <td width="5%"><input class="checkbox" type="checkbox"></td>
+                                        <td class="product-info" width="45%">
+                                            <div class="product-info-img">
+                                                <a href="detail.spd?pno=${cp.pdNo}">
+                                                    <img class="product-img" src="${cp.pdChangeName}">
+                                                </a>
+                                            </div>
+                                            <div class="product-info-name">
+                                                <b class="product-title">${cp.pdTitle}</b>
+                                                <span class="product-option">옵션: ${cp.pdOptionName}</span>
+                                            </div>
+                                        </td>
+                                        <!-- <td width="15%">
+                                            <div id="product-option">
+                                                
+                                            </div>
+                                        </td> -->
+                                        <td width="15%" class="product-count">${cp.buyCount}</td>
+                                        <td width="15%" class="product-price">${cp.buyMoney}</td>
+                                        <td width="20%">
+                                            <div class="product-btn">
+                                                <button onclick="productOrder('${cp.poNo}')">주문하기</button>  <!-- 버튼 눌렀을 때 해당 상품의 옵션번호 넘겨주기 -->
+                                                <button onclick="location.href='deleteCartProduct.my?poNo=${cp.poNo}'">삭제</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <!-- </form> -->
                             </c:forEach>
 
                         </tbody>

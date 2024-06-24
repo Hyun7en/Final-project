@@ -193,6 +193,11 @@ main{
     cursor: pointer;
 }
 
+#pagination-div{
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
 .pagination {
     display: flex;
     list-style: none;

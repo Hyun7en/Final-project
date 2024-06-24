@@ -81,7 +81,9 @@
                                         <div class="myPageOrderHistory-date"><h4>${oh.buyDate} 주문</h4></div>
                                         <div class="myPageOrderHistory-info-area">
                                             <div class="myPageOrderHistory-img">
-                                                <img src="${oh.pdChangeName}" alt="">
+                                                <a href="detail.spd?pno=${oh.pdNo}">
+                                                    <img src="${oh.pdChangeName}">
+                                                </a>
                                             </div>
                                             <div class="myPageOrderHistory-info">
                                                 <ul>

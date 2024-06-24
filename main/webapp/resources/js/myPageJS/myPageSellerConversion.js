@@ -1,7 +1,7 @@
 function businessNumber(){
     let num = document.getElementById('businessNo').value; //사업자번호
     var data = {
-        b_no: [num] 
+        b_no: [num]
     }; 
     console.log("data : "+ data);
     $.ajax({
@@ -22,10 +22,27 @@ function businessNumber(){
 }
 
 function resultCheck(result){
-    if(result.status_code == "OK"){
+    console.log(result.data[0].b_stt);
+    
+    const businessNoInput = document.getElementById("businessNo");
+    const businessManCertify = document.getElementById("businessMan-certify");
+    const checkMessage = document.getElementById("check-message");
+
+    if(result.data[0].b_stt ==="계속사업자"){
         console.log("진위여부성공");
+
+        businessManCertify.readOnly = true;
+        businessManCertify.style.backgroundColor = "#eee";
+        businessNoInput.readOnly = true;
+        businessNoInput.style.backgroundColor = "#eee";
+        checkMessage.innerText = "인증되었습니다.";
+        checkMessage.style.color = "green";
     }else {
         console.log("진위여부실패");
+
+        checkMessage.innerText = "인증에 실패하였습니다.";
+        checkMessage.style.color = "red";
+
     }
 }
 
