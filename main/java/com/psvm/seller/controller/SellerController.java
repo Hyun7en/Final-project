@@ -225,7 +225,7 @@ public class SellerController {
     
     // 판매자 홈 수정
     @RequestMapping("update.srh")
-    public String updateSellerHome(SellerPage sellerPage,@RequestParam(value="MultipartFile", required = false) MultipartFile storeHomeImage, @RequestParam("categoriesJson") String categoriesJson,
+    public String updateSellerHome(SellerPage sellerPage, MultipartFile storeHomeImage, @RequestParam("categoriesJson") String categoriesJson,
         HttpSession session, RedirectAttributes redirectAttributes) {
         
         // 새로운 첨부파일이 넘어온 경우
