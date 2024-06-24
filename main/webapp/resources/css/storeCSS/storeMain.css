@@ -170,9 +170,8 @@ main {
     right: 10px;
 }
 
-
 .carousel-item .carousel-dimg img{
-    object-fit: cover;
+    object-fit: fill;
     width: 100%; 
     height: 300px;
     border-radius: 15px;
