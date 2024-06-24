@@ -26,7 +26,6 @@ public class NotificationService {
     public SseEmitter subscribe(Long userId) {
         SseEmitter emitter = createEmitter(userId);
 
-        
         return emitter;
     }
 
