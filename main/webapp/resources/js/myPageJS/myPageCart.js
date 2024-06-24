@@ -119,11 +119,129 @@ function selectProductOrder() {
     location.href="orderCartProduct.my?poNo=" + checkedCheckbox;
 }
 
+
+
 // 상품 리스트에 있는 주문하기 눌렀을 때
 function productOrder(poNo){        // 주문하기 버튼을 눌렀을 때 넘겨준 옵션번호 매개변수
     const poNoList = [poNo];        // 받아온 매개변수 값 자바스크립트에서 배열로 변환
     console.log(poNoList);                  // 배열로 바꾸는 이유는 orderCartProduct.my 컨트롤러의 poNo의 매개변수 타입이 리스트여서 변환해야 함
-
     location.href="orderCartProduct.my?poNo=" + poNoList;
+    
+    // var index = $(poNo).closest("tr").index();
+
+    // const hiddenFieldId = document.querySelector(".poNo").text
+    // const hiddenFieldCount = document.querySelector(".product-count").text;
+    // const hiddenFieldPrice = document.querySelector(".product-price").text;
+    // const hiddenFieldName = document.querySelector(".product-option").text;
+    // const hiddenFieldProductName = document.querySelector(".product-title").text
+    // const hiddenFieldImage = document.querySelector(".product-img").src
+    // const userNoField = document.querySelector(".userNo").text
+
+    // console.log(hiddenFieldId);
+    // console.log(hiddenFieldCount);
+    // console.log(hiddenFieldPrice);
+    // console.log(hiddenFieldName);
+    // console.log(hiddenFieldProductName);
+    // console.log(hiddenFieldImage);
+    // console.log(userNoField);
+
+    // const form = document.querySelector('#product-opt-form');
+    // form.action = 'order.spd'; 
+
+    // form.appendChild(hiddenFieldId);
+    // form.appendChild(hiddenFieldCount);
+    // form.appendChild(hiddenFieldPrice);
+    // form.appendChild(hiddenFieldName);
+    // form.appendChild(hiddenFieldProductName);
+    // form.appendChild(hiddenFieldImage);
+    // form.appendChild(userNoField);
+
+    
+    // document.body.appendChild(form);
+    // form.submit(); // 폼 제출
+
+
 }
+
+// function createAndSubmitForm() {
+//     const hiddenFieldId = document.querySelector(".poNo").text
+//     const hiddenFieldCount = document.querySelector(".product-count").text;
+//     const hiddenFieldPrice = document.querySelector(".product-price").text;
+//     const hiddenFieldName = document.querySelector(".product-option").text;
+//     const hiddenFieldProductName = document.querySelector(".product-title").text
+//     const hiddenFieldImage = document.querySelector(".product-img").src
+//     const userNoField = document.querySelector(".userNo").text
+
+//     const form = document.createElement('form');
+//     form.method = 'post';
+//     form.action = 'order.spd'; 
+
+//     form.appendChild(hiddenFieldId);
+//     form.appendChild(hiddenFieldCount);
+//     form.appendChild(hiddenFieldPrice);
+//     form.appendChild(hiddenFieldName);
+//     form.appendChild(hiddenFieldProductName);
+//     form.appendChild(hiddenFieldImage);
+//     form.appendChild(userNoField);
+
+    
+//     document.body.appendChild(form);
+//     form.submit(); // 폼 제출
+
+    // // 선택된 옵션 객체를 폼 데이터로 변환
+    // for (const id in selectedOptions) {
+    //     const option = selectedOptions[id];
+
+    //     // 옵션 ID 입력 필드 추가
+    //     const hiddenFieldId = document.createElement('input');
+    //     hiddenFieldId.type = 'hidden';
+    //     hiddenFieldId.name = 'optionId[]';
+    //     hiddenFieldId.value = id;
+    //     form.appendChild(hiddenFieldId);
+
+    //     // 구매 수량 입력 필드 추가
+    //     const hiddenFieldCount = document.createElement('input');
+    //     hiddenFieldCount.type = 'hidden';
+    //     hiddenFieldCount.name = 'buyCount[]';
+    //     hiddenFieldCount.value = option.buyCount;
+    //     form.appendChild(hiddenFieldCount);
+
+    //     // 옵션 가격 입력 필드 추가
+    //     const hiddenFieldPrice = document.createElement('input');
+    //     hiddenFieldPrice.type = 'hidden';
+    //     hiddenFieldPrice.name = 'optionPrice[]';
+    //     hiddenFieldPrice.value = option.optionPrice;
+    //     form.appendChild(hiddenFieldPrice);
+
+    //     // 옵션명 입력 필드 추가
+    //     const hiddenFieldName = document.createElement('input');
+    //     hiddenFieldName.type = 'hidden';
+    //     hiddenFieldName.name = 'optionName[]';
+    //     hiddenFieldName.value = option.optionName;
+    //     form.appendChild(hiddenFieldName);
+    // }
+    //  // 상품 이름 추가
+    // const hiddenFieldProductName = document.createElement('input');
+    // hiddenFieldProductName.type = 'hidden';
+    // hiddenFieldProductName.name = 'productName';
+    // hiddenFieldProductName.value = document.querySelector('.product-name').textContent; // 상품명
+    // form.appendChild(hiddenFieldProductName);
+
+    // // 상품 이미지 추가
+    // const hiddenFieldImage = document.createElement('input');
+    // hiddenFieldImage.type = 'hidden';
+    // hiddenFieldImage.name = 'productImage';
+    // hiddenFieldImage.value = document.querySelector('.product-img').src; // 상품 이미지 URL
+    // form.appendChild(hiddenFieldImage);
+
+    // // 유저 번호 추가
+    // const userNoField = document.createElement('input');
+    // userNoField.type = 'hidden';
+    // userNoField.name = 'userNo';
+    // userNoField.value = userNo;
+    // form.appendChild(userNoField);
+
+    // document.body.appendChild(form);
+    // form.submit(); // 폼 제출
+// }
 

@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.psvm.commons.template.Pagination;
 import com.psvm.commons.vo.PageInfo;
 import com.psvm.manager.service.ManagerServiceImpl;
+import com.psvm.manager.vo.RecentOrderHistory;
 import com.psvm.manager.vo.ReportProduct;
 import com.psvm.manager.vo.Search;
 import com.psvm.manager.vo.Seller;
@@ -37,13 +38,14 @@ public class ManagerController {
 		int deleteMemberCount = managerService.deleteMemberCount();
 		
 		// 최근 주문내역 3개 조회
-//		ArrayList<Member>
+		ArrayList<RecentOrderHistory> recentOrderHistory = managerService.recentOrderHistory();
 		
 		// 최근 회원가입한 회원 3명 조회
 		ArrayList<Member> recentMemberList = managerService.recentMemberList();
 		
 		model.addAttribute("currentMemberCount", currentMemberCount);
 		model.addAttribute("deleteMemberCount", deleteMemberCount);
+		model.addAttribute("recentOrderHistory", recentOrderHistory);
 		model.addAttribute("recentMemberList", recentMemberList);
 		
 		return "manager/managerMain";

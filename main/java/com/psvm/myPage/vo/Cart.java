@@ -19,4 +19,5 @@ public class Cart {
 	private String pdOptionName;
 	private int buyCount;
 	private int buyMoney;
+	private int userNo;
 }

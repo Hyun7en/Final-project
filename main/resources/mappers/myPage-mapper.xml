@@ -49,9 +49,10 @@
 	
 	<!-- 작성한 문의글 resultMapper -->
 	<resultMap type="Inquiry" id="inquiryResult">
-		<result column="inquiry_no" property="inquiryNo"/>
+		<result column="faq_no" property="faqNo"/>
 		<result column="inquiry_title" property="inquiryTitle"/>
 		<result column="inquiry_date" property="inquiryDate"/>
+		<result column="p_no" property="pdNo"/>
 	</resultMap>
 	
 	<!-- 찜한 상품 resultMapper -->
@@ -83,6 +84,7 @@
 		<result column="P_OPTION_NAME" property="pdOptionName"/>
 		<result column="BUY_COUNT" property="buyCount"/>
 		<result column="BUY_MONEY" property="buyMoney"/>
+		<result column="USER_NO" property="userNo"/>
 	</resultMap>
 	
 	<!-- 주문내역 resultMapper -->
@@ -215,7 +217,8 @@
 			   P_TITLE,
 			   P_OPTION_NAME,
 			   BUY_COUNT,
-			   BUY_MONEY
+			   BUY_MONEY,
+			   b.USER_NO
 		FROM BUY b
 		JOIN PRODUCT_OPTION po USING (P_OPTION_NO)
 		JOIN PRODUCT p USING (P_NO)
@@ -319,19 +322,18 @@
 	<!-- 회원이 작성한 문의글 수 조회 -->
 	<select id="inquiryListCount" resultType="_int">
 		SELECT COUNT(*)
-		FROM inquiry
-		WHERE status = 'Y'
-		AND user_no = #{userNo}
+		FROM faq
+		WHERE user_no = #{userNo}
 	</select>
 	
 	<!-- 회원이 작성한 문의글 리스트 조회 -->
 	<select id="inquiryList" resultMap="inquiryResult">
-		SELECT inquiry_no,
+		SELECT faq_no,
 			   inquiry_title,
-			   inquiry_date
-		FROM inquiry
-		WHERE status = 'Y'
-		AND user_no = #{userNo}
+			   inquiry_date,
+			   p_no
+		FROM faq
+		WHERE user_no = #{userNo}
 		ORDER BY inquiry_date DESC
 	</select>
 	

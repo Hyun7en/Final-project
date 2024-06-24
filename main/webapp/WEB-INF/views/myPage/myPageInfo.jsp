@@ -176,13 +176,16 @@
                                         <button type="button" class="change-btn" id="email-btn-cancel" style="display: none;" onclick="cancel_btn(this)">취소</button>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr id="address-area">
                                     <th>주소</th>
                                     <td>
                                         <input type="text" id="address" name="address" readonly value="${loginUser.address}" onclick="callDaumService()">
                                         <button type="button" class="change-btn" id="address-btn" onclick="change_address()">변경</button>
                                         <button type="button" class="change-btn" id="address-btn-cancel" style="display: none;" onclick="cancel_btn(this)">취소</button>
                                     </td>
+                                    <!-- <td>
+                                        <input type="hidden" id="address2" name="address2">
+                                    </td> -->
                                 </tr>
                             </table>
 

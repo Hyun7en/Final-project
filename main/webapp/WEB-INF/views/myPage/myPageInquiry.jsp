@@ -72,8 +72,8 @@
                                         </c:when>
                                         <c:otherwise>
                                             <c:forEach var="i" items="${myInquiryList}">
-                                                <tr>
-                                                    <td width="15%">${i.inquiryNo}</td>
+                                                <tr onclick="location.href = 'detail.spd?pno=${i.pdNo}#go-product-inquiry'" style="cursor: pointer;">
+                                                    <td width="15%">${i.faqNo}</td>
                                                     <td width="60%">${i.inquiryTitle}</td>
                                                     <td width="25%">${i.inquiryDate}</td>
                                                 </tr>

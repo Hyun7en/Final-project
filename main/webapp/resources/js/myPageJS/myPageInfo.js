@@ -152,6 +152,12 @@ function change_address() { // 주소 변경하려고 주소 입력란 옆에 "�
     document.getElementById("address").placeholder = "주소를 입력해주세요.";    // 공백 처리하고 placeholder 넣기
     document.getElementById("address").readOnly = false;    // 변경할 주소 입력할 수 있게 readOnly 비활성화
     document.getElementById("address").style.backgroundColor = "white"; // 입력할 수 있다는걸 알려주기 위해 입력란 흰색으로 변경
+
+    const address2 = ('<td id="address-area2">'
+                    + '<input type="text" id="address2" name="address2" style="background-color: white" placeholder="상세주소 입력">'
+                    + '</td>');
+    document.querySelector("#address-area").innerHTML += address2;
+
     document.getElementById("address-btn").innerText = "확정";  // 변경할 주소 확정할 수 있게 하기위해 버튼 이름 "확정"으로 변경
     document.getElementById("address-btn").style.backgroundColor = "#96E6FF";   // "확정" 버튼 색 변경
     document.getElementById("address-btn").setAttribute("onclick", "confirm_address()");    // 확정 버튼에 다른 onclick속성 부여 
@@ -163,6 +169,14 @@ function confirm_address() {    // 주소 변경하려고 "확정" 버튼 눌렀
         document.getElementById("address-btn-cancel").style.backgroundColor = "pink";   // 취소버튼 색 변경
         document.getElementById("modify-btn").disabled = false; // 정보수정 버튼 활성화
         document.getElementById("modify-btn").style.backgroundColor = "#000";   // 정보수정 버튼 색 변경
+
+        const address2 = document.getElementById("address2").value;
+        document.getElementById("address").value += (" " + address2);
+        let address2Element = document.getElementById("address-area2");
+        if (address2Element) {
+            address2Element.parentNode.removeChild(address2Element);
+        }
+       
         document.getElementById("address").readOnly = true; // 변경할 주소 확정 되었으니 다시 readOnly 활성화
         document.getElementById("address").style.backgroundColor = "#96E6FF";   // 확정되었다는 것을 알려주기 위한 색 변경
         document.getElementById("address-btn").readOnly = true; // 확정 되었으니 버튼 readOnly 활성화
@@ -245,10 +259,18 @@ function cancel_btn(cancelBtn){
         document.getElementById("modify-btn").style.backgroundColor = "#eee";   // 정보수정 버튼 색 변경
 
     } else if(cancelBtn.id === "address-btn-cancel"){   // 확정된 닉네임 취소 버튼 눌렀을 때(다시 변경하려고)
+        const address2 = ('<td id="address-area2">'
+            + '<input type="text" id="address2" name="address2" style="background-color: white" placeholder="상세주소 입력">'
+            + '</td>');
+        document.querySelector("#address-area").innerHTML += address2;
+
         document.getElementById("address").readOnly = false;    // 닉네임 입력란 readOnly 비활성화
         document.getElementById("address").style.backgroundColor = "white"; // 닉네임 입력란 색 변경 
         document.getElementById("address-btn").innerText = "확정";  // 버튼 이름 변경
         document.getElementById("address-btn").readOnly = false;    // 버튼 readOnly 비활성화
+
+
+
         // document.getElementById("address-btn").setAttribute("onclick", "confirm_address()");
         document.getElementById("address-btn-cancel").style.display = "none"    // 취소 버튼 숨기기
         document.getElementById("modify-btn").disabled = true;  // 정보수정 버튼 비활성화
@@ -446,8 +468,8 @@ function callDaumService() { //다음 주소 API
             }
 
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
-            document.getElementById('signup-address').value = data.zonecode + ' ' + addr;
-            document.getElementById("signup-address").value += extraAddr;
+            document.getElementById('address').value = data.zonecode + ' ' + addr;
+            document.getElementById("address").value += extraAddr;
         }
     }).open();
 }

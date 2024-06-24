@@ -348,7 +348,7 @@ public class MyPageController {
 
 	// 회원이 작성한 문의글을 조회하기 위한 메서드
 	@RequestMapping("inquiry.my")
-	public String inquiry(@RequestParam(value="cpage", defaultValue="1") int currentPage, HttpSession session, int userNo) {
+	public String inquiry(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model, int userNo) {
 		
 		// 회원이 작성한 문의글 수 조회
 		int myInquiryListCount = myPageService.inquiryListCount(userNo);
@@ -359,7 +359,7 @@ public class MyPageController {
 		// 회원이 작성한 문의글 리스트 조회
 		ArrayList<Inquiry> myInquiryList = myPageService.inquiryList(userNo, pi);
 
-		session.setAttribute("myInquiryList", myInquiryList);
+		model.addAttribute("myInquiryList", myInquiryList);
 
 		return "myPage/myPageInquiry";
 	}
