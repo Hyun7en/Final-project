@@ -13,6 +13,19 @@
 	<script src="${pageContext.request.contextPath}/resources/js/curationJS/detailCuration.js"></script>
 </head>
 <body>
+    <c:if test="${ not empty successMessage}">
+		<script>
+			var successMessage = "${successMessage}";
+		    if (successMessage) {
+		        Swal.fire({
+		            icon: 'success',
+		            title: 'success!',
+		            html: successMessage
+		        });
+		    }
+		</script>
+		<c:remove var="successMessage" scope="session"/>
+	</c:if>
 	<div class="wrap">
 	
 		<!-- header -->

@@ -32,11 +32,15 @@ import com.psvm.commons.vo.PageInfo;
 import com.psvm.fishInfo.vo.Fish;
 import com.psvm.member.vo.Member;
 import com.psvm.seller.dto.FaqDTO;
+import com.psvm.seller.dto.OrderOption;
+import com.psvm.seller.dto.OrderOptionDTO;
 import com.psvm.seller.dto.ProductCategoryDTO;
 import com.psvm.seller.dto.ProductDTO;
 import com.psvm.seller.dto.StoreMainDTO;
 import com.psvm.seller.service.SellerService;
 import com.psvm.seller.vo.Faq;
+import com.psvm.seller.vo.FaqAnswer;
+import com.psvm.seller.vo.PayInfo;
 import com.psvm.seller.vo.Product;
 import com.psvm.seller.vo.ProductCategory;
 import com.psvm.seller.vo.ProductOption;
@@ -361,11 +365,10 @@ public class SellerController {
   	//등록한 상품 리스트
     @RequestMapping("list.pd")
   	public String selectProductList(@RequestParam(value="cpage", defaultValue="1") int currentPage,HttpSession session, Model model) {
-    	
-		int boardCount = sellerService.selectProductListCount();
-		//logger.info("list.bo 실행");
 		
 		int businessNo = getBusinessNo(session);
+		
+		int boardCount = sellerService.selectProductListCount(businessNo);
 		
 		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 5);
 		List<Product> list = sellerService.selectProductList(pi,businessNo);
@@ -378,22 +381,30 @@ public class SellerController {
     
     //상품(카테고리,상품명으로)  검색
     @RequestMapping("search.pd")//게시글 목록 띄우기
-	public String searchProduct(@RequestParam(value="cpage", defaultValue="1") int currentPage, @RequestParam(value="condition", defaultValue="category") String condition, @RequestParam(value="keyword", defaultValue="") String keyword, Model model) {
+	public String searchProduct(@RequestParam(value="cpage", defaultValue="1") int currentPage, 
+								@RequestParam(value="condition", defaultValue="category") String condition,
+								@RequestParam(value="productName", defaultValue="") String productName, 
+								@RequestParam(value="keyword", defaultValue="") String keyword,HttpSession session, Model model) {
 		
-		HashMap<String, String> map = new HashMap<>();
+    	int businessNo = getBusinessNo(session);
+    	
+		HashMap<String, Object> map = new HashMap<>();
 		map.put("condition", condition);
 		map.put("keyword", keyword);
+		map.put("productName", productName);
+		map.put("businessNo",businessNo);
 		
-		int boardCount = sellerService.searchListCount(map);
-		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 10);
-		List<Product> list = sellerService.searchList(pi, map);
+		int boardCount = sellerService.searchProductListCount(map);
+		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 5);
+		List<Product> list = sellerService.searchProductList(pi, map);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
+		model.addAttribute("productName",productName);
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("condition", condition);
 		
-		return "seller/productListView";
+		return "seller/productSearchListView";
 	}
     
     // 옵션 불러오는 ajax
@@ -522,7 +533,7 @@ public class SellerController {
     	int userNo = loginUser.getUserNo();
     	
     	//문의 가져오기
-    	int boardCount = sellerService.selectCsInquiryListCount();
+    	int boardCount = sellerService.selectCsInquiryListCount(userNo);
 		
 		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 5);
     	
@@ -533,6 +544,62 @@ public class SellerController {
     	
     	return "seller/customerInquiryManagement";
     }
+    
+    //고객 문의 답변
+    @RequestMapping("insertInquiryAnswer.spd")
+    public String insertInquiryAnswer(@RequestParam("faqNo") int faqNo,
+    		@RequestParam("userNo") int userNo, 
+    		@RequestParam("answerContents") String answerContents) {
+    	
+    	System.out.println("insertInquiryAnswer" + "//////////////////////////////////////////");
+    	log.info("faqNo" + faqNo);
+    	log.info("userNo" + userNo);
+    	log.info("answerContents" + answerContents);
+    	
+    	FaqAnswer faqAnswer = new FaqAnswer();
+    	
+    	faqAnswer.setFaqNo(faqNo);
+    	faqAnswer.setUserNo(userNo);
+    	faqAnswer.setAnswerContents(answerContents);
+    	
+    	int result = sellerService.insertInquiryAnswer(faqAnswer,faqNo);
+    	
+    	if(result > 0) {
+    		return "redirect:customerInquiry.sr";
+    	}else {
+    		return "commons/error";
+    	}
+    	
+    }
+    
+    //고객 문의 검색
+    @RequestMapping("searchInquiry.sr")
+	public String searchInquiry(@RequestParam(value="cpage", defaultValue="1") int currentPage, 
+								@RequestParam(value="condition", defaultValue="productName") String condition,
+								@RequestParam(value="keyword", defaultValue="") String keyword,HttpSession session, Model model) {
+		
+    	
+    	// 세션에서 loginUser 객체 가져오기
+    	Member loginUser = (Member)session.getAttribute("loginUser");
+
+    	int userNo = loginUser.getUserNo();
+    	
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("condition", condition);
+		map.put("keyword", keyword);
+		map.put("userNo",userNo);
+		
+		int boardCount = sellerService.searchInquiryListCount(map);
+		PageInfo pi = Pagination.getPageInfo(boardCount, currentPage, 10, 5);
+		List<FaqDTO> inquiryList = sellerService.searchInquiryList(pi, map);
+		
+		model.addAttribute("inquiryList", inquiryList);
+		model.addAttribute("pi", pi);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("condition", condition);
+		
+		return "seller/customerInquirySearchView";
+	}
     
     // 정산 관리 
     @RequestMapping("settlement.sr")
@@ -618,10 +685,15 @@ public class SellerController {
     
     // 판매 상품 상세 정보
     @RequestMapping("detail.spd")
-    public String productDetailView(@RequestParam(value = "pno", required = false) Integer pno,@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
+    public String productDetailView(@RequestParam(value = "pno", required = false) Integer pno,
+    		@RequestParam(value="cpage", defaultValue="1") int currentPage, 
+    		@RequestParam(value = "cpage", defaultValue = "1") int currentInquiryPage,
+    		Model model, HttpSession session) {
     	
     	// 판매 상품 상세 정보
     	ProductDTO spd = sellerService.selectSalesProduct(pno);
+    	
+    	 List<PayInfo> userNoList = sellerService.getPayUserNo(pno);
     	
     	//리뷰 가져오기
     	int boardCount = sellerService.selectReviewListCount(pno);
@@ -633,12 +705,12 @@ public class SellerController {
     	//문의 가져오기
     	int boardCount2 = sellerService.selectInquiryListCount(pno);
 		
-		PageInfo ipi = Pagination.getPageInfo(boardCount2, currentPage, 10, 5);
+		PageInfo ipi = Pagination.getPageInfo(boardCount2, currentInquiryPage, 10, 5);
     	
     	List<FaqDTO> inquiryList = sellerService.selectInquiryList(ipi, pno);
     	
     	
-    	
+    	model.addAttribute("userNoList",userNoList);
     	model.addAttribute("spd",spd);
     	model.addAttribute("reviewList",reviewList);
     	model.addAttribute("rpi", rpi);
@@ -651,7 +723,7 @@ public class SellerController {
     //리뷰 가져오는 ajax
     @ResponseBody
     @GetMapping(value="getReviewList.ax", produces = "application/json; charset=UTF-8")
-    public String getReviewList(@RequestParam("cpage") int cpage, @RequestParam(value = "pno") int pno) {
+    public String getReviewList(@RequestParam(value ="cpage",defaultValue="1" ) int cpage, @RequestParam(value = "pno") int pno) {
     	
     	
     	int boardCount = sellerService.selectReviewListCount(pno);
@@ -670,7 +742,7 @@ public class SellerController {
     //문의 가져오는 ajax
     @ResponseBody
     @GetMapping(value="getInquiryList.ax", produces = "application/json; charset=UTF-8")
-    public String getInquiryList(@RequestParam("cpage") int cpage, @RequestParam(value = "pno") int pno) {
+    public String getInquiryList(@RequestParam(value="cpage", defaultValue="1") int cpage, @RequestParam(value = "pno") int pno) {
     	
     	int boardCount2 = sellerService.selectInquiryListCount(pno);
 		
@@ -775,11 +847,65 @@ public class SellerController {
   //############################################## 구매 페이지 ############################################################
     
     // 구매 페이지 
-    @RequestMapping("order.spd")
-    public String insertBuyingProduct() {
-    	
-    	return "store/order";
+    @RequestMapping(value = "/order.spd", method = RequestMethod.POST)
+    public String orderPage(
+            @RequestParam(value = "optionId[]", required = false) String[] optionIds,
+            @RequestParam(value = "buyCount[]", required = false) String[] buyCounts,
+            @RequestParam(value = "optionPrice[]", required = false) String[] optionPrices,
+            @RequestParam(value = "optionName[]", required = false) String[] optionNames,
+            @RequestParam(value = "productImage", required = false) String productImage,
+            @RequestParam(value = "productName", required = false) String productName,
+            Model model) {
+        
+        List<OrderOption> orderOptions = new ArrayList<>();
+        
+        int businessNo = sellerService.getBusinessNo(productName);
+
+        if (optionIds != null && buyCounts != null && optionPrices != null && optionNames != null) {
+            for (int i = 0; i < optionIds.length; i++) {
+                OrderOption option = new OrderOption();
+                option.setOptionId(Integer.parseInt(optionIds[i]));
+                option.setBuyCount(Integer.parseInt(buyCounts[i]));
+                option.setOptionPrice(Integer.parseInt(optionPrices[i]));
+                option.setOptionName(optionNames[i]);
+                option.setProductImage(productImage);
+                orderOptions.add(option);
+            }
+        }
+
+        model.addAttribute("orderOptions", orderOptions);
+        model.addAttribute("productImage", productImage);
+        model.addAttribute("productName", productName);
+        model.addAttribute("businessNo",businessNo);
+
+        return "store/order";
     }
+
+
+
+//    @PostMapping("/order.spd")
+//    public String processOrder(
+//            @RequestParam("optionId[]") List<Integer> optionIds,
+//            @RequestParam("buyCount[]") List<Integer> buyCounts,
+//            @RequestParam("optionPrice[]") List<Integer> optionPrices,
+//            @RequestParam("userNo") int userNo,
+//            Model model) {
+//        
+//        List<OrderOptionDTO> orderOptions = new ArrayList<>();
+//        for (int i = 0; i < optionIds.size(); i++) {
+//            orderOptions.add(new OrderOptionDTO(optionIds.get(i), buyCounts.get(i), optionPrices.get(i)));
+//        }
+//        
+//
+//        // 주문 처리 로직 추가
+//        // 예: orderService.processOrder(orderOptions, userNo);
+//
+//        model.addAttribute("orderOptions", orderOptions);
+//        model.addAttribute("userNo", userNo);
+//
+//        return "store/order"; // 주문 페이지로 이동
+//    }
+
     
     //상품 구매시 로그인 안 돼있을 때
     @RequestMapping("orderlogin.me")
@@ -787,6 +913,69 @@ public class SellerController {
     	
     	return "member/login";
     }
+    
+    //결제 완료
+    @RequestMapping("orderCom.spd")
+    public String completePayment() {
+    	
+    	return "seller/completePayment";
+    }
+    
+    
+    // 주문 데이터 처리하는 컨트롤러
+
+        @PostMapping(value = "insertOrder.spd")
+        public String insertProductOrder(@RequestParam("orderDataJson") String orderDataJson, HttpSession session) {
+            System.out.println("Order Info JSON: " + orderDataJson);
+            
+            Gson gson = new Gson();
+            
+            Type orderDataType = new TypeToken<Map<String, Object>>(){}.getType();
+            Map<String, Object> orderData = gson.fromJson(orderDataJson, orderDataType);
+            
+            PayInfo payInfo = new PayInfo();
+            
+            // 세션에서 loginUser 객체 가져오기
+        	Member loginUser = (Member)session.getAttribute("loginUser");
+
+        	int userNo = loginUser.getUserNo();
+            
+            Map<String, Object> orderInfo = (Map<String, Object>) orderData.get("orderInfo");
+            payInfo.setUserNo(userNo);
+            payInfo.setDeliveryName(orderInfo.get("deliveryName").toString());
+            payInfo.setBusinessNo(Integer.parseInt(orderInfo.get("businessNo").toString()));
+            payInfo.setDeliveryAddress(orderInfo.get("deliveryAddress").toString());
+            payInfo.setDeliveryDetailAddress(orderInfo.get("deliveryDetailAddress").toString());
+            payInfo.setPayMoney(Integer.parseInt(orderInfo.get("totalPrice").toString()));
+            payInfo.setPayMoney(Integer.parseInt(orderInfo.get("totalPrice").toString()));
+            payInfo.setRecipient(orderInfo.get("recipient").toString());
+            payInfo.setRecipientPhone(orderInfo.get("recipientPhone").toString());
+            
+            List<Map<String, Object>> orderOpts = (List<Map<String, Object>>) orderData.get("orderOpts");
+            int[] pdOptionNo = new int[orderOpts.size()];
+            int[] payCount = new int[orderOpts.size()];
+            
+            for (int i = 0; i < orderOpts.size(); i++) {
+                pdOptionNo[i] = Integer.parseInt(orderOpts.get(i).get("optNo").toString());
+                payCount[i] = Integer.parseInt(orderOpts.get(i).get("optQuantity").toString());
+            }
+            
+            payInfo.setPdOptionNo(pdOptionNo);
+            payInfo.setPayCount(payCount);
+            
+            int result = sellerService.insertOrder(payInfo);
+            
+            if (result == 0) {
+                session.setAttribute("alertMsg", "주문 실패하였습니다.");
+            } else {
+                session.setAttribute("alertMsg", "주문 성공하였습니다.");
+            }
+            
+            return "seller/completePayment";
+        }
+    
+
+
     
     
    

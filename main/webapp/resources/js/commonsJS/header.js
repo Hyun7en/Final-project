@@ -88,22 +88,11 @@ function onNotification(){
 // 알람 수락, 거부 위해 만든 함수
 async function requestNotificationPermission() {
   let permission = await Notification.requestPermission();
-  // if (permission === 'granted') {
-  //     console.log('Notification permission granted.');
-  // } else if (permission === 'denied') {
-  //     console.log('Notification permission denied.');
-  // } else {
-  //     console.log('Notification permission default.');
-  // }
 }
 
 //구독설정 -> 알람 허용까지 되어있으면 알람 메세지 실행
 function notification(userNo) {
   const eventSource = new EventSource(`http://localhost:8888/psvm/notifications/subscribe.pr/${userNo}`);
-
-  
-
-
   eventSource.addEventListener('sse', event => {
       (async () => {
           const data = event.data; // Assuming event.data is a JSON string
@@ -199,15 +188,10 @@ function drawAlarmList(data) {
 }
 //로그인 했을 시 이전 url을 보내는 함수
 function getRecentURL(){
-  const recentLink = document.querySelector('#recentLink');
-  recentLink.value = (window.location.href);
-  recentLink.form.submit();
+  const recentLink = window.location.href;
+  
+  location.href = "loginForm.me?recentLink=" + recentLink;
 }
-
-
-
-
-
 
 
 //-------------------------------------------------폐기함수------------------------------------------------------

@@ -306,8 +306,8 @@ function close_modal(){
     document.getElementById("delete-btn").style.color = "#d0d0d0";  // 회원탈퇴 버튼 텍스트 색 변경
 }
 
-// 비밀번호 변경 모달창 띄우기 위한 기존 비밀번호 확인(ajax)
-function change_pwd_modal(){
+//비밀번호 변경창 이동용 버튼
+function passwordCheck(){
     const inputPwd = document.getElementById("userPwd").value;
     const loginUserPwd = document.getElementById("loginUserPwd").value;
 
@@ -462,3 +462,4 @@ var themeObj = { //다음 주소 API 테마
     emphTextColor: "#008BD3", //강조 글자색
     outlineColor: "#0089FF" //테두리
 };
+

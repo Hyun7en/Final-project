@@ -39,12 +39,12 @@
             <h1>고객 관리 &gt; 고객 문의</h1>
 
             <div id="search-area">
-                <form action="search.pd" method="get">
+                <form action="searchInquiry.sr" method="get">
                     <input type="hidden" name="cpage" value="1">
                     <select name="condition">
                         <option value="productName">상품명</option>
                     </select>
-                    <input id="search-keyword" type="text" name="keyword" value="${keyword }">
+                    <input id="search-keyword" type="text" name="keyword" value="${keyword}">
                     <button type="submit" >검색</button>
                 </form>
 
@@ -74,62 +74,63 @@
                                     <td>${inquiry.pdTitle}</td>
                                     <td>${inquiry.nickName}</td>
                                     <td>${inquiry.inquiryDate}</td>
-                                    <td><button class="btn btn-primary" data-toggle="modal" data-target="#inquiry-answer-Modal">문의 답변</button></td>
+                                    <td><button class="btn btn-primary" data-toggle="modal" data-target="#inquiry-answer-Modal-${inquiry.faqNo}">문의 답변</button></td>
                                 </tr>
 
-                                <!-- 문의 modal -->
-                                <div class="modal fade" id="inquiry-answer-Modal">
-                                    <div class="modal-dialog modal-lg">
-                                        <div class="modal-content" >
+                                    <!-- 문의 modal -->
+                                    <div class="modal fade" id="inquiry-answer-Modal-${inquiry.faqNo}">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
 
-                                            <!-- Modal Header -->
-                                            <div class="modal-header">
-                                                <h4 >문의하기</h4>
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            </div>
-
-                                            <!-- Modal body -->
-                                            <div class="modal-body" >
-                                                <div id="product-name-container">
-                                                    <div id="inquiry-product-name">
-                                                        ${inquiry.pdTitle}
-                                                    </div>
+                                                <!-- Modal Header -->
+                                                <div class="modal-header">
+                                                    <h4>문의하기</h4>
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                 </div>
-                                                
-                                                <div id="product-inquiry-content-container">
-                                                    <div>
-                                                        문의제목
+
+                                                <!-- Modal body -->
+                                                <div class="modal-body">
+                                                    <div id="product-name-container">
+                                                        <div id="inquiry-product-name">
+                                                            ${inquiry.pdTitle}
+                                                        </div>
                                                     </div>
-                                                    <div>
-                                                        
+
+                                                    <div id="product-inquiry-content-container">
+                                                        <div class="inquiry-info">
+                                                            <span>문의제목</span>
+                                                        </div>
+                                                        <div class="inquiry-detail">
+                                                            <span>${inquiry.inquiryTitle}</span>
+                                                            <span>${inquiry.inquiryDate}</span>
+                                                        </div>
+                                                        <div>
+                                                            <span>문의내용</span>
+                                                        </div>
+                                                        <div id="product-inquiry-content-textarea">
+                                                            ${inquiry.inquiryContents}
+                                                        </div>
                                                     </div>
-                                                    <div >
-                                                        *문의내용
-                                                    </div>
-                                                    <div id="product-inquiry-content-textarea">
-                                                        
-                                                    </div>
+                                                    <form id="modal-inquiry-content" action="insertInquiryAnswer.spd" enctype="multipart/form-data" method="post">
+                                                        <input type="hidden" name="faqNo" value="${inquiry.faqNo}">
+                                                        <input type="hidden" name="userNo" value="${loginUser.userNo}">
+                                                        <div>
+                                                            <span>문의 답변</span>
+                                                        </div>
+                                                        <div id="inquiry-answer-textarea">
+                                                            <textarea name="answerContents" required></textarea>
+                                                        </div>
+
+                                                        <div id="product-inquiry-enroll-btn-container">
+                                                            <button type="submit" id="product-inquiry-enroll-btn">완료</button>
+                                                        </div>
+                                                    </form>
                                                 </div>
-                                                <form id="modal-inquiry-content" action="insertInquiry.spd" enctype="multipart/form-data" method="post">
-                                                    <input type="hidden" name="pno" value=${param.pno}>
-                                                    <input type="hidden" name="userNo" value=${loginUser.userNo}>
-                                                    <div>
-
-                                                    </div>
-
-                                                    <div id="product-inquiry-enroll-btn-container">
-                                                        <button type="submit" id="product-inquiry-enroll-btn">완료</button>
-                                                    </div>
-                                                </form>
                                             </div>
-
-
                                         </div>
                                     </div>
-                                </div>
+                                </c:forEach>
 
-            
-                            </c:forEach>
                         </tbody>
                     </c:otherwise>
                 </c:choose>
@@ -143,12 +144,12 @@
                             <li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
                         </c:when>
                         <c:otherwise>
-                            <li class="page-item"><a class="page-link" href="list.pd?cpage=${pi.currentPage - 1}">&laquo;</a></li>
+                            <li class="page-item"><a class="page-link" href="customerInquiry.sr?cpage=${pi.currentPage - 1}">&laquo;</a></li>
                         </c:otherwise>
                 </c:choose>
 
             <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-                <li class="page-item ${p == pi.currentPage ? 'active' : ''}"><a class="page-link" href="list.pd?cpage=${p}">${p}</a></li>
+                <li class="page-item ${p == pi.currentPage ? 'active' : ''}"><a class="page-link" href="customerInquiry.sr?cpage=${p}">${p}</a></li>
             </c:forEach>
                 
             <c:choose>
@@ -156,14 +157,11 @@
                         <li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
                     </c:when>
                     <c:otherwise>
-                        <li class="page-item"><a class="page-link" href="list.pd?cpage=${pi.currentPage + 1}">&raquo;</a></li>
+                        <li class="page-item"><a class="page-link" href="customerInquiry.sr?cpage=${pi.currentPage + 1}">&raquo;</a></li>
                     </c:otherwise>
                 </c:choose>
                 </ul>
             </div>
-
-            
-
             
         </section>
     </main>

@@ -21,27 +21,7 @@ public class CommonsController {
 	private MemberService memberService;
 	
 	@GetMapping("home.ma")
-	public String home(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-		if (session.getAttribute("loginUser") == null) {
-			Cookie[] cookies = request.getCookies();
-			System.out.println("쿠키 탐색");
-		    if (cookies != null) {
-		        for (Cookie cookie : cookies) {
-		            if (cookie.getName().equals("saveId")) {
-		                String savedUserId = cookie.getValue();
-		                System.out.println("쿠키 발견 : " + savedUserId);
-		                // 데이터베이스에서 사용자 정보를 조회
-		                Member loginUser = memberService.cookieLogin(savedUserId);
-		                
-		                if (loginUser != null) {
-		                    session.setAttribute("loginUser", loginUser);
-		                    System.out.println("쿠키로 로그인 성공");
-		                }
-		                break;
-		            }
-		        }
-		    }
-		}
+	public String home() {
 		return "redirect:/";
 	}
 

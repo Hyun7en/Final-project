@@ -19,6 +19,7 @@ public class FaqDTO {
 	private String inquiryTitle;
 	private String inquiryContents;
 	private Date inquiryDate;
+	private int pno;
 	private int pdNo;
 	private int inquiryStatus;
 	

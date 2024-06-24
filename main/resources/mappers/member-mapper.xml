@@ -53,31 +53,6 @@
 		WHERE	USER_ID = #{userId}
 		AND		ACTIVATED = 'Y'
 	</select>
-	<select id="cookieLogin" resultMap="memberResult">
-		SELECT 	USER_NO,
-				USER_ID,
-				USER_PWD,
-				EMAIL,
-				USER_NAME,
-				NICKNAME,
-				BIRTHDAY,
-				GENDER,
-				ADDRESS,
-				PHONE,
-				LIKE_FISH,
-				TAIL_FISH,
-				AUTHORITY,
-				ACTIVATED,
-				USER_LV,
-				JOIN_DATE,
-				M.MEMBER_FILE_NO,
-				USER_INTRO,
-				CHANGE_NAME
-		FROM	MEMBER M
-		LEFT JOIN	MEMBER_ATTACHMENT A on(REF_MNO = USER_NO)
-		WHERE	USER_ID = #{savedUserId}
-		AND		ACTIVATED = 'Y'
-	</select>
 	<select id="idCheck" resultType="_int">
 		SELECT	COUNT(*)
 		FROM	MEMBER
@@ -155,4 +130,24 @@
 		WHERE	EMAIL = #{email}
 		AND		ACTIVATED = 'Y'
 	</select>
+	<select id="findId" resultMap="memberResult">
+		SELECT	USER_ID
+		FROM	MEMBER
+		WHERE	USER_NAME = #{userName}
+		AND		BIRTHDAY = #{birthday}
+		AND		EMAIL = #{email}
+	</select>
+	<select id="findUser" resultType="int">
+		SELECT	COUNT(*)
+		FROM	MEMBER
+		WHERE	USER_NAME = #{userName}
+		AND		USER_ID = #{userId}
+		AND		EMAIL = #{email}
+		AND		ACTIVATED = 'Y'
+	</select>
+	<update id="changePwd">
+		UPDATE	MEMBER
+		SET		USER_PWD = #{userPwd}
+		WHERE 	USER_ID = #{userId}
+	</update>
 </mapper>

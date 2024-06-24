@@ -9,12 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.psvm.commons.vo.PageInfo;
+import com.psvm.member.vo.Member;
 import com.psvm.seller.dao.SellerDao;
 import com.psvm.seller.dto.FaqDTO;
 import com.psvm.seller.dto.ProductDTO;
 import com.psvm.seller.dto.StoreMainDTO;
 import com.psvm.seller.vo.Buy;
 import com.psvm.seller.vo.Faq;
+import com.psvm.seller.vo.FaqAnswer;
+import com.psvm.seller.vo.PayInfo;
 import com.psvm.seller.vo.Product;
 import com.psvm.seller.vo.ProductCategory;
 import com.psvm.seller.vo.ProductOption;
@@ -164,9 +167,9 @@ public class SellerServiceImpl implements SellerService {
 
 	// 상품 리스트 페이징
 	@Override
-	public int selectProductListCount() {
+	public int selectProductListCount(int businessNo) {
 		
-		int count = sellerDao.selectProductListCount(sqlSession);
+		int count = sellerDao.selectProductListCount(sqlSession, businessNo);
 		
 		return count;
 	}
@@ -180,15 +183,15 @@ public class SellerServiceImpl implements SellerService {
 	
 	// 상품 리스트 검색
 	@Override
-	public int searchListCount(HashMap<String, String> map) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int searchProductListCount(HashMap<String, Object> map) {
+		
+		return sellerDao.searchProductListCount(sqlSession,map);
 	}
 	
 	@Override
-	public List<Product> searchList(PageInfo pi, HashMap<String, String> map) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Product> searchProductList(PageInfo pi, HashMap<String, Object> map) {
+		
+		return sellerDao.searchProductList(sqlSession,pi,map);
 	}
 
 	// 상품 옵션 불러오기
@@ -244,8 +247,8 @@ public class SellerServiceImpl implements SellerService {
 	
 	//고객 문의 관리
 	@Override
-	public int selectCsInquiryListCount() {
-		int count = sellerDao.selectCsInquiryListCount(sqlSession);
+	public int selectCsInquiryListCount(int userNo) {
+		int count = sellerDao.selectCsInquiryListCount(sqlSession,userNo);
 		
 		return count;
 	}
@@ -254,6 +257,29 @@ public class SellerServiceImpl implements SellerService {
 	public List<FaqDTO> selectCsInquiryList(PageInfo pi, int userNo) {
 		
 		return sellerDao.selectCsInquiryList(sqlSession,pi,userNo);
+	}
+	
+	//고객 문의 답변
+	@Override
+	@Transactional
+	public int insertInquiryAnswer( FaqAnswer faqAnswer, int faqNo) {
+		
+		int t1 = sellerDao.insertInquiryAnswer(sqlSession,faqAnswer);
+		int t2 = sellerDao.updateInquiry(sqlSession,faqNo);
+		return t1*t2;
+	}
+	
+	//고객 문의 검색
+	@Override
+	public int searchInquiryListCount(HashMap<String, Object> map) {
+		
+		return sellerDao.searchInquiryListCount(sqlSession,map);
+	}
+
+	@Override
+	public List<FaqDTO> searchInquiryList(PageInfo pi, HashMap<String, Object> map) {
+		
+		return sellerDao.searchInquiryList(sqlSession,pi,map);
 	}
 	
 	//판매자 탈퇴
@@ -306,6 +332,13 @@ public class SellerServiceImpl implements SellerService {
 		return sellerDao.selectSalesProduct(sqlSession, pno);
 	}
 	
+	//상품 구매한 유저 번호 가져오기
+	@Override
+	public List<PayInfo> getPayUserNo(int pno) {
+		
+		return sellerDao.getPayUserNo(sqlSession, pno);
+	}
+	
 	//리뷰 리스트 페이징
 	@Override
 	public int selectReviewListCount(int pno) {
@@ -355,13 +388,28 @@ public class SellerServiceImpl implements SellerService {
 		
 		return sellerDao.insertInquiry(sqlSession,faq);
 	}
-
 	
 	
 	//############################################## 구매 페이지 ############################################################
 	
 	//구매 페이지
+
 	
+	//상품 구매
+	@Override
+	public int getBusinessNo(String productName) {
+		
+		return sellerDao.getBusinessNo(sqlSession, productName);
+	}	
+	
+	@Override
+	public int insertOrder(PayInfo payInfo) {
+		
+		return sellerDao.insertOrder(sqlSession,payInfo);
+	}
+
+
+
 	
 
 }

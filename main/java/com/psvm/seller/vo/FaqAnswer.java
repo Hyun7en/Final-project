@@ -18,4 +18,5 @@ public class FaqAnswer {
 	private int faqNo;
 	private int userNo;
 	private Date answerDate;
+	private String answerContents;
 }

@@ -1,7 +1,5 @@
 package com.psvm.member.controller;
 
-import java.util.ArrayList;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.psvm.mail.Email;
 import com.psvm.member.service.MemberService;
 import com.psvm.member.vo.Member;
 
@@ -37,9 +36,8 @@ public class MemberController {
 	}
 	
 	@RequestMapping("login.me") //로그인
-	public ModelAndView loginMember(Member m, @RequestParam(value="staying", defaultValue="off") String staying, ModelAndView mv, HttpSession session, String saveId, HttpServletResponse response) {
-	    System.out.println(staying);
-		Member loginUser = memberService.loginMember(m);
+	public ModelAndView loginMember(Member m, @RequestParam(value="recentLink", defaultValue="/") String recentLink, ModelAndView mv, HttpSession session, String saveId, HttpServletResponse response) {
+	    Member loginUser = memberService.loginMember(m);	
 	    if (loginUser == null) { // 아이디가 없는 경우
 	        mv.addObject("errorMessage", "일치하는 아이디를 찾을 수 없습니다.");
 	        mv.setViewName("member/login");
@@ -48,16 +46,14 @@ public class MemberController {
 	        mv.addObject("errorMessage", "비밀번호가 일치하지 않습니다.");
 	        mv.setViewName("member/login");
 	    } else { // 성공
-	    	if (staying.equals("on")) {
-	    		Cookie ck = new Cookie("saveId", loginUser.getUserId());
-	    		ck.setMaxAge(60 * 60 * 24 * 30); // 쿠키 만료 시간 설정 (30일)
-	    	    ck.setPath("/"); // 쿠키의 유효 경로 설정
-	    		response.addCookie(ck);
-	    	}
+	        Cookie ck = new Cookie("saveId", loginUser.getUserId());
+	        if (saveId == null) {
+	            ck.setMaxAge(0);
+	        }
+	        response.addCookie(ck);
 	        session.setAttribute("successMessage", "로그인에 성공했습니다!");
 	        session.setAttribute("loginUser", loginUser);
-	        String recentLink = session.getAttribute("recentLink").toString();
-	        mv.setViewName("redirect:/");
+	        mv.setViewName("redirect:" + recentLink);
 	    }
 	    
 	    return mv;
@@ -122,4 +118,84 @@ public class MemberController {
 		return mv;
 	}
 	
+	@RequestMapping("findAccount.me") //아이디, 비밀번호 찾기
+	public String findAccount() {
+		return "member/findAccount";
+	}
+	
+	@RequestMapping("findId.me") // 아이디 찾기
+	public ModelAndView findId(Member m, HttpSession session, ModelAndView mv){
+		Member findId = memberService.findId(m);
+		if(findId != null) {
+			session.setAttribute("successMessage", "당신이 찾으시는 아이디는 " + findId.getUserId() + "입니다.");
+			mv.setViewName("redirect:/");
+		} else {
+			mv.addObject("errorMessage", "찾으시는 아이디가 없습니다.");
+	        mv.setViewName("member/findAccount");
+		}
+		return mv;
+	}
+	
+	@ResponseBody
+	@RequestMapping("sendVcode.me") //인증코드 전송
+	public String sendVcode(Member m, HttpSession session) {
+		System.out.println(m);
+		int result = memberService.findUser(m);
+		if (result > 0) {
+			//인증번호 생성 후 세션에 저장
+			session.setAttribute("findUser", m);
+			String Vcode = new java.math.BigInteger(48, new java.security.SecureRandom()).toString(32).substring(0, 8);
+			System.out.println(Vcode);
+			session.setAttribute("Vcode", Vcode);
+			Email.sendEmail(m, Vcode);
+			return "NNNNN";
+		} else {
+			return "NNNNY";
+		}
+	}	
+	
+	@RequestMapping("findPwd.me") // 인증코드 대조
+	public ModelAndView findPwd(String Vcode, HttpSession session, ModelAndView mv) {
+		System.out.println(Vcode);
+		String KeyCode = (String)session.getAttribute("Vcode");
+		if (Vcode.equals(KeyCode)) {
+			session.removeAttribute("Vcode");
+			mv.setViewName("redirect:/changePwdForm.me");
+		} else {
+			session.removeAttribute("Vcode");
+			mv.addObject("errorMessage", "인증코드가 올바르지 않습니다.");
+			mv.setViewName("member/findAccount");
+		}
+		return mv;
+	}
+		
+	// 비밀번호 변경창 이동 메서드
+	@RequestMapping("changePwdForm.me")
+	public String changePwdForm() {
+		return "member/changePwd";
+	}
+	
+	// 비밀번호 변경 메서드
+	@RequestMapping("changePwd.me")
+	public ModelAndView changePwd(String newPwd, Model model, HttpSession session, ModelAndView mv) {
+		
+		Member m = (Member)session.getAttribute("findUser");
+		System.out.println(m);
+		// 비밀번호 변경
+		String encPwd = bcryptPasswordEncoder.encode(newPwd);
+		
+		m.setUserPwd(encPwd);
+		
+		int result = memberService.changePwd(m);
+		
+		if (result > 0) {
+			session.removeAttribute("findUser");
+			session.setAttribute("successMessage", "새로 입력한 비밀번호로 로그인해주세요.");
+			mv.setViewName("redirect:/");
+		} else {
+			mv.addObject("errorMessage", "비밀번호 변경에 실패하였습니다.");
+			mv.setViewName("member/changePwd");
+		}
+		return mv;
+	}
 }

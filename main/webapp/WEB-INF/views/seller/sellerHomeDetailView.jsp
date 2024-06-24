@@ -32,9 +32,8 @@
         <section>
             
             <h1>스토어 관리 &gt; 판매자 홈 관리</h1>
-            
-            <c:choose>
-                <c:when test="${not empty sp and not empty sp.sellerExplain}">
+            <c:choose>    
+                <c:when test="${not empty sp and not empty sp.sellerPageNo}">
                     <div>
                         <h4>스토어 소개</h4>
                         <span>${sp.sellerExplain}</span>
@@ -57,11 +56,12 @@
                         <a href="updateForm.srh">수정하기</a>
                     </div>
                 </c:when>
-
                 <c:otherwise>
-                   등록 부탁드립니다.
+                    <div id="enroll-please">
+                        판매자 홈 등록 먼저 부탁드립니다.
+                    </div>
                 </c:otherwise>
-        </c:choose>
+            </c:choose>    
         </section>
     </main>
 
