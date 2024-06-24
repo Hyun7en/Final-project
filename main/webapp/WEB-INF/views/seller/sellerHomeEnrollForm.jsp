@@ -52,7 +52,7 @@
                     <div id="div-enroll-category">
                         <div>
                             <h4>카테고리 등록</h4>
-                            <input id="enroll-category" type="text" placeholder="카테고리 입력" required>
+                            <input id="enroll-category" type="text" placeholder="카테고리 입력" >
                             <button type="button" id="add-categoryBtn">추가</button>
                         </div>
                         <div>
