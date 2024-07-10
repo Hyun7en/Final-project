@@ -79,9 +79,9 @@
     18. 고객센터
 
   ### ERD-Cloud
-    <p align="center">
-      <img src="https://github.com/DodleD/Final-project/assets/156145780/ea28deb2-5c69-4244-afef-a63e61a06451">
-    </p>
+  <p align="center">
+    <img src="https://github.com/DodleD/Final-project/assets/156145780/ea28deb2-5c69-4244-afef-a63e61a06451">
+  </p>
 
     
 ## 5. 
