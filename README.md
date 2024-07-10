@@ -79,7 +79,9 @@
     18. 고객센터
 
   ### ERD-Cloud
-    ![PSVM (1)](https://github.com/DodleD/Final-project/assets/156145780/47ceb89a-ef1f-4518-9e69-1be26db0a775)
+    <p align="center">
+      <img src="![PSVM (1)](https://github.com/DodleD/Final-project/assets/156145780/ea28deb2-5c69-4244-afef-a63e61a06451)">
+    </p>
 
     
 ## 5. 
