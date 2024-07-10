@@ -10,10 +10,11 @@
     2차 개발 : 2024-05-31 ~ 2024-06-21
 
   #### 팀원 소개 및 GitHub 주소
-    1. https://github.com/Hyun7en (조장)
-    2. https://github.com/lhy9496 (이슈관리자)
-    3. https://github.com/rudwn9014 (일정관리자)
-    4. https://github.com/hornheart (형상관리자)
+    1. 현재 gitHub (본인, DB관리자 입니다)
+    2. (https://github.com/Hyun7en) (조장)
+    3. (https://github.com/lhy9496) (이슈관리자)
+    4. (https://github.com/rudwn9014) (일정관리자)
+    5. (https://github.com/hornheart) (형상관리자)
     
 ## 2. 프로젝트 개발 목표 !
     프로젝트 AquAqu는 아쿠아리스트들을 위한 홈페이지 입니다.
