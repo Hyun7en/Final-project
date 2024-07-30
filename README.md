@@ -10,8 +10,8 @@
     2차 개발 : 2024-05-31 ~ 2024-06-21
 
   #### 팀원 소개 및 GitHub 주소
-  1. [DB관리자](https://github.com/DodleD) : 김도* <- 현재 보고계신 gitHub 입니다.
-  2. [조장](https://github.com/Hyun7en) : 고병*
+  1. [DB관리자](https://github.com/DodleD) : 김도* 
+  2. [조장](https://github.com/Hyun7en) : 고병현
   3. [이슈관리자](https://github.com/lhy9496) : 이호*
   4. [일정관리자](https://github.com/rudwn9014) : 이경*
   5. [형상관리자](https://github.com/hornheart) : 박은*
@@ -52,7 +52,7 @@
 
   ### Collaborations
     1. gitHub
-    2. Tstory
+  
 
 
 ## 4. 프로젝트 설명
